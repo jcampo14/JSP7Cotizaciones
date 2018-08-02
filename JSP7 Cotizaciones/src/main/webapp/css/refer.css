@@ -1,0 +1,27 @@
+input[type="text"].form-control, input[type="email"].form-control {
+    height: 28px !important;
+}
+
+input[type="password"].form-control, input[type="email"].form-control {
+    height: 28px !important;
+}
+
+nav {
+    border-radius: 10px !important;
+}
+
+div.label.ng-binding {
+    color: rgba(0,0,0,.54) !important;
+}
+
+.navbar-default {
+    background-color: #ffffff;
+}
+
+.principal-panel {
+    background-color: #f4f3ef !important;
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: rgb(33, 150, 243) !important;
+}
