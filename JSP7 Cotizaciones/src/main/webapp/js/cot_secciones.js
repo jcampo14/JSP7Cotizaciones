@@ -13,8 +13,8 @@ app.controller('Ctrl', [
         $window, $http, $mdDialog, SweetAlert) {
         'use strict';
         /** Simulamos el Login */
-        $localstorage.set('CEmp', '01');
-        $localstorage.set('Username', 'ADMIN');
+        $localstorage.set('global.empresa', '01');
+        $localstorage.set('global.usuario', 'ADMIN');
 
         $scope.model = {
             isDisabled: true
@@ -83,7 +83,7 @@ app.controller('Ctrl', [
         ];
 
         $scope.selected = [];
-        $scope.promise = $consumeService.get('WSCotizaciones/listCotSecciones?emp=' + $localstorage.get('CEmp', '00'));
+        $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promise.then(function (result) {
             $scope.queryCotSecciones = result;
         });
@@ -112,7 +112,7 @@ app.controller('Ctrl', [
         function AddDialogController($scope, $mdDialog) {
 
             $scope.cotSeccionesRecord = {
-                CEmp: $localstorage.get('CEmp', '00'),
+                cEmp: $localstorage.get('global.empresa', '00'),
                 version: 0,
                 codSeccion: null,
                 nombreSec: null,
@@ -140,7 +140,7 @@ app.controller('Ctrl', [
                     } else {
                         var configRequest = {
                             method: "POST",
-                            url: "WSCotizaciones/insertCotSeccion",
+                            url: "cot-secciones/",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -148,15 +148,15 @@ app.controller('Ctrl', [
                         };
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
-                            if (result.response.success == true) {
-                                $scope.promise = $consumeService.get('WSCotizaciones/listCotSecciones?emp=' + $localstorage.get('CEmp', '00'));
+                            if (result.success == true) {
+                                $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.queryCotSecciones = result;
                                 });
                                 swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                             } else {
-                                swal("Mensaje JSP7", result.response.message, "error");
+                                swal("Mensaje JSP7", result.message, "error");
                             }
                             $mdDialog.hide(action);
                         });
@@ -208,8 +208,8 @@ app.controller('Ctrl', [
                         swal("Mensaje JSP7", "Faltan campos por llenar.", "error");
                     } else {
                         var configRequest = {
-                            method: "POST",
-                            url: "WSCotizaciones/updateCotSeccion",
+                            method: "PUT",
+                            url: "cot-secciones/",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -217,15 +217,15 @@ app.controller('Ctrl', [
                         };
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
-                            if (result.response.success == true) {
-                                $scope.promise = $consumeService.get('WSCotizaciones/listCotSecciones?emp=' + $localstorage.get('CEmp', '00'));
+                            if (result.success == true) {
+                                $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.queryCotSecciones = result;
                                 });
                                 swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                             } else {
-                                swal("Mensaje JSP7", result.response.message, "error");
+                                swal("Mensaje JSP7", result.message, "error");
                             }
                             $mdDialog.hide(action);
                         });
@@ -256,10 +256,10 @@ app.controller('Ctrl', [
                     },
                         function (isConfirm) { //Function that triggers on user action.
                             if (isConfirm) {
-                                var dataToSend = angular.toJson({ cotSecciones: $scope.selected });
+                                var dataToSend = angular.toJson({ list: $scope.selected });
                                 var configRequest = {
-                                    method: "POST",
-                                    url: "WSCotizaciones/deleteCotSeccion",
+                                    method: "DELETE",
+                                    url: "cot-secciones/",
                                     headers: {
                                         'Content-Type': 'application/json'
                                     },
@@ -267,15 +267,15 @@ app.controller('Ctrl', [
                                 };
                                 $scope.promiseDeleteIncoterm = $consumeService.post(configRequest);
                                 $scope.promiseDeleteIncoterm.then(function (result) {
-                                    if (result.response.success == true) {
-                                        $scope.promise = $consumeService.get('WSCotizaciones/listCotSecciones?emp=' + $localstorage.get('CEmp', '00'));
+                                    if (result.success == true) {
+                                        $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
                                         $scope.promise.then(function (result) {
                                             $scope.selected = [];
                                             $scope.queryCotSecciones = result;
                                         });
                                         swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                                     } else {
-                                        swal("Mensaje JSP7", result.response.message, "error");
+                                        swal("Mensaje JSP7", result.message, "error");
                                     }
                                 });
                             }
