@@ -13,8 +13,8 @@ app.controller('Ctrl', [
         $window, $http, $mdDialog, SweetAlert) {
         'use strict';
         /** Simulamos el Login */
-        $localstorage.set('CEmp', '01');
-        $localstorage.set('Username', 'ADMIN');
+        $localstorage.set('global.empresa', '01');
+        $localstorage.set('global.usuario', 'ADMIN');
 
         $scope.titulo_formulario = "Definición de Secciones de la Cotización";
 
@@ -77,7 +77,7 @@ app.controller('Ctrl', [
 
         $scope.showDataDetail = function (item) {
             $scope.selectedSinonimo = [];
-            $scope.promiseSinonimo = $consumeService.get('WSCotizaciones/listCotSeccionesSinonimos?emp=' + $localstorage.get('CEmp', '00')
+            $scope.promiseSinonimo = $consumeService.get('cot-secciones-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
                 + "&seccion=" + item.codSeccion);
             $scope.promiseSinonimo.then(function (result) {
                 $scope.queryCotSeccionesSinonimo = result;
@@ -98,19 +98,19 @@ app.controller('Ctrl', [
         };
 
         $scope.selectedSeccion = [];
-        $scope.promiseSeccion = $consumeService.get('WSCotizaciones/listCotSecciones?emp=' + $localstorage.get('CEmp', '00'));
+        $scope.promiseSeccion = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promiseSeccion.then(function (result) {
             $scope.queryCotSecciones = result;
         });
 
-        $scope.showDetail = function ($event, record) {
-            $scope.selectedSinonimo = [];
-            $scope.promiseSinonimo = $consumeService.get('WSCotizaciones/listCotSeccionesSinonimos?emp=' + $localstorage.get('CEmp', '00')
-                + "&seccion=" + record.codSeccion);
-            $scope.promiseSinonimo.then(function (result) {
-                $scope.queryCotSeccionesSinonimo = result;
-            });
-        };
+        // $scope.showDetail = function ($event, record) {
+        //     $scope.selectedSinonimo = [];
+        //     $scope.promiseSinonimo = $consumeService.get('cot-secciones-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
+        //         + "&seccion=" + record.codSeccion);
+        //     $scope.promiseSinonimo.then(function (result) {
+        //         $scope.queryCotSeccionesSinonimo = result;
+        //     });
+        // };
 
         /* Dialogo Adicionar */
         $scope.showAdd = function (ev) {
@@ -136,7 +136,7 @@ app.controller('Ctrl', [
 
         function AddDialogController($scope, $mdDialog) {
             $scope.tableRecord = {
-                CEmp: $localstorage.get('CEmp', '00'),
+                cEmp: $localstorage.get('global.empresa', '00'),
                 version: 0,
                 codSeccion: $scope.selectedSeccion[0].codSeccion,
                 descripcion: null,
@@ -146,7 +146,7 @@ app.controller('Ctrl', [
                 isDisabled: false
             };
             $scope.loadIdiomas = function () {
-                var promise = $consumeService.get('WSCotizaciones/listIdiomas?emp=' + $localstorage.get('CEmp', '00'));
+                var promise = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', '00'));
                 promise.then(function (result) {
                     $scope.idiomas = result.data;
                 });
@@ -164,7 +164,7 @@ app.controller('Ctrl', [
                     } else {
                         var configRequest = {
                             method: "POST",
-                            url: "WSCotizaciones/insertCotSeccionSinonimo",
+                            url: "cot-secciones-sinonimos/",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -172,15 +172,15 @@ app.controller('Ctrl', [
                         };
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
-                            if (result.response.success == true) {
-                                $scope.promiseSinonimo = $consumeService.get('WSCotizaciones/listCotSeccionesSinonimos?emp=' + $localstorage.get('CEmp', '00')
+                            if (result.success == true) {
+                                $scope.promiseSinonimo = $consumeService.get('cot-secciones-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
                                     + "&seccion=" + $scope.selectedSeccion[0].codSeccion);
                                 $scope.promiseSinonimo.then(function (result) {
                                     $scope.queryCotSeccionesSinonimo = result;
                                     swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                                 });
                             } else {
-                                swal("Mensaje JSP7", result.response.message, "error");
+                                swal("Mensaje JSP7", result.message, "error");
                             }
                             $mdDialog.hide(action);
                         });
@@ -215,24 +215,24 @@ app.controller('Ctrl', [
                             function (isConfirm) { //Function that triggers on user action.
                                 if (isConfirm) {
                                     var configRequest = {
-                                        method: "POST",
-                                        url: "WSCotizaciones/deleteCotSeccionSinonimo",
+                                        method: "DELETE",
+                                        url: "cot-secciones-sinonimos/",
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
-                                        data: { cotSeccionesSinonimos: $scope.selectedSinonimo }
+                                        data: { list: $scope.selectedSinonimo }
                                     };
                                     var promise = $consumeService.post(configRequest);
                                     promise.then(function (result) {
-                                        if (result.response.success == true) {
-                                            $scope.promiseSinonimo = $consumeService.get('WSCotizaciones/listCotSeccionesSinonimos?emp=' + $localstorage.get('CEmp', '00')
+                                        if (result.success == true) {
+                                            $scope.promiseSinonimo = $consumeService.get('cot-secciones-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
                                                 + "&seccion=" + $scope.selectedSeccion[0].codSeccion);
                                             $scope.promiseSinonimo.then(function (result) {
                                                 $scope.queryCotSeccionesSinonimo = result;
                                                 swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                                             });
                                         } else {
-                                            swal("Mensaje JSP7", result.response.message, "error");
+                                            swal("Mensaje JSP7", result.message, "error");
                                         }
                                     });
                                 }
