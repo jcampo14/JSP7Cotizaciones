@@ -69,7 +69,7 @@ app.controller('Ctrl', [
         };
 
         $scope.clearTableDetail = function (item) {
-            $scope.promiseIncoterm = $timeout(function () {
+            $scope.promiseSinonimo = $timeout(function () {
                 $scope.selectedSinonimo = [];
                 $scope.queryCotSeccionesSinonimo = [];
             }, 500);

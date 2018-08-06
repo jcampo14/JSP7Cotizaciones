@@ -15,7 +15,7 @@ public class IdiomaServices {
 
 	@Autowired
 	private IdiomaRepository repository;
-	
+
 	public Idioma findById(IdiomaId id) {
 		return repository.findOne(id);
 	}
@@ -58,7 +58,7 @@ public class IdiomaServices {
 		PostResponse<Idioma> response = new PostResponse<Idioma>();
 		IdiomaId id = new IdiomaId();
 		id.setcEmp(model.getcEmp());
-		id.setIdioma(model.getIdioma());		
+		id.setIdioma(model.getIdioma());
 		Idioma record = repository.findOne(id);
 		if (record == null) {
 			response.setSuccess(false);
@@ -78,4 +78,5 @@ public class IdiomaServices {
 	public List<Idioma> showByEmpresa(String emp) {
 		return (List<Idioma>) repository.findByEmpresa(emp);
 	}
+
 }

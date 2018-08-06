@@ -10,7 +10,7 @@ import com.aspsols.cotizaciones.model.IncotermId;
 public interface IncotermRepository extends CrudRepository<Incoterm, IncotermId> {
 	
 	/* Nota: el from del select es el nombre de la clase JAVA generada como modelo */
-	@Query("FROM Incoterm WHERE id.cEmp = :emp")
+	@Query("FROM Incoterm WHERE cEmp = :emp")
 	public Iterable<Incoterm> findByEmpresa(@Param("emp") String emp);
 	
 }
