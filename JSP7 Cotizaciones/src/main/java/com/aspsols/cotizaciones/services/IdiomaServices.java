@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.Idioma;
 import com.aspsols.cotizaciones.model.IdiomaId;
 import com.aspsols.cotizaciones.repositories.IdiomaRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class IdiomaServices {
@@ -20,8 +20,8 @@ public class IdiomaServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<Idioma> insert(Idioma model) {
-		PostResponse<Idioma> response = new PostResponse<Idioma>();
+	public ProcessResponse<Idioma> insert(Idioma model) {
+		ProcessResponse<Idioma> response = new ProcessResponse<Idioma>();
 		IdiomaId id = new IdiomaId();
 		id.setcEmp(model.getcEmp());
 		id.setIdioma(model.getIdioma());
@@ -37,8 +37,8 @@ public class IdiomaServices {
 		return response;
 	}
 
-	public PostResponse<Idioma> update(Idioma model) {
-		PostResponse<Idioma> response = new PostResponse<Idioma>();
+	public ProcessResponse<Idioma> update(Idioma model) {
+		ProcessResponse<Idioma> response = new ProcessResponse<Idioma>();
 		IdiomaId id = new IdiomaId();
 		id.setcEmp(model.getcEmp());
 		id.setIdioma(model.getIdioma());
@@ -54,8 +54,8 @@ public class IdiomaServices {
 		return response;
 	}
 
-	public PostResponse<Idioma> delete(Idioma model) {
-		PostResponse<Idioma> response = new PostResponse<Idioma>();
+	public ProcessResponse<Idioma> delete(Idioma model) {
+		ProcessResponse<Idioma> response = new ProcessResponse<Idioma>();
 		IdiomaId id = new IdiomaId();
 		id.setcEmp(model.getcEmp());
 		id.setIdioma(model.getIdioma());

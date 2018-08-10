@@ -112,8 +112,8 @@ app.controller('incotermController', [
                                         $scope.promise.then(function (result) {
                                             $scope.selected = [];
                                             $scope.query_incoterm = result;
-                                        });
-                                        swal("Mensaje JSP7","¡Transacción exitosa!", "success");
+                                            swal("Mensaje JSP7","¡Transacción exitosa!", "success");
+                                        });                                        
                                     } else {
                                         swal("Mensaje JSP7",result.message, "error");
                                     }

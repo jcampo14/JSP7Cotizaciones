@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "COT_SECCIONES")
 @IdClass(CotSeccionesId.class)
-public class CotSecciones implements Serializable{
+public class CotSecciones implements Serializable {
 
 	/**
 	 * 

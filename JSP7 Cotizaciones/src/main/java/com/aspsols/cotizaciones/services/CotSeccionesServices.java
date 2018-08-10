@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.CotSecciones;
 import com.aspsols.cotizaciones.model.CotSeccionesId;
 import com.aspsols.cotizaciones.repositories.CotSeccionesRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class CotSeccionesServices {
@@ -20,8 +20,8 @@ public class CotSeccionesServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<CotSecciones> insert(CotSecciones model) {
-		PostResponse<CotSecciones> response = new PostResponse<CotSecciones>();
+	public ProcessResponse<CotSecciones> insert(CotSecciones model) {
+		ProcessResponse<CotSecciones> response = new ProcessResponse<CotSecciones>();
 		CotSeccionesId id = new CotSeccionesId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -37,8 +37,8 @@ public class CotSeccionesServices {
 		return response;
 	}
 
-	public PostResponse<CotSecciones> update(CotSecciones model) {
-		PostResponse<CotSecciones> response = new PostResponse<CotSecciones>();
+	public ProcessResponse<CotSecciones> update(CotSecciones model) {
+		ProcessResponse<CotSecciones> response = new ProcessResponse<CotSecciones>();
 		CotSeccionesId id = new CotSeccionesId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -54,8 +54,8 @@ public class CotSeccionesServices {
 		return response;
 	}
 
-	public PostResponse<CotSecciones> delete(CotSecciones model) {
-		PostResponse<CotSecciones> response = new PostResponse<CotSecciones>();
+	public ProcessResponse<CotSecciones> delete(CotSecciones model) {
+		ProcessResponse<CotSecciones> response = new ProcessResponse<CotSecciones>();
 		CotSeccionesId id = new CotSeccionesId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());

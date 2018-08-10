@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.CotSeccionesDetSinonimos;
 import com.aspsols.cotizaciones.model.CotSeccionesDetSinonimosId;
 import com.aspsols.cotizaciones.repositories.CotSeccionesDetSinonimosRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class CotSeccionesDetSinonimosServices {
@@ -20,8 +20,8 @@ public class CotSeccionesDetSinonimosServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<CotSeccionesDetSinonimos> insert(CotSeccionesDetSinonimos model) {
-		PostResponse<CotSeccionesDetSinonimos> response = new PostResponse<CotSeccionesDetSinonimos>();
+	public ProcessResponse<CotSeccionesDetSinonimos> insert(CotSeccionesDetSinonimos model) {
+		ProcessResponse<CotSeccionesDetSinonimos> response = new ProcessResponse<CotSeccionesDetSinonimos>();
 		CotSeccionesDetSinonimosId id = new CotSeccionesDetSinonimosId(model.getcEmp(), model.getCodSeccion(),
 				model.getCodVal(), model.getIdioma());
 		CotSeccionesDetSinonimos record = repository.findOne(id);
@@ -36,8 +36,8 @@ public class CotSeccionesDetSinonimosServices {
 		return response;
 	}
 
-	public PostResponse<CotSeccionesDetSinonimos> update(CotSeccionesDetSinonimos model) {
-		PostResponse<CotSeccionesDetSinonimos> response = new PostResponse<CotSeccionesDetSinonimos>();
+	public ProcessResponse<CotSeccionesDetSinonimos> update(CotSeccionesDetSinonimos model) {
+		ProcessResponse<CotSeccionesDetSinonimos> response = new ProcessResponse<CotSeccionesDetSinonimos>();
 		CotSeccionesDetSinonimosId id = new CotSeccionesDetSinonimosId(model.getcEmp(), model.getCodSeccion(),
 				model.getCodVal(), model.getIdioma());
 		CotSeccionesDetSinonimos record = repository.findOne(id);
@@ -52,8 +52,8 @@ public class CotSeccionesDetSinonimosServices {
 		return response;
 	}
 
-	public PostResponse<CotSeccionesDetSinonimos> delete(CotSeccionesDetSinonimos model) {
-		PostResponse<CotSeccionesDetSinonimos> response = new PostResponse<CotSeccionesDetSinonimos>();
+	public ProcessResponse<CotSeccionesDetSinonimos> delete(CotSeccionesDetSinonimos model) {
+		ProcessResponse<CotSeccionesDetSinonimos> response = new ProcessResponse<CotSeccionesDetSinonimos>();
 		CotSeccionesDetSinonimosId id = new CotSeccionesDetSinonimosId(model.getcEmp(), model.getCodSeccion(),
 				model.getCodVal(), model.getIdioma());
 		CotSeccionesDetSinonimos record = repository.findOne(id);

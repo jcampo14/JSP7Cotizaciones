@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.Idioma;
 import com.aspsols.cotizaciones.model.IdiomaList;
-import com.aspsols.cotizaciones.responses.GetResponse;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.QueryResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.services.IdiomaServices;
 
 @RestController
@@ -24,8 +24,8 @@ public class IdiomaController {
 	private IdiomaServices service;
 
 	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH)
-	public GetResponse<Idioma> obtener(@RequestParam("emp") String codEmp) {
-		GetResponse<Idioma> response = new GetResponse<>();
+	public QueryResponse<Idioma> obtener(@RequestParam("emp") String codEmp) {
+		QueryResponse<Idioma> response = new QueryResponse<>();
 		List<Idioma> list = service.showByEmpresa(codEmp);
 		response.setCount(list.size());
 		response.setData(list);
@@ -33,22 +33,22 @@ public class IdiomaController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
-	public PostResponse<Idioma> insertar(@RequestBody Idioma body) {
+	public ProcessResponse<Idioma> insertar(@RequestBody Idioma body) {
 		return service.insert(body);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = SERVICE_PATH)
-	public PostResponse<Idioma> actualizar(@RequestBody Idioma body) {
+	public ProcessResponse<Idioma> actualizar(@RequestBody Idioma body) {
 		return service.update(body);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = SERVICE_PATH)
-	public PostResponse<Idioma> eliminar(@RequestBody IdiomaList body) {
-		PostResponse<Idioma> response = new PostResponse<>();
+	public ProcessResponse<Idioma> eliminar(@RequestBody IdiomaList body) {
+		ProcessResponse<Idioma> response = new ProcessResponse<>();
 		response.setSuccess(true);
 		response.setMessage("OK");
 		for (Idioma record : body.getList()) {
-			PostResponse<Idioma> responseRecord = service.delete(record);
+			ProcessResponse<Idioma> responseRecord = service.delete(record);
 			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());

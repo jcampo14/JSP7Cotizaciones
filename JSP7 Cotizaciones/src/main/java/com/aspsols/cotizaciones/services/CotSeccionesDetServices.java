@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.CotSeccionesDet;
 import com.aspsols.cotizaciones.model.CotSeccionesDetId;
 import com.aspsols.cotizaciones.repositories.CotSeccionesDetRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class CotSeccionesDetServices {
@@ -20,8 +20,8 @@ public class CotSeccionesDetServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<CotSeccionesDet> insert(CotSeccionesDet model) {
-		PostResponse<CotSeccionesDet> response = new PostResponse<CotSeccionesDet>();
+	public ProcessResponse<CotSeccionesDet> insert(CotSeccionesDet model) {
+		ProcessResponse<CotSeccionesDet> response = new ProcessResponse<CotSeccionesDet>();
 		CotSeccionesDetId id = new CotSeccionesDetId(model.getcEmp(), model.getCodSeccion(), model.getCodVal());
 		CotSeccionesDet record = repository.findOne(id);
 		if (record == null) {
@@ -35,8 +35,8 @@ public class CotSeccionesDetServices {
 		return response;
 	}
 
-	public PostResponse<CotSeccionesDet> update(CotSeccionesDet model) {
-		PostResponse<CotSeccionesDet> response = new PostResponse<CotSeccionesDet>();
+	public ProcessResponse<CotSeccionesDet> update(CotSeccionesDet model) {
+		ProcessResponse<CotSeccionesDet> response = new ProcessResponse<CotSeccionesDet>();
 		CotSeccionesDetId id = new CotSeccionesDetId(model.getcEmp(), model.getCodSeccion(), model.getCodVal());
 		CotSeccionesDet record = repository.findOne(id);
 		if (record == null) {
@@ -50,8 +50,8 @@ public class CotSeccionesDetServices {
 		return response;
 	}
 
-	public PostResponse<CotSeccionesDet> delete(CotSeccionesDet model) {
-		PostResponse<CotSeccionesDet> response = new PostResponse<CotSeccionesDet>();
+	public ProcessResponse<CotSeccionesDet> delete(CotSeccionesDet model) {
+		ProcessResponse<CotSeccionesDet> response = new ProcessResponse<CotSeccionesDet>();
 		CotSeccionesDetId id = new CotSeccionesDetId(model.getcEmp(), model.getCodSeccion(), model.getCodVal());
 		CotSeccionesDet record = repository.findOne(id);
 		if (record == null) {

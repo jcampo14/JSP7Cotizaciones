@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.CotSeccionesDet;
 import com.aspsols.cotizaciones.model.CotSeccionesDetList;
-import com.aspsols.cotizaciones.responses.GetResponse;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.QueryResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.services.CotSeccionesDetServices;
 
 @RestController
@@ -24,9 +24,9 @@ public class CotSeccionesDetController {
 	private CotSeccionesDetServices service;
 
 	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH)
-	public GetResponse<CotSeccionesDet> obtener(@RequestParam("seccion") String seccion,
+	public QueryResponse<CotSeccionesDet> obtener(@RequestParam("seccion") String seccion,
 			@RequestParam("emp") String emp) {
-		GetResponse<CotSeccionesDet> response = new GetResponse<>();
+		QueryResponse<CotSeccionesDet> response = new QueryResponse<>();
 		List<CotSeccionesDet> list = service.showBySeccion(seccion, emp);
 		response.setCount(list.size());
 		response.setData(list);
@@ -34,22 +34,22 @@ public class CotSeccionesDetController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
-	public PostResponse<CotSeccionesDet> insertar(@RequestBody CotSeccionesDet body) {
+	public ProcessResponse<CotSeccionesDet> insertar(@RequestBody CotSeccionesDet body) {
 		return service.insert(body);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = SERVICE_PATH)
-	public PostResponse<CotSeccionesDet> actualizar(@RequestBody CotSeccionesDet body) {
+	public ProcessResponse<CotSeccionesDet> actualizar(@RequestBody CotSeccionesDet body) {
 		return service.update(body);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = SERVICE_PATH)
-	public PostResponse<CotSeccionesDet> eliminar(@RequestBody CotSeccionesDetList body) {
-		PostResponse<CotSeccionesDet> response = new PostResponse<>();
+	public ProcessResponse<CotSeccionesDet> eliminar(@RequestBody CotSeccionesDetList body) {
+		ProcessResponse<CotSeccionesDet> response = new ProcessResponse<>();
 		response.setSuccess(true);
 		response.setMessage("OK");
 		for (CotSeccionesDet record : body.getList()) {
-			PostResponse<CotSeccionesDet> responseRecord = service.delete(record);
+			ProcessResponse<CotSeccionesDet> responseRecord = service.delete(record);
 			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());

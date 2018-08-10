@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.FacCostosAdic;
 import com.aspsols.cotizaciones.model.FacCostosAdicId;
 import com.aspsols.cotizaciones.repositories.FacCostosAdicRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class FacCostosAdicServices {
@@ -20,8 +20,8 @@ public class FacCostosAdicServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<FacCostosAdic> insert(FacCostosAdic model) {
-		PostResponse<FacCostosAdic> response = new PostResponse<FacCostosAdic>();
+	public ProcessResponse<FacCostosAdic> insert(FacCostosAdic model) {
+		ProcessResponse<FacCostosAdic> response = new ProcessResponse<FacCostosAdic>();
 		FacCostosAdicId id = new FacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setCodigo(model.getCodigo());
@@ -37,8 +37,8 @@ public class FacCostosAdicServices {
 		return response;
 	}
 
-	public PostResponse<FacCostosAdic> update(FacCostosAdic model) {
-		PostResponse<FacCostosAdic> response = new PostResponse<FacCostosAdic>();
+	public ProcessResponse<FacCostosAdic> update(FacCostosAdic model) {
+		ProcessResponse<FacCostosAdic> response = new ProcessResponse<FacCostosAdic>();
 		FacCostosAdicId id = new FacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setCodigo(model.getCodigo());
@@ -54,8 +54,8 @@ public class FacCostosAdicServices {
 		return response;
 	}
 
-	public PostResponse<FacCostosAdic> delete(FacCostosAdic model) {
-		PostResponse<FacCostosAdic> response = new PostResponse<FacCostosAdic>();
+	public ProcessResponse<FacCostosAdic> delete(FacCostosAdic model) {
+		ProcessResponse<FacCostosAdic> response = new ProcessResponse<FacCostosAdic>();
 		FacCostosAdicId id = new FacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setCodigo(model.getCodigo());

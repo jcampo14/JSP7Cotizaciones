@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.IncotermFacCostosAdic;
 import com.aspsols.cotizaciones.model.IncotermFacCostosAdicId;
 import com.aspsols.cotizaciones.repositories.IncotermFacCostosAdicRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class IncotermFacCostosAdicServices {
@@ -20,8 +20,8 @@ public class IncotermFacCostosAdicServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<IncotermFacCostosAdic> insert(IncotermFacCostosAdic model) {
-		PostResponse<IncotermFacCostosAdic> response = new PostResponse<IncotermFacCostosAdic>();
+	public ProcessResponse<IncotermFacCostosAdic> insert(IncotermFacCostosAdic model) {
+		ProcessResponse<IncotermFacCostosAdic> response = new ProcessResponse<IncotermFacCostosAdic>();
 		IncotermFacCostosAdicId id = new IncotermFacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setIdFacCostosAdic(model.getIdFacCostosAdic());
@@ -38,8 +38,8 @@ public class IncotermFacCostosAdicServices {
 		return response;
 	}
 
-	public PostResponse<IncotermFacCostosAdic> update(IncotermFacCostosAdic model) {
-		PostResponse<IncotermFacCostosAdic> response = new PostResponse<IncotermFacCostosAdic>();
+	public ProcessResponse<IncotermFacCostosAdic> update(IncotermFacCostosAdic model) {
+		ProcessResponse<IncotermFacCostosAdic> response = new ProcessResponse<IncotermFacCostosAdic>();
 		IncotermFacCostosAdicId id = new IncotermFacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setIdFacCostosAdic(model.getIdFacCostosAdic());
@@ -56,8 +56,8 @@ public class IncotermFacCostosAdicServices {
 		return response;		
 	}
 
-	public PostResponse<IncotermFacCostosAdic> delete(IncotermFacCostosAdic model) {
-		PostResponse<IncotermFacCostosAdic> response = new PostResponse<IncotermFacCostosAdic>();
+	public ProcessResponse<IncotermFacCostosAdic> delete(IncotermFacCostosAdic model) {
+		ProcessResponse<IncotermFacCostosAdic> response = new ProcessResponse<IncotermFacCostosAdic>();
 		IncotermFacCostosAdicId id = new IncotermFacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setIdFacCostosAdic(model.getIdFacCostosAdic());

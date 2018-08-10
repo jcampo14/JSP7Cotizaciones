@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.CotSeccionesSinonimos;
 import com.aspsols.cotizaciones.model.CotSeccionesSinonimosId;
 import com.aspsols.cotizaciones.repositories.CotSeccionesSinonimosRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class CotSeccionesSinonimosServices {
@@ -20,8 +20,8 @@ public class CotSeccionesSinonimosServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<CotSeccionesSinonimos> insert(CotSeccionesSinonimos model) {
-		PostResponse<CotSeccionesSinonimos> response = new PostResponse<CotSeccionesSinonimos>();
+	public ProcessResponse<CotSeccionesSinonimos> insert(CotSeccionesSinonimos model) {
+		ProcessResponse<CotSeccionesSinonimos> response = new ProcessResponse<CotSeccionesSinonimos>();
 		CotSeccionesSinonimosId id = new CotSeccionesSinonimosId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -38,8 +38,8 @@ public class CotSeccionesSinonimosServices {
 		return response;
 	}
 
-	public PostResponse<CotSeccionesSinonimos> update(CotSeccionesSinonimos model) {
-		PostResponse<CotSeccionesSinonimos> response = new PostResponse<CotSeccionesSinonimos>();
+	public ProcessResponse<CotSeccionesSinonimos> update(CotSeccionesSinonimos model) {
+		ProcessResponse<CotSeccionesSinonimos> response = new ProcessResponse<CotSeccionesSinonimos>();
 		CotSeccionesSinonimosId id = new CotSeccionesSinonimosId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -56,8 +56,8 @@ public class CotSeccionesSinonimosServices {
 		return response;
 	}
 
-	public PostResponse<CotSeccionesSinonimos> delete(CotSeccionesSinonimos model) {
-		PostResponse<CotSeccionesSinonimos> response = new PostResponse<CotSeccionesSinonimos>();
+	public ProcessResponse<CotSeccionesSinonimos> delete(CotSeccionesSinonimos model) {
+		ProcessResponse<CotSeccionesSinonimos> response = new ProcessResponse<CotSeccionesSinonimos>();
 		CotSeccionesSinonimosId id = new CotSeccionesSinonimosId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());

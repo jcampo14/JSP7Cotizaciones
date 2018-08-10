@@ -33,5 +33,18 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/ConverterUtils.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JDBCUtils.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JForms.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JFormsAdminServer.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JFormsCommons.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JFormsConstants.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JFormsLang.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JFormsSecurityClient.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JSON.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/ParserUtils.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/PLSQLParserToPostgresql.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/RuntimeDBMetadata.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/SQLTools4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

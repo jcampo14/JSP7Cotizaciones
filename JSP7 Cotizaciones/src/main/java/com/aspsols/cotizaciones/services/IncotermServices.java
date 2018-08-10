@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aspsols.cotizaciones.model.Incoterm;
 import com.aspsols.cotizaciones.model.IncotermId;
 import com.aspsols.cotizaciones.repositories.IncotermRepository;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class IncotermServices {
@@ -20,8 +20,8 @@ public class IncotermServices {
 		return repository.findOne(id);
 	}
 
-	public PostResponse<Incoterm> insert(Incoterm model) {
-		PostResponse<Incoterm> response = new PostResponse<Incoterm>();
+	public ProcessResponse<Incoterm> insert(Incoterm model) {
+		ProcessResponse<Incoterm> response = new ProcessResponse<Incoterm>();
 		IncotermId id = new IncotermId();
 		id.setcEmp(model.getcEmp());
 		id.setCodIncoterm(model.getCodIncoterm());		
@@ -37,8 +37,8 @@ public class IncotermServices {
 		return response;
 	}
 
-	public PostResponse<Incoterm> update(Incoterm model) {
-		PostResponse<Incoterm> response = new PostResponse<Incoterm>();
+	public ProcessResponse<Incoterm> update(Incoterm model) {
+		ProcessResponse<Incoterm> response = new ProcessResponse<Incoterm>();
 		IncotermId id = new IncotermId();
 		id.setcEmp(model.getcEmp());
 		id.setCodIncoterm(model.getCodIncoterm());		
@@ -54,8 +54,8 @@ public class IncotermServices {
 		return response;		
 	}
 
-	public PostResponse<Incoterm> delete(Incoterm model) {
-		PostResponse<Incoterm> response = new PostResponse<Incoterm>();
+	public ProcessResponse<Incoterm> delete(Incoterm model) {
+		ProcessResponse<Incoterm> response = new ProcessResponse<Incoterm>();
 		IncotermId id = new IncotermId();
 		id.setcEmp(model.getcEmp());
 		id.setCodIncoterm(model.getCodIncoterm());		

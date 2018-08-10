@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.IncotermFacCostosAdic;
 import com.aspsols.cotizaciones.model.IncotermFacCostosAdicList;
-import com.aspsols.cotizaciones.responses.GetResponse;
-import com.aspsols.cotizaciones.responses.PostResponse;
+import com.aspsols.cotizaciones.responses.QueryResponse;
+import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.services.IncotermFacCostosAdicServices;
 
 @RestController
@@ -24,9 +24,9 @@ public class IncotermFacCostosAdicController {
 	private IncotermFacCostosAdicServices service;
 
 	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH)
-	public GetResponse<IncotermFacCostosAdic> obtener(@RequestParam("incoterm") String incoterm,
+	public QueryResponse<IncotermFacCostosAdic> obtener(@RequestParam("incoterm") String incoterm,
 			@RequestParam("emp") String emp) {
-		GetResponse<IncotermFacCostosAdic> response = new GetResponse<>();
+		QueryResponse<IncotermFacCostosAdic> response = new QueryResponse<>();
 		List<IncotermFacCostosAdic> list = service.findByIncoterm(incoterm, emp);		
 		response.setCount(list.size());
 		response.setData(list);
@@ -34,22 +34,22 @@ public class IncotermFacCostosAdicController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
-	public PostResponse<IncotermFacCostosAdic> insertar(@RequestBody IncotermFacCostosAdic body) {
+	public ProcessResponse<IncotermFacCostosAdic> insertar(@RequestBody IncotermFacCostosAdic body) {
 		return service.insert(body);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = SERVICE_PATH)
-	public PostResponse<IncotermFacCostosAdic> actualizar(@RequestBody IncotermFacCostosAdic body) {
+	public ProcessResponse<IncotermFacCostosAdic> actualizar(@RequestBody IncotermFacCostosAdic body) {
 		return service.update(body);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = SERVICE_PATH)
-	public PostResponse<IncotermFacCostosAdic> eliminar(@RequestBody IncotermFacCostosAdicList body) {
-		PostResponse<IncotermFacCostosAdic> response = new PostResponse<>();
+	public ProcessResponse<IncotermFacCostosAdic> eliminar(@RequestBody IncotermFacCostosAdicList body) {
+		ProcessResponse<IncotermFacCostosAdic> response = new ProcessResponse<>();
 		response.setSuccess(true);
 		response.setMessage("OK");
 		for (IncotermFacCostosAdic record : body.getList()) {
-			PostResponse<IncotermFacCostosAdic> responseRecord = service.delete(record);
+			ProcessResponse<IncotermFacCostosAdic> responseRecord = service.delete(record);
 			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());
