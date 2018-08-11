@@ -14,9 +14,6 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="css/select.css" />
-    <link rel="stylesheet" href="css/select2.css" />
-    <link rel="stylesheet" href="css/selectize.default.css" />
 
 </head>
 
@@ -29,6 +26,25 @@
             </div>
         </div>
         <div class="panel-body" ng-show="!isLoading">
+            <legend>Encabezado de la Cotización</legend>
+            <div class="card">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Incoterm</label>
+                                <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm">
+                                    <md-select-header class="demo-select-header">
+                                        <input ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
+                                            style="width: 100%">
+                                    </md-select-header>
+                                    <md-option ng-value="record" ng-repeat="record in incoterms | filter:searchIncoterm">{{record.codIncoterm}} - {{record.nombre}}</md-option>
+                                </md-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div ng-repeat="seccion in secciones | filter:{tipoSeccion:'ENC'}">
                 <div class="card">
                     <div class="panel-body">
@@ -53,61 +69,132 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Articulo</label>
-                        <ui-select ng-model="selectedArticulo" theme="bootstrap">
-                            <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="item in articulos | filter: $select.search">
-                                <div ng-bind-html="item.nom | highlight: $select.search"></div>
-                                <small ng-bind-html="item.cod | highlight: $select.search"></small>
-                            </ui-select-choices>
-                        </ui-select>
+            <legend>Detalle de la Cotización</legend>
+            <div class="card">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <md-button class="md-icon md-icon-button-png" ng-click="addItemDetalle()">
+                                <md-tooltip>Agregar Registro</md-tooltip>
+                                <img src="img/agregar 1.png" alt="Agregar">
+                            </md-button>
+                            <md-button class="md-icon md-icon-button-png">
+                                <md-tooltip>Editar Registro</md-tooltip>
+                                <img src="img/editar 2.png" alt="Editar">
+                            </md-button>
+                            <md-button class="md-icon md-icon-button-png">
+                                <md-tooltip>Eliminar Registro</md-tooltip>
+                                <img src="img/eliminar 2.png" alt="Editar">
+                            </md-button>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Articulo</label>
+                                        <md-select placeholder="Articulos" ng-model="selectedArticulo" md-on-close="clearArticulosFilter()">
+                                            <md-select-header class="demo-select-header">
+                                                <input ng-model="searchArticulo" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
+                                                    style="width: 100%">
+                                            </md-select-header>
+                                            <md-option ng-value="articulo" ng-repeat="articulo in articulos | filter:searchArticulo">{{articulo.cod}} - {{articulo.nom}}</md-option>
+                                        </md-select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Cantidad</label>
+                                        <input class="form-control border-input" placeholder="Cantidad" type="number" ng-model="selectedArticulo.cantidad">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Precio Lista</label>
+                                        <input class="form-control border-input" placeholder="Precio de Lista" type="number" ng-model="selectedArticulo.precio_lista"
+                                            ng-disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Precio Venta</label>
+                                        <input class="form-control border-input" placeholder="Precio de Venta" type="number" ng-model="selectedArticulo.precio_venta">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>% Descuento</label>
+                                        <input class="form-control border-input" placeholder="% Descuento" type="number" ng-model="selectedArticulo.descuento">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--
-                <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
-                    <div class="md-toolbar-tools">
-                        <h2 class="md-title">Secciones</h2>
-                        <div flex="" class="flex"></div>
+            <md-table-container>
+                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selectedTable" md-progress="promise">
+                    <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                        <tr md-row>
+                            <th md-column md-order-by="cod" md-desc style="width: 10%;">
+                                <span>Código</span>
+                            </th>
+                            <th md-column md-order-by="nom" style="width: 40%;">
+                                <span>Nombre</span>
+                            </th>
+                            <th md-column md-order-by="cantidad" style="width: 20%;">
+                                <span>Cantidad</span>
+                            </th>
+                            <th md-column md-order-by="precio_lista" style="width: 10%;">
+                                <span>Precio Lista</span>
+                            </th>
+                            <th md-column md-order-by="precio_venta" style="width: 10%;">
+                                <span>Precio Venta</span>
+                            </th>
+                            <th md-column md-order-by="descuento" style="width: 10%;">
+                                <span>% Descuento</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                            <td md-cell>{{record.cod}}</td>
+                            <td md-cell>{{record.nom}}</td>
+                            <td md-cell>{{record.cantidad | number: 2}}</td>
+                            <td md-cell>{{record.precio_lista | number: 2}}</td>
+                            <td md-cell>{{record.precio_venta | number: 2}}</td>
+                            <td md-cell>{{record.descuento | number: 2}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryCotSecciones.count}}"
+                md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
+                md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+            <legend>Pie de la Cotización</legend>
+            <div ng-repeat="seccion in secciones | filter:{tipoSeccion:'PIE'}">
+                <div class="card">
+                    <div class="panel-body">
+                        <h4>{{seccion.nombreSec}}</h4>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Selecione contenido para {{seccion.nombreSec}}</label>
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion($index+1,seccion.seleccionado.descripcion)"
+                                        md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                        <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
+                                    </md-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final" rows="10"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </md-toolbar>
-                <md-table-container>
-                    <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
-                        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
-                            <tr md-row>
-                                <th md-column md-order-by="codSeccion" md-desc style="width: 10%;">
-                                    <span>Código</span>
-                                </th>
-                                <th md-column md-order-by="nombre" style="width: 60%;">
-                                    <span>Nombre</span>
-                                </th>
-                                <th md-column md-order-by="tipoSeccion" style="width: 20%;">
-                                    <span>Tipo Sección</span>
-                                </th>
-                                <th md-column md-order-by="orden" style="width: 10%;">
-                                    <span>Orden</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody md-body>
-                            <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in queryCotSecciones.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                                <td md-cell>{{record.codSeccion}}</td>
-                                <td md-cell ng-click="TableEditNombreSec($event, record)">{{record.nombreSec}}</td>
-                                <td md-cell>{{record.tipoSeccion == 'ENC' ? 'Encabezado de documento' : record.tipoSeccion == 'PIE' ?
-                                    'Pie de documento' : ''}}</td>
-                                <td md-cell>{{record.orden | number: 2}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryCotSecciones.count}}"
-                    md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
-                    md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+                </div>
             </div>
-            -->
         </div>
         <!-- Angular Material requires Angular.js Libraries -->
         <script src="bower_components/angular/angular.min.js"></script>
@@ -123,8 +210,7 @@
         <!-- module -->
         <script src="js/cotizaciones.js"></script>
         <script src="js/utils.js"></script>
-        <script src="js/select.js"></script>
-        <script src="js/angular-sanitize.js"></script>
+
 
 </body>
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 
-public class ArticuloId implements Serializable {
+public class CriterioId implements Serializable {
 
 	/**
 	 * 
@@ -14,16 +14,16 @@ public class ArticuloId implements Serializable {
 	@Column(name = "C_EMP")
 	private String cEmp;
 
-	@Column(name = "COD")
-	private String cod;
+	@Column(name = "CRI")
+	private String cri;
 
-	public ArticuloId(String cEmp, String cod) {
+	public CriterioId(String cEmp, String cri) {
 		super();
 		this.cEmp = cEmp;
-		this.cod = cod;
+		this.cri = cri;
 	}
 
-	public ArticuloId() {
+	public CriterioId() {
 		super();
 	}
 
@@ -35,12 +35,12 @@ public class ArticuloId implements Serializable {
 		this.cEmp = cEmp;
 	}
 
-	public String getCod() {
-		return cod;
+	public String getCri() {
+		return cri;
 	}
 
-	public void setCod(String cod) {
-		this.cod = cod;
+	public void setCri(String cri) {
+		this.cri = cri;
 	}
 
 }
