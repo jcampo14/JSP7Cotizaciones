@@ -33,12 +33,35 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Incoterm</label>
-                                <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm">
+                                <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()">
                                     <md-select-header class="demo-select-header">
-                                        <input ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
-                                            style="width: 100%">
+                                        <input ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%"
+                                            ng-keydown="$event.stopPropagation()">
                                     </md-select-header>
-                                    <md-option ng-value="record" ng-repeat="record in incoterms | filter:searchIncoterm">{{record.codIncoterm}} - {{record.nombre}}</md-option>
+                                    <md-option ng-value="record.codIncoterm" ng-repeat="record in incoterms | filter:searchIncoterm">{{record.codIncoterm}} - {{record.nombre}}</md-option>
+                                </md-select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Criterio</label>
+                                <md-select placeholder="Criterio" ng-model="cot_enc.criVenta" md-on-close="clearSelectFilter()">
+                                    <md-select-header class="demo-select-header">
+                                        <input ng-model="searchCriterio" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%"
+                                            ng-keydown="$event.stopPropagation()">
+                                    </md-select-header>
+                                    <md-option ng-value="record.cri" ng-repeat="record in criterios | filter:searchCriterio">{{record.cri}} - {{record.des}}</md-option>
+                                </md-select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tercero</label>
+                                <md-select placeholder="Tercero" ng-model="cot_enc.nIde" md-on-close="clearSelectFilter()">
+                                    <md-select-header class="demo-select-header">
+                                        <input ng-model="searchTercero" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" ng-keydown="$event.stopPropagation()">
+                                    </md-select-header>
+                                    <md-option ng-value="record.nIde" ng-repeat="record in terceros | filter:searchTercero">{{record.nIde}} - {{record.nombre}}</md-option>
                                 </md-select>
                             </div>
                         </div>
@@ -78,11 +101,11 @@
                                 <md-tooltip>Agregar Registro</md-tooltip>
                                 <img src="img/agregar 1.png" alt="Agregar">
                             </md-button>
-                            <md-button class="md-icon md-icon-button-png">
+                            <md-button class="md-icon md-icon-button-png" ng-click="editItemDetalle()">
                                 <md-tooltip>Editar Registro</md-tooltip>
                                 <img src="img/editar 2.png" alt="Editar">
                             </md-button>
-                            <md-button class="md-icon md-icon-button-png">
+                            <md-button class="md-icon md-icon-button-png" ng-click="deleteItemDetalle()">
                                 <md-tooltip>Eliminar Registro</md-tooltip>
                                 <img src="img/eliminar 2.png" alt="Editar">
                             </md-button>
@@ -92,10 +115,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Articulo</label>
-                                        <md-select placeholder="Articulos" ng-model="selectedArticulo" md-on-close="clearArticulosFilter()">
+                                        <md-select placeholder="Articulo" ng-model="selectedArticulo" ng-change="buscarPrecioVenta(selectedArticulo.cEmp, selectedArticulo.cod)"
+                                            md-on-close="clearSelectFilter()" ng-disabled="isDisabled">
                                             <md-select-header class="demo-select-header">
-                                                <input ng-model="searchArticulo" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
-                                                    style="width: 100%">
+                                                <input ng-model="searchArticulo" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%"
+                                                    ng-keydown="$event.stopPropagation()">
                                             </md-select-header>
                                             <md-option ng-value="articulo" ng-repeat="articulo in articulos | filter:searchArticulo">{{articulo.cod}} - {{articulo.nom}}</md-option>
                                         </md-select>
@@ -104,26 +128,27 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Cantidad</label>
-                                        <input class="form-control border-input" placeholder="Cantidad" type="number" ng-model="selectedArticulo.cantidad">
+                                        <input class="form-control border-input" placeholder="Cantidad" type="text" ng-model="selectedDetalle.cantidad" ui-number-mask="2">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Precio Lista</label>
-                                        <input class="form-control border-input" placeholder="Precio de Lista" type="number" ng-model="selectedArticulo.precio_lista"
-                                            ng-disabled="true">
+                                        <input class="form-control border-input" placeholder="Precio de Lista" type="text" ng-model="selectedDetalle.precio_lista"
+                                            ng-disabled="true" ui-number-mask="2">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Precio Venta</label>
-                                        <input class="form-control border-input" placeholder="Precio de Venta" type="number" ng-model="selectedArticulo.precio_venta">
+                                        <input class="form-control border-input" placeholder="Precio de Venta" type="text" ng-model="selectedDetalle.precio_venta"
+                                            ui-number-mask="2">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>% Descuento</label>
-                                        <input class="form-control border-input" placeholder="% Descuento" type="number" ng-model="selectedArticulo.descuento">
+                                        <input class="form-control border-input" placeholder="% Descuento" type="number" ng-model="selectedDetalle.descuento">
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +181,8 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                        <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable" md-auto-select="options.autoSelect"
+                            ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                             <td md-cell>{{record.cod}}</td>
                             <td md-cell>{{record.nom}}</td>
                             <td md-cell>{{record.cantidad | number: 2}}</td>
@@ -207,6 +233,7 @@
         <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
         <script src="angular-sweetalert/SweetAlert.min.js"></script>
         <script src="sweetalert/lib/sweet-alert.min.js"></script>
+        <script src="node_modules/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
         <!-- module -->
         <script src="js/cotizaciones.js"></script>
         <script src="js/utils.js"></script>
