@@ -21,7 +21,7 @@
             <md-icon class="{{item.icon}}" ng-if="item.icon"></md-icon>
             <span flex>{{item.label}}</span>
             <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
-            <ng-md-icon icon="chevron_right" ng-if="item.items"></ng-md-icon>
+            <ng-md-icon icon="chevron_right" ng-if="item.items.length > 0"></ng-md-icon>
          </md-list-item>
       </md-list>
    </div>
@@ -33,10 +33,10 @@
             <span flex>{{item.label}}</span>
             <md-badge ng-if="item.badge">{{item.badge}}</md-badge>
             <ng-md-icon icon="{{item.expanded ? 'expand_less' : 'chevron_right'}}" options='{"rotation": "none", "duration": 500}'
-                        ng-if="item.items">
+                        ng-if="item.items.length > 0">
             </ng-md-icon>
          </md-list-item>
-         <div flex ng-include="'submenu'" ng-if="item.items"></div>
+         <div flex ng-include="'submenu'" ng-if="item.items.length > 0"></div>
       </script>
       <script type="text/ng-template" id="submenu">
          <md-list class="body submenu slide" ng-if="item.expanded">

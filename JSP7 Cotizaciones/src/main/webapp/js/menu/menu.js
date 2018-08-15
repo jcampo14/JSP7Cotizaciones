@@ -1,12 +1,21 @@
-var demo = angular.module('MenuJSP7', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngMdBadge', 'ngRoute', 'hc.marked', 'App.utils']);
+var app = angular.module('MenuJSP7', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngMdBadge', 'ngRoute', 'hc.marked', 'App.utils']);
 
-demo.config(['menuProvider', function (menuProvider) {
+app.config(['menuProvider', function (menuProvider) {
+    /*    
+    var $http = angular.injector(['ng']).get('$http');
+    var promise = $http.get('menu/');
+    promise.then(function (result) {
+        menuProvider.items('primary', result.data);
+    });
+    */
+/*
     menuProvider.items('primary', [
         {
             id: 'item-0',
             label: 'Documentation',
             icon: 'fas fa-award',
             link: 'incoterm.html',
+            items: []
             //            color: 'blue'
         },
         {
@@ -59,10 +68,10 @@ demo.config(['menuProvider', function (menuProvider) {
             link: 'demo/views/item-4',
             icon: 'fas fa-award'
         }]);
-
+*/
 }]);
 
-demo.config(['markedProvider', function (markedProvider) {
+app.config(['markedProvider', function (markedProvider) {
     markedProvider.setOptions({
         gfm: true,
         tables: true,
@@ -77,8 +86,21 @@ demo.config(['markedProvider', function (markedProvider) {
     });
 }]);
 
-demo.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '$sce', '$localstorage'
-    , function ($scope, $menu, $mdSidenav, $mdBottomSheet, $sce, $localstorage) {
+app.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '$sce', '$localstorage',
+    '$consumeService', '$q', function ($scope, $menu, $mdSidenav, $mdBottomSheet, $sce, $localstorage,
+        $consumeService, $q) {
+        $scope.style = $menu.style();
+        var promise = $consumeService.get('menu/');        
+        $q.all([promise]).then(function (values) {
+            $scope.itemsMenu = $menu.setItems('primary',values[0].data);
+            $scope.$applyAsync;
+        });        
+        /*
+                var promise = $consumeService.get('menu/');
+                promise.then(function (result) {
+                    $scope.menuItems = $menu.setItems(result.data);            
+                });
+        */
 
         $scope.breadcrumb = $menu.breadcrumb();
         //$scope.count = $menu.get('item-2').badge;
@@ -122,7 +144,7 @@ demo.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', 
             }
             if (tab === 0) {
                 var url = item.link;
-                if (url.length > 0) {
+                if (url != null) {
                     $scope.tabs.push({
                         title: item.label,
                         contentUrl: url,

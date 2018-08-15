@@ -34,3 +34,6 @@ data-ng-model {
 .toolbar-label {
     margin-bottom: 0px !important;
 }
+md-sidenav {
+    width: 300px ;
+}
