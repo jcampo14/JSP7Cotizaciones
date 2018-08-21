@@ -1,16 +1,19 @@
 package com.aspsols.cotizaciones.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aspsols.cotizaciones.repositories.CotizacionRepository;
 import com.aspsols.cotizaciones.request.CotizacionRequest;
-import com.aspsols.cotizaciones.responses.ProcessResponse;
 
 @Service
 public class CotizacionServices {
+	
+	@Autowired
+	private CotizacionRepository repository;
 
-	public ProcessResponse<CotizacionRequest> createCotizacion(CotizacionRequest model) {
-		ProcessResponse<CotizacionRequest> response = new ProcessResponse<>();
-		
-		return response;
+	public boolean createCotizacion(CotizacionRequest model, String idTransaccion) {		
+		repository.create(model, idTransaccion);		
+		return true;
 	}
 }

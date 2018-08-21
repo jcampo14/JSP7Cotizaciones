@@ -16,9 +16,6 @@ app.controller('Ctrl', [
         $window, $http, $mdDialog, SweetAlert, $mdEditDialog,
         $q, $filter) {
 
-        $scope.isLoading = true;
-
-
         /** Simulamos el Login */
         $localstorage.set('global.empresa', '01');
         $localstorage.set('global.usuario', 'ADMIN');
@@ -64,31 +61,45 @@ app.controller('Ctrl', [
             console.log('page: ', page);
             console.log('limit: ', limit);
         };
-
-        /* Scope de modelos para el json */
-        $scope.cot_enc = {
-            cEmp: $localstorage.get('global.empresa', null),
-            nIde: null,
-            criVenta: null,
+        /* Iniciar la forma */
+        $scope.init = function () {
+            $scope.isLoading = true;
+            delete $scope.cot_enc;
+            delete $scope.cot_det;
+            delete $scope.selectedDetalle;
+            /* Traemos los valores inciales */
+            var promiseSecciones = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseArticulos = $consumeService.get('articulos/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseIncoterms = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseCriterios = $consumeService.get('criterios/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseTerceros = $consumeService.get('terceros/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseidiomas = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseAgencias = $consumeService.get('agencias/?emp=' + $localstorage.get('global.empresa', null));
+            $q.all([promiseSecciones, promiseArticulos, promiseIncoterms, promiseCriterios, promiseTerceros,
+                promiseidiomas, promiseAgencias]).then(function (values) {
+                    $scope.secciones = values[0].data;
+                    $scope.articulos = values[1].data;
+                    $scope.incoterms = values[2].data;
+                    $scope.criterios = values[3].data;
+                    $scope.terceros = values[4].data;
+                    $scope.idiomas = values[5].data;
+                    $scope.agencias = values[6].data;
+                    $scope.isLoading = false;
+                });
+            /* Scope de modelos para el json */
+            $scope.cot_enc = {
+                cEmp: $localstorage.get('global.empresa', null),
+                cAgr: null,
+                nIde: null,
+                criVenta: null,
+                cSuc: null,
+                idioma: null
+            };
+            $scope.cot_det = [];
+            $scope.selectedArticulo = {};
         };
-        $scope.cot_det = [];
-        $scope.selectedArticulo = {};
-
-        /* Consumimos los servicios para los datos del inicio del formulario */
-        $scope.selected = [];
-        var promiseSecciones = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', null));
-        var promiseArticulos = $consumeService.get('articulos/?emp=' + $localstorage.get('global.empresa', null));
-        var promiseIncoterms = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', null));
-        var promiseCriterios = $consumeService.get('criterios/?emp=' + $localstorage.get('global.empresa', null));
-        var promiseTerceros = $consumeService.get('terceros/?emp=' + $localstorage.get('global.empresa', null));
-        $q.all([promiseSecciones, promiseArticulos, promiseIncoterms, promiseCriterios, promiseTerceros]).then(function (values) {
-            $scope.secciones = values[0].data;
-            $scope.articulos = values[1].data;
-            $scope.incoterms = values[2].data;
-            $scope.criterios = values[3].data;
-            $scope.terceros = values[4].data;
-            $scope.isLoading = false;
-        });
+        /* Iniciamos el formulario */
+        $scope.init();
 
         /* Limpiar el filtro del select */
         $scope.clearSelectFilter = function () {
@@ -107,9 +118,17 @@ app.controller('Ctrl', [
             });
         };
 
+        $scope.cargarSucursales = function () {
+            var promise = $consumeService.get('suc-cli/?emp=' + $scope.cot_enc.cEmp
+                + '&nit=' + $scope.cot_enc.nIde);
+            promise.then(function (result) {
+                $scope.sucursales = result.data;
+            });
+        }
+
         /* Agisnamos la descripcion del textarea al modelo de las secciones */
         $scope.setDescripcion = function (index, value) {
-            $scope.secciones[index].descripcion_final = value;            
+            $scope.secciones[index].descripcion_final = value;
         };
 
         /* Funciones */
@@ -129,7 +148,7 @@ app.controller('Ctrl', [
                         cantidad: $scope.selectedDetalle.cantidad,
                         precio_lista: $scope.selectedDetalle.precio_lista,
                         precio_venta: $scope.selectedDetalle.precio_venta,
-                        descuento: $scope.selectedDetalle.descuento                        
+                        descuento: $scope.selectedDetalle.descuento
                     };
                     $scope.cot_det.push(itemToAdd);
                     delete $scope.selectedDetalle;
@@ -155,7 +174,7 @@ app.controller('Ctrl', [
                     }
                 }
                 index++;
-            }                        
+            }
         };
 
         $scope.deleteItemDetalle = function () {
@@ -173,8 +192,8 @@ app.controller('Ctrl', [
             }
         };
 
-        $scope.buscarPrecioVenta = function (empresa, codigo) {   
-            $scope.selectedDetalle = {};                     
+        $scope.buscarPrecioVenta = function (empresa, codigo) {
+            $scope.selectedDetalle = {};
             var promise = $consumeService.get('precios/?emp=' + empresa
                 + "&cod=" + codigo + "&cri=" + $scope.cot_enc.criVenta);
             promise.then(function (result) {
@@ -203,4 +222,60 @@ app.controller('Ctrl', [
             $scope.isDisabled = false;
         };
 
+        $scope.grabarCotizacion = function () {
+            /* Buscamos las secciones */
+            var secciones = [];
+            var index = 0;
+            while (index < $scope.secciones.length) {
+                if ($scope.secciones[index].descripcion_final != null) {
+                    var itemSeccion = {
+                        "cEmp": $scope.secciones[index].cEmp,
+                        "codSeccion": $scope.secciones[index].codSeccion,
+                        "descripcionFinal": $scope.secciones[index].descripcion_final
+                    };
+                    secciones.push(itemSeccion);
+                }
+                index++;
+            };
+            /* Buscamos el detalle */
+            var detalle = [];
+            index = 0;
+            while (index < $scope.cot_det.length) {
+                var itemDetalle = {
+                    "cEmp": $scope.cot_det[index].cEmp,
+                    "cod": $scope.cot_det[index].cod,
+                    "cantidad": $scope.cot_det[index].cantidad,
+                    "precioLista": $scope.cot_det[index].precio_lista,
+                    "precioVenta": $scope.cot_det[index].precio_venta,
+                    "descuento": $scope.cot_det[index].descuento
+                };
+                detalle.push(itemDetalle);
+                index++;
+            };
+            /* Armamos el Request */
+            var requestBody = {
+                "cEmp": $scope.cot_enc.cEmp,
+                "cAgr": $scope.cot_enc.cAgr,
+                "nIde": $scope.cot_enc.nIde,
+                "criVenta": $scope.cot_enc.criVenta,
+                "cSuc": $scope.cot_enc.cSuc,
+                "idioma": $scope.cot_enc.idioma,
+                "secciones": secciones,
+                "detalle": detalle
+            };
+            /* Consumimos el servicio */
+            var configRequest = {
+                method: "POST",
+                url: "cotizacion/",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: requestBody
+            };
+            var promise = $consumeService.post(configRequest);
+            promise.then(function (result) {
+                swal("Mensaje JSP7", result.message, "warning");
+                $scope.init();
+            });
+        };
     }]);

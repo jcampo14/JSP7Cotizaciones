@@ -12,9 +12,17 @@ public class CotizacionRequest implements Serializable {
 
 	private String cEmp;
 
+	private String cAgr;
+
 	private String nIde;
 
 	private String criVenta;
+
+	private String cSuc;
+
+	private String idioma;
+
+	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
 
@@ -24,6 +32,14 @@ public class CotizacionRequest implements Serializable {
 
 	public void setcEmp(String cEmp) {
 		this.cEmp = cEmp;
+	}
+
+	public String getcAgr() {
+		return cAgr;
+	}
+
+	public void setcAgr(String cAgr) {
+		this.cAgr = cAgr;
 	}
 
 	public String getnIde() {
@@ -42,12 +58,36 @@ public class CotizacionRequest implements Serializable {
 		this.criVenta = criVenta;
 	}
 
+	public String getcSuc() {
+		return cSuc;
+	}
+
+	public void setcSuc(String cSuc) {
+		this.cSuc = cSuc;
+	}
+
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+
 	public List<CotizacionDetRequest> getDetalle() {
 		return detalle;
 	}
 
 	public void setDetalle(List<CotizacionDetRequest> detalle) {
 		this.detalle = detalle;
+	}
+
+	public List<CotizacionSeccionesRequest> getSecciones() {
+		return secciones;
+	}
+
+	public void setSecciones(List<CotizacionSeccionesRequest> secciones) {
+		this.secciones = secciones;
 	}
 
 }

@@ -15,9 +15,9 @@ public class CotizacionDetRequest implements Serializable {
 
 	private Double cantidad;
 
-	private Double precio_lista;
+	private Double precioLista;
 
-	private Double precio_venta;
+	private Double precioVenta;
 
 	private Integer descuento;
 
@@ -45,20 +45,22 @@ public class CotizacionDetRequest implements Serializable {
 		this.cantidad = cantidad;
 	}
 
-	public Double getPrecio_lista() {
-		return precio_lista;
+	
+
+	public Double getPrecioLista() {
+		return precioLista;
 	}
 
-	public void setPrecio_lista(Double precio_lista) {
-		this.precio_lista = precio_lista;
+	public void setPrecioLista(Double precioLista) {
+		this.precioLista = precioLista;
 	}
 
-	public Double getPrecio_venta() {
-		return precio_venta;
+	public Double getPrecioVenta() {
+		return precioVenta;
 	}
 
-	public void setPrecio_venta(Double precio_venta) {
-		this.precio_venta = precio_venta;
+	public void setPrecioVenta(Double precioVenta) {
+		this.precioVenta = precioVenta;
 	}
 
 	public Integer getDescuento() {
