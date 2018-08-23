@@ -1,0 +1,228 @@
+@font-face{
+    font-family: PoppinsBlack;
+    src: url(../fonts/POPPINS-BLACK.OTF);
+}
+
+@font-face{
+    font-family: PoppinsBlackItalic;
+    src: url(../fonts/POPPINS-BLACKITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsBold;
+    src: url(../fonts/POPPINS-BOLD.OTF);
+}
+
+@font-face{
+    font-family: PoppinsBoldItalic;
+    src: url(../fonts/POPPINS-BOLDITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraBold;
+    src: url(../fonts/POPPINS-EXTRABOLD.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraBoldItalic;
+    src: url(../fonts/POPPINS-EXTRABOLDITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraLight;
+    src: url(../fonts/POPPINS-EXTRALIGHT.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraLightItalic;
+    src: url(../fonts/POPPINS-EXTRALIGHTITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsItalic;
+    src: url(../fonts/POPPINS-ITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsLight;
+    src: url(../fonts/POPPINS-LIGHT.OTF);
+}
+
+@font-face{
+    font-family: PoppinsLightItalic;
+    src: url(../fonts/POPPINS-LIGHTITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsMedium;
+    src: url(../fonts/POPPINS-MEDIUM.OTF);
+}
+
+@font-face{
+    font-family: PoppinsMediumItalic;
+    src: url(../fonts/POPPINS-MEDIUMITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsRegular;
+    src: url(../fonts/POPPINS-REGULAR.OTF);
+}
+
+@font-face{
+    font-family: PoppinsSemiBold;
+    src: url(../fonts/POPPINS-SEMIBOLD.OTF);
+}
+
+@font-face{
+    font-family: PoppinsSemiBoldItalic;
+    src: url(../fonts/POPPINS-SEMIBOLDITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsThin;
+    src: url(../fonts/POPPINS-THIN.OTF);
+}
+
+@font-face{
+    font-family: PoppinsThinItalic;
+    src: url(../fonts/POPPINS-THINITALIC.OTF);
+}
+
+.img-fondo{
+	background-image: url(../img/fondoLoginStore.png);
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+}
+
+.col-center{
+	float: none;
+	margin-top: 11%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.eliminar-padding{
+	padding: 0;
+}
+
+.img-enfocada{
+    height: 62vh;
+    background-size: cover;
+    background-image: url(../img/loginEnfocada.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.logo-solagro{
+	text-align: center;
+    margin-top: 26%;
+}
+
+.logo-solagro img{
+	width: 160px;
+}
+
+.fondo-formulario-login{
+	background-color: f0f0f0;
+	height: 62vh;
+}
+
+.col-titulo-formulario{
+	text-align: center;
+    padding-top: 12%;
+}
+
+.titulo-formulario{
+	font-family: PoppinsBold;
+	font-size: 24px;
+	color: #3b393b;
+}
+
+.eliminar-margin{
+	margin: 0;
+}
+
+.img-right{
+	text-align: right;
+}
+
+.margin-top-usuario{
+	margin-top: 8%;
+}
+
+.margin-top-contra{
+	margin-top: 4%;
+}
+
+.icon-login{
+	width: 16px;
+}
+
+.margin-top-formulario-check{
+    text-align: center;
+}
+
+md-checkbox.md-checked .md-icon{
+	background-color: #32903f !important;
+}
+
+md-checkbox.md-checked .md-ink-ripple{
+	color: #32903f !important;
+}
+
+.checkbox-login{
+	margin-bottom: 2%;
+	font-family: PoppinsLight;
+}
+
+md-checkbox .md-icon{
+    transform: scale(0.8);
+}
+
+.login-anclas{
+	text-align: center;
+}
+
+.login-anclas a{
+	color: #32903f;
+	font-family: PoppinsExtraLight;
+    font-size: 14px;
+}
+
+.cont-button-login{
+	text-align: center;
+    margin-top: 3%;
+}
+
+.button-login{
+	color: white !important;
+	background-color: #32903f !important;
+    padding: 2% 13%;
+	text-transform: none;
+	font-family: PoppinsThin;
+	font-size: 13px;
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused label {
+    color: #32903f;
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-input{
+	border-color: #32903f;
+}
+
+.text-input label{
+	font-family: PoppinsLightItalic;
+	font-size: 14px;
+}
+
+.text-input{
+	font-family: PoppinsRegular;
+	font-size: 14px;
+}
