@@ -1,0 +1,129 @@
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="sweetalert/lib/sweet-alert.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/paper-dashboard.css" rel="stylesheet" />
+    <link href="css/refer.css" rel="stylesheet" />
+    <link href="css/icon.css" rel="stylesheet" />
+    <link href="css/tienda.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
+        crossorigin="anonymous">
+</head>
+
+<body ng-app="App" ng-cloak ng-controller="tiendaController">
+    <div class="container-fluid main-banner">
+        <div class="row header">
+        	<div class="col-lg-1 col-sm-2  solagro-logo">
+					<div class="logo"></div>
+				</div>	
+        	<div class="col-lg-5 col-sm-2 navigation-menu text-center">
+	        	<nav class="top-menu-nav">
+					<ul class="top-menu">
+						<li class="menu-item" ng-repeat="item in items">
+							<a href="">{{item.name}}</a>
+						</li>
+					</ul>
+				</nav>
+			</div>		
+				<div class="col-lg-2"></div>
+				<div class="col-lg-4 col-sm-2 text-right login">
+					<div class="login-button ng-hide">Inicia Sesión</div>
+					<div class="login-user">BIENVENIDO, {{currentUser}} </div>
+				</div>
+			</div>	
+			<div class="banner-title">
+				<div class="banner-text">{{titulo}}</div>
+				<div class="see-more text-center">Ver más</div>
+			</div>							
+        </div>
+        <div class="container-fluid shop-section">
+        	<div class="row align-items-center">
+	        	<div class="shop-title col-lg-9"><h3>{{titulo}}</h3></div>
+	        	<div class="find col-lg-3">
+	        		<div class="search-input">
+						<input type="text" placeholder="Buscar..." ng-model="buscar">
+	        		</div>
+	        	</div>
+        	</div>
+	        	<div class="col-lg-9 underline zero-padding">
+		        	<div class="align-items-center" style="margin-top: 30px;">
+		        		<div class="col-lg-6 zero-padding">
+		        		<md-input-container class="ordenar-container">
+				          <label>Organizar por</label>
+					          <md-select ng-model="ordenar">
+						            <md-option ng-repeat="ordenar in ordenados" ng-value="ordenar">
+						              {{ordenar}}
+						            </md-option>
+					          </md-select>
+				        </md-input-container>
+		        		</div>
+		        		<div class="col-lg-6 text-right zero-padding" >
+		        			<div class="products-number">Mostrando 1-6 de 23 resultados
+		        			</div>
+	        			</div> 
+	        	</div>
+	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 3%;">
+					<div class="producto" ng-repeat="product in products">
+							<div class="product-image">
+							</div>
+						<div class="product-name"><label style="margin:0;">Tractor para cosechas</label></div>
+						<div class="see-more-product"><label style="margin:0;">Ver más</label></div>
+						<div class="product-footer align-items-center">
+								<div class="see" style="width:14.66%"></div>
+								<div class="cart" style="width:14.66%"></div>
+								<div class="favorite" style="width:14.66%"></div>
+								<div style="width:5%"></div>
+							<div class="ratings align-items-center">
+								<div class="full-star" ng-repeat="star in stars"></div>
+							</div>
+						</div>
+				</div>	        	
+	        	</div>
+	    	</div>
+    	<div class="col-lg-3 underline zero-padding">
+    	<div class="col-lg-12">
+		        	<div class="align-items-center" style="margin-top: 30px;visibility:hidden;">
+		        		<div class="col-lg-6 zero-padding">
+		   				<md-input-container class="ordenar-container">
+				        </md-input-container> 
+		        		</div>
+		        		</div></div> 
+    		<div class="col-lg-12 filtrar align-items-center">
+    			<div class="col-lg-6 filtrar-icon"></div>	
+    			<div class="col-lg-6 filtrar-text">Filtrar</div>
+    		</div>
+    		<div class="col-lg-11 zero-padding pull-right" ng-repeat="filtrar in filtrados">
+    			<md-input-container class="filtrar-container text-right">
+				    <label>{{filtrar.name}}</label>
+					<md-select ng-model="ordenar2">
+						<md-option >
+						</md-option>
+					</md-select>
+				</md-input-container>
+    		</div>
+    	</div>
+    </div>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+    <script src="angular-sweetalert/SweetAlert.min.js"></script>
+    <script src="sweetalert/lib/sweet-alert.min.js"></script>
+    <!-- module -->
+    <script src="js/tienda.js"></script>
+    <script src="js/utils.js"></script>
+</body>
+
+</html>

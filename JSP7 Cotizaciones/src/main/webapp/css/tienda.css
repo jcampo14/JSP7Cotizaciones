@@ -1,0 +1,225 @@
+.container-fluid.main-banner {
+    background-image: url(/img/banner.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+}
+.logo {
+    background-image: url('/img/logo pequeño.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+	width: 70px;
+    height: 70px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+	padding: 3% 10% 0 10%;
+}
+li.menu-item.ng-scope {
+    display: inline-block;
+    margin: 0 30px;
+}
+ul.top-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.menu-item a {
+    font-size: 1.2em;
+    color: #F0F0F0;
+    font-weight: bold;
+}
+
+.login-button {
+	width: 200px;
+    margin: auto;
+    margin-right: 0;
+    color: #f0f0f0;
+    font-size: 1.2em;
+    border: 2px solid;
+    padding: 10px;
+    background-image: url('/img/iniciar sesion blanco.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    cursor:pointer;
+}
+.banner-title{
+	padding: 10%;
+}
+
+.banner-text {
+    color: #f0f0f0;
+    font-size: 5em;
+    font-weight: bold;
+    line-height: 1;
+    width: 50%;
+}
+.see-more{
+    width: 150px;
+    margin: 20px 0;
+    margin-right: 0;
+    color: #f0f0f0;
+    font-size: 1.2em;
+    border: 2px solid;
+    padding: 10px;
+    cursor:pointer;
+}
+
+.shop-section{
+	padding: 3% 10%;
+    padding-bottom: 1%;
+    background-color: #fff;
+    margin: 0;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+
+}
+.shop-title h3{
+	color: #434040;
+}
+.search-input input {
+    border: none;
+    background-color: #f0f0f0;
+    padding: 15px;
+    background-image: url('/img/buscar.png');
+    color:#A3A1A5;
+    width: 100%;
+    background-position: 90% center;
+    background-repeat: no-repeat;
+}
+
+.align-items-center{
+	display:flex;
+	align-items:center;
+}
+.underline{
+	margin-top:30px;
+	border-top:2px solid #f0f0f0;
+}
+.ordenar-container{
+	color:#434040;
+	border: 2px solid #f0f0f0;
+    padding: 15px 10px;
+    width: 60%;
+}
+.filtrar-container{
+    border: none;
+    background-color: #f0f0f0;
+    padding: 18px 10px;
+    width: 100%;
+    margin: 5px 0;
+}
+.filtrar-container md-select .md-select-value, .filtrar-container md-select .md-select-value .md-select-icon{
+		color:#89878C;
+}
+.ordenar-container md-select .md-select-value, .ordenar-container md-select .md-select-value .md-select-icon{
+    color:#434040;
+}
+.zero-padding{
+	padding:0;
+}
+.filtrar-text{
+	font-size:1.2em;
+
+}
+.filtrar{
+}
+.filtrar-icon{
+	height:50px;
+    background-image: url('/img/filtrar.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 100% center;	
+}
+
+md-select.md-default-theme .md-select-value, md-select .md-select-value {
+    border:none !important;
+}
+.product-image{
+	background-color:#EDEDED;
+    background-image: url('/img/logo pequeño.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height:50vh;
+}
+
+.producto{
+	width: 31.3%;
+    margin: 1%;
+    display: inline-block;
+}
+.login-user{
+	text-transform:uppercase;
+	font-size:1.3em;
+	color:#f0f0f0;
+	font-weight: bold;
+	cursor:pointer;
+}
+.see{
+    background-image: url('../img/ver.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;	
+    width: 40px;
+        cursor:pointer;
+    height: 40px;
+}
+.cart{
+    background-image: url('../img/cart.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;	
+    width: 40px;
+        cursor:pointer;
+    height: 40px;
+}
+.favorite{
+    background-image: url('../img/favorite.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;	
+        cursor:pointer;
+    width: 40px;
+    height: 40px;
+}
+.product-footer{
+	background-color:#32903F;
+	padding:10px;
+}
+.product-name{
+	font-size:1em;
+	padding:5px 10px;
+}
+.see-more-product{
+	color:#32903F;
+	font-size:1em;
+	padding:5px 10px;
+}
+
+.full-star{
+	background-image: url('../img/estrella blanca.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;	
+    width: 30px;
+    height: 30px;
+    cursor:pointer;
+}
+.empty-star{
+	background-image: url('../img/estrella silueta.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;	
+    width: 30px;
+    height: 30px;
+    cursor:pointer;    
+}
+.ratings{
+	width:50%;
+}
