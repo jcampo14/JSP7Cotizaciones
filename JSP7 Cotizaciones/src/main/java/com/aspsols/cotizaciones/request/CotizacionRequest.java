@@ -22,9 +22,13 @@ public class CotizacionRequest implements Serializable {
 
 	private String idioma;
 
+	private String usuario;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
+
+	private List<CotizacionCostosRequest> costos;
 
 	public String getcEmp() {
 		return cEmp;
@@ -88,6 +92,22 @@ public class CotizacionRequest implements Serializable {
 
 	public void setSecciones(List<CotizacionSeccionesRequest> secciones) {
 		this.secciones = secciones;
+	}
+
+	public List<CotizacionCostosRequest> getCostos() {
+		return costos;
+	}
+
+	public void setCostos(List<CotizacionCostosRequest> costos) {
+		this.costos = costos;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 }

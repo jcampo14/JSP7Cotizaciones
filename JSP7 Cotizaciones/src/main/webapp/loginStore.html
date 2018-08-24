@@ -1,0 +1,123 @@
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="sweetalert/lib/sweet-alert.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/paper-dashboard.css" rel="stylesheet" />
+    <link href="css/refer.css" rel="stylesheet" />
+    <link href="css/icon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
+        crossorigin="anonymous">
+    <link href="css/loginStore.css" rel="stylesheet" />
+</head>
+
+<body ng-app="App" ng-cloak ng-controller="loginStoreController">
+
+    <div class="img-fondo">
+	    <div class="container-fluid">
+	    	<div class="row">
+	    		<div class="col-xs-12 col-md-12">
+	    			
+		    		<div class="container">
+		    			<div class="row">
+		    				<div class="col-xs-8 col-md-8 col-center">
+		    					<div class="row">
+		    						<!-- Img y logo solagro -->
+		    						<div class="col-xs-6 col-md-6 eliminar-padding img-enfocada">
+		    							<div class="logo-solagro">
+		    								<img alt="logo" src="img/logo-solagro.png">
+		    							</div>							
+		    						</div>
+		    						
+		    						<!-- Formulario -->
+		    						<div class="col-xs-6 col-md-6 fondo-formulario-login eliminar-padding">
+		    							
+	    								<!-- Titulo del formulario -->
+	    								<div class="row">
+	    									<div class="col-xs-12 col-md-12 col-titulo-formulario">
+	    										<span class="titulo-formulario">Iniciar Sesión</span>
+	    									</div>
+	    								</div>
+	    								
+	    								<!-- Formualrio de Inicio de sesion-->
+	    								<form name="userForm">
+	    								
+	    								<div class="row margin-top-usuario">
+	    									<div class="col-xs-2 col-md-2 eliminar-padding img-right">
+	    										<img class="icon-login" alt="iconUser" src="img/icon-user.png">
+	    									</div>
+	    									
+	    									<div class="col-xs-8 col-md-8">
+    											<md-input-container class="md-block eliminar-margin text-input">
+										          <label>Usuario</label>
+										          <input ng-model="validateUser.user">
+										        </md-input-container>
+	    									</div>
+	    								</div>
+	    								
+	    								<div class="row margin-top-contra">
+	    									<div class="col-xs-2 col-md-2 eliminar-padding img-right">
+	    										<img class="icon-login" alt="icon-password" src="img/icon-password.png">
+	    									</div>
+	    									
+	    									<div class="col-xs-8 col-md-8">
+	    										<md-input-container class="md-block eliminar-margin text-input">
+										          <label>Contraseña</label>
+										          <input type="password" ng-model="validateUser.password">
+										        </md-input-container>
+	    									</div>
+	    								</div>
+	    								
+	    								<div class="row margin-top-formulario-check">
+	    									<div class="col-xs-12 col-md-12">
+	    										<md-checkbox class="checkbox-login" ng-model="validateUser.sesion">
+										            Mantener Sesion Iniciada
+										         </md-checkbox>
+	    									</div>
+	    								</div>
+	    								
+	    								<div class="row">
+	    									<div class="col-xs-12 col-md-12 login-anclas">
+	    										<a href="#">¿Olvidaste tu contraseña?</a>
+	    									</div>
+	    								</div>
+	    								
+	    								<div class="cont-button-login">
+	    									<md-button class="md-raised button-login" ng-click="iniciarSesion()">Ingresar</md-button>
+	    								</div>
+	    								
+		    							</form>
+		    						</div>
+		    					</div>
+		    				</div>
+		    			</div>
+		    		</div>
+	    			
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+    
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+    <script src="angular-sweetalert/SweetAlert.min.js"></script>
+    <script src="sweetalert/lib/sweet-alert.min.js"></script>
+    <!-- module -->
+    <script src="js/loginStore.js"></script>
+    <script src="js/utils.js"></script>
+</body>
+
+</html>

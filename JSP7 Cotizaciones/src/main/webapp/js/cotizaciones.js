@@ -64,6 +64,7 @@ app.controller('Ctrl', [
         /* Iniciar la forma */
         $scope.init = function () {
             $scope.isLoading = true;
+            $scope.tieneCostos = false;
             delete $scope.cot_enc;
             delete $scope.cot_det;
             delete $scope.selectedDetalle;
@@ -93,7 +94,8 @@ app.controller('Ctrl', [
                 nIde: null,
                 criVenta: null,
                 cSuc: null,
-                idioma: null
+                idioma: null,
+                incoterm: null
             };
             $scope.cot_det = [];
             $scope.selectedArticulo = {};
@@ -124,7 +126,20 @@ app.controller('Ctrl', [
             promise.then(function (result) {
                 $scope.sucursales = result.data;
             });
-        }
+        };
+
+        $scope.cargarCostosIncoterm = function () {
+            var promise = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $scope.cot_enc.cEmp
+                + '&incoterm=' + $scope.cot_enc.incoterm);
+            promise.then(function (result) {
+                $scope.costosAdic = result.data;
+                if ($scope.costosAdic.length > 1) {
+                    $scope.tieneCostos = true;
+                } else {
+                    $scope.tieneCostos = false;
+                }
+            });
+        };
 
         /* Agisnamos la descripcion del textarea al modelo de las secciones */
         $scope.setDescripcion = function (index, value) {
@@ -195,7 +210,7 @@ app.controller('Ctrl', [
         $scope.buscarPrecioVenta = function (empresa, codigo) {
             $scope.selectedDetalle = {};
             var promise = $consumeService.get('precios/?emp=' + empresa
-                + "&cod=" + codigo + "&cri=" + $scope.cot_enc.criVenta);
+                + "&cod=" + codigo + "&cri=" + $scope.cot_enc.criVenta.cri);
             promise.then(function (result) {
                 if (result.pVen == null) {
                     swal("Mensaje JSP7", "El artículo no tiene precio de lista", "warning");
@@ -252,16 +267,32 @@ app.controller('Ctrl', [
                 detalle.push(itemDetalle);
                 index++;
             };
+            /* Buscamos los costos */
+            var costos = [];
+            index = 0;
+            while (index < $scope.costosAdic.length) {
+                if ($scope.costosAdic[index].valor != null) {
+                    var itemCostos = {
+                        "cEmp": $scope.costosAdic[index].cEmp,
+                        "idFacCostosAdic": $scope.costosAdic[index].idFacCostosAdic,
+                        "valor": $scope.costosAdic[index].valor
+                    };
+                    costos.push(itemCostos);
+                }
+                index++;
+            };
             /* Armamos el Request */
             var requestBody = {
                 "cEmp": $scope.cot_enc.cEmp,
                 "cAgr": $scope.cot_enc.cAgr,
                 "nIde": $scope.cot_enc.nIde,
-                "criVenta": $scope.cot_enc.criVenta,
+                "criVenta": $scope.cot_enc.criVenta.cri,
                 "cSuc": $scope.cot_enc.cSuc,
                 "idioma": $scope.cot_enc.idioma,
+                "usuario": $localstorage.get('global.usuario', null),
                 "secciones": secciones,
-                "detalle": detalle
+                "detalle": detalle,
+                "costos": costos
             };
             /* Consumimos el servicio */
             var configRequest = {
