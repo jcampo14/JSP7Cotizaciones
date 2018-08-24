@@ -1,5 +1,7 @@
 package com.aspsols.cotizaciones.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +32,16 @@ public class CotizacionController {
 		/* Insertamos en la tabla temporal */
 		service.createCotizacion(request, idTransaccion);
 		/* Ejecutamos el procedimiento almacenado */
-		String resultData = creaCotizacion.execute(idTransaccion);		
-		response.setSuccess(true);
-		response.setMessage(resultData);			
+		Map<String, Object> resultData = creaCotizacion.execute(idTransaccion);	
+		Integer codErr = (Integer) resultData.get("codError");
+		String msgErr = (String) resultData.get("msgError");
+		if (codErr != 0) {
+			response.setSuccess(false);
+			response.setMessage(msgErr);
+		}else {
+			response.setSuccess(true);
+			response.setMessage(msgErr);
+		}		
 		return response;
 	};
 }

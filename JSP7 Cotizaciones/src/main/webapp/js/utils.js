@@ -37,3 +37,24 @@ app.factory('$localstorage', ['$window', function($window) {
         }
     }
   }]);
+
+  app.directive('forceSelectFocus', function() {
+    return {
+      restrict: 'A',
+      require: ['^^mdSelect', '^ngModel'],
+      link: function(scope, element, controller) {
+        scope.$watch(function () {
+          let foundElement = element;
+          while (!foundElement.hasClass('md-select-menu-container')) {
+            foundElement = foundElement.parent();
+          }
+          return foundElement.hasClass('md-active');
+        }, function (newVal) {
+          if (newVal) {
+            console.log(controller[1]);
+              element.focus();
+          }
+        })
+      }
+    }
+  });

@@ -46,5 +46,6 @@
 	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/PLSQLParserToPostgresql.jar"/>
 	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/RuntimeDBMetadata.jar"/>
 	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/SQLTools4.jar"/>
+	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/commons-lang3-3.8.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

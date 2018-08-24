@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Repository;
 
+import com.aspsols.cotizaciones.request.CotizacionCostosRequest;
 import com.aspsols.cotizaciones.request.CotizacionDetRequest;
 import com.aspsols.cotizaciones.request.CotizacionRequest;
 import com.aspsols.cotizaciones.request.CotizacionSeccionesRequest;
@@ -22,7 +23,7 @@ public class CotizacionRepository {
 
 	public void create(CotizacionRequest record, String idTransaccion) {
 		/* Insertamos el encabezado */
-		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA) values(?,?,?,?,?,?,?)";
+		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO) values(?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -34,6 +35,7 @@ public class CotizacionRepository {
 				ps.setString(5, record.getCriVenta());
 				ps.setString(6, record.getcSuc());
 				ps.setString(7, record.getIdioma());
+				ps.setString(8, record.getUsuario());
 				return ps;
 			}
 		});
@@ -73,6 +75,25 @@ public class CotizacionRepository {
 						return ps;
 					}
 				});
+			}
+		}
+		/* Insertamos los costos */
+		if (record.getCostos().size() > 0) {
+			for (CotizacionCostosRequest item : record.getCostos()) {
+				if (item.getValor() != 0) {
+					String sqlDet = "insert into TMP_COT_COSTOS(ID_TRANSACCION,C_EMP,COD_COSTO,VALOR) values(?,?,?,?)";
+					jdbcTemplate.update(new PreparedStatementCreator() {
+						@Override
+						public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+							PreparedStatement ps = connection.prepareStatement(sqlDet, Statement.RETURN_GENERATED_KEYS);
+							ps.setString(1, idTransaccion);
+							ps.setString(2, item.getcEmp());
+							ps.setString(3, item.getIdFacCostosAdic());
+							ps.setDouble(4, item.getValor());							
+							return ps;
+						}
+					});
+				}
 			}
 		}
 	}

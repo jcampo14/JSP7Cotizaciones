@@ -22,19 +22,19 @@ public class CreaCotizacion extends StoredProcedure {
 		super(ds, NAME_PROCEDURE);
 		/* Declaramos los parametros del procedimiento */
 		declareParameter(new SqlParameter("idTransaccion", Types.VARCHAR));
-		declareParameter(new SqlOutParameter("codError", Types.NUMERIC));
+		declareParameter(new SqlOutParameter("codError", Types.INTEGER));
 		declareParameter(new SqlOutParameter("msgError", Types.VARCHAR));
 		// declareParameter(new SqlParameter("idDisco", Types.INTEGER));
 		// setFunction(false);
 		compile();
 	}
 
-	public String execute(String idTransaccion) {		
+	public Map<String, Object> execute(String idTransaccion) {		
 		Map<String, Object> result;
 		Map<String, Object> paramsEntrada = new HashMap<String, Object>();
 		paramsEntrada.put("idTransaccion", idTransaccion);
 		result = execute(paramsEntrada);		
-		return (String) result.get("msgError");
+		return result;
 	}
 
 }
