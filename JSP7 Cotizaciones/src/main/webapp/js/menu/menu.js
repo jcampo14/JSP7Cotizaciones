@@ -1,6 +1,7 @@
 var app = angular.module('MenuJSP7', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngMdBadge', 'ngRoute', 'hc.marked', 'App.utils']);
 
-app.config(['menuProvider', function (menuProvider) {
+app.config(['$mdThemingProvider', function ($mdThemingProvider) {
+    $mdThemingProvider.theme('default').primaryPalette('blue-grey');
     /*    
     var $http = angular.injector(['ng']).get('$http');
     var promise = $http.get('menu/');
@@ -89,10 +90,12 @@ app.config(['markedProvider', function (markedProvider) {
 app.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '$sce', '$localstorage',
     '$consumeService', '$q', function ($scope, $menu, $mdSidenav, $mdBottomSheet, $sce, $localstorage,
         $consumeService, $q) {
+        $scope.isLoading = true;    
         $scope.style = $menu.style();
         var promise = $consumeService.get('menu/');        
         $q.all([promise]).then(function (values) {
             $scope.itemsMenu = $menu.setItems('primary',values[0].data);
+            $scope.isLoading = false;
             $scope.$applyAsync;
         });        
         /*

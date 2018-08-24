@@ -35,12 +35,13 @@ public class CotizacionController {
 		Map<String, Object> resultData = creaCotizacion.execute(idTransaccion);	
 		Integer codErr = (Integer) resultData.get("codError");
 		String msgErr = (String) resultData.get("msgError");
+		Integer numeroCot = (Integer) resultData.get("numeroCot");
 		if (codErr != 0) {
 			response.setSuccess(false);
 			response.setMessage(msgErr);
 		}else {
 			response.setSuccess(true);
-			response.setMessage(msgErr);
+			response.setMessage(msgErr + "\n" + "Cotizacion No. " + numeroCot + " generada.");
 		}		
 		return response;
 	};

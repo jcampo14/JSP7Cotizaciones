@@ -133,7 +133,11 @@ app.controller('Ctrl', [
                 + '&incoterm=' + $scope.cot_enc.incoterm);
             promise.then(function (result) {
                 $scope.costosAdic = result.data;
-                $scope.tieneCostos = true;
+                if ($scope.costosAdic.length > 1) {
+                    $scope.tieneCostos = true;
+                } else {
+                    $scope.tieneCostos = false;
+                }
             });
         };
 
@@ -274,7 +278,7 @@ app.controller('Ctrl', [
                         "valor": $scope.costosAdic[index].valor
                     };
                     costos.push(itemCostos);
-                }                
+                }
                 index++;
             };
             /* Armamos el Request */
@@ -285,7 +289,7 @@ app.controller('Ctrl', [
                 "criVenta": $scope.cot_enc.criVenta.cri,
                 "cSuc": $scope.cot_enc.cSuc,
                 "idioma": $scope.cot_enc.idioma,
-                "usuario": $localstorage.get('global.usuario',null),
+                "usuario": $localstorage.get('global.usuario', null),
                 "secciones": secciones,
                 "detalle": detalle,
                 "costos": costos
