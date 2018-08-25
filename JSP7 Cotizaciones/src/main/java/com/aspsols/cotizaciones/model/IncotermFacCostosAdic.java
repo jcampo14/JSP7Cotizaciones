@@ -11,6 +11,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.aspsols.cotizaciones.model.ids.IncotermFacCostosAdicId;
+
 @Entity
 @Table(name = "INCOTERM_FAC_COSTOS_ADIC")
 @IdClass(IncotermFacCostosAdicId.class)

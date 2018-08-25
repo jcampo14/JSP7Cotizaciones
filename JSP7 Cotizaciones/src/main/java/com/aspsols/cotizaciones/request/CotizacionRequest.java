@@ -24,6 +24,8 @@ public class CotizacionRequest implements Serializable {
 
 	private String usuario;
 
+	private Integer diasValidez;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
@@ -108,6 +110,14 @@ public class CotizacionRequest implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public Integer getDiasValidez() {
+		return diasValidez;
+	}
+
+	public void setDiasValidez(Integer diasValidez) {
+		this.diasValidez = diasValidez;
 	}
 
 }

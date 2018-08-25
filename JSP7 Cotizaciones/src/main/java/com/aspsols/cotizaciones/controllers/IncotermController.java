@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.Incoterm;
-import com.aspsols.cotizaciones.model.IncotermList;
-import com.aspsols.cotizaciones.responses.QueryResponse;
+import com.aspsols.cotizaciones.model.lists.IncotermList;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
+import com.aspsols.cotizaciones.responses.QueryResponse;
 import com.aspsols.cotizaciones.services.IncotermServices;
 
 @RestController

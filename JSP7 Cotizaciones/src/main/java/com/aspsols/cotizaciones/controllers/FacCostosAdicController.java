@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.FacCostosAdic;
-import com.aspsols.cotizaciones.model.FacCostosAdicList;
-import com.aspsols.cotizaciones.responses.QueryResponse;
+import com.aspsols.cotizaciones.model.lists.FacCostosAdicList;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
+import com.aspsols.cotizaciones.responses.QueryResponse;
 import com.aspsols.cotizaciones.services.FacCostosAdicServices;
 
 @RestController

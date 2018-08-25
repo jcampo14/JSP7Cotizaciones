@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aspsols.cotizaciones.model.Incoterm;
-import com.aspsols.cotizaciones.model.IncotermId;
+import com.aspsols.cotizaciones.model.ids.IncotermId;
 import com.aspsols.cotizaciones.repositories.IncotermRepository;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 

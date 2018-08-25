@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.Idioma;
-import com.aspsols.cotizaciones.model.IdiomaId;
+import com.aspsols.cotizaciones.model.ids.IdiomaId;
 
 public interface IdiomaRepository extends CrudRepository<Idioma, IdiomaId>{
 	

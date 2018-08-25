@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.aspsols.cotizaciones.model.ids.UsuAgeId;
+
 @Entity
 @Table(name = "USU_AGE")
 @IdClass(UsuAgeId.class)

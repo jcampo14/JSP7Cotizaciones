@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.CotSecciones;
-import com.aspsols.cotizaciones.model.CotSeccionesId;
+import com.aspsols.cotizaciones.model.ids.CotSeccionesId;
 
 public interface CotSeccionesRepository extends CrudRepository<CotSecciones, CotSeccionesId> {
 	

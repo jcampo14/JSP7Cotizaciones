@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.IncotermFacCostosAdic;
-import com.aspsols.cotizaciones.model.IncotermFacCostosAdicId;
+import com.aspsols.cotizaciones.model.ids.IncotermFacCostosAdicId;
 
 public interface IncotermFacCostosAdicRepository extends CrudRepository<IncotermFacCostosAdic, IncotermFacCostosAdicId> {
 	

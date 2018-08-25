@@ -9,6 +9,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import com.aspsols.cotizaciones.jsonviewer.JSonServiceViewer;
+import com.aspsols.cotizaciones.model.ids.IncotermId;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity

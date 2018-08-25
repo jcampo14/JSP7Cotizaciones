@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aspsols.cotizaciones.model.Precio;
-import com.aspsols.cotizaciones.model.PrecioId;
+import com.aspsols.cotizaciones.model.ids.PrecioId;
 import com.aspsols.cotizaciones.repositories.PrecioRepository;
 
 @Service

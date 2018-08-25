@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.CotSeccionesSinonimos;
-import com.aspsols.cotizaciones.model.CotSeccionesSinonimosId;
+import com.aspsols.cotizaciones.model.ids.CotSeccionesSinonimosId;
 
 public interface CotSeccionesSinonimosRepository extends CrudRepository<CotSeccionesSinonimos, CotSeccionesSinonimosId> {
 	

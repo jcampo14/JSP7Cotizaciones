@@ -95,7 +95,8 @@ app.controller('Ctrl', [
                 criVenta: null,
                 cSuc: null,
                 idioma: null,
-                incoterm: null
+                incoterm: null,
+                diasValidez: null
             };
             $scope.cot_det = [];
             $scope.selectedArticulo = {};

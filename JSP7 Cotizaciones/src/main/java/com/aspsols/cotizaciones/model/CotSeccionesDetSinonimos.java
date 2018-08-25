@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.aspsols.cotizaciones.model.ids.CotSeccionesDetSinonimosId;
+
 @Entity
 @Table(name = "COT_SECCIONES_DET_SINONIMOS")
 @IdClass(CotSeccionesDetSinonimosId.class)

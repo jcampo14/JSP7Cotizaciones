@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.Articulo;
-import com.aspsols.cotizaciones.model.ArticuloId;
+import com.aspsols.cotizaciones.model.ids.ArticuloId;
 
 public interface ArticuloRepository extends CrudRepository<Articulo, ArticuloId> {
 

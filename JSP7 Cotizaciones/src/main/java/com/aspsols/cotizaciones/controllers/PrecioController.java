@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.Precio;
-import com.aspsols.cotizaciones.model.PrecioId;
+import com.aspsols.cotizaciones.model.ids.PrecioId;
 import com.aspsols.cotizaciones.services.PrecioServices;
 
 @RestController

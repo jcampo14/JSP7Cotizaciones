@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.aspsols.cotizaciones.model.ids.AgenciaId;
+
 @Entity
 @Table(name = "AGENCIA")
 @IdClass(AgenciaId.class)

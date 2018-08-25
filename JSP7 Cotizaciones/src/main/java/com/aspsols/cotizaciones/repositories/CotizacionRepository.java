@@ -23,7 +23,8 @@ public class CotizacionRepository {
 
 	public void create(CotizacionRequest record, String idTransaccion) {
 		/* Insertamos el encabezado */
-		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO) values(?,?,?,?,?,?,?,?)";
+		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO,DIAS_VALIDEZ) "
+				+ "values(?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -36,6 +37,7 @@ public class CotizacionRepository {
 				ps.setString(6, record.getcSuc());
 				ps.setString(7, record.getIdioma());
 				ps.setString(8, record.getUsuario());
+				ps.setInt(9, record.getDiasValidez());
 				return ps;
 			}
 		});

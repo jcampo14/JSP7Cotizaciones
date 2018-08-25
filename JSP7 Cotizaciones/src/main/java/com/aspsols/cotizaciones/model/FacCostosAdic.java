@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.aspsols.cotizaciones.model.ids.FacCostosAdicId;
+
 @Entity
 @Table(name = "FAC_COSTOS_ADIC")
 @IdClass(FacCostosAdicId.class)

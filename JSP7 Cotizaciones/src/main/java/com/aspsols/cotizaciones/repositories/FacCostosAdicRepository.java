@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.FacCostosAdic;
-import com.aspsols.cotizaciones.model.FacCostosAdicId;
+import com.aspsols.cotizaciones.model.ids.FacCostosAdicId;
 
 public interface FacCostosAdicRepository extends CrudRepository<FacCostosAdic, FacCostosAdicId> {
 	

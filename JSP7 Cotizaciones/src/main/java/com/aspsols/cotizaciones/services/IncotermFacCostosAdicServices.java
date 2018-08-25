@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aspsols.cotizaciones.model.IncotermFacCostosAdic;
-import com.aspsols.cotizaciones.model.IncotermFacCostosAdicId;
+import com.aspsols.cotizaciones.model.ids.IncotermFacCostosAdicId;
 import com.aspsols.cotizaciones.repositories.IncotermFacCostosAdicRepository;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 

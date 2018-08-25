@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.CotSeccionesSinonimos;
-import com.aspsols.cotizaciones.model.CotSeccionesSinonimosList;
-import com.aspsols.cotizaciones.responses.QueryResponse;
+import com.aspsols.cotizaciones.model.lists.CotSeccionesSinonimosList;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
+import com.aspsols.cotizaciones.responses.QueryResponse;
 import com.aspsols.cotizaciones.services.CotSeccionesSinonimosServices;
 
 @RestController

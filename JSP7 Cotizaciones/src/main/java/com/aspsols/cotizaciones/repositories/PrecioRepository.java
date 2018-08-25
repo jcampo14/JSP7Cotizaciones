@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.Precio;
-import com.aspsols.cotizaciones.model.PrecioId;
+import com.aspsols.cotizaciones.model.ids.PrecioId;
 
 public interface PrecioRepository extends CrudRepository<Precio, PrecioId>{
 	

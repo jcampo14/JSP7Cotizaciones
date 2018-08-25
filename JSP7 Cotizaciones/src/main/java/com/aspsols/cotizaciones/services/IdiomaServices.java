@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aspsols.cotizaciones.model.Idioma;
-import com.aspsols.cotizaciones.model.IdiomaId;
+import com.aspsols.cotizaciones.model.ids.IdiomaId;
 import com.aspsols.cotizaciones.repositories.IdiomaRepository;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 

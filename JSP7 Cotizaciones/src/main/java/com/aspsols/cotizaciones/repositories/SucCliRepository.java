@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.SucCli;
-import com.aspsols.cotizaciones.model.SucCliId;
+import com.aspsols.cotizaciones.model.ids.SucCliId;
 
 public interface SucCliRepository extends CrudRepository<SucCli, SucCliId>{
 	

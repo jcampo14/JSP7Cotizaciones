@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.Criterio;
-import com.aspsols.cotizaciones.model.CriterioId;
+import com.aspsols.cotizaciones.model.ids.CriterioId;
 
 public interface CriterioRepository extends CrudRepository<Criterio, CriterioId> {
 	

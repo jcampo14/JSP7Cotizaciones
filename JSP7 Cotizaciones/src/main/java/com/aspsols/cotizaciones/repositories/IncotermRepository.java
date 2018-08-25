@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.Incoterm;
-import com.aspsols.cotizaciones.model.IncotermId;
+import com.aspsols.cotizaciones.model.ids.IncotermId;
 
 public interface IncotermRepository extends CrudRepository<Incoterm, IncotermId> {
 	

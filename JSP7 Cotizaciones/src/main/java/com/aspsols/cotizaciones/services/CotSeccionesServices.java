@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aspsols.cotizaciones.model.CotSecciones;
-import com.aspsols.cotizaciones.model.CotSeccionesId;
+import com.aspsols.cotizaciones.model.ids.CotSeccionesId;
 import com.aspsols.cotizaciones.repositories.CotSeccionesRepository;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 
