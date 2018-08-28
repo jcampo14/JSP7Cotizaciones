@@ -40,7 +40,7 @@
 			</div>	
 			<div class="banner-title">
 				<div class="banner-text">{{titulo}}</div>
-				<div class="see-more text-center">Ver más</div>
+				<a href=""><div class="see-more text-center">Ver más</div></a>
 			</div>							
         </div>
         <div class="container-fluid shop-section">
@@ -69,12 +69,13 @@
 		        			</div>
 	        			</div> 
 	        	</div>
-	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 3%;">
+	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 1.5%;">
 					<div class="producto" ng-repeat="product in products">
-							<div class="product-image">
-							</div>
+						<div class="product-image"></div>
+						<div class="product-descrip">
 						<div class="product-name"><label style="margin:0;">Tractor para cosechas</label></div>
-						<div class="see-more-product"><label style="margin:0;">Ver más</label></div>
+						<div class="see-more-product"><a><label style="margin:0;">Ver más</a></label></div>
+						</div>
 						<div class="product-footer align-items-center">
 								<div class="see" style="width:14.66%"></div>
 								<div class="cart" style="width:14.66%"></div>
@@ -84,17 +85,19 @@
 								<div class="full-star" ng-repeat="star in stars"></div>
 							</div>
 						</div>
-				</div>	        	
+					</div>	        	
+	        	</div>
+	        	<div class="col-lg-12 pull-right pagination align-items-center zero-padding">
+	        		<div class="page arrow-left ng-hide">{{arrows[0]}}</div>
+	        		<div class="page page-number" ng-repeat="page in pages">{{page}}</div>
+	        		<div class="page arrow-right">{{arrows[1]}}</div>
 	        	</div>
 	    	</div>
     	<div class="col-lg-3 underline zero-padding">
     	<div class="col-lg-12">
-		        	<div class="align-items-center" style="margin-top: 30px;visibility:hidden;">
-		        		<div class="col-lg-6 zero-padding">
-		   				<md-input-container class="ordenar-container">
-				        </md-input-container> 
-		        		</div>
-		        		</div></div> 
+		   <div class="align-items-center" style="margin-top: 30px;visibility:hidden;"><div class="col-lg-6 zero-padding">
+		   	<md-input-container class="ordenar-container"></md-input-container> </div></div></div> 
+		   	
     		<div class="col-lg-12 filtrar align-items-center">
     			<div class="col-lg-6 filtrar-icon"></div>	
     			<div class="col-lg-6 filtrar-text">Filtrar</div>
@@ -108,14 +111,53 @@
 					</md-select>
 				</md-input-container>
     		</div>
+    		<div class="col-lg-11 zero-padding pull-right">
+    			<div class="best-score-products">Productos mejor calificados</div>
+    			<div class="col-lg-3 green-line"></div>
+    			<div class="col-lg-12 top-product zero-padding" ng-repeat="topProduct in topProducts">
+    				<div class="col-lg-6 top-product-image"></div>
+    				<div class="col-lg-6 top-product-descrip">
+	    				<div class="col-lg-12 top-product-title"><label>Tractor Utilitario</label></div>
+	    				<div class="col-lg-12 top-product-score align-items-center">
+	    					<div class="full-top-star" ng-repeat="topStar in topStars"></div>
+	    				</div>
+	    				<div class="col-lg-12 top-product-more"><a href=""><label>Ver más</label></a></div>
+    				</div>
+    			</div>
+    		</div>
     	</div>
+    </div>
+    <div class="container-fluid information-section align-items-center">
+    	<div class="col-lg-4 align-items-center zero-padding">
+    		<div class="pregunta-icon zero-padding"></div>
+    		<div class="zero-padding pregunta-description">
+    			<label>¿Tienes alguna pregunta?</label>
+    			<label>ventas@solagro.co</label>
+    		</div>
+    	</div>
+    	<div class="col-lg-1"></div>
+    	<div class="col-lg-3 align-items-center zero-padding">
+    		<div class="phone-icon zero-padding"></div>
+    		<div class="zero-padding phone-description">
+    			<label>Llámamos</label>
+    			<label>+57 314 5871729</label>
+    		</div>
+    	</div>
+    	<div class="col-lg-1"></div>
+    	<div class="col-lg-4 align-items-center zero-padding">
+    		<div class="ubication-icon zero-padding"></div>
+    		<div class="zero-padding ubication-description">
+    			<label>Nuestras Oficinas</label>
+    			<label>Km 7 Vía Aeropuerto de Barranquilla,<br>0803003 Soledad, Atlántico, Colombia</label>
+    		</div>
+    	</div>    	
     </div>
     <!-- Angular Material requires Angular.js Libraries -->
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-
+	<script type="text/javascript" src="js/jquery.js"></script>
     <!-- Angular Material Library -->
     <script src="bower_components/angular-material/angular-material.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>

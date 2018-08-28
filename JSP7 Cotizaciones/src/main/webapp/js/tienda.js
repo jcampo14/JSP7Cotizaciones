@@ -36,8 +36,14 @@ app.controller('tiendaController', [
 						   	{name : "Repuestos"}];
     	
     	$scope.stars=['1','2','3','4','5'];
-    	$scope.products=['1','2','3','4','5'];
+    	$scope.topStars=['1','2','3','4','5'];
+    	$scope.arrows = ['<','>'];
+    	$scope.pages=['1','2','3','4','5'];
+    	$scope.products=['1','2','3','4','5','6','7','8','9'];
+    	$scope.topProducts=['1','2','3','4','5'];
         $scope.credentials = {};
+        
+
 
         /* Traemos las empresas para setear en el select */
 //        $scope.loadCompanies = function () {

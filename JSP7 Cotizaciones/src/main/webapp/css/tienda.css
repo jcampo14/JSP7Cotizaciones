@@ -1,3 +1,100 @@
+@font-face{
+   font-family: PoppinsBlack;
+   src: url(../fonts/POPPINS-BLACK.OTF);
+}
+
+@font-face{
+   font-family: PoppinsBlackItalic;
+   src: url(../fonts/POPPINS-BLACKITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsBold;
+   src: url(../fonts/POPPINS-BOLD.OTF);
+}
+
+@font-face{
+   font-family: PoppinsBoldItalic;
+   src: url(../fonts/POPPINS-BOLDITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsExtraBold;
+   src: url(../fonts/POPPINS-EXTRABOLD.OTF);
+}
+
+@font-face{
+   font-family: PoppinsExtraBoldItalic;
+   src: url(../fonts/POPPINS-EXTRABOLDITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsExtraLight;
+   src: url(../fonts/POPPINS-EXTRALIGHT.OTF);
+}
+
+@font-face{
+   font-family: PoppinsExtraLightItalic;
+   src: url(../fonts/POPPINS-EXTRALIGHTITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsItalic;
+   src: url(../fonts/POPPINS-ITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsLight;
+   src: url(../fonts/POPPINS-LIGHT.OTF);
+}
+
+@font-face{
+   font-family: PoppinsLightItalic;
+   src: url(../fonts/POPPINS-LIGHTITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsMedium;
+   src: url(../fonts/POPPINS-MEDIUM.OTF);
+}
+
+@font-face{
+   font-family: PoppinsMediumItalic;
+   src: url(../fonts/POPPINS-MEDIUMITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsRegular;
+   src: url(../fonts/POPPINS-REGULAR.OTF);
+}
+
+@font-face{
+   font-family: PoppinsSemiBold;
+   src: url(../fonts/POPPINS-SEMIBOLD.OTF);
+}
+
+@font-face{
+   font-family: PoppinsSemiBoldItalic;
+   src: url(../fonts/POPPINS-SEMIBOLDITALIC.OTF);
+}
+
+@font-face{
+   font-family: PoppinsThin;
+   src: url(../fonts/POPPINS-THIN.OTF);
+}
+
+@font-face{
+   font-family: PoppinsThinItalic;
+   src: url(../fonts/POPPINS-THINITALIC.OTF);
+}
+
+body{
+	font-family: PoppinsRegular;
+}
+.shop-title h3{
+	font-family: PoppinsSemiBold;
+}
+
 .container-fluid.main-banner {
     background-image: url(/img/banner.png);
     background-size: cover;
@@ -30,9 +127,11 @@ ul.top-menu {
 .menu-item a {
     font-size: 1.2em;
     color: #F0F0F0;
-    font-weight: bold;
+    font-family: PoppinsSemiBold;
 }
-
+a, a:hover{
+    color: inherit;
+}
 .login-button {
 	width: 200px;
     margin: auto;
@@ -54,7 +153,7 @@ ul.top-menu {
 .banner-text {
     color: #f0f0f0;
     font-size: 5em;
-    font-weight: bold;
+    font-family: PoppinsBold;
     line-height: 1;
     width: 50%;
 }
@@ -66,7 +165,8 @@ ul.top-menu {
     font-size: 1.2em;
     border: 2px solid;
     padding: 10px;
-    cursor:pointer;
+    cursor:pointer;    
+    font-family: PoppinsExtraLight;
 }
 
 .shop-section{
@@ -87,7 +187,7 @@ ul.top-menu {
     background-color: #f0f0f0;
     padding: 15px;
     background-image: url('/img/buscar.png');
-    color:#A3A1A5;
+    color:#89878C;
     width: 100%;
     background-position: 90% center;
     background-repeat: no-repeat;
@@ -112,7 +212,7 @@ ul.top-menu {
     background-color: #f0f0f0;
     padding: 18px 10px;
     width: 100%;
-    margin: 5px 0;
+    margin: 2px 0;
 }
 .filtrar-container md-select .md-select-value, .filtrar-container md-select .md-select-value .md-select-icon{
 		color:#89878C;
@@ -150,15 +250,17 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 }
 
 .producto{
-	width: 31.3%;
-    margin: 1%;
+    width: 30%;
+    margin: 1.5%;
+    margin-bottom: 3%;
     display: inline-block;
+    font-family:PoppinsExtraLight;
 }
 .login-user{
 	text-transform:uppercase;
 	font-size:1.3em;
 	color:#f0f0f0;
-	font-weight: bold;
+    font-family: PoppinsSemiBold;
 	cursor:pointer;
 }
 .see{
@@ -190,18 +292,19 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 }
 .product-footer{
 	background-color:#32903F;
-	padding:10px;
 }
 .product-name{
-	font-size:1em;
-	padding:5px 10px;
+	font-size:1.5em;
+    margin: 5px 0;
 }
 .see-more-product{
 	color:#32903F;
-	font-size:1em;
-	padding:5px 10px;
+    font-size: 1.3em;
+    margin: 5px 0;
 }
-
+.product-descrip {
+    padding: 10px;
+}
 .full-star{
 	background-image: url('../img/estrella blanca.png');
     background-size: auto;
@@ -222,4 +325,108 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 }
 .ratings{
 	width:50%;
+}
+.best-score-products {
+    padding: 30px 0 10px 0;
+    font-size: 1.3em;
+}
+.green-line{
+	border-top: 4px solid #32903F;
+	margin-bottom: 15px;
+}
+
+.top-product-image{
+	background-color:#EDEDED;
+    background-image: url('/img/logo pequeño.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+	height: 90px;
+}
+.full-top-star{
+	background-image: url('../img/estrella amarilla.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;	
+    width: 30px;
+    height: 30px;
+    cursor:pointer;
+}
+
+.empty-top-star{
+	background-image: url('../img/estrella silueta amarilla.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;	
+    width: 30px;
+    height: 30px;
+    cursor:pointer;
+}
+
+.top-product {
+    margin: 10px 0;
+    font-family: PoppinsLight;
+}
+.top-product-more{
+	color:#32903F;
+}
+.page{
+    border: 2px solid #f0f0f0;
+    padding: 10px 15px;
+    text-align: center;
+    width: 45px;
+    margin: 0 5px;
+}
+.page:hover, .active{
+	background-color:#32903F;
+	color:white;
+	cursor:pointer;
+}
+.information-section{
+	background-color:#32903F;
+	color:white;
+	padding:3% 10%;
+	margin: auto;
+}
+.information-section label{
+	display:block;
+	margin:0;
+	width:100%;
+	white-space: nowrap;
+}
+.pregunta-icon{
+	background-image: url('../img/pregunta.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width:70px;
+    height: 60px;
+}
+.phone-icon{
+	background-image: url('../img/llamanos.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width:70px;
+    height: 60px;
+}
+.ubication-icon{
+	background-image: url('../img/ubicacion.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width:70px;
+    height: 60px;
+}
+.pregunta-description, .phone-description, .ubication-description{
+	padding-left: 20px;
+    line-height: 1.8em;
+}
+.information-section label:nth-child(1){
+	font-size:1em;
+}
+.information-section label:nth-child(2), .information-section label:nth-child(3){
+	font-family:PoppinsExtraLight;
+	font-size:1.3em;
+
 }
