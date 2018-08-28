@@ -65,7 +65,7 @@
                                 <td md-cell>{{record.codSeccion}}</td>
                                 <td md-cell>{{record.nombreSec}}</td>
                                 <td md-cell>{{record.tipoSeccion == 'ENC' ? 'Encabezado de documento' : record.tipoSeccion == 'PIE' ?
-                                    'Pie de documento' : ''}}</td>
+                                    'Pie de documento' : record.tipoSeccion == 'TIT' ? 'Titulo de documento' : ''}}</td>
                                 <td md-cell>{{record.orden | number: 2}}</td>
                             </tr>
                         </tbody>

@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.aspsols.cotizaciones.model.ids.ArticuloId;
@@ -42,7 +45,16 @@ public class Articulo implements Serializable {
 	
 	@Column(name = "FACT")
 	private String fact;
-
+	
+	@Column(name = "IVA")
+	private String iva;
+	
+	@ManyToOne
+	@JoinColumns({@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
+		@JoinColumn(name = "IVA", referencedColumnName = "C_DES", insertable = false, updatable = false)})
+	private DesctoEgr idIva; 
+	
+	
 	public Articulo() {
 		super();
 	}
@@ -101,6 +113,22 @@ public class Articulo implements Serializable {
 
 	public void setFact(String fact) {
 		this.fact = fact;
+	}
+
+	public String getIva() {
+		return iva;
+	}
+
+	public void setIva(String iva) {
+		this.iva = iva;
+	}
+
+	public DesctoEgr getIdIva() {
+		return idIva;
+	}
+
+	public void setIdIva(DesctoEgr idIva) {
+		this.idIva = idIva;
 	}
 
 }

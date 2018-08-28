@@ -74,7 +74,7 @@ app.controller('incotermCostosAdicController', [
         };
 
         $scope.showDataDetail = function (item) {
-            $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $localstorage.get('CEmp', '00')
+            $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $localstorage.get('global.empresa', '00')
                 + '&incoterm=' + item.codIncoterm); //$scope.query_incoterm.data[fIndex].codigo);
             $scope.promiseCostosAdic.then(function (result) {
                 $scope.selectedCostosAdic = [];
@@ -99,7 +99,7 @@ app.controller('incotermCostosAdicController', [
         };
 
         /** Llenamos la tabla */
-        $scope.promiseIncoterm = $consumeService.get('incoterms/?emp=' + $localstorage.get('CEmp', '00'));
+        $scope.promiseIncoterm = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promiseIncoterm.then(function (result) {
             $scope.selectedIncoterm = [];
             $scope.query_incoterm = result;
@@ -196,7 +196,7 @@ app.controller('incotermCostosAdicController', [
             };
 
             $scope.loadCostosAdic = function () {
-                var promise = $consumeService.get('fac-costos-adic/?emp=' + $localstorage.get('CEmp', '00'));
+                var promise = $consumeService.get('fac-costos-adic/?emp=' + $localstorage.get('global.empresa', '00'));
                 promise.then(function (result) {
                     $scope.costosAdic = result.data;
                     $scope.$applyAsync();

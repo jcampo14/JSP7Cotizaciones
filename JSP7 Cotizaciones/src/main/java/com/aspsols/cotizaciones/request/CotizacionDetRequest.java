@@ -20,6 +20,8 @@ public class CotizacionDetRequest implements Serializable {
 	private Double precioVenta;
 
 	private Integer descuento;
+	
+	private String codIva;
 
 	public String getcEmp() {
 		return cEmp;
@@ -69,6 +71,14 @@ public class CotizacionDetRequest implements Serializable {
 
 	public void setDescuento(Integer descuento) {
 		this.descuento = descuento;
+	}
+
+	public String getCodIva() {
+		return codIva;
+	}
+
+	public void setCodIva(String codIva) {
+		this.codIva = codIva;
 	}
 
 }

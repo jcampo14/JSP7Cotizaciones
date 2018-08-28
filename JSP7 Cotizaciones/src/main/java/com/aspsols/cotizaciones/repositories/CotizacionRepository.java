@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +15,7 @@ import com.aspsols.cotizaciones.request.CotizacionCostosRequest;
 import com.aspsols.cotizaciones.request.CotizacionDetRequest;
 import com.aspsols.cotizaciones.request.CotizacionRequest;
 import com.aspsols.cotizaciones.request.CotizacionSeccionesRequest;
+import com.aspsols.cotizaciones.utilities.QueryUtilities;
 
 @Repository
 public class CotizacionRepository {
@@ -29,15 +31,15 @@ public class CotizacionRepository {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 				PreparedStatement ps = connection.prepareStatement(sqlEnc, Statement.RETURN_GENERATED_KEYS);
-				ps.setString(1, idTransaccion);
-				ps.setString(2, record.getcEmp());
-				ps.setString(3, record.getcAgr());
-				ps.setString(4, record.getnIde());
-				ps.setString(5, record.getCriVenta());
-				ps.setString(6, record.getcSuc());
-				ps.setString(7, record.getIdioma());
-				ps.setString(8, record.getUsuario());
-				ps.setInt(9, record.getDiasValidez());
+				QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 2, record.getcEmp(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 3, record.getcAgr(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 4, record.getnIde(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 5, record.getCriVenta(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 6, record.getcSuc(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 7, record.getIdioma(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 8, record.getUsuario(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 9, record.getDiasValidez(), Types.VARCHAR);
 				return ps;
 			}
 		});
@@ -50,10 +52,10 @@ public class CotizacionRepository {
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 						PreparedStatement ps = connection.prepareStatement(sqlSecciones,
 								Statement.RETURN_GENERATED_KEYS);
-						ps.setString(1, idTransaccion);
-						ps.setString(2, item.getcEmp());
-						ps.setString(3, item.getCodSeccion());
-						ps.setString(4, item.getDescripcionFinal());
+						QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);
+						QueryUtilities.addSqlParameter(ps, 2, item.getcEmp(), Types.VARCHAR);
+						QueryUtilities.addSqlParameter(ps, 3, item.getCodSeccion(), Types.VARCHAR);
+						QueryUtilities.addSqlParameter(ps, 4, item.getDescripcionFinal(), Types.VARCHAR);
 						return ps;
 					}
 				});
@@ -62,18 +64,19 @@ public class CotizacionRepository {
 		/* Insertamos el detalle */
 		if (record.getDetalle().size() > 0) {
 			for (CotizacionDetRequest item : record.getDetalle()) {
-				String sqlDet = "insert into TMP_COT_DET(ID_TRANSACCION,C_EMP,COD,CAN,LIS,VEN,DCTO) values(?,?,?,?,?,?,?)";
+				String sqlDet = "insert into TMP_COT_DET(ID_TRANSACCION,C_EMP,COD,CAN,LIS,VEN,DCTO,COD_IVA) values(?,?,?,?,?,?,?,?)";
 				jdbcTemplate.update(new PreparedStatementCreator() {
 					@Override
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 						PreparedStatement ps = connection.prepareStatement(sqlDet, Statement.RETURN_GENERATED_KEYS);
-						ps.setString(1, idTransaccion);
-						ps.setString(2, item.getcEmp());
-						ps.setString(3, item.getCod());
-						ps.setDouble(4, item.getCantidad());
-						ps.setDouble(5, item.getPrecioLista());
-						ps.setDouble(6, item.getPrecioVenta());
-						ps.setDouble(7, item.getDescuento());
+						QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);
+						QueryUtilities.addSqlParameter(ps, 2, item.getcEmp(), Types.VARCHAR);
+						QueryUtilities.addSqlParameter(ps, 3, item.getCod(), Types.VARCHAR);
+						QueryUtilities.addSqlParameter(ps, 4, item.getCantidad(), Types.DOUBLE);
+						QueryUtilities.addSqlParameter(ps, 5, item.getPrecioLista(), Types.DOUBLE);
+						QueryUtilities.addSqlParameter(ps, 6, item.getPrecioVenta(), Types.DOUBLE);
+						QueryUtilities.addSqlParameter(ps, 7, item.getDescuento(), Types.DOUBLE);
+						QueryUtilities.addSqlParameter(ps, 8, item.getCodIva(), Types.VARCHAR);
 						return ps;
 					}
 				});
@@ -88,10 +91,10 @@ public class CotizacionRepository {
 						@Override
 						public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 							PreparedStatement ps = connection.prepareStatement(sqlDet, Statement.RETURN_GENERATED_KEYS);
-							ps.setString(1, idTransaccion);
-							ps.setString(2, item.getcEmp());
-							ps.setString(3, item.getIdFacCostosAdic());
-							ps.setDouble(4, item.getValor());							
+							QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);
+							QueryUtilities.addSqlParameter(ps, 2, item.getcEmp(), Types.VARCHAR);
+							QueryUtilities.addSqlParameter(ps, 3, item.getIdFacCostosAdic(), Types.VARCHAR);
+							QueryUtilities.addSqlParameter(ps, 4, item.getValor(), Types.VARCHAR);
 							return ps;
 						}
 					});
@@ -99,4 +102,5 @@ public class CotizacionRepository {
 			}
 		}
 	}
+
 }

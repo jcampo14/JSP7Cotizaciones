@@ -76,8 +76,9 @@ app.controller('Ctrl', [
             var promiseTerceros = $consumeService.get('terceros/?emp=' + $localstorage.get('global.empresa', null));
             var promiseidiomas = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', null));
             var promiseAgencias = $consumeService.get('agencias/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseIvas = $consumeService.get('descto-egr/?emp=' + $localstorage.get('global.empresa', null));
             $q.all([promiseSecciones, promiseArticulos, promiseIncoterms, promiseCriterios, promiseTerceros,
-                promiseidiomas, promiseAgencias]).then(function (values) {
+                promiseidiomas, promiseAgencias, promiseIvas]).then(function (values) {
                     $scope.secciones = values[0].data;
                     $scope.articulos = values[1].data;
                     $scope.incoterms = values[2].data;
@@ -85,6 +86,24 @@ app.controller('Ctrl', [
                     $scope.terceros = values[4].data;
                     $scope.idiomas = values[5].data;
                     $scope.agencias = values[6].data;
+                    $scope.ivas = values[7].data;
+                    // Agregamos opcion vacia (IVAS)
+                    var ivaNull = {
+                        "cEmp": $localstorage.get('global.empresa', null),
+                        "cDes": "",
+                        "nDes": "Sin IVA",
+                        "pctj": 0,
+                        "tipoImp": "IVA",
+                        "usoImp": "V"
+                    };
+                    $scope.ivas.unshift(ivaNull);
+                    // Agregamos Idioma vacio (IDIOMAS)
+                    var idiomaNull = {
+                        "cEmp": $localstorage.get('global.empresa', null),
+                        "idioma": "",
+                        "version": 0
+                    };
+                    $scope.idiomas.unshift(idiomaNull);
                     $scope.isLoading = false;
                 });
             /* Scope de modelos para el json */
@@ -142,9 +161,15 @@ app.controller('Ctrl', [
             });
         };
 
-        /* Agisnamos la descripcion del textarea al modelo de las secciones */
-        $scope.setDescripcion = function (index, value) {
-            $scope.secciones[index].descripcion_final = value;
+        $scope.changeIva = function () {
+            var iva = $filter('filter')($scope.ivas, { 'cDes': $scope.selectedIva }, true);
+            $scope.selectedDetalle.pctjIva = iva[0].pctj;
+        };
+
+        /* Asignamos la descripcion del textarea al modelo de las secciones */
+        $scope.setDescripcion = function (value) {
+            var seccion = value;
+            seccion.descripcion_final = seccion.seleccionado.descripcion;
         };
 
         /* Funciones */
@@ -152,7 +177,7 @@ app.controller('Ctrl', [
             if ($scope.selectedDetalle.cantidad == null || $scope.selectedDetalle.precio_lista == null
                 || $scope.selectedArticulo.cod == null || $scope.selectedDetalle.descuento == null
                 || $scope.selectedDetalle.precio_venta == null) {
-                swal("Mensaje JSP7", "El artículo ya ha sido ingresado en la cotización", "warning");
+                swal("Mensaje JSP7", "Faltan datos por llenar.", "warning");
             } else {
                 var o = $filter('filter')($scope.cot_det, { 'cod': $scope.selectedArticulo.cod }, true);
                 if (o.length == 0) {
@@ -164,11 +189,16 @@ app.controller('Ctrl', [
                         cantidad: $scope.selectedDetalle.cantidad,
                         precio_lista: $scope.selectedDetalle.precio_lista,
                         precio_venta: $scope.selectedDetalle.precio_venta,
-                        descuento: $scope.selectedDetalle.descuento
+                        descuento: $scope.selectedDetalle.descuento,
+                        iva: {
+                            "cDes": $scope.selectedIva,
+                            "pctj": $scope.selectedDetalle.pctjIva
+                        }
                     };
                     $scope.cot_det.push(itemToAdd);
                     delete $scope.selectedDetalle;
                     delete $scope.selectedArticulo;
+                    delete $scope.selectedIva;
                 } else {
                     swal("Mensaje JSP7", "El artículo ya ha sido ingresado en la cotización", "warning");
                 }
@@ -184,8 +214,13 @@ app.controller('Ctrl', [
                         $scope.cot_det[index].precio_lista = $scope.selectedDetalle.precio_lista;
                         $scope.cot_det[index].precio_venta = $scope.selectedDetalle.precio_venta;
                         $scope.cot_det[index].descuento = $scope.selectedDetalle.descuento;
+                        $scope.cot_det[index].iva = {
+                            "cDes": $scope.selectedIva,
+                            "pctj": $scope.selectedDetalle.pctjIva
+                        };
                         delete $scope.selectedDetalle;
                         delete $scope.selectedArticulo;
+                        delete $scope.selectedIva;
                         $scope.isDisabled = false;
                     }
                 }
@@ -201,6 +236,7 @@ app.controller('Ctrl', [
                         $scope.cot_det.splice(index, 1);
                         delete $scope.selectedDetalle;
                         delete $scope.selectedArticulo;
+                        delete $scope.selectedIva;
                         $scope.isDisabled = false;
                     }
                 }
@@ -217,8 +253,9 @@ app.controller('Ctrl', [
                     swal("Mensaje JSP7", "El artículo no tiene precio de lista", "warning");
                 } else {
                     $scope.selectedDetalle.precio_lista = result.pVen;
+                    $scope.selectedIva = $scope.selectedArticulo.idIva.cDes;
+                    $scope.selectedDetalle.pctjIva = $scope.selectedArticulo.idIva.pctj;
                 }
-
             });
         };
 
@@ -229,12 +266,15 @@ app.controller('Ctrl', [
             $scope.selectedDetalle.precio_lista = item.precio_lista;
             $scope.selectedDetalle.precio_venta = item.precio_venta;
             $scope.selectedDetalle.descuento = item.descuento;
+            $scope.selectedIva = item.iva.cDes;
+            $scope.selectedDetalle.pctjIva = item.iva.pctj;
             $scope.isDisabled = true;
         };
 
         $scope.clearEditarTable = function (item) {
             delete $scope.selectedDetalle;
             delete $scope.selectedArticulo;
+            delete $scope.selectedIva;
             $scope.isDisabled = false;
         };
 
@@ -263,7 +303,8 @@ app.controller('Ctrl', [
                     "cantidad": $scope.cot_det[index].cantidad,
                     "precioLista": $scope.cot_det[index].precio_lista,
                     "precioVenta": $scope.cot_det[index].precio_venta,
-                    "descuento": $scope.cot_det[index].descuento
+                    "descuento": $scope.cot_det[index].descuento,
+                    "codIva": $scope.cot_det[index].iva.cDes
                 };
                 detalle.push(itemDetalle);
                 index++;
@@ -291,6 +332,7 @@ app.controller('Ctrl', [
                 "cSuc": $scope.cot_enc.cSuc,
                 "idioma": $scope.cot_enc.idioma,
                 "usuario": $localstorage.get('global.usuario', null),
+                "diasValidez": $scope.cot_enc.diasValidez,
                 "secciones": secciones,
                 "detalle": detalle,
                 "costos": costos
@@ -306,8 +348,16 @@ app.controller('Ctrl', [
             };
             var promise = $consumeService.post(configRequest);
             promise.then(function (result) {
-                swal("Mensaje JSP7", result.message, "warning");
-                $scope.init();
+                if (result.success == true) {
+                    swal("Mensaje JSP7", result.message, "success");
+                    $scope.init();
+                } else {
+                    swal("Mensaje JSP7", result.message, "warning");
+                }                
             });
+        };
+
+        $scope.logIva = function () {
+            console.log($scope.selectedIva);
         };
     }]);
