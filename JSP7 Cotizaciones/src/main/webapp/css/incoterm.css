@@ -1,0 +1,54 @@
+.md-title{
+	font-family: PoppinsSemiBold;
+}
+
+.navbar-brand{
+	font-family: PoppinsSemiBold;
+}
+
+.md-toolbar-tools h2{
+	font-family: PoppinsMedium;
+}
+
+.form-group label, .form-group input{
+	font-family: PoppinsMedium;
+	font-size: 14px;
+}
+
+.form-group input{
+	font-family: PoppinsLight;
+	font-size: 14px;
+}
+
+.md-primary{
+	font-family: PoppinsLight;
+	padding: 1px 20px;
+}
+
+.showSweetAlert h2{
+	font-family: PoppinsSemiBold;
+}
+
+.showSweetAlert p{
+	font-family: PoppinsLight;
+}
+
+.showSweetAlert .confirm{
+	font-family: PoppinsBold;
+	background-color: rgb(33,150,243) !important;
+	transition: all 500ms ease;
+}
+
+.showSweetAlert .cancel{
+	font-family: PoppinsBold;
+	background-color: #878787 !important;
+	transition: all 500ms ease;
+}
+
+.showSweetAlert .confirm:hover{
+	background-color: rgb(30,136,229) !important;
+}
+
+.showSweetAlert .cancel:hover{
+	background-color: #666666 !important;
+}
