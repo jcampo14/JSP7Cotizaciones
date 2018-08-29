@@ -1,0 +1,144 @@
+@font-face{
+    font-family: PoppinsBlack;
+    src: url(../fonts/POPPINS-BLACK.OTF);
+}
+
+@font-face{
+    font-family: PoppinsBlackItalic;
+    src: url(../fonts/POPPINS-BLACKITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsBold;
+    src: url(../fonts/POPPINS-BOLD.OTF);
+}
+
+@font-face{
+    font-family: PoppinsBoldItalic;
+    src: url(../fonts/POPPINS-BOLDITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraBold;
+    src: url(../fonts/POPPINS-EXTRABOLD.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraBoldItalic;
+    src: url(../fonts/POPPINS-EXTRABOLDITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraLight;
+    src: url(../fonts/POPPINS-EXTRALIGHT.OTF);
+}
+
+@font-face{
+    font-family: PoppinsExtraLightItalic;
+    src: url(../fonts/POPPINS-EXTRALIGHTITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsItalic;
+    src: url(../fonts/POPPINS-ITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsLight;
+    src: url(../fonts/POPPINS-LIGHT.OTF);
+}
+
+@font-face{
+    font-family: PoppinsLightItalic;
+    src: url(../fonts/POPPINS-LIGHTITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsMedium;
+    src: url(../fonts/POPPINS-MEDIUM.OTF);
+}
+
+@font-face{
+    font-family: PoppinsMediumItalic;
+    src: url(../fonts/POPPINS-MEDIUMITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsRegular;
+    src: url(../fonts/POPPINS-REGULAR.OTF);
+}
+
+@font-face{
+    font-family: PoppinsSemiBold;
+    src: url(../fonts/POPPINS-SEMIBOLD.OTF);
+}
+
+@font-face{
+    font-family: PoppinsSemiBoldItalic;
+    src: url(../fonts/POPPINS-SEMIBOLDITALIC.OTF);
+}
+
+@font-face{
+    font-family: PoppinsThin;
+    src: url(../fonts/POPPINS-THIN.OTF);
+}
+
+@font-face{
+    font-family: PoppinsThinItalic;
+    src: url(../fonts/POPPINS-THINITALIC.OTF);
+}
+
+.md-title{
+	font-family: PoppinsSemiBold;
+}
+
+.navbar-brand{
+	font-family: PoppinsSemiBold;
+}
+
+.md-toolbar-tools h2{
+	font-family: PoppinsMedium;
+}
+
+.form-group label, .form-group input{
+	font-family: PoppinsMedium;
+	font-size: 14px;
+}
+
+.form-group input{
+	font-family: PoppinsLight;
+	font-size: 14px;
+}
+
+.md-primary{
+	font-family: PoppinsLight;
+	padding: 1px 20px;
+}
+
+.showSweetAlert h2{
+	font-family: PoppinsSemiBold;
+}
+
+.showSweetAlert p{
+	font-family: PoppinsLight;
+}
+
+.showSweetAlert .confirm{
+	font-family: PoppinsBold;
+	background-color: rgb(33,150,243) !important;
+	transition: all 500ms ease;
+}
+
+.showSweetAlert .cancel{
+	font-family: PoppinsBold;
+	background-color: #878787 !important;
+	transition: all 500ms ease;
+}
+
+.showSweetAlert .confirm:hover{
+	background-color: rgb(30,136,229) !important;
+}
+
+.showSweetAlert .cancel:hover{
+	background-color: #666666 !important;
+}
