@@ -255,6 +255,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     margin-bottom: 3%;
     display: inline-block;
     font-family:PoppinsExtraLight;
+    cursor:pointer;
 }
 .login-user{
 	text-transform:uppercase;
@@ -304,6 +305,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 }
 .product-descrip {
     padding: 10px;
+    cursor:pointer;
 }
 .full-star{
 	background-image: url('../img/estrella blanca.png');
@@ -325,6 +327,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 }
 .ratings{
 	width:50%;
+	height: 40px;
 }
 .best-score-products {
     padding: 30px 0 10px 0;
@@ -392,34 +395,28 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 	display:block;
 	margin:0;
 	width:100%;
-	white-space: nowrap;
 }
 .pregunta-icon{
 	background-image: url('../img/pregunta.png');
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: center;
-    width:70px;
-    height: 60px;
+    background-position: 0 center;
 }
 .phone-icon{
 	background-image: url('../img/llamanos.png');
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: center;
-    width:70px;
+    background-position: 0 center;
     height: 60px;
 }
 .ubication-icon{
 	background-image: url('../img/ubicacion.png');
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: center;
-    width:70px;
-    height: 60px;
+    background-position: 0 center;
 }
-.pregunta-description, .phone-description, .ubication-description{
-	padding-left: 20px;
+.information-description{
+    padding-left: 22%;
     line-height: 1.8em;
 }
 .information-section label:nth-child(1){
@@ -429,4 +426,103 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 	font-family:PoppinsExtraLight;
 	font-size:1.3em;
 
+}
+.map-container{
+	height:350px;
+}
+.map{
+	height:100%;
+}
+.footer-container{
+	padding:3% 10%;
+	background-color:#231F20;
+	color:#fff;
+	    font-family: PoppinsExtraLight;
+}
+.footer-title{
+	margin:10px 0;
+}
+.footer-title{
+    line-height: 1.5em;
+    font-family: PoppinsRegular;
+}
+.footer-description{
+	line-height: 1.5em;
+	font-size:1em;
+	margin: 20px 0;
+}
+.facebook{
+	background-image: url('../img/facebook.png');
+}
+.twitter{
+	background-image: url('../img/twitter.png');
+}
+.instagram{
+	background-image: url('../img/instagram.png');
+}
+.youtube{
+	background-image: url('../img/youtube.png');
+}
+.google{
+	background-image: url('../img/google.png');
+}
+
+.social-icon{
+	background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color:#FFF;
+    margin-right:5px;
+    width:40px;
+    height: 40px;
+}
+.service-text{
+	display:inline-block;
+	width:80%;
+}
+.service{
+	margin:15px 0;
+}
+.service img{
+	    vertical-align: top;
+}
+.information{
+    border: 2px solid #fff;
+    padding: 15px;
+    margin: 10px 0;
+    background-repeat: no-repeat;
+    background-position: 50px center;
+    text-indent: 90px;
+    width: 90%;
+}
+.call{
+	background-image:url('../img/llamar.png');
+}
+.contact{
+	background-image:url('../img/mensaje.png');
+}
+.download{
+	background-image:url('../img/descargar catalogo.png');	
+}
+.row-aspsols{
+	border-top:2px solid #3B393B;
+	background-color:#231F20;
+	margin: 0;
+	padding: 1% 10%;
+}
+.asp-logo{
+	background-image:url('../img/logo.png');	
+	background-size: contain;
+	background-repeat: no-repeat;
+    background-position: 95% center;
+    padding: 2% 0;
+    color:transparent;
+}
+.copyright{
+    padding: 2% 0;
+}
+.copyright-container{
+	background-color: #3B393B;
+	color:#D8D8D8;
+	margin:0;
 }

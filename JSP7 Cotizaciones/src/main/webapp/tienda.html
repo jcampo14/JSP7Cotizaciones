@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,10 +77,12 @@
 						<div class="see-more-product"><a><label style="margin:0;">Ver más</a></label></div>
 						</div>
 						<div class="product-footer align-items-center">
-								<div class="see" style="width:14.66%"></div>
-								<div class="cart" style="width:14.66%"></div>
-								<div class="favorite" style="width:14.66%"></div>
+							<div class="product-icons align-items-center" style="display:none;">
+								<div class="see"></div>
+								<div class="cart"></div>
+								<div class="favorite"></div>
 								<div style="width:5%"></div>
+							</div>	
 							<div class="ratings align-items-center">
 								<div class="full-star" ng-repeat="star in stars"></div>
 							</div>
@@ -128,42 +130,105 @@
     	</div>
     </div>
     <div class="container-fluid information-section align-items-center">
-    	<div class="col-lg-4 align-items-center zero-padding">
-    		<div class="pregunta-icon zero-padding"></div>
-    		<div class="zero-padding pregunta-description">
+    	<div class="col-lg-4 align-items-center zero-padding pregunta-icon">
+    		<div class="zero-padding information-description">
     			<label>¿Tienes alguna pregunta?</label>
     			<label>ventas@solagro.co</label>
     		</div>
     	</div>
-    	<div class="col-lg-1"></div>
-    	<div class="col-lg-3 align-items-center zero-padding">
-    		<div class="phone-icon zero-padding"></div>
-    		<div class="zero-padding phone-description">
+    	<div class="col-lg-4 align-items-center zero-padding phone-icon">
+    		<div class="zero-padding information-description">
     			<label>Llámamos</label>
     			<label>+57 314 5871729</label>
     		</div>
     	</div>
-    	<div class="col-lg-1"></div>
-    	<div class="col-lg-4 align-items-center zero-padding">
-    		<div class="ubication-icon zero-padding"></div>
-    		<div class="zero-padding ubication-description">
+    	<div class="col-lg-4 align-items-center zero-padding ubication-icon">
+    		<div class="zero-padding information-description">
     			<label>Nuestras Oficinas</label>
-    			<label>Km 7 Vía Aeropuerto de Barranquilla,<br>0803003 Soledad, Atlántico, Colombia</label>
+    			<label>Km 7 Vía Aeropuerto de Barranquilla, 0803003 Soledad, Atlántico, Colombia</label>
     		</div>
     	</div>    	
     </div>
+    <div class="container-fluid map-container zero-padding">
+    	<ng-map class="col-lg-12 zero-padding map" center="10.8997334,-74.76882569999998" zoom="15"> 
+    		<marker position="10.8997334,-74.76882569999998" title="Solagro"></marker> 
+    	</ng-map>
+    </div>
+    <div class="container-fluid footer-container zero-padding">
+    	<div class="row align-items-center" style="align-items: start;">
+    		<div class="col-lg-4">
+    			<div class="footer-title">
+    			<h4>Amamos quienes somos y estamos muy<br>orgullosos de ser parte de su negocio</h4>
+    			</div>
+    			<div class="footer-description">{{footerDescription}}</div>
+    			<div class="footer-social-media align-items-center">
+    				<a href="" target="_blank"><div class="social-icon facebook"></div></a>
+    				<a href="" target="_blank"><div class="social-icon google"></div></a>
+    				<a href="" target="_blank"><div class="social-icon twitter"></div></a>
+    				<a href="" target="_blank"><div class="social-icon facebook"></div></a>
+    				<a href="" target="_blank"><div class="social-icon instagram"></div></a>
+    			</div>
+    		</div>
+    		<div class="col-lg-4">
+    		   	<div class="footer-title" style="margin-bottom: 50px;">
+					<h4>Nuestros Servicios:</h4>
+    			</div>
+    			<div class="footer-description">
+    				<div class="service">
+    					<img src="../img/estrella blanca.png">
+    					<div class="service-text">Lorem Ipsum has been the industry's</div>
+    				</div>
+    				<div class="service">
+    					<img src="../img/estrella blanca.png">
+    					<div class="service-text">Lorem Ipsum has been the industry's</div>
+    				</div>
+    				<div class="service">
+    					<img src="../img/estrella blanca.png">
+    					<div class="service-text">Lorem Ipsum has been the industry's</div>
+    				</div>
+    				<div class="service">
+    					<img src="../img/estrella blanca.png">
+    					<div class="service-text">Lorem Ipsum has been the industry's</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="col-lg-4">
+    		   	<div class="footer-title">
+					<h4>Información:</h4>
+    			</div>
+    			<div class="footer-description">
+    				<div class="information call">Llámanos</div>
+    				<div class="information contact">Escríbenos</div>
+    				<div class="information download">Descargar Catálogo</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    	<div class="row row-aspsols">
+    		<div class="row zero-padding" style="margin:0;">
+	    		<div class="col-lg-6 zero-padding" style="padding: 2% 0;">Desarrollo por:</div>
+	    		<div class="col-lg-6 zero-padding asp-logo text-right">Desarrollo por:</div>
+    		</div>
+    	</div>
+    	<div class="row copyright-container">
+    		<div class="col-lg-12 text-center copyright">Copyright © 2018 Solagro Soluciones Agroindustriales S.A.S All Rights Reserved</div>
+    	</div>    
     <!-- Angular Material requires Angular.js Libraries -->
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-	<script type="text/javascript" src="js/jquery.js"></script>
+    
     <!-- Angular Material Library -->
     <script src="bower_components/angular-material/angular-material.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
     <script src="angular-sweetalert/SweetAlert.min.js"></script>
     <script src="sweetalert/lib/sweet-alert.min.js"></script>
+    
     <!-- module -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyDabocpr-2h_0kwCDQxeovvhCHJA6-ELFw"></script>
+	<script type="text/javascript" src="js/ng-map.min.js"></script>
     <script src="js/tienda.js"></script>
     <script src="js/utils.js"></script>
 </body>
