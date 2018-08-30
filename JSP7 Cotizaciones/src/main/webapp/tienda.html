@@ -71,10 +71,10 @@
 	        			</div> 
 	        	</div>
 	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 1.4%;">
-					<div class="producto" ng-repeat="product in products">
-						<div class="product-image"></div>
+					<div class="producto" ng-repeat="product in products.data">
+						<div class="product-image" style="background-image: url('{{product.url}}')"></div>
 						<div class="product-descrip">
-						<div class="product-name"><label style="margin:0;">Tractor para cosechas</label></div>
+						<div class="product-name"><label style="margin:0;">{{product.nombre}}</label></div>
 						<div class="see-more-product"><a><label style="margin:0;">Ver más</a></label></div>
 						</div>
 						<div class="product-footer align-items-center">

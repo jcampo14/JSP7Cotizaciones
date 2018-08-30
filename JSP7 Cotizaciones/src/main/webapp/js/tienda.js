@@ -11,7 +11,17 @@ app.controller('tiendaController', [
     '$http', '$mdDialog', 'SweetAlert',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog, SweetAlert) {
+    	
+    	$localstorage.set('global.empresa', '01');
+        $localstorage.set('global.usuario', 'ADMIN');
 
+    	$scope.promise = $consumeService.get('tienda/?emp=' + $localstorage.get('global.empresa', '01') + '&rama=D');
+    	
+    	$scope.promise.then(function (result) {
+            $scope.products = result;
+            $scope.$applyAsync();
+        });
+    		
     	$scope.titulo="Soluciones Agroindustriales";
     	$scope.items=[{name : "Inicio",
     					state:true}, 
@@ -46,24 +56,30 @@ app.controller('tiendaController', [
     	$scope.topStars=['1','2','3','4','5'];
     	$scope.arrows = ['<','>'];
     	$scope.pages=['1','2','3','4','5'];
-    	$scope.products=['1','2','3','4','5','6','7','8','9'];
+//    	$scope.products=['1','2','3','4','5','6','7','8','9'];
     	$scope.topProducts=['1','2','3','4','5'];
         $scope.credentials = {};
         
-        $( document ).ready(function() {
-	        $('.producto').hover(
-	        	function() {
-	        		 $( this ).find('.product-icons').fadeIn();
-	        		 $( this ).css('box-shadow','0px 0px 20px 5px rgba(0,0,0,0.4)');
-	        		 $( this ).find('.product-footer').css('padding','0');
-	        	}, function() {
-	        		 $( this ).find('.product-icons').fadeOut();
-	        		 $( this ).css('box-shadow','none');
-	        		 $( this ).find('.product-footer').css('padding','0 10px');
-	        	}
-	        );
-        });
-
+        $scope.hoverp = function() {
+	
+        }
+        
+        var refreshId = setInterval(function() { 
+        	if ($('.producto').length!=0) { 
+                $('.producto').hover(
+        	        	function() {
+        	        		 $( this ).find('.product-icons').fadeIn();
+        	        		 $( this ).css('box-shadow','0px 0px 20px 5px rgba(0,0,0,0.4)');
+        	        		 $( this ).find('.product-footer').css('padding','0');
+        	        	}, function() {
+        	        		 $( this ).find('.product-icons').fadeOut();
+        	        		 $( this ).css('box-shadow','none');
+        	        		 $( this ).find('.product-footer').css('padding','0 10px');
+        	        	}
+        	        );
+        	clearInterval(refreshId); 
+        	} 
+        	}, 3000); 
         /* Traemos las empresas para setear en el select */
 //        $scope.loadCompanies = function () {
 //            var promise = $consumeService.get('WSCotizaciones/listCompanies');
