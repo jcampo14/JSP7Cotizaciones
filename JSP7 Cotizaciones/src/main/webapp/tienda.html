@@ -27,7 +27,8 @@
 	        	<nav class="top-menu-nav">
 					<ul class="top-menu">
 						<li class="menu-item" ng-repeat="item in items">
-							<a href="">{{item.name}}</a>
+							<a class="active-a" ng-if="item.state" href="">{{item.name}}</a>
+							<a ng-if="!item.state"href="">{{item.name}}</a>
 						</li>
 					</ul>
 				</nav>
@@ -69,7 +70,7 @@
 		        			</div>
 	        			</div> 
 	        	</div>
-	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 1.5%;">
+	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 1.4%;">
 					<div class="producto" ng-repeat="product in products">
 						<div class="product-image"></div>
 						<div class="product-descrip">
@@ -108,7 +109,8 @@
     			<md-input-container class="filtrar-container text-right">
 				    <label>{{filtrar.name}}</label>
 					<md-select ng-model="ordenar2">
-						<md-option >
+						<md-option ng-repeat="ordenar in ordenados" ng-value="ordenar">
+						     {{ordenar}}
 						</md-option>
 					</md-select>
 				</md-input-container>
@@ -158,7 +160,7 @@
     	<div class="row align-items-center" style="align-items: start;">
     		<div class="col-lg-4">
     			<div class="footer-title">
-    			<h4>Amamos quienes somos y estamos muy<br>orgullosos de ser parte de su negocio</h4>
+    			<h4>Amamos quienes somos y estamos muy orgullosos de ser parte de su negocio</h4>
     			</div>
     			<div class="footer-description">{{footerDescription}}</div>
     			<div class="footer-social-media align-items-center">

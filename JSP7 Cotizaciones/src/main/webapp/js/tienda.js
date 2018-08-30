@@ -13,9 +13,13 @@ app.controller('tiendaController', [
         $window, $http, $mdDialog, SweetAlert) {
 
     	$scope.titulo="Soluciones Agroindustriales";
-    	$scope.items=[{name : "Inicio"}, 
-			   {name : "Nosotros"},
-			   {name : "Contacto"}];
+    	$scope.items=[{name : "Inicio",
+    					state:true}, 
+					  {name : "Nosotros",
+						state:false}, 
+					   {name : "Contacto",
+						state:false}
+					];
     	
     	$scope.ordenados = ['Opcion 1','Opcion 2','Opcion 3','Opcion 4','Opcion 5','Opcion 6'];
     	

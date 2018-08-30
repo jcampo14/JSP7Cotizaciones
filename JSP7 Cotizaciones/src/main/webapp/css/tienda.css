@@ -129,7 +129,7 @@ ul.top-menu {
     color: #F0F0F0;
     font-family: PoppinsSemiBold;
 }
-a, a:hover{
+a{
     color: inherit;
 }
 .login-button {
@@ -166,9 +166,12 @@ a, a:hover{
     border: 2px solid;
     padding: 10px;
     cursor:pointer;    
-    font-family: PoppinsExtraLight;
+    font-family: PoppinsRegular;
 }
 
+.active-a{
+	border-bottom: 5px solid;
+}
 .shop-section{
 	padding: 3% 10%;
     padding-bottom: 1%;
@@ -246,7 +249,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height:50vh;
+    height:300px;
 }
 
 .producto{
@@ -287,7 +290,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;	
-        cursor:pointer;
+    cursor:pointer;
     width: 40px;
     height: 40px;
 }
@@ -297,11 +300,13 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 .product-name{
 	font-size:1.5em;
     margin: 5px 0;
+    cursor:pointer;
 }
 .see-more-product{
 	color:#32903F;
     font-size: 1.3em;
     margin: 5px 0;
+        cursor:pointer;
 }
 .product-descrip {
     padding: 10px;
@@ -326,7 +331,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     cursor:pointer;    
 }
 .ratings{
-	width:50%;
+    width: 47%;
 	height: 40px;
 }
 .best-score-products {
@@ -525,4 +530,58 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 	background-color: #3B393B;
 	color:#D8D8D8;
 	margin:0;
+}
+
+::-webkit-scrollbar {
+  width:auto !important;
+  height: 10px !important;
+  background-color: #f0f0f0 !important;
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset -1px -1px 0 rgba(0, 0, 0, .07) !important;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: #eee !important;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 0.8em !important;
+  min-width: 0.8em !important;
+  background-color: rgb(50, 144, 63,.8) !important;
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset -1px -1px 0 rgba(0, 0, 0, .07) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb !important;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgb(50, 144, 63,.5) !important;
+}
+
+md-input-container label:not(.md-container-ignore) {
+    position: absolute;
+}
+
+md-input-container.filtrar-container .md-placeholder, md-input-container.filtrar-container label:not(.md-no-float):not(.md-container-ignore) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    order: 1;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
+    padding-left: 3px;
+    padding-right: 0;
+    z-index: 1;
+    -webkit-transform: translate3d(0,28px,0) scale(1);
+    transform: translate3d(0,28px,0) scale(0.75);
+    -webkit-transition: -webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: -webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    max-width: 100%;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
 }
