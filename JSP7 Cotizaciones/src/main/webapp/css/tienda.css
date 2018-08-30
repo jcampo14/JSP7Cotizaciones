@@ -129,7 +129,7 @@ ul.top-menu {
     color: #F0F0F0;
     font-family: PoppinsSemiBold;
 }
-a, a:hover{
+a{
     color: inherit;
 }
 .login-button {
@@ -166,9 +166,12 @@ a, a:hover{
     border: 2px solid;
     padding: 10px;
     cursor:pointer;    
-    font-family: PoppinsExtraLight;
+    font-family: PoppinsRegular;
 }
 
+.active-a{
+	border-bottom: 5px solid;
+}
 .shop-section{
 	padding: 3% 10%;
     padding-bottom: 1%;
@@ -246,7 +249,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height:50vh;
+    height:300px;
 }
 
 .producto{
@@ -255,6 +258,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     margin-bottom: 3%;
     display: inline-block;
     font-family:PoppinsExtraLight;
+    cursor:pointer;
 }
 .login-user{
 	text-transform:uppercase;
@@ -286,7 +290,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;	
-        cursor:pointer;
+    cursor:pointer;
     width: 40px;
     height: 40px;
 }
@@ -296,14 +300,17 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 .product-name{
 	font-size:1.5em;
     margin: 5px 0;
+    cursor:pointer;
 }
 .see-more-product{
 	color:#32903F;
     font-size: 1.3em;
     margin: 5px 0;
+        cursor:pointer;
 }
 .product-descrip {
     padding: 10px;
+    cursor:pointer;
 }
 .full-star{
 	background-image: url('../img/estrella blanca.png');
@@ -324,7 +331,8 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     cursor:pointer;    
 }
 .ratings{
-	width:50%;
+    width: 47%;
+	height: 40px;
 }
 .best-score-products {
     padding: 30px 0 10px 0;
@@ -392,34 +400,28 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 	display:block;
 	margin:0;
 	width:100%;
-	white-space: nowrap;
 }
 .pregunta-icon{
 	background-image: url('../img/pregunta.png');
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: center;
-    width:70px;
-    height: 60px;
+    background-position: 0 center;
 }
 .phone-icon{
 	background-image: url('../img/llamanos.png');
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: center;
-    width:70px;
+    background-position: 0 center;
     height: 60px;
 }
 .ubication-icon{
 	background-image: url('../img/ubicacion.png');
     background-size: auto;
     background-repeat: no-repeat;
-    background-position: center;
-    width:70px;
-    height: 60px;
+    background-position: 0 center;
 }
-.pregunta-description, .phone-description, .ubication-description{
-	padding-left: 20px;
+.information-description{
+    padding-left: 22%;
     line-height: 1.8em;
 }
 .information-section label:nth-child(1){
@@ -429,4 +431,157 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 	font-family:PoppinsExtraLight;
 	font-size:1.3em;
 
+}
+.map-container{
+	height:350px;
+}
+.map{
+	height:100%;
+}
+.footer-container{
+	padding:3% 10%;
+	background-color:#231F20;
+	color:#fff;
+	    font-family: PoppinsExtraLight;
+}
+.footer-title{
+	margin:10px 0;
+}
+.footer-title{
+    line-height: 1.5em;
+    font-family: PoppinsRegular;
+}
+.footer-description{
+	line-height: 1.5em;
+	font-size:1em;
+	margin: 20px 0;
+}
+.facebook{
+	background-image: url('../img/facebook.png');
+}
+.twitter{
+	background-image: url('../img/twitter.png');
+}
+.instagram{
+	background-image: url('../img/instagram.png');
+}
+.youtube{
+	background-image: url('../img/youtube.png');
+}
+.google{
+	background-image: url('../img/google.png');
+}
+
+.social-icon{
+	background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color:#FFF;
+    margin-right:5px;
+    width:40px;
+    height: 40px;
+}
+.service-text{
+	display:inline-block;
+	width:80%;
+}
+.service{
+	margin:15px 0;
+}
+.service img{
+	    vertical-align: top;
+}
+.information{
+    border: 2px solid #fff;
+    padding: 15px;
+    margin: 10px 0;
+    background-repeat: no-repeat;
+    background-position: 50px center;
+    text-indent: 90px;
+    width: 90%;
+}
+.call{
+	background-image:url('../img/llamar.png');
+}
+.contact{
+	background-image:url('../img/mensaje.png');
+}
+.download{
+	background-image:url('../img/descargar catalogo.png');	
+}
+.row-aspsols{
+	border-top:2px solid #3B393B;
+	background-color:#231F20;
+	margin: 0;
+	padding: 1% 10%;
+}
+.asp-logo{
+	background-image:url('../img/logo.png');	
+	background-size: contain;
+	background-repeat: no-repeat;
+    background-position: 95% center;
+    padding: 2% 0;
+    color:transparent;
+}
+.copyright{
+    padding: 2% 0;
+}
+.copyright-container{
+	background-color: #3B393B;
+	color:#D8D8D8;
+	margin:0;
+}
+
+::-webkit-scrollbar {
+  width:auto !important;
+  height: 10px !important;
+  background-color: #f0f0f0 !important;
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset -1px -1px 0 rgba(0, 0, 0, .07) !important;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: #eee !important;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 0.8em !important;
+  min-width: 0.8em !important;
+  background-color: rgb(50, 144, 63,.8) !important;
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset -1px -1px 0 rgba(0, 0, 0, .07) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb !important;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgb(50, 144, 63,.5) !important;
+}
+
+md-input-container label:not(.md-container-ignore) {
+    position: absolute;
+}
+
+md-input-container.filtrar-container .md-placeholder, md-input-container.filtrar-container label:not(.md-no-float):not(.md-container-ignore) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    order: 1;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
+    padding-left: 3px;
+    padding-right: 0;
+    z-index: 1;
+    -webkit-transform: translate3d(0,28px,0) scale(1);
+    transform: translate3d(0,28px,0) scale(0.75);
+    -webkit-transition: -webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: -webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    max-width: 100%;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
 }

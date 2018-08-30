@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'oitozero.ngSweetAlert', 'App.utils']);
+var app = angular.module('App', ['ngMaterial', 'oitozero.ngSweetAlert', 'App.utils','ngMap']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
@@ -13,9 +13,13 @@ app.controller('tiendaController', [
         $window, $http, $mdDialog, SweetAlert) {
 
     	$scope.titulo="Soluciones Agroindustriales";
-    	$scope.items=[{name : "Inicio"}, 
-			   {name : "Nosotros"},
-			   {name : "Contacto"}];
+    	$scope.items=[{name : "Inicio",
+    					state:true}, 
+					  {name : "Nosotros",
+						state:false}, 
+					   {name : "Contacto",
+						state:false}
+					];
     	
     	$scope.ordenados = ['Opcion 1','Opcion 2','Opcion 3','Opcion 4','Opcion 5','Opcion 6'];
     	
@@ -35,6 +39,9 @@ app.controller('tiendaController', [
 						   	{name : "Equipos Rurales"}, 
 						   	{name : "Repuestos"}];
     	
+    	$scope.footerDescription="is simply dummy text of the printing and typesetting industry. " +
+    			"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.";
+    	
     	$scope.stars=['1','2','3','4','5'];
     	$scope.topStars=['1','2','3','4','5'];
     	$scope.arrows = ['<','>'];
@@ -43,7 +50,19 @@ app.controller('tiendaController', [
     	$scope.topProducts=['1','2','3','4','5'];
         $scope.credentials = {};
         
-
+        $( document ).ready(function() {
+	        $('.producto').hover(
+	        	function() {
+	        		 $( this ).find('.product-icons').fadeIn();
+	        		 $( this ).css('box-shadow','0px 0px 20px 5px rgba(0,0,0,0.4)');
+	        		 $( this ).find('.product-footer').css('padding','0');
+	        	}, function() {
+	        		 $( this ).find('.product-icons').fadeOut();
+	        		 $( this ).css('box-shadow','none');
+	        		 $( this ).find('.product-footer').css('padding','0 10px');
+	        	}
+	        );
+        });
 
         /* Traemos las empresas para setear en el select */
 //        $scope.loadCompanies = function () {
