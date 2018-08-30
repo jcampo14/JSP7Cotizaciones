@@ -17,11 +17,12 @@ public class TercerosRepository {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(readOnly = true)
-	public List<Terceros> findByEmpresa(String empresa) {
+	public List<Terceros> findByEmpresa(String empresa, String filter) {
 		return jdbcTemplate.query("SELECT * FROM ("
 				+ " SELECT NVL(N.C_EMP,P.C_EMP) C_EMP, NVL(N.N_IDE,P.N_IDE) N_IDE, NVL(N.NOM,P.NOMBRE) NOMBRE"
 				+ " FROM PROSP_CL P" + " RIGHT JOIN (CLIENTE C JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP)"
-				+ " ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP)" + " WHERE C_EMP = ?", new Object[] { empresa },
-				new TercerosQuery());
+				+ " ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP)"
+				+ " WHERE C_EMP = ? AND (UPPER(NOMBRE) LIKE '%'||?||'%' OR UPPER(N_IDE) LIKE '%'||?||'%')",
+				new Object[] { empresa, filter, filter }, new TercerosQuery());
 	}
 }

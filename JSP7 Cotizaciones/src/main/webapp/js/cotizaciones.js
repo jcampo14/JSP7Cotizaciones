@@ -73,20 +73,18 @@ app.controller('Ctrl', [
             var promiseArticulos = $consumeService.get('articulos/?emp=' + $localstorage.get('global.empresa', null));
             var promiseIncoterms = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', null));
             var promiseCriterios = $consumeService.get('criterios/?emp=' + $localstorage.get('global.empresa', null));
-            var promiseTerceros = $consumeService.get('terceros/?emp=' + $localstorage.get('global.empresa', null));
             var promiseidiomas = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', null));
             var promiseAgencias = $consumeService.get('agencias/?emp=' + $localstorage.get('global.empresa', null));
             var promiseIvas = $consumeService.get('descto-egr/?emp=' + $localstorage.get('global.empresa', null));
-            $q.all([promiseSecciones, promiseArticulos, promiseIncoterms, promiseCriterios, promiseTerceros,
+            $q.all([promiseSecciones, promiseArticulos, promiseIncoterms, promiseCriterios,
                 promiseidiomas, promiseAgencias, promiseIvas]).then(function (values) {
                     $scope.secciones = values[0].data;
                     $scope.articulos = values[1].data;
                     $scope.incoterms = values[2].data;
                     $scope.criterios = values[3].data;
-                    $scope.terceros = values[4].data;
-                    $scope.idiomas = values[5].data;
-                    $scope.agencias = values[6].data;
-                    $scope.ivas = values[7].data;
+                    $scope.idiomas = values[4].data;
+                    $scope.agencias = values[5].data;
+                    $scope.ivas = values[6].data;
                     // Agregamos opcion vacia (IVAS)
                     var ivaNull = {
                         "cEmp": $localstorage.get('global.empresa', null),
@@ -122,6 +120,34 @@ app.controller('Ctrl', [
         };
         /* Iniciamos el formulario */
         $scope.init();
+
+        /* Autocomplete */
+        $scope.autocompleteTerceros = {
+            isDisabled: false,
+            noCache: true,
+            selectedItem: "",
+            searchText: "",
+            data: [],
+            selectItemChange: function (item) {
+                if (item) {
+                    $scope.cot_enc.nIde = item;
+                }
+            }
+        };
+
+        $scope.querySearchTerceros = function (query2) {
+            if (query2.length >= 3) {
+                var deferred = $q.defer();
+                var promise = $consumeService.get('terceros/?emp=' + $localstorage.get('global.empresa', null)
+                    + "&filter=" + query2.toUpperCase());
+                promise.then(function (result) {                    
+                    deferred.resolve(result.data);                                                            
+                });
+                return deferred.promise;                
+            } else {
+                return [];
+            }
+        };
 
         /* Limpiar el filtro del select */
         $scope.clearSelectFilter = function () {
@@ -353,7 +379,7 @@ app.controller('Ctrl', [
                     $scope.init();
                 } else {
                     swal("Mensaje JSP7", result.message, "warning");
-                }                
+                }
             });
         };
 

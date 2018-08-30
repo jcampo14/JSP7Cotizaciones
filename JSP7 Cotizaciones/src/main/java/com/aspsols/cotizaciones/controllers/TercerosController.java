@@ -16,14 +16,15 @@ import com.aspsols.cotizaciones.services.TercerosServices;
 public class TercerosController {
 
 	private static final String SERVICE_PATH = "/terceros/";
-	
+
 	@Autowired
 	private TercerosServices service;
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = SERVICE_PATH)
-	public QueryResponse<Terceros> findByEmpresa(@RequestParam("emp") String empresa){
+	public QueryResponse<Terceros> findByEmpresa(@RequestParam("emp") String empresa,
+			@RequestParam("filter") String filter) {
 		QueryResponse<Terceros> response = new QueryResponse<>();
-		List<Terceros> resultData = service.getTerceros(empresa);
+		List<Terceros> resultData = service.getTerceros(empresa, filter);
 		response.setCount(resultData.size());
 		response.setData(resultData);
 		return response;

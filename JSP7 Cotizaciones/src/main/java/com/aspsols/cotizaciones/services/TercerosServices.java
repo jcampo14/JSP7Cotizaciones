@@ -14,8 +14,8 @@ public class TercerosServices {
 	@Autowired
 	private TercerosRepository repository;
 	
-	public List<Terceros> getTerceros(String empresa){
-		return repository.findByEmpresa(empresa);
+	public List<Terceros> getTerceros(String empresa, String filter){
+		return repository.findByEmpresa(empresa, filter);
 	}
 	
 }

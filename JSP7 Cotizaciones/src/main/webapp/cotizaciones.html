@@ -82,6 +82,21 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Tercero</label>
+                                <md-autocomplete flex md-item-text="item.nombre" md-items="item in querySearchTerceros(autocompleteTerceros.searchText)" 
+                                    md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem"
+                                    md-no-cache="autocompleteTerceros.noCache" md-input-maxlength="30" md-input-name="autocompleteField"
+                                    md-selected-item-change="autocompleteTerceros.selectItemChange(item)" md-menu-class="autocomplete-custom-template">
+                                    <md-item-template>
+                                        <span class="item-metadata">
+                                            <span>
+                                                <strong>{{item.nIde}} - {{item.nombre}}</strong>
+                                            </span>
+                                        </span>
+                                    </md-item-template>
+                                </md-autocomplete>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label>Tercero</label>
                                 <md-select placeholder="Tercero" ng-model="cot_enc.nIde" md-on-close="clearSelectFilter()">
                                     <md-select-header class="demo-select-header">
                                         <input ng-model="searchTercero" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
@@ -89,7 +104,7 @@
                                     </md-select-header>
                                     <md-option ng-value="record.nIde" ng-repeat="record in terceros | filter:searchTercero">{{record.nIde}} - {{record.nombre}}</md-option>
                                 </md-select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
@@ -138,8 +153,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Selecione contenido para {{seccion.nombreSec}}</label>
-                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)"
-                                        md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
                                 </div>
@@ -287,8 +301,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Selecione contenido para {{seccion.nombreSec}}</label>
-                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)"
-                                        md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
                                 </div>

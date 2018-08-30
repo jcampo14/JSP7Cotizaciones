@@ -131,8 +131,20 @@ md-select {
 }
 
 .md-icon-button-png {
-    
     min-width: 0;
     min-height: 0;
     line-height: normal;
   }
+
+.md-autocomplete {
+    height: 30px !important;
+}
+
+md-autocomplete input:not(.md-input) {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+md-autocomplete md-autocomplete-wrap {
+    height: 30px !important;
+}
