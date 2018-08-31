@@ -15,7 +15,7 @@ public class TiendaServices {
 	@Autowired
 	TiendaRepository repository;
 	
-	public List<Tienda> getProducts(String emp, String rama){
-		return repository.QueryProducts(emp, rama);
+	public List<Tienda> getProducts(String emp, String rama, String imgprincipal){
+		return repository.QueryProducts(emp, rama, imgprincipal);
 	}
 }

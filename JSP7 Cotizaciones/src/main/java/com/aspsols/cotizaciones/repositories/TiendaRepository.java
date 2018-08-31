@@ -17,10 +17,10 @@ public class TiendaRepository {
 	private JdbcTemplate jdbcTemplate;
 	
 	@Transactional(readOnly = true)
-	public List<Tienda> QueryProducts(String c_emp, String rama){
+	public List<Tienda> QueryProducts(String c_emp, String rama, String imgPrincipal){
 		return jdbcTemplate.query("SELECT ar.nom as nombre, p.p_ven as precio, im.image_url as URL"
 				+ " FROM ARTICULO ar inner join PRECIO p on ar.c_emp = p.c_emp AND ar.cod = p.cod"
 				+ " inner join IMAGENES_ARTICULO im on ar.c_emp = im.c_emp AND ar.cod = im.codigo_articulo"
-				+ " WHERE ar.c_emp = ? AND ar.rama = ?", new Object[] {c_emp, rama}, new TiendaQuery());
+				+ " WHERE ar.c_emp = ? AND ar.rama = ? AND im.principal = ?", new Object[] {c_emp, rama, imgPrincipal}, new TiendaQuery());
 	}
 }

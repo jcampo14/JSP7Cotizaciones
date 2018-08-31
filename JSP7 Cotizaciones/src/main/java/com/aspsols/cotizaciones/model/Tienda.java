@@ -7,14 +7,12 @@ public class Tienda implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String nombre;
-	private String estado;
 	private Integer precio;
 	private String url;
 	
-	public Tienda(String nombre, String estado, Integer precio, String url) {
+	public Tienda(String nombre, Integer precio, String url) {
 		super();
 		this.nombre = nombre;
-		this.estado = estado;
 		this.precio = precio;
 		this.url = url;
 		
@@ -30,14 +28,6 @@ public class Tienda implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 	public Integer getPrecio() {

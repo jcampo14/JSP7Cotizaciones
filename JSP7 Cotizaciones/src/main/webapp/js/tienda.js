@@ -15,7 +15,7 @@ app.controller('tiendaController', [
     	$localstorage.set('global.empresa', '01');
         $localstorage.set('global.usuario', 'ADMIN');
 
-    	$scope.promise = $consumeService.get('tienda/?emp=' + $localstorage.get('global.empresa', '01') + '&rama=D');
+    	$scope.promise = $consumeService.get('tienda/?emp=' + $localstorage.get('global.empresa', '01') + '&rama=D' + '&imgprincipal=S');
     	
     	$scope.promise.then(function (result) {
             $scope.products = result;

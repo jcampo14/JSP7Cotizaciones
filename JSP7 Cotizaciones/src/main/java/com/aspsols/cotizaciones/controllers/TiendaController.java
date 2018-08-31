@@ -23,9 +23,10 @@ public class TiendaController {
 	
 	@RequestMapping(method=RequestMethod.GET, path=SERVICE_PATH)
 	public QueryResponse<Tienda> getProductsService(@RequestParam("emp") String emp,
-													@RequestParam("rama") String rama){
+													@RequestParam("rama") String rama,
+													@RequestParam("imgprincipal") String imgprincipal){
 		QueryResponse<Tienda> response = new QueryResponse<>();
-		List<Tienda> list = service.getProducts(emp, rama);
+		List<Tienda> list = service.getProducts(emp, rama, imgprincipal);
 		response.setCount(list.size());
 		response.setData(list);
 		return response;
