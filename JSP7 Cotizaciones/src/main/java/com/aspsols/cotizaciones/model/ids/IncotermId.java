@@ -5,9 +5,8 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 
-
 public class IncotermId implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -15,9 +14,9 @@ public class IncotermId implements Serializable {
 
 	@Column(name = "C_EMP")
 	private String cEmp;
- 
-    @Column(name = "COD_INCOTERM")
-    private String codIncoterm;	
+
+	@Column(name = "COD_INCOTERM")
+	private String codIncoterm;
 
 	public String getcEmp() {
 		return cEmp;
@@ -34,11 +33,20 @@ public class IncotermId implements Serializable {
 	public void setCodIncoterm(String codIncoterm) {
 		this.codIncoterm = codIncoterm;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		IncotermId that = (IncotermId) o;
+		return codIncoterm.equals(that.codIncoterm) && cEmp.equals(that.cEmp);
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(cEmp, codIncoterm);
 	}
-		
 
 }

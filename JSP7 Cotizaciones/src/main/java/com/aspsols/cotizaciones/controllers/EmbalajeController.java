@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.Embalaje;
-import com.aspsols.cotizaciones.model.Incoterm;
 import com.aspsols.cotizaciones.model.lists.EmbalajeList;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.responses.QueryResponse;

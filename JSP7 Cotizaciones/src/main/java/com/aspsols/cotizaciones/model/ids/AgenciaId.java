@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -42,5 +43,20 @@ public class AgenciaId implements Serializable {
 	public void setcAge(String cAge) {
 		this.cAge = cAge;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		AgenciaId that = (AgenciaId) o;		
+		return cEmp.equals(that.cEmp) && cAge.equals(that.cAge);
+	}
+	
+	@Override
+    public int hashCode() {
+        return Objects.hash(getcEmp(), getcAge());
+    }
 
 }

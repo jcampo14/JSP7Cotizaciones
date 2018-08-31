@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -53,6 +54,21 @@ public class SucCliId implements Serializable {
 
 	public void setcSuc(String cSuc) {
 		this.cSuc = cSuc;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		SucCliId that = (SucCliId) o;
+		return nIde.equals(that.nIde) && cEmp.equals(that.cEmp) && cSuc.equals(that.cSuc);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getnIde(), getcSuc());
 	}
 
 }

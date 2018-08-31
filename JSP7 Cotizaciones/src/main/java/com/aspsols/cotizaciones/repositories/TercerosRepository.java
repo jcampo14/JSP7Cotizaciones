@@ -22,7 +22,7 @@ public class TercerosRepository {
 				+ " SELECT NVL(N.C_EMP,P.C_EMP) C_EMP, NVL(N.N_IDE,P.N_IDE) N_IDE, NVL(N.NOM,P.NOMBRE) NOMBRE"
 				+ " FROM PROSP_CL P" + " RIGHT JOIN (CLIENTE C JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP)"
 				+ " ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP)"
-				+ " WHERE C_EMP = ? AND (UPPER(NOMBRE) LIKE '%'||?||'%' OR UPPER(N_IDE) LIKE '%'||?||'%')",
+				+ " WHERE C_EMP = ? AND (UPPER(NOMBRE) LIKE '%'||UPPER(?)||'%' OR UPPER(N_IDE) LIKE '%'||UPPER(?)||'%')",
 				new Object[] { empresa, filter, filter }, new TercerosQuery());
 	}
 }

@@ -1,7 +1,6 @@
 package com.aspsols.cotizaciones.querys;
 
 import java.sql.ResultSet;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;

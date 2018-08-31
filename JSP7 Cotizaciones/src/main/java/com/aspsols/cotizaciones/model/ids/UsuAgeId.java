@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -37,6 +38,21 @@ public class UsuAgeId implements Serializable {
 
 	public void setcEmp(String cEmp) {
 		this.cEmp = cEmp;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		UsuAgeId that = (UsuAgeId) o;
+		return usuario.equals(that.usuario) && cEmp.equals(that.cEmp);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getUsuario());
 	}
 
 }

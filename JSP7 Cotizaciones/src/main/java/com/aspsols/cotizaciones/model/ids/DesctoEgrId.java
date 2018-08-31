@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -41,6 +42,21 @@ public class DesctoEgrId implements Serializable{
 
 	public void setcDes(String cDes) {
 		this.cDes = cDes;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		DesctoEgrId that = (DesctoEgrId) o;
+		return cDes.equals(that.cDes) && cEmp.equals(that.cEmp);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getcDes());
 	}
 
 }

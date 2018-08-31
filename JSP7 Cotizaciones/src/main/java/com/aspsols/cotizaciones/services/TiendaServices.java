@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aspsols.cotizaciones.model.Tienda;
-import com.aspsols.cotizaciones.repositories.EmbalajeRepository;
 import com.aspsols.cotizaciones.repositories.TiendaRepository;
 
 @Service

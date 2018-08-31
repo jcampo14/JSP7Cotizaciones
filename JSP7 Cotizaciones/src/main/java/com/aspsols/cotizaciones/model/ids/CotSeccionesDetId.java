@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -53,6 +54,21 @@ public class CotSeccionesDetId implements Serializable {
 
 	public void setCodVal(String codVal) {
 		this.codVal = codVal;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		CotSeccionesDetId that = (CotSeccionesDetId) o;
+		return codSeccion.equals(that.codSeccion) && codVal.equals(that.codVal) && cEmp.equals(that.cEmp);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getCodSeccion(), getCodVal());
 	}
 
 }
