@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aspsols.cotizaciones.model.Terceros;
 import com.aspsols.cotizaciones.model.Tienda;
 import com.aspsols.cotizaciones.responses.QueryResponse;
 import com.aspsols.cotizaciones.services.TiendaServices;

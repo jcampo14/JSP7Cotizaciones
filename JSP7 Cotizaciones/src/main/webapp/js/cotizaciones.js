@@ -70,21 +70,19 @@ app.controller('Ctrl', [
             delete $scope.selectedDetalle;
             /* Traemos los valores inciales */
             var promiseSecciones = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', null));
-            var promiseArticulos = $consumeService.get('articulos/?emp=' + $localstorage.get('global.empresa', null));
             var promiseIncoterms = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', null));
             var promiseCriterios = $consumeService.get('criterios/?emp=' + $localstorage.get('global.empresa', null));
             var promiseidiomas = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', null));
             var promiseAgencias = $consumeService.get('agencias/?emp=' + $localstorage.get('global.empresa', null));
             var promiseIvas = $consumeService.get('descto-egr/?emp=' + $localstorage.get('global.empresa', null));
-            $q.all([promiseSecciones, promiseArticulos, promiseIncoterms, promiseCriterios,
+            $q.all([promiseSecciones, promiseIncoterms, promiseCriterios,
                 promiseidiomas, promiseAgencias, promiseIvas]).then(function (values) {
                     $scope.secciones = values[0].data;
-                    $scope.articulos = values[1].data;
-                    $scope.incoterms = values[2].data;
-                    $scope.criterios = values[3].data;
-                    $scope.idiomas = values[4].data;
-                    $scope.agencias = values[5].data;
-                    $scope.ivas = values[6].data;
+                    $scope.incoterms = values[1].data;
+                    $scope.criterios = values[2].data;
+                    $scope.idiomas = values[3].data;
+                    $scope.agencias = values[4].data;
+                    $scope.ivas = values[5].data;
                     // Agregamos opcion vacia (IVAS)
                     var ivaNull = {
                         "cEmp": $localstorage.get('global.empresa', null),
@@ -124,28 +122,50 @@ app.controller('Ctrl', [
         /* Autocomplete */
         $scope.autocompleteTerceros = {
             isDisabled: false,
+            noCache: false,
+            selectedItem: "",
+            searchText: "",
+            selectedPrevious: "",
+            selectItemChange: function (item) {
+                if (item) {
+                    $scope.cot_enc.nIde = item.nIde;
+                }
+                console.log('Actual: ' + $scope.cot_enc.nIde + '\nSeleccionado: ' + $scope.autocompleteTerceros.selectedItem);
+            },
+            querySearch: function (query) {
+                return $http.get('terceros/?emp=' + $localstorage.get('global.empresa', null) + '&filter=' + escape(query))
+                    .then(function (result) {
+                        return result.data.data;
+                    }, function error(error) {
+                        console.log(error);
+                    });
+            }
+        };
+
+        $scope.autocompleteArticulos = {
+            isDisabled: false,
             noCache: true,
             selectedItem: "",
             searchText: "",
             data: [],
             selectItemChange: function (item) {
                 if (item) {
-                    $scope.cot_enc.nIde = item;
+                    $scope.selectedArticulo = item;
+                    $scope.$applyAsync;
                 }
-            }
-        };
-
-        $scope.querySearchTerceros = function (query2) {
-            if (query2.length >= 3) {
-                var deferred = $q.defer();
-                var promise = $consumeService.get('terceros/?emp=' + $localstorage.get('global.empresa', null)
-                    + "&filter=" + query2.toUpperCase());
-                promise.then(function (result) {                    
-                    deferred.resolve(result.data);                                                            
-                });
-                return deferred.promise;                
-            } else {
-                return [];
+            },
+            querySearch: function (query2) {
+                if (query2.length >= 3) {
+                    var deferred = $q.defer();
+                    var promise = $consumeService.get('articulos/?emp=' + $localstorage.get('global.empresa', null)
+                        + "&filter=" + query2.toUpperCase());
+                    promise.then(function (result) {
+                        deferred.resolve(result.data);
+                    });
+                    return deferred.promise;
+                } else {
+                    return [];
+                }
             }
         };
 

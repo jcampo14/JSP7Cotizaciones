@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -41,6 +42,21 @@ public class ClienteId implements Serializable {
 
 	public void setnIde(String nIde) {
 		this.nIde = nIde;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ClienteId that = (ClienteId) o;		
+		return cEmp.equals(that.cEmp) && nIde.equals(that.nIde);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getnIde());
 	}
 
 }

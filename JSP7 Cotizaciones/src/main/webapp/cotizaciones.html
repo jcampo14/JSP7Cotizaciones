@@ -79,19 +79,19 @@
                                 </md-select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Tercero</label>
-                                <md-autocomplete flex md-item-text="item.nombre" md-items="item in querySearchTerceros(autocompleteTerceros.searchText)" 
+                                <md-autocomplete flex md-item-text="item.nIde + ' - ' + item.nombre" md-items="item in autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
+                                    md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
                                     md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem"
-                                    md-no-cache="autocompleteTerceros.noCache" md-input-maxlength="30" md-input-name="autocompleteField"
-                                    md-selected-item-change="autocompleteTerceros.selectItemChange(item)" md-menu-class="autocomplete-custom-template">
+                                    md-no-cache="autocompleteTerceros.noCache" md-input-name="autocompleteField" md-selected-item-change="autocompleteTerceros.selectItemChange(item)"
+                                    md-min-length="3" md-menu-class="autocomplete-custom-template">
                                     <md-item-template>
                                         <span class="item-metadata">
                                             <span>
                                                 <strong>{{item.nIde}} - {{item.nombre}}</strong>
                                             </span>
-                                        </span>
                                     </md-item-template>
                                 </md-autocomplete>
                             </div>
@@ -102,7 +102,7 @@
                                         <input ng-model="searchTercero" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
                                             ng-keydown="$event.stopPropagation()" force-select-focus>
                                     </md-select-header>
-                                    <md-option ng-value="record.nIde" ng-repeat="record in terceros | filter:searchTercero">{{record.nIde}} - {{record.nombre}}</md-option>
+                                    <md-option ng-value="record.nIde" ng-repeat="record in TercerosquerySearch(searchTercero)">{{record.nIde}} - {{record.nombre}}</md-option>
                                 </md-select>
                             </div> -->
                         </div>
@@ -188,17 +188,30 @@
                         </div>
                         <div class="col-md-10">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Articulo</label>
-                                        <md-select placeholder="Articulo" ng-model="selectedArticulo" ng-change="buscarPrecioVenta(selectedArticulo.cEmp, selectedArticulo.cod)"
+                                        <md-autocomplete flex md-item-text="articulo.cod + ' - ' + articulo.nom" md-items="articulo in autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
+                                            md-search-text="autocompleteArticulos.searchText" md-selected-item="autocompleteArticulos.selectedItem"
+                                            md-no-cache="autocompleteArticulos.noCache" md-input-name="autocompleteFieldArticulo"
+                                            md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)" md-menu-class="autocomplete-custom-template"
+                                            md-min-length="3">
+                                            <md-item-template>
+                                                <span class="item-metadata">
+                                                    <span>
+                                                        <strong>{{articulo.cod}} - {{articulo.nom}}</strong>
+                                                    </span>
+                                                </span>
+                                            </md-item-template>
+                                        </md-autocomplete>
+                                        <!-- <md-select placeholder="Articulo" ng-model="selectedArticulo" ng-change="buscarPrecioVenta(selectedArticulo.cEmp, selectedArticulo.cod)"
                                             md-on-close="clearSelectFilter()" ng-disabled="isDisabled">
                                             <md-select-header class="demo-select-header">
                                                 <input ng-model="searchArticulo" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
                                                     style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                                             </md-select-header>
                                             <md-option ng-value="articulo" ng-repeat="articulo in articulos | filter:searchArticulo">{{articulo.cod}} - {{articulo.nom}}</md-option>
-                                        </md-select>
+                                        </md-select> -->
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -327,7 +340,6 @@
         <script src="bower_components/angular-material/angular-material.min.js"></script>
         <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
         <script src="angular-sweetalert/SweetAlert.min.js"></script>
-        <script src="sweetalert/lib/sweet-alert.min.js"></script>
         <script src="node_modules/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
         <!-- module -->
         <script src="js/cotizaciones.js"></script>

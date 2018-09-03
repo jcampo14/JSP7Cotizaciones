@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aspsols.cotizaciones.model.Embalaje;
-import com.aspsols.cotizaciones.model.Incoterm;
 import com.aspsols.cotizaciones.model.ids.EmbalajeId;
 
 public interface EmbalajeRepository extends CrudRepository<Embalaje, EmbalajeId>{

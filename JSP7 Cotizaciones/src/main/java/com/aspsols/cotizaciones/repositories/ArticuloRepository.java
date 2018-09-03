@@ -9,6 +9,7 @@ import com.aspsols.cotizaciones.model.ids.ArticuloId;
 
 public interface ArticuloRepository extends CrudRepository<Articulo, ArticuloId> {
 
-	@Query("FROM Articulo WHERE fact = 'S' AND rama = 'D' AND cEmp = :empresa")
-	public Iterable<Articulo> findByEmpresa(@Param("empresa") String empresa);
+	@Query("FROM Articulo WHERE (cod LIKE '%'||:filtro||'%' OR nom LIKE '%'||:filtro||'%') AND fact = 'S' "
+			+ "AND rama = 'D' AND cEmp = :empresa")
+	public Iterable<Articulo> findByEmpresa(@Param("empresa") String empresa, @Param("filtro") String filtro);
 }

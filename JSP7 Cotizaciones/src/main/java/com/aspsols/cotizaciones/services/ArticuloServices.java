@@ -14,7 +14,7 @@ public class ArticuloServices {
 	@Autowired
 	private ArticuloRepository repository;
 	
-	public List<Articulo> showByEmpresa(String empresa) {
-		return (List<Articulo>) repository.findByEmpresa(empresa);
+	public List<Articulo> showByEmpresa(String empresa, String filtro) {
+		return (List<Articulo>) repository.findByEmpresa(empresa, filtro);
 	}
 }

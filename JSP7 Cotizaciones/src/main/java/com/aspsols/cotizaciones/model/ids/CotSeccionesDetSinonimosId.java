@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -65,6 +66,22 @@ public class CotSeccionesDetSinonimosId implements Serializable {
 
 	public void setIdioma(String idioma) {
 		this.idioma = idioma;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		CotSeccionesDetSinonimosId that = (CotSeccionesDetSinonimosId) o;
+		return codSeccion.equals(that.codSeccion) && codVal.equals(that.codVal) && cEmp.equals(that.cEmp)
+				&& idioma.equals(that.idioma);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getCodSeccion(), getCodVal(), getIdioma());
 	}
 
 }

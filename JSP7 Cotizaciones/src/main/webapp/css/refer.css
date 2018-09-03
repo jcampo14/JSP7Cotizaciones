@@ -136,7 +136,7 @@ md-select {
     line-height: normal;
   }
 
-.md-autocomplete {
+md-autocomplete {
     height: 30px !important;
 }
 

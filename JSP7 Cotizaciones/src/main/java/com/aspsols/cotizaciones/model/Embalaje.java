@@ -9,7 +9,6 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import com.aspsols.cotizaciones.model.ids.EmbalajeId;
-import com.aspsols.cotizaciones.model.ids.IncotermId;
 
 @Entity(name = "Embalaje")
 @Table(name = "Embalaje")

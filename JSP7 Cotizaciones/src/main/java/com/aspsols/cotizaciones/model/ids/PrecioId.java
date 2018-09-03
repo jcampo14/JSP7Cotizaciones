@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -53,6 +54,21 @@ public class PrecioId implements Serializable {
 
 	public void setCri(String cri) {
 		this.cri = cri;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		PrecioId that = (PrecioId) o;		
+		return cEmp.equals(that.cEmp) && cod.equals(that.cod) && cri.equals(that.cri);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getCod(), getCri());
 	}
 
 }

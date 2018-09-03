@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -33,5 +34,20 @@ public class EmbalajeId implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		EmbalajeId that = (EmbalajeId) o;
+		return cEmb.equals(that.cEmb) && cEmp.equals(that.cEmp);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getcEmb());
 	}
 }
