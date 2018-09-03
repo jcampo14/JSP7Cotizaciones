@@ -102,7 +102,7 @@ body{
     background-position:center;
 }
 .logo {
-    background-image: url('/img/logo pequeño.png');
+    background-image: url('/img/logoproductdefault.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -245,7 +245,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 }
 .product-image{
 	background-color:#EDEDED;
-    background-image: url('/img/logo pequeño.png');
+    background-image: url('/img/logoproductde.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -345,7 +345,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 
 .top-product-image{
 	background-color:#EDEDED;
-    background-image: url('/img/logo pequeño.png');
+    background-image: url('/img/logoproductdefault.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -585,3 +585,12 @@ md-input-container.filtrar-container .md-placeholder, md-input-container.filtrar
     -webkit-transform-origin: left top;
     transform-origin: left top;
 }
+
+.pagination ul>li:first-child>a{
+	
+}
+
+.pagination ul>li:first-child>a:before{
+	
+}
+

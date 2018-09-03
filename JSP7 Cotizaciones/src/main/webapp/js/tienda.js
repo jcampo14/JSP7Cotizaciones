@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'oitozero.ngSweetAlert', 'App.utils','ngMap']);
+var app = angular.module('App', ['ngMaterial', 'ui.bootstrap','oitozero.ngSweetAlert', 'App.utils','ngMap']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
@@ -14,14 +14,61 @@ app.controller('tiendaController', [
     	
     	$localstorage.set('global.empresa', '01');
         $localstorage.set('global.usuario', 'ADMIN');
-
-    	$scope.promise = $consumeService.get('tienda/?emp=' + $localstorage.get('global.empresa', '01') + '&rama=D' + '&imgprincipal=S');
+        
+    	$scope.currentPage = 1;
+    	$scope.numContPage = 9;
+    	$scope.maxSize = 9;
+    	$scope.filterProducts = [];
+        
+    	$scope.init = function (){
+    		$scope.promise = $consumeService.get('tienda/?emp=' + $localstorage.get('global.empresa', '01') + '&rama=D' + '&imgprincipal=S');
+        	
+        	$scope.promise.then(function (result) {
+                $scope.products = result;
+                $scope.paintProducts();
+                $scope.$applyAsync();
+            });
+    	}
     	
-    	$scope.promise.then(function (result) {
-            $scope.products = result;
-            $scope.$applyAsync();
-        });
+    	$scope.init();
+    	
+    	$scope.paintProducts = function(){
     		
+    		$scope.numContForPages = function () {
+    		    return Math.ceil($scope.products.count / $scope.numContPage);
+    		  };
+        	  
+    		  $scope.$watch('currentPage + numPerPage', function() {
+      		    $scope.begin = (($scope.currentPage - 1) * $scope.numContPage);
+      		    $scope.end = $scope.begin + $scope.numContPage;
+      		    
+      		    $scope.filterProducts = $scope.products.data.slice($scope.begin, $scope.end);
+      		    $scope.hoverProducts();
+      		    $scope.numContForPages();
+      		    
+      		    $scope.begin = $scope.begin + 1;
+      		    
+      		    if($scope.end > $scope.products.count){
+      		    	$scope.end = $scope.products.count;
+      		    }else{
+      		    	$scope.end = $scope.end;
+      		    }
+      		    
+      		  });
+    	}
+    	
+    	$scope.getImgUrl = function(productoo){
+    		$scope.img = this.product.url;
+    		$scope.precio = this.product.precio;
+    		$scope.codigo = this.product.codigo;
+    		
+    		if($scope.img != null || $scope.img != undefined){
+    			return $('#product-image-'+$scope.codigo+'-'+$scope.precio).css('background-image', 'url('+$scope.img+')');
+    		}else{
+    			return $('#product-image-'+$scope.codigo+'-'+$scope.precio).css('background-image','url(img/logoproductdefault.png)');
+    		}
+    	}
+    	
     	$scope.titulo="Soluciones Agroindustriales";
     	$scope.items=[{name : "Inicio",
     					state:true}, 
@@ -55,62 +102,27 @@ app.controller('tiendaController', [
     	$scope.stars=['1','2','3','4','5'];
     	$scope.topStars=['1','2','3','4','5'];
     	$scope.arrows = ['<','>'];
-    	$scope.pages=['1','2','3','4','5'];
-//    	$scope.products=['1','2','3','4','5','6','7','8','9'];
     	$scope.topProducts=['1','2','3','4','5'];
         $scope.credentials = {};
         
-        $scope.hoverp = function() {
-	
+        $scope.hoverProducts = function (){
+            var refreshId = setInterval(function() { 
+            	if ($('.producto').length!=0) { 
+                    $('.producto').hover(
+            	        	function() {
+            	        		 $( this ).find('.product-icons').fadeIn();
+            	        		 $( this ).css('box-shadow','0px 0px 20px 5px rgba(0,0,0,0.4)');
+            	        		 $( this ).find('.product-footer').css('padding','0');
+            	        	}, function() {
+            	        		 $( this ).find('.product-icons').fadeOut();
+            	        		 $( this ).css('box-shadow','none');
+            	        		 $( this ).find('.product-footer').css('padding','0 10px');
+            	        	}
+            	        );
+            	clearInterval(refreshId); 
+            	} 
+            	}, 3000); 
         }
-        
-        var refreshId = setInterval(function() { 
-        	if ($('.producto').length!=0) { 
-                $('.producto').hover(
-        	        	function() {
-        	        		 $( this ).find('.product-icons').fadeIn();
-        	        		 $( this ).css('box-shadow','0px 0px 20px 5px rgba(0,0,0,0.4)');
-        	        		 $( this ).find('.product-footer').css('padding','0');
-        	        	}, function() {
-        	        		 $( this ).find('.product-icons').fadeOut();
-        	        		 $( this ).css('box-shadow','none');
-        	        		 $( this ).find('.product-footer').css('padding','0 10px');
-        	        	}
-        	        );
-        	clearInterval(refreshId); 
-        	} 
-        	}, 3000); 
-        /* Traemos las empresas para setear en el select */
-//        $scope.loadCompanies = function () {
-//            var promise = $consumeService.get('WSCotizaciones/listCompanies');
-//            promise.then(function (result) {
-//                // this is only run after getData() resolves        
-//                $scope.companies = result.data;
-//                $scope.$applyAsync();
-//            });
-//        };
-//
-//        $scope.iniciarSesion = function () {
-//            if ($scope.credentials.username == null || $scope.credentials.password == null
-//                || $scope.credentials.company == null) {
-//                swal("Mensaje JSP7", "Faltan campos por llenar.", "error");
-//            } else {
-//                var promise = $consumeService.get("WSCotizaciones/login?usuario="
-//                    + $scope.credentials.username + "&clave=" + $scope.credentials.password
-//                    + "&emp=" + $scope.credentials.company);
-//                promise.then(function (result) {
-//                    if (result.response.success == true) {
-//                        $localstorage.set('global.empresa', $scope.credentials.company);
-//                        $localstorage.set('global.usuario', $scope.credentials.username);
-//                        /* Seteamos el nombre de usuario */
-//                        $localstorage.set('global.nombreUsuario', result.response.message);
-//
-//                        $window.location.href = 'menu.html';
-//                    } else {
-//                        swal("Mensaje JSP7", result.message, "error");
-//                    }
-//                });
-//            }
-//        }
+
 
     }]);

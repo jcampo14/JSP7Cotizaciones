@@ -7,6 +7,7 @@
     <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="sweetalert/lib/sweet-alert.css">
     <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link data-require="bootstrap-css@2.3.2" data-semver="2.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
     <link href="css/paper-dashboard.css" rel="stylesheet" />
     <link href="css/refer.css" rel="stylesheet" />
     <link href="css/icon.css" rel="stylesheet" />
@@ -66,13 +67,13 @@
 				        </md-input-container>
 		        		</div>
 		        		<div class="col-lg-6 text-right zero-padding" >
-		        			<div class="products-number">Mostrando 1-6 de 23 resultados
+		        			<div class="products-number">Mostrando {{begin}} - {{end}} de {{products.count}} resultados
 		        			</div>
 	        			</div> 
 	        	</div>
 	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 1.4%;">
-					<div class="producto" ng-repeat="product in products.data">
-						<div class="product-image" style="background-image: url('{{product.url}}')"></div>
+					<div class="producto" ng-repeat="product in filterProducts">
+						<div id="product-image-{{product.codigo}}-{{product.precio}}" class="product-image {{getImgUrl(product)}}"></div>
 						<div class="product-descrip">
 						<div class="product-name"><label style="margin:0;">{{product.nombre}}</label></div>
 						<div class="see-more-product"><a><label style="margin:0;">Ver más</a></label></div>
@@ -91,9 +92,7 @@
 					</div>	        	
 	        	</div>
 	        	<div class="col-lg-12 pull-right pagination align-items-center zero-padding">
-	        		<div class="page arrow-left ng-hide">{{arrows[0]}}</div>
-	        		<div class="page page-number" ng-repeat="page in pages">{{page}}</div>
-	        		<div class="page arrow-right">{{arrows[1]}}</div>
+	        	<div data-pagination="" data-num-pages="numContForPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
 	        	</div>
 	    	</div>
     	<div class="col-lg-3 underline zero-padding">
@@ -233,6 +232,7 @@
 	<script type="text/javascript" src="js/ng-map.min.js"></script>
     <script src="js/tienda.js"></script>
     <script src="js/utils.js"></script>
+    <script data-require="angular-ui-bootstrap@0.3.0" data-semver="0.3.0" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.3.0.min.js"></script>
 </body>
 
 </html>
