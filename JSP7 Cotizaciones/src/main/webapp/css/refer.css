@@ -148,3 +148,7 @@ md-autocomplete input:not(.md-input) {
 md-autocomplete md-autocomplete-wrap {
     height: 30px !important;
 }
+
+input.md-input {
+    height: 36px;
+}

@@ -18,4 +18,8 @@ public class TercerosServices {
 		return repository.findByEmpresa(empresa, filter);
 	}
 	
+	public void insertProspecto(Terceros entity) {
+		repository.insertProspecto(entity);		
+	}
+	
 }

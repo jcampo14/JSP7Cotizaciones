@@ -15,11 +15,17 @@ public class Terceros implements Serializable {
 
 	private String nombre;
 
-	public Terceros(String cEmp, String nIde, String nombre) {
+	private String iva;
+	
+	private String zona;	
+
+	public Terceros(String cEmp, String nIde, String nombre, String iva, String zona) {
 		super();
 		this.cEmp = cEmp;
 		this.nIde = nIde;
 		this.nombre = nombre;
+		this.iva = iva;
+		this.zona = zona;
 	}
 
 	public Terceros() {
@@ -48,6 +54,22 @@ public class Terceros implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getIva() {
+		return iva;
+	}
+
+	public void setIva(String iva) {
+		this.iva = iva;
+	}
+
+	public String getZona() {
+		return zona;
+	}
+
+	public void setZona(String zona) {
+		this.zona = zona;
 	}
 
 }

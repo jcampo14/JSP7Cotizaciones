@@ -26,6 +26,10 @@ public class CotizacionRequest implements Serializable {
 
 	private Integer diasValidez;
 
+	private String embalaje;
+
+	private String iva;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
@@ -118,6 +122,22 @@ public class CotizacionRequest implements Serializable {
 
 	public void setDiasValidez(Integer diasValidez) {
 		this.diasValidez = diasValidez;
+	}
+
+	public String getEmbalaje() {
+		return embalaje;
+	}
+
+	public void setEmbalaje(String embalaje) {
+		this.embalaje = embalaje;
+	}
+
+	public String getIva() {
+		return iva;
+	}
+
+	public void setIva(String iva) {
+		this.iva = iva;
 	}
 
 }

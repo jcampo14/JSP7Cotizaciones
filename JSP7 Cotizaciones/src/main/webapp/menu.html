@@ -75,8 +75,8 @@
                 <md-button class="md-raised md-primary" ng-click="menu()" layout-fill>Bottom bar</md-button>
             </md-panel> -->
         </md-sidenav>
-        <md-content flex>
-            <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+        <md-content flex style="overflow-y: overlay;">
+            <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex" style="overflow-y: overlay;">
                 <md-tab ng-repeat="tab in tabs">
                     <md-tab-label>
                         {{tab.title}} &nbsp; &nbsp;

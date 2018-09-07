@@ -55,9 +55,7 @@ md-sidenav ng-md-icon {
 md-item-content{
     cursor: pointer;
 }
-.loading {
-	
-}
+
 .datos{
 font-size: 16px !important;
 }

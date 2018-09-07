@@ -1,6 +1,6 @@
 'use strict';
 var app = angular.module('App', ['ngMaterial', 'md.data.table', 'oitozero.ngSweetAlert',
-    'App.utils', 'ui.utils.masks']);
+    'App.utils', 'ui.utils.masks', 'ngMessages', 'ngAnimate']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
@@ -65,6 +65,8 @@ app.controller('Ctrl', [
         $scope.init = function () {
             $scope.isLoading = true;
             $scope.tieneCostos = false;
+            $scope.autocompleteTerceros.selectedItem = '';
+            $scope.autocompleteArticulos.selectedItem = '';
             delete $scope.cot_enc;
             delete $scope.cot_det;
             delete $scope.selectedDetalle;
@@ -74,25 +76,17 @@ app.controller('Ctrl', [
             var promiseCriterios = $consumeService.get('criterios/?emp=' + $localstorage.get('global.empresa', null));
             var promiseidiomas = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', null));
             var promiseAgencias = $consumeService.get('agencias/?emp=' + $localstorage.get('global.empresa', null));
-            var promiseIvas = $consumeService.get('descto-egr/?emp=' + $localstorage.get('global.empresa', null));
-            $q.all([promiseSecciones, promiseIncoterms, promiseCriterios,
-                promiseidiomas, promiseAgencias, promiseIvas]).then(function (values) {
+            var promiseEmbalajes = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', null));
+            var promiseParamFac = $consumeService.get('param-fac/?emp=' + $localstorage.get('global.empresa', null));
+            $q.all([promiseSecciones, promiseIncoterms, promiseCriterios, promiseidiomas, promiseAgencias,
+                promiseEmbalajes, promiseParamFac]).then(function (values) {
                     $scope.secciones = values[0].data;
                     $scope.incoterms = values[1].data;
                     $scope.criterios = values[2].data;
                     $scope.idiomas = values[3].data;
                     $scope.agencias = values[4].data;
-                    $scope.ivas = values[5].data;
-                    // Agregamos opcion vacia (IVAS)
-                    var ivaNull = {
-                        "cEmp": $localstorage.get('global.empresa', null),
-                        "cDes": "",
-                        "nDes": "Sin IVA",
-                        "pctj": 0,
-                        "tipoImp": "IVA",
-                        "usoImp": "V"
-                    };
-                    $scope.ivas.unshift(ivaNull);
+                    $scope.embalajes = values[5].data;
+                    $scope.paramFac = values[6].data;
                     // Agregamos Idioma vacio (IDIOMAS)
                     var idiomaNull = {
                         "cEmp": $localstorage.get('global.empresa', null),
@@ -111,13 +105,12 @@ app.controller('Ctrl', [
                 cSuc: null,
                 idioma: null,
                 incoterm: null,
-                diasValidez: null
+                diasValidez: null,
+                embalaje: null
             };
             $scope.cot_det = [];
             $scope.selectedArticulo = {};
         };
-        /* Iniciamos el formulario */
-        $scope.init();
 
         /* Autocomplete */
         $scope.autocompleteTerceros = {
@@ -125,7 +118,6 @@ app.controller('Ctrl', [
             noCache: false,
             selectedItem: "",
             searchText: "",
-            selectedPrevious: "",
             selectItemChange: function (item) {
                 if (item) {
                     $scope.cot_enc.nIde = item.nIde;
@@ -147,10 +139,10 @@ app.controller('Ctrl', [
             noCache: true,
             selectedItem: "",
             searchText: "",
-            data: [],
             selectItemChange: function (item) {
                 if (item) {
                     $scope.selectedArticulo = item;
+                    $scope.buscarPrecioVenta(item.cEmp, item.cod);
                     $scope.$applyAsync;
                 }
             },
@@ -169,12 +161,16 @@ app.controller('Ctrl', [
             }
         };
 
+        /* Iniciamos el formulario */
+        $scope.init();
+
         /* Limpiar el filtro del select */
         $scope.clearSelectFilter = function () {
             $scope.searchArticulo = '';
             $scope.searchTercero = '';
             $scope.searchCriterio = '';
             $scope.searchIncoterm = '';
+            $scope.searchEmbajale = '';
         };
 
         /* Funciones para los select */
@@ -212,6 +208,16 @@ app.controller('Ctrl', [
             $scope.selectedDetalle.pctjIva = iva[0].pctj;
         };
 
+        $scope.changePrecioVenta = function (form) {
+            var valArr = $scope.selectedDetalle.precio_lista * (1 + $scope.paramFac[0].incpArr / 100);
+            var valAbj = $scope.selectedDetalle.precio_lista * (1 - $scope.paramFac[0].incpArr / 100);
+            if ($scope.selectedDetalle.precio_venta > valArr || $scope.selectedDetalle.precio_venta < valAbj) {
+                form.precioVenta.$setValidity('validationError', false);
+            } else {
+                form.precioVenta.$setValidity('validationError', true);
+            }
+        };
+
         /* Asignamos la descripcion del textarea al modelo de las secciones */
         $scope.setDescripcion = function (value) {
             var seccion = value;
@@ -219,58 +225,79 @@ app.controller('Ctrl', [
         };
 
         /* Funciones */
-        $scope.addItemDetalle = function () {
-            if ($scope.selectedDetalle.cantidad == null || $scope.selectedDetalle.precio_lista == null
-                || $scope.selectedArticulo.cod == null || $scope.selectedDetalle.descuento == null
-                || $scope.selectedDetalle.precio_venta == null) {
-                swal("Mensaje JSP7", "Faltan datos por llenar.", "warning");
-            } else {
+        $scope.addItemDetalle = function (form) {
+            if (form.$valid) {
                 var o = $filter('filter')($scope.cot_det, { 'cod': $scope.selectedArticulo.cod }, true);
                 if (o.length == 0) {
                     var itemToAdd = {
-                        id: $scope.selectedArticulo,
-                        cEmp: $scope.selectedArticulo.cEmp,
-                        cod: $scope.selectedArticulo.cod,
-                        nom: $scope.selectedArticulo.nom,
+                        id: $scope.autocompleteArticulos.selectedItem,
+                        cEmp: $scope.autocompleteArticulos.selectedItem.cEmp,
+                        cod: $scope.autocompleteArticulos.selectedItem.cod,
+                        nom: $scope.autocompleteArticulos.selectedItem.nom,
                         cantidad: $scope.selectedDetalle.cantidad,
                         precio_lista: $scope.selectedDetalle.precio_lista,
                         precio_venta: $scope.selectedDetalle.precio_venta,
-                        descuento: $scope.selectedDetalle.descuento,
-                        iva: {
-                            "cDes": $scope.selectedIva,
-                            "pctj": $scope.selectedDetalle.pctjIva
-                        }
+                        descuento: $scope.selectedDetalle.descuento
                     };
+                    if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
+                        var ivaValue = {
+                            iva: {
+                                "cDes": $scope.autocompleteArticulos.selectedItem.idIva.cDes,
+                                "pctj": $scope.autocompleteArticulos.selectedItem.idIva.pctj
+                            }
+                        };
+                    } else {
+                        var ivaValue = {
+                            iva: {
+                                "cDes": null,
+                                "pctj": 0
+                            }
+                        };
+                    }
+                    itemToAdd.iva = ivaValue.iva;
                     $scope.cot_det.push(itemToAdd);
-                    delete $scope.selectedDetalle;
+                    delete $scope.autocompleteArticulos.selectedItem;
                     delete $scope.selectedArticulo;
-                    delete $scope.selectedIva;
+                    delete $scope.selectedDetalle;
                 } else {
                     swal("Mensaje JSP7", "El artículo ya ha sido ingresado en la cotización", "warning");
                 }
             }
         };
 
-        $scope.editItemDetalle = function () {
-            var index = 0;
-            while (index < $scope.cot_det.length) {
-                if ($scope.cot_det[index].cod == $scope.selectedArticulo.cod) {
-                    if (index > -1) {
-                        $scope.cot_det[index].cantidad = $scope.selectedDetalle.cantidad;
-                        $scope.cot_det[index].precio_lista = $scope.selectedDetalle.precio_lista;
-                        $scope.cot_det[index].precio_venta = $scope.selectedDetalle.precio_venta;
-                        $scope.cot_det[index].descuento = $scope.selectedDetalle.descuento;
-                        $scope.cot_det[index].iva = {
-                            "cDes": $scope.selectedIva,
-                            "pctj": $scope.selectedDetalle.pctjIva
-                        };
-                        delete $scope.selectedDetalle;
-                        delete $scope.selectedArticulo;
-                        delete $scope.selectedIva;
-                        $scope.isDisabled = false;
+        $scope.editItemDetalle = function (form) {
+            if (form.$valid) {
+                var index = 0;
+                while (index < $scope.cot_det.length) {
+                    if ($scope.cot_det[index].cod == $scope.selectedArticulo.cod) {
+                        if (index > -1) {
+                            $scope.cot_det[index].cantidad = $scope.selectedDetalle.cantidad;
+                            $scope.cot_det[index].precio_lista = $scope.selectedDetalle.precio_lista;
+                            $scope.cot_det[index].precio_venta = $scope.selectedDetalle.precio_venta;
+                            $scope.cot_det[index].descuento = $scope.selectedDetalle.descuento;
+                            if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
+                                var ivaValue = {
+                                    iva: {
+                                        "cDes": $scope.autocompleteArticulos.selectedItem.idIva.cDes,
+                                        "pctj": $scope.autocompleteArticulos.selectedItem.idIva.pctj
+                                    }
+                                };
+                            } else {
+                                var ivaValue = {
+                                    iva: {
+                                        "cDes": null,
+                                        "pctj": 0
+                                    }
+                                };
+                            }
+                            $scope.cot_det[index].iva = ivaValue.iva;
+                            delete $scope.selectedDetalle;
+                            $scope.autocompleteArticulos.selectedItem = '';
+                            $scope.isDisabled = false;
+                        }
                     }
+                    index++;
                 }
-                index++;
             }
         };
 
@@ -281,8 +308,7 @@ app.controller('Ctrl', [
                     if (index > -1) {
                         $scope.cot_det.splice(index, 1);
                         delete $scope.selectedDetalle;
-                        delete $scope.selectedArticulo;
-                        delete $scope.selectedIva;
+                        $scope.autocompleteArticulos.selectedItem = '';
                         $scope.isDisabled = false;
                     }
                 }
@@ -307,7 +333,7 @@ app.controller('Ctrl', [
 
         $scope.showEditarTable = function (item) {
             $scope.selectedDetalle = {};
-            $scope.selectedArticulo = item.id;
+            $scope.autocompleteArticulos.selectedItem = item.id;
             $scope.selectedDetalle.cantidad = item.cantidad;
             $scope.selectedDetalle.precio_lista = item.precio_lista;
             $scope.selectedDetalle.precio_venta = item.precio_venta;
@@ -319,7 +345,7 @@ app.controller('Ctrl', [
 
         $scope.clearEditarTable = function (item) {
             delete $scope.selectedDetalle;
-            delete $scope.selectedArticulo;
+            $scope.autocompleteArticulos.selectedItem = '';
             delete $scope.selectedIva;
             $scope.isDisabled = false;
         };
@@ -379,6 +405,8 @@ app.controller('Ctrl', [
                 "idioma": $scope.cot_enc.idioma,
                 "usuario": $localstorage.get('global.usuario', null),
                 "diasValidez": $scope.cot_enc.diasValidez,
+                "embalaje": $scope.cot_enc.embalaje,
+                "iva": $scope.autocompleteTerceros.selectedItem.iva,
                 "secciones": secciones,
                 "detalle": detalle,
                 "costos": costos
