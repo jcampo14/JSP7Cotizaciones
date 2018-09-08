@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('App', ['ngMaterial', 'md.data.table', 'oitozero.ngSweetAlert',
+var app = angular.module('App', ['ngMaterial', 'md.data.table',
     'App.utils', 'ui.utils.masks', 'ngMessages', 'ngAnimate']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
@@ -10,10 +10,10 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 app.controller('Ctrl', [
     '$localstorage', '$consumeService',
     '$scope', '$timeout', '$window',
-    '$http', '$mdDialog', 'SweetAlert',
+    '$http', '$mdDialog',
     '$mdEditDialog', '$q', '$filter',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $window, $http, $mdDialog, SweetAlert, $mdEditDialog,
+        $window, $http, $mdDialog, $mdEditDialog,
         $q, $filter) {
 
         /** Simulamos el Login */

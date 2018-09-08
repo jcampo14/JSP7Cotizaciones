@@ -1,238 +1,270 @@
 <html lang="es">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
-    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="sweetalert/lib/sweet-alert.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link data-require="bootstrap-css@2.3.2" data-semver="2.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
-    <link href="css/paper-dashboard.css" rel="stylesheet" />
-    <link href="css/refer.css" rel="stylesheet" />
-    <link href="css/icon.css" rel="stylesheet" />
-    <link href="css/tienda.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
-        crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Angular Material style sheet -->
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+	<link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="sweetalert/lib/sweet-alert.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link data-require="bootstrap-css@2.3.2" data-semver="2.3.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+	/>
+	<link href="css/paper-dashboard.css" rel="stylesheet" />
+	<link href="css/refer.css" rel="stylesheet" />
+	<link href="css/icon.css" rel="stylesheet" />
+
+	<link rel="stylesheet" href="css/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
+	 crossorigin="anonymous">
+	<link href="css/tienda.css" rel="stylesheet" />
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="tiendaController">
-    <div class="container-fluid main-banner">
-        <div class="row header">
-        	<div class="col-lg-1 col-sm-2  solagro-logo">
-					<div class="logo"></div>
-				</div>	
-        	<div class="col-lg-5 col-sm-2 navigation-menu text-center">
-	        	<nav class="top-menu-nav">
+	<div class="container-fluid main-banner">
+		<div class="row header">
+			<div class="col-lg-1 col-sm-2  solagro-logo">
+				<div class="logo"></div>
+			</div>
+			<div class="col-lg-5 col-sm-2 navigation-menu text-center">
+				<nav class="top-menu-nav">
 					<ul class="top-menu">
 						<li class="menu-item" ng-repeat="item in items">
 							<a class="active-a" ng-if="item.state" href="">{{item.name}}</a>
-							<a ng-if="!item.state"href="">{{item.name}}</a>
+							<a ng-if="!item.state" href="">{{item.name}}</a>
 						</li>
 					</ul>
 				</nav>
-			</div>		
-				<div class="col-lg-2"></div>
-				<div class="col-lg-4 col-sm-2 text-right login">
-					<div class="login-button ng-hide">Inicia Sesión</div>
-					<div class="login-user">BIENVENIDO, {{currentUser}} </div>
+			</div>
+			<div class="col-lg-2"></div>
+			<div class="col-lg-4 col-sm-2 text-right login">
+				<div class="login-button ng-hide">Inicia Sesiï¿½n</div>
+				<div class="login-user">BIENVENIDO, {{currentUser}} </div>
+			</div>
+		</div>
+		<div class="banner-title">
+			<div class="banner-text">{{titulo}}</div>
+			<a href="">
+				<div class="see-more text-center">Ver mï¿½s</div>
+			</a>
+		</div>
+	</div>
+	<div class="container-fluid shop-section">
+		<div class="row align-items-center">
+			<div class="shop-title col-lg-9">
+				<h3>{{titulo}}</h3>
+			</div>
+			<div class="find col-lg-3">
+				<div class="search-input">
+					<input type="text" placeholder="Buscar..." ng-model="buscar">
 				</div>
-			</div>	
-			<div class="banner-title">
-				<div class="banner-text">{{titulo}}</div>
-				<a href=""><div class="see-more text-center">Ver más</div></a>
-			</div>							
-        </div>
-        <div class="container-fluid shop-section">
-        	<div class="row align-items-center">
-	        	<div class="shop-title col-lg-9"><h3>{{titulo}}</h3></div>
-	        	<div class="find col-lg-3">
-	        		<div class="search-input">
-						<input type="text" placeholder="Buscar..." ng-model="buscar">
-	        		</div>
-	        	</div>
-        	</div>
-	        	<div class="col-lg-9 underline zero-padding">
-		        	<div class="align-items-center" style="margin-top: 30px;">
-		        		<div class="col-lg-6 zero-padding">
-		        		<md-input-container class="ordenar-container">
-				          <label>Organizar por</label>
-					          <md-select ng-model="ordenar">
-						            <md-option ng-repeat="ordenar in ordenados" ng-value="ordenar">
-						              {{ordenar}}
-						            </md-option>
-					          </md-select>
-				        </md-input-container>
-		        		</div>
-		        		<div class="col-lg-6 text-right zero-padding" >
-		        			<div class="products-number">Mostrando {{begin}} - {{end}} de {{products.count}} resultados
-		        			</div>
-	        			</div> 
-	        	</div>
-	        	<div class="col-lg-12 zero-padding flex-container" style="margin-top: 1.4%;">
-					<div class="producto" ng-repeat="product in filterProducts">
-						<div id="product-image-{{product.codigo}}-{{product.precio}}" class="product-image {{getImgUrl(product)}}"></div>
-						<div class="product-descrip">
-						<div class="product-name"><label style="margin:0;">{{product.nombre}}</label></div>
-						<div class="see-more-product"><a><label style="margin:0;">Ver más</a></label></div>
+			</div>
+		</div>
+		<div class="col-lg-9 underline zero-padding">
+			<div class="align-items-center" style="margin-top: 30px;">
+				<div class="col-lg-6 zero-padding">
+					<md-input-container class="ordenar-container">
+						<label>Organizar por</label>
+						<md-select ng-model="ordenar">
+							<md-option ng-repeat="ordenar in ordenados" ng-value="ordenar">
+								{{ordenar}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="col-lg-6 text-right zero-padding">
+					<div class="products-number">Mostrando {{begin}} - {{end}} de {{products.count}} resultados
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 zero-padding flex-container" style="margin-top: 1.4%;">
+				<div class="producto" ng-repeat="product in filterProducts">
+					<div id="product-image-{{product.codigo}}-{{product.precio}}" class="product-image {{getImgUrl(product)}}"></div>
+					<div class="product-descrip">
+						<div class="product-name">
+							<label style="margin:0;">{{product.nombre}}</label>
 						</div>
-						<div class="product-footer align-items-center">
-							<div class="product-icons align-items-center" style="display:none;">
-								<div class="see"></div>
-								<div class="cart"></div>
-								<div class="favorite"></div>
-								<div style="width:5%"></div>
-							</div>	
-							<div class="ratings align-items-center">
-								<div class="full-star" ng-repeat="star in stars"></div>
-							</div>
+						<div class="see-more-product">
+							<a>
+								<label style="margin:0;">Ver mï¿½s</a>
+							</label>
 						</div>
-					</div>	        	
-	        	</div>
-	        	<div class="col-lg-12 pull-right pagination align-items-center zero-padding">
-	        	<div data-pagination="" data-num-pages="numContForPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
-	        	</div>
-	    	</div>
-    	<div class="col-lg-3 underline zero-padding">
-    	<div class="col-lg-12">
-		   <div class="align-items-center" style="margin-top: 30px;visibility:hidden;"><div class="col-lg-6 zero-padding">
-		   	<md-input-container class="ordenar-container"></md-input-container> </div></div></div> 
-		   	
-    		<div class="col-lg-12 filtrar align-items-center">
-    			<div class="col-lg-6 filtrar-icon"></div>	
-    			<div class="col-lg-6 filtrar-text">Filtrar</div>
-    		</div>
-    		<div class="col-lg-11 zero-padding pull-right" ng-repeat="filtrar in filtrados">
-    			<md-input-container class="filtrar-container text-right">
-				    <label>{{filtrar.name}}</label>
+					</div>
+					<div class="product-footer align-items-center">
+						<div class="product-icons align-items-center" style="display:none;">
+							<div class="see"></div>
+							<div class="cart"></div>
+							<div class="favorite"></div>
+							<div style="width:5%"></div>
+						</div>
+						<div class="ratings align-items-center">
+							<div class="full-star" ng-repeat="star in stars"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 pull-right pagination align-items-center zero-padding">
+				<div data-pagination="" data-num-pages="numContForPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
+			</div>
+		</div>
+		<div class="col-lg-3 underline zero-padding">
+			<div class="col-lg-12">
+				<div class="align-items-center" style="margin-top: 30px;visibility:hidden;">
+					<div class="col-lg-6 zero-padding">
+						<md-input-container class="ordenar-container"></md-input-container>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-12 filtrar align-items-center">
+				<div class="col-lg-6 filtrar-icon"></div>
+				<div class="col-lg-6 filtrar-text">Filtrar</div>
+			</div>
+			<div class="col-lg-11 zero-padding pull-right" ng-repeat="filtrar in filtrados">
+				<md-input-container class="filtrar-container text-right">
+					<label>{{filtrar.name}}</label>
 					<md-select ng-model="ordenar2">
 						<md-option ng-repeat="ordenar in ordenados" ng-value="ordenar">
-						     {{ordenar}}
+							{{ordenar}}
 						</md-option>
 					</md-select>
 				</md-input-container>
-    		</div>
-    		<div class="col-lg-11 zero-padding pull-right">
-    			<div class="best-score-products">Productos mejor calificados</div>
-    			<div class="col-lg-3 green-line"></div>
-    			<div class="col-lg-12 top-product zero-padding" ng-repeat="topProduct in topProducts">
-    				<div class="col-lg-6 top-product-image"></div>
-    				<div class="col-lg-6 top-product-descrip">
-	    				<div class="col-lg-12 top-product-title"><label>Tractor Utilitario</label></div>
-	    				<div class="col-lg-12 top-product-score align-items-center">
-	    					<div class="full-top-star" ng-repeat="topStar in topStars"></div>
-	    				</div>
-	    				<div class="col-lg-12 top-product-more"><a href=""><label>Ver más</label></a></div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </div>
-    <div class="container-fluid information-section align-items-center">
-    	<div class="col-lg-4 align-items-center zero-padding pregunta-icon">
-    		<div class="zero-padding information-description">
-    			<label>¿Tienes alguna pregunta?</label>
-    			<label>ventas@solagro.co</label>
-    		</div>
-    	</div>
-    	<div class="col-lg-4 align-items-center zero-padding phone-icon">
-    		<div class="zero-padding information-description">
-    			<label>Llámamos</label>
-    			<label>+57 314 5871729</label>
-    		</div>
-    	</div>
-    	<div class="col-lg-4 align-items-center zero-padding ubication-icon">
-    		<div class="zero-padding information-description">
-    			<label>Nuestras Oficinas</label>
-    			<label>Km 7 Vía Aeropuerto de Barranquilla, 0803003 Soledad, Atlántico, Colombia</label>
-    		</div>
-    	</div>    	
-    </div>
-    <div class="container-fluid map-container zero-padding">
-    	<ng-map class="col-lg-12 zero-padding map" center="10.8997334,-74.76882569999998" zoom="15"> 
-    		<marker position="10.8997334,-74.76882569999998" title="Solagro"></marker> 
-    	</ng-map>
-    </div>
-    <div class="container-fluid footer-container zero-padding">
-    	<div class="row align-items-center" style="align-items: start;">
-    		<div class="col-lg-4">
-    			<div class="footer-title">
-    			<h4>Amamos quienes somos y estamos muy orgullosos de ser parte de su negocio</h4>
-    			</div>
-    			<div class="footer-description">{{footerDescription}}</div>
-    			<div class="footer-social-media align-items-center">
-    				<a href="" target="_blank"><div class="social-icon facebook"></div></a>
-    				<a href="" target="_blank"><div class="social-icon google"></div></a>
-    				<a href="" target="_blank"><div class="social-icon twitter"></div></a>
-    				<a href="" target="_blank"><div class="social-icon facebook"></div></a>
-    				<a href="" target="_blank"><div class="social-icon instagram"></div></a>
-    			</div>
-    		</div>
-    		<div class="col-lg-4">
-    		   	<div class="footer-title" style="margin-bottom: 50px;">
+			</div>
+			<div class="col-lg-11 zero-padding pull-right">
+				<div class="best-score-products">Productos mejor calificados</div>
+				<div class="col-lg-3 green-line"></div>
+				<div class="col-lg-12 top-product zero-padding" ng-repeat="topProduct in topProducts">
+					<div class="col-lg-6 top-product-image"></div>
+					<div class="col-lg-6 top-product-descrip">
+						<div class="col-lg-12 top-product-title">
+							<label>Tractor Utilitario</label>
+						</div>
+						<div class="col-lg-12 top-product-score align-items-center">
+							<div class="full-top-star" ng-repeat="topStar in topStars"></div>
+						</div>
+						<div class="col-lg-12 top-product-more">
+							<a href="">
+								<label>Ver mï¿½s</label>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid information-section align-items-center">
+		<div class="col-lg-4 align-items-center zero-padding pregunta-icon">
+			<div class="zero-padding information-description">
+				<label>ï¿½Tienes alguna pregunta?</label>
+				<label>ventas@solagro.co</label>
+			</div>
+		</div>
+		<div class="col-lg-4 align-items-center zero-padding phone-icon">
+			<div class="zero-padding information-description">
+				<label>Llï¿½mamos</label>
+				<label>+57 314 5871729</label>
+			</div>
+		</div>
+		<div class="col-lg-4 align-items-center zero-padding ubication-icon">
+			<div class="zero-padding information-description">
+				<label>Nuestras Oficinas</label>
+				<label>Km 7 Vï¿½a Aeropuerto de Barranquilla, 0803003 Soledad, Atlï¿½ntico, Colombia</label>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid map-container zero-padding">
+		<ng-map class="col-lg-12 zero-padding map" center="10.8997334,-74.76882569999998" zoom="15">
+			<marker position="10.8997334,-74.76882569999998" title="Solagro"></marker>
+		</ng-map>
+	</div>
+	<div class="container-fluid footer-container zero-padding">
+		<div class="row align-items-center" style="align-items: start;">
+			<div class="col-lg-4">
+				<div class="footer-title">
+					<h4>Amamos quienes somos y estamos muy orgullosos de ser parte de su negocio</h4>
+				</div>
+				<div class="footer-description">{{footerDescription}}</div>
+				<div class="footer-social-media align-items-center">
+					<a href="" target="_blank">
+						<div class="social-icon facebook"></div>
+					</a>
+					<a href="" target="_blank">
+						<div class="social-icon google"></div>
+					</a>
+					<a href="" target="_blank">
+						<div class="social-icon twitter"></div>
+					</a>
+					<a href="" target="_blank">
+						<div class="social-icon facebook"></div>
+					</a>
+					<a href="" target="_blank">
+						<div class="social-icon instagram"></div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="footer-title" style="margin-bottom: 50px;">
 					<h4>Nuestros Servicios:</h4>
-    			</div>
-    			<div class="footer-description">
-    				<div class="service">
-    					<img src="../img/estrella blanca.png">
-    					<div class="service-text">Lorem Ipsum has been the industry's</div>
-    				</div>
-    				<div class="service">
-    					<img src="../img/estrella blanca.png">
-    					<div class="service-text">Lorem Ipsum has been the industry's</div>
-    				</div>
-    				<div class="service">
-    					<img src="../img/estrella blanca.png">
-    					<div class="service-text">Lorem Ipsum has been the industry's</div>
-    				</div>
-    				<div class="service">
-    					<img src="../img/estrella blanca.png">
-    					<div class="service-text">Lorem Ipsum has been the industry's</div>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="col-lg-4">
-    		   	<div class="footer-title">
-					<h4>Información:</h4>
-    			</div>
-    			<div class="footer-description">
-    				<div class="information call">Llámanos</div>
-    				<div class="information contact">Escríbenos</div>
-    				<div class="information download">Descargar Catálogo</div>
-    			</div>
-    		</div>
-    	</div>
-    </div>
-    	<div class="row row-aspsols">
-    		<div class="row zero-padding" style="margin:0;">
-	    		<div class="col-lg-6 zero-padding" style="padding: 2% 0;">Desarrollo por:</div>
-	    		<div class="col-lg-6 zero-padding asp-logo text-right">Desarrollo por:</div>
-    		</div>
-    	</div>
-    	<div class="row copyright-container">
-    		<div class="col-lg-12 text-center copyright">Copyright © 2018 Solagro Soluciones Agroindustriales S.A.S All Rights Reserved</div>
-    	</div>    
-    <!-- Angular Material requires Angular.js Libraries -->
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-    
-    <!-- Angular Material Library -->
-    <script src="bower_components/angular-material/angular-material.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
-    <script src="angular-sweetalert/SweetAlert.min.js"></script>
-    <script src="sweetalert/lib/sweet-alert.min.js"></script>
-    
-    <!-- module -->
+				</div>
+				<div class="footer-description">
+					<div class="service">
+						<img src="../img/estrella blanca.png">
+						<div class="service-text">Lorem Ipsum has been the industry's</div>
+					</div>
+					<div class="service">
+						<img src="../img/estrella blanca.png">
+						<div class="service-text">Lorem Ipsum has been the industry's</div>
+					</div>
+					<div class="service">
+						<img src="../img/estrella blanca.png">
+						<div class="service-text">Lorem Ipsum has been the industry's</div>
+					</div>
+					<div class="service">
+						<img src="../img/estrella blanca.png">
+						<div class="service-text">Lorem Ipsum has been the industry's</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="footer-title">
+					<h4>Informaciï¿½n:</h4>
+				</div>
+				<div class="footer-description">
+					<div class="information call">Llï¿½manos</div>
+					<div class="information contact">Escrï¿½benos</div>
+					<div class="information download">Descargar Catï¿½logo</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row row-aspsols">
+		<div class="row zero-padding" style="margin:0;">
+			<div class="col-lg-6 zero-padding" style="padding: 2% 0;">Desarrollo por:</div>
+			<div class="col-lg-6 zero-padding asp-logo text-right">Desarrollo por:</div>
+		</div>
+	</div>
+	<div class="row copyright-container">
+		<div class="col-lg-12 text-center copyright">Copyright ï¿½ 2018 Solagro Soluciones Agroindustriales S.A.S All Rights Reserved</div>
+	</div>
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+
+	<!-- Angular Material Library -->
+	<script src="bower_components/angular-material/angular-material.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+	<script src="angular-sweetalert/SweetAlert.min.js"></script>
+	<script src="sweetalert/lib/sweet-alert.min.js"></script>
+
+	<!-- module -->
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script src="https://maps.google.com/maps/api/js?key=AIzaSyDabocpr-2h_0kwCDQxeovvhCHJA6-ELFw"></script>
 	<script type="text/javascript" src="js/ng-map.min.js"></script>
-    <script src="js/tienda.js"></script>
-    <script src="js/utils.js"></script>
-    <script data-require="angular-ui-bootstrap@0.3.0" data-semver="0.3.0" src="js/ui-bootstrap-tpls-0.3.0.min.js"></script>
+	<script src="js/tienda.js"></script>
+	<script src="js/utils.js"></script>
+	<script data-require="angular-ui-bootstrap@0.3.0" data-semver="0.3.0" src="js/ui-bootstrap-tpls-0.3.0.min.js"></script>
 </body>
 
 </html>

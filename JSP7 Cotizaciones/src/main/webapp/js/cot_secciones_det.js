@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'md.data.table', 'oitozero.ngSweetAlert', 'App.utils']);
+var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
@@ -8,9 +8,9 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 app.controller('Ctrl', [
     '$localstorage', '$consumeService',
     '$scope', '$timeout', '$window',
-    '$http', '$mdDialog', 'SweetAlert',
+    '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $window, $http, $mdDialog, SweetAlert) {
+        $window, $http, $mdDialog) {
 
         /** Simulamos el Login */
         $localstorage.set('global.empresa', '01');
@@ -200,46 +200,40 @@ app.controller('Ctrl', [
             if ($scope.selectedDetalle.length == 0) {
                 swal("Mensaje JSP7", "Debe seleccionar al menos 1 registro", "warning");
             } else {
-                var vm = this;
-                vm.confirm = function () {
-                    SweetAlert.swal({
-                        title: "Mensaje JSP7", //Bold text
-                        text: "¿Desea Eliminar el/los registro(s)?", //light text
-                        type: "warning", //type -- adds appropiriate icon
-                        showCancelButton: true, // displays cancel btton
-                        cancelButtonText: "Cancelar",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Aceptar",
-                        closeOnConfirm: true, //do not close popup after click on confirm, usefull when you want to display a subsequent popup
-                        closeOnCancel: true
-                    },
-                        function (isConfirm) { //Function that triggers on user action.
-                            if (isConfirm) {
-                                var configRequest = {
-                                    method: "DELETE",
-                                    url: "cot-secciones-det/",
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    data: { list: $scope.selectedDetalle }
-                                };
-                                var promise = $consumeService.post(configRequest);
-                                promise.then(function (result) {
-                                    if (result.success == true) {
-                                        $scope.promiseDetalle = $consumeService.get('cot-secciones-det/?emp=' + $localstorage.get('global.empresa', '00')
-                                            + "&seccion=" + $scope.selectedSeccion[0].codSeccion);
-                                        $scope.promiseDetalle.then(function (result) {
-                                            $scope.queryCotSeccionesDetalle = result;
-                                            swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
-                                        });
-                                    } else {
-                                        swal("Mensaje JSP7", result.message, "error");
-                                    }
+                swal({
+                    title: "Mensaje JSP7", //Bold text
+                    text: "¿Desea Eliminar el/los registro(s)?", //light text
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        var configRequest = {
+                            method: "DELETE",
+                            url: "cot-secciones-det/",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: { list: $scope.selectedDetalle }
+                        };
+                        var promise = $consumeService.post(configRequest);
+                        promise.then(function (result) {
+                            if (result.success == true) {
+                                $scope.promiseDetalle = $consumeService.get('cot-secciones-det/?emp=' + $localstorage.get('global.empresa', '00')
+                                    + "&seccion=" + $scope.selectedSeccion[0].codSeccion);
+                                $scope.promiseDetalle.then(function (result) {
+                                    $scope.queryCotSeccionesDetalle = result;
+                                    swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                                 });
+                            } else {
+                                swal("Mensaje JSP7", result.message, "error");
                             }
                         });
-                };
-                vm.confirm();
+                    }
+                });
             }
         };
 
@@ -303,7 +297,7 @@ app.controller('Ctrl', [
                                 $scope.promiseSinonimo.then(function (result) {
                                     $scope.queryCotSeccionesDetSinonimo = result;
                                     swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
-                                });                                
+                                });
                             } else {
                                 swal("Mensaje JSP7", result.message, "error");
                             }
@@ -326,46 +320,40 @@ app.controller('Ctrl', [
             if ($scope.selectedIdioma.length == 0) {
                 swal("Mensaje JSP7", "Debe seleccionar al menos 1 registro", "warning");
             } else {
-                var vm = this;
-                vm.confirm = function () {
-                    SweetAlert.swal({
-                        title: "Mensaje JSP7", //Bold text
-                        text: "¿Desea Eliminar el/los registro(s)?", //light text
-                        type: "warning", //type -- adds appropiriate icon
-                        showCancelButton: true, // displays cancel btton
-                        cancelButtonText: "Cancelar",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Aceptar",
-                        closeOnConfirm: true, //do not close popup after click on confirm, usefull when you want to display a subsequent popup
-                        closeOnCancel: true
-                    },
-                        function (isConfirm) { //Function that triggers on user action.
-                            if (isConfirm) {
-                                var configRequest = {
-                                    method: "DELETE",
-                                    url: "cot-secciones-det-sinonimos/",
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    data: { list: $scope.selectedIdioma }
-                                };
-                                var promise = $consumeService.post(configRequest);
-                                promise.then(function (result) {
-                                    if (result.success == true) {
-                                        $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
-                                            + "&seccion=" + $scope.selectedIdioma[0].codSeccion + "&codVal=" + $scope.selectedIdioma[0].codVal);
-                                        $scope.promiseSinonimo.then(function (result) {
-                                            $scope.queryCotSeccionesDetSinonimo = result;
-                                            swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
-                                        });                                        
-                                    } else {
-                                        swal("Mensaje JSP7", result.message, "error");
-                                    }
+                swal({
+                    title: "Mensaje JSP7", //Bold text
+                    text: "¿Desea Eliminar el/los registro(s)?", //light text
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        var configRequest = {
+                            method: "DELETE",
+                            url: "cot-secciones-det-sinonimos/",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: { list: $scope.selectedIdioma }
+                        };
+                        var promise = $consumeService.post(configRequest);
+                        promise.then(function (result) {
+                            if (result.success == true) {
+                                $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
+                                    + "&seccion=" + $scope.selectedIdioma[0].codSeccion + "&codVal=" + $scope.selectedIdioma[0].codVal);
+                                $scope.promiseSinonimo.then(function (result) {
+                                    $scope.queryCotSeccionesDetSinonimo = result;
+                                    swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                                 });
+                            } else {
+                                swal("Mensaje JSP7", result.message, "error");
                             }
                         });
-                };
-                vm.confirm();
+                    }
+                });                
             }
         };
 

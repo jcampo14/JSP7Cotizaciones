@@ -1,15 +1,8 @@
 var app = angular.module('MenuJSP7', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngMdBadge', 'ngRoute', 'hc.marked', 'App.utils']);
 
-app.config(['$mdThemingProvider', function ($mdThemingProvider) {
+app.config(['$mdThemingProvider', 'menuProvider', function ($mdThemingProvider, menuProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue-grey');
-    /*    
-    var $http = angular.injector(['ng']).get('$http');
-    var promise = $http.get('menu/');
-    promise.then(function (result) {
-        menuProvider.items('primary', result.data);
-    });
-    */
-/*
+    /*
     menuProvider.items('primary', [
         {
             id: 'item-0',
@@ -69,7 +62,7 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
             link: 'demo/views/item-4',
             icon: 'fas fa-award'
         }]);
-*/
+        */
 }]);
 
 app.config(['markedProvider', function (markedProvider) {
@@ -90,14 +83,16 @@ app.config(['markedProvider', function (markedProvider) {
 app.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '$sce', '$localstorage',
     '$consumeService', '$q', function ($scope, $menu, $mdSidenav, $mdBottomSheet, $sce, $localstorage,
         $consumeService, $q) {
-        $scope.isLoading = true;    
+        $scope.isLoading = true;
         $scope.style = $menu.style();
-        var promise = $consumeService.get('menu/');        
+
+        var promise = $consumeService.get('menu/');
         $q.all([promise]).then(function (values) {
-            $scope.itemsMenu = $menu.setItems('primary',values[0].data);
+            $scope.itemsMenu = $menu.setItems('primary', values[0].data);
             $scope.isLoading = false;
             $scope.$applyAsync;
-        });        
+        });
+
         /*
                 var promise = $consumeService.get('menu/');
                 promise.then(function (result) {
@@ -135,7 +130,9 @@ app.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '
 
         $menu.callback(function (item) {
             console.log('You are going to', item.link);
-            $scope.toggle();
+            if (item.items.length == 0) {
+                $scope.toggle();
+            }            
             $mdBottomSheet.hide();
             /** Llamado del tab */
             var tab = 0;

@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'oitozero.ngSweetAlert', 'App.utils']);
+var app = angular.module('App', ['ngMaterial', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
@@ -8,9 +8,9 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 app.controller('loginController', [
     '$localstorage', '$consumeService',
     '$scope', '$timeout', '$window',
-    '$http', '$mdDialog', 'SweetAlert',
+    '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $window, $http, $mdDialog, SweetAlert) {
+        $window, $http, $mdDialog) {
 
         $scope.titulo_formulario = "Centro de Autenticación JSP7";
 
@@ -18,7 +18,7 @@ app.controller('loginController', [
 
         /* Traemos las empresas para setear en el select */
         $scope.loadCompanies = function () {
-            var promise = $consumeService.get('WSCotizaciones/listCompanies');
+            var promise = $consumeService.get('companies');
             promise.then(function (result) {
                 // this is only run after getData() resolves        
                 $scope.companies = result.data;
@@ -31,16 +31,16 @@ app.controller('loginController', [
                 || $scope.credentials.company == null) {
                 swal("Mensaje JSP7", "Faltan campos por llenar.", "error");
             } else {
-                var promise = $consumeService.get("WSCotizaciones/login?usuario="
+                var promise = $consumeService.get("loginService?usuario="
                     + $scope.credentials.username + "&clave=" + $scope.credentials.password
                     + "&emp=" + $scope.credentials.company);
                 promise.then(function (result) {
-                    if (result.response.success == true) {
+                    if (result.success == true) {
                         $localstorage.set('global.empresa', $scope.credentials.company);
                         $localstorage.set('global.usuario', $scope.credentials.username);
                         /* Seteamos el nombre de usuario */
-                        $localstorage.set('global.nombreUsuario', result.response.message);
-
+                        $localstorage.set('global.nombreUsuario', result.message);
+                        /* Navegamos al Menu */
                         $window.location.href = 'menu.html';
                     } else {
                         swal("Mensaje JSP7", result.message, "error");

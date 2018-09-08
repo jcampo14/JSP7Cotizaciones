@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'md.data.table', 'oitozero.ngSweetAlert', 'App.utils']);
+var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
@@ -8,9 +8,9 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 app.controller('incotermCostosAdicController', [
     '$localstorage', '$consumeService',
     '$scope', '$timeout', '$window',
-    '$http', '$mdDialog', 'SweetAlert',
+    '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $window, $http, $mdDialog, SweetAlert) {
+        $window, $http, $mdDialog) {
         'use strict';
         /* Simulamos el Login */
         $localstorage.set('global.empresa', '01');
@@ -208,48 +208,42 @@ app.controller('incotermCostosAdicController', [
             if ($scope.selectedCostosAdic.length == 0) {
                 swal("Mensaje JSP7", "Debe seleccionar al menos 1 elemento para borrar.", "warning");
             } else {
-                var vm = this;
-                vm.confirm = function () {
-                    SweetAlert.swal({
-                        title: "Mensaje JSP7", //Bold text
-                        text: "¿Desea Eliminar el/los registro(s)?", //light text
-                        type: "warning", //type -- adds appropiriate icon
-                        showCancelButton: true, // displays cancel btton
-                        cancelButtonText: "Cancelar",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Aceptar",
-                        closeOnConfirm: true, //do not close popup after click on confirm, usefull when you want to display a subsequent popup
-                        closeOnCancel: true
-                    },
-                        function (isConfirm) { //Function that triggers on user action.
-                            if (isConfirm) {
-                                var dataToSend = angular.toJson({ list: $scope.selectedCostosAdic });
-                                var configRequest = {
-                                    method: "DELETE",
-                                    url: "incoterm-fac-costos-adic/",
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    data: dataToSend
-                                };
-                                var promise = $consumeService.post(configRequest);
-                                promise.then(function (result) {
-                                    if (result.success == true) {
-                                        $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $scope.selectedIncoterm[0].cEmp
-                                        + '&incoterm=' + $scope.selectedIncoterm[0].codIncoterm);
-                                        $scope.promiseCostosAdic.then(function (result) {
-                                            $scope.selectedCostosAdic = [];
-                                            $scope.queryCostosAdic = result;
-                                        });
-                                        swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
-                                    } else {
-                                        swal("Mensaje JSP7", result.message, "error");
-                                    }
+                swal({
+                    title: "Mensaje JSP7", //Bold text
+                    text: "¿Desea Eliminar el/los registro(s)?", //light text
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        var dataToSend = angular.toJson({ list: $scope.selectedCostosAdic });
+                        var configRequest = {
+                            method: "DELETE",
+                            url: "incoterm-fac-costos-adic/",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: dataToSend
+                        };
+                        var promise = $consumeService.post(configRequest);
+                        promise.then(function (result) {
+                            if (result.success == true) {
+                                $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $scope.selectedIncoterm[0].cEmp
+                                    + '&incoterm=' + $scope.selectedIncoterm[0].codIncoterm);
+                                $scope.promiseCostosAdic.then(function (result) {
+                                    $scope.selectedCostosAdic = [];
+                                    $scope.queryCostosAdic = result;
                                 });
+                                swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
+                            } else {
+                                swal("Mensaje JSP7", result.message, "error");
                             }
                         });
-                };
-                vm.confirm();
+                    }
+                });                
             }
         };
 

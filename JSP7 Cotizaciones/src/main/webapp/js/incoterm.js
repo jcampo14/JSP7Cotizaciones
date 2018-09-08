@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'md.data.table', 'oitozero.ngSweetAlert', 'App.utils']);
+var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
@@ -8,13 +8,13 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 app.controller('incotermController', [
     '$localstorage', '$consumeService',
     '$scope', '$timeout', '$window',
-    '$http', '$mdDialog', 'SweetAlert',
+    '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $window, $http, $mdDialog, SweetAlert) {
+        $window, $http, $mdDialog) {
         'use strict';
         /* Simulamos el Login */
         $localstorage.set('global.empresa', '01');
-        $localstorage.set('global.usuario', 'ADMIN');        
+        $localstorage.set('global.usuario', 'ADMIN');
 
         $scope.titulo_formulario = "Definición de Incoterms";
 
@@ -70,10 +70,10 @@ app.controller('incotermController', [
             console.log('page: ', page);
             console.log('limit: ', limit);
         };
-        
+
         $scope.onPaginate = function () {
-            $scope.selected = []; 
-            $scope.$applyAsync();           
+            $scope.selected = [];
+            $scope.$applyAsync();
         };
 
         /* Borrar registro */
@@ -81,47 +81,41 @@ app.controller('incotermController', [
             if ($scope.selected.length == 0) {
                 swal("Mensaje JSP7", "Debe seleccionar al menos 1 elemento para borrar.", "warning");
             } else {
-                var vm = this;
-                vm.confirm = function () {
-                    SweetAlert.swal({
-                        title: "Mensaje JSP7", //Bold text
-                        text: "¿Desea Eliminar el registro?", //light text
-                        type: "warning", //type -- adds appropiriate icon
-                        showCancelButton: true, // displays cancel btton
-                        cancelButtonText: "Cancelar",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Aceptar",
-                        closeOnConfirm: true, //do not close popup after click on confirm, usefull when you want to display a subsequent popup
-                        closeOnCancel: true
-                    },
-                        function (isConfirm) { //Function that triggers on user action.
-                            if (isConfirm) {
-                                var dataToSend = angular.toJson({ list: $scope.selected });
-                                var configRequest = {
-                                    method: "DELETE",
-                                    url: "incoterms/",
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    data: dataToSend
-                                };
-                                $scope.promiseDeleteIncoterm = $consumeService.post(configRequest);
-                                $scope.promiseDeleteIncoterm.then(function (result) {
-                                    if (result.success == true) {
-                                        $scope.promise = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
-                                        $scope.promise.then(function (result) {
-                                            $scope.selected = [];
-                                            $scope.query_incoterm = result;
-                                            swal("Mensaje JSP7","¡Transacción exitosa!", "success");
-                                        });                                        
-                                    } else {
-                                        swal("Mensaje JSP7",result.message, "error");
-                                    }
-                                });                                                             
-                            }                        
+                swal({
+                    title: "Mensaje JSP7", //Bold text
+                    text: "¿Desea Eliminar el/los registro(s)?", //light text
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        var dataToSend = angular.toJson({ list: $scope.selected });
+                        var configRequest = {
+                            method: "DELETE",
+                            url: "incoterms/",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: dataToSend
+                        };
+                        $scope.promiseDeleteIncoterm = $consumeService.post(configRequest);
+                        $scope.promiseDeleteIncoterm.then(function (result) {
+                            if (result.success == true) {
+                                $scope.promise = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
+                                $scope.promise.then(function (result) {
+                                    $scope.selected = [];
+                                    $scope.query_incoterm = result;
+                                    swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
+                                });
+                            } else {
+                                swal("Mensaje JSP7", result.message, "error");
+                            }
                         });
-                };
-                vm.confirm();
+                    }
+                });                
             }
         };
 
@@ -179,9 +173,9 @@ app.controller('incotermController', [
                                 $scope.selected = [];
                                 $scope.query_incoterm = result;
                             });
-                            swal("Mensaje JSP7","¡Transacción exitosa!", "success");
+                            swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                         } else {
-                            swal("Mensaje JSP7",result.message, "error");
+                            swal("Mensaje JSP7", result.message, "error");
                         }
                         $mdDialog.hide(action);
                     });
@@ -214,8 +208,8 @@ app.controller('incotermController', [
 
             $scope.addIncoterm = {
                 cEmp: $localstorage.get('global.empresa', '00'),
-                codIncoterm: null,             
-                version: 0,                
+                codIncoterm: null,
+                version: 0,
                 nombre: null
             };
 
@@ -249,9 +243,9 @@ app.controller('incotermController', [
                                     $scope.selected = [];
                                     $scope.query_incoterm = result;
                                 });
-                                swal("Mensaje JSP7","¡Transacción exitosa!", "success");
+                                swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                             } else {
-                                swal("Mensaje JSP7",result.message, "error");
+                                swal("Mensaje JSP7", result.message, "error");
                             }
                             $mdDialog.hide(action);
                         });

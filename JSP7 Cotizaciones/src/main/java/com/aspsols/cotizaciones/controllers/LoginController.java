@@ -13,7 +13,7 @@ import com.aspsols.cotizaciones.services.LoginServices;
 @RestController
 public class LoginController {
 	
-	private static final String SERVICE_PATH = "/login";
+	private static final String SERVICE_PATH = "/loginService";
 	
 	@Autowired
 	private LoginServices service;
