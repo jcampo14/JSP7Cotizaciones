@@ -30,6 +30,10 @@ public class CotizacionRequest implements Serializable {
 
 	private String iva;
 
+	private String cot;
+
+	private Integer rev;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
@@ -138,6 +142,22 @@ public class CotizacionRequest implements Serializable {
 
 	public void setIva(String iva) {
 		this.iva = iva;
+	}
+
+	public String getCot() {
+		return cot;
+	}
+
+	public void setCot(String cot) {
+		this.cot = cot;
+	}
+
+	public Integer getRev() {
+		return rev;
+	}
+
+	public void setRev(Integer rev) {
+		this.rev = rev;
 	}
 
 }

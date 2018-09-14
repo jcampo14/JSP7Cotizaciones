@@ -79,6 +79,10 @@ app.controller('Ctrl', [
             {
                 codigo: "PIE",
                 nombre: "Pie de documento"
+            },
+            {
+                codigo: "PRE",
+                nombre: "Presentación de documento"
             }
         ];
 

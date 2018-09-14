@@ -26,7 +26,7 @@ public class CotizacionRepository {
 	public void create(CotizacionRequest record, String idTransaccion) {
 		/* Insertamos el encabezado */
 		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO,DIAS_VALIDEZ,"
-				+ "COD_EMBALAJE,IVA) values(?,?,?,?,?,?,?,?,?,?,?)";
+				+ "COD_EMBALAJE,IVA,COT,REV) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -43,6 +43,8 @@ public class CotizacionRepository {
 				QueryUtilities.addSqlParameter(ps, 9, record.getDiasValidez(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 10, record.getEmbalaje(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 11, record.getIva(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 12, record.getCot(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 13, record.getRev(), Types.INTEGER);
 				return ps;
 			}
 		});
@@ -104,6 +106,49 @@ public class CotizacionRepository {
 				}
 			}
 		}
+	}
+	
+	public void delete(String idTransaccion) {
+		/* Borramos los datos de la tablas */
+		String sqlEnc = "delete from TMP_COT_ENC where ID_TRANSACCION = ?";
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				//PreparedStatement ps = connection.prepareStatement(sqlEnc, Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement ps = connection.prepareStatement(sqlEnc);
+				QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);				
+				return ps;
+			}
+		});
+		String sqlDet = "delete from TMP_COT_DET where ID_TRANSACCION = ?";
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				//PreparedStatement ps = connection.prepareStatement(sqlEnc, Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement ps = connection.prepareStatement(sqlDet);
+				QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);				
+				return ps;
+			}
+		});
+		String sqlSecciones = "delete from TMP_COT_SECCIONES where ID_TRANSACCION = ?";		
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(sqlSecciones,
+						Statement.RETURN_GENERATED_KEYS);
+				QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);				
+				return ps;
+			}
+		});
+		String sqlCostos = "delete from TMP_COT_COSTOS where ID_TRANSACCION = ?";		
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(sqlCostos, Statement.RETURN_GENERATED_KEYS);
+				QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);				
+				return ps;
+			}
+		});
 	}
 
 }

@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Consulta de Cotizaciones</title>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="css/lib/angular-material.css">
+    <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
+    <link rel="stylesheet" href="css/lib/sweetalert2.css">
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
+    <link rel="stylesheet" href="css/lib/base.css" />
+    <link rel="stylesheet" href="css/lib/icon.css" />
+    <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
+        crossorigin="anonymous">
+</head>
+
+<body ng-app="App" ng-cloak ng-controller="Ctrl">
+    <!-- Usar Window.open -->
+    <div class="panel-body principal-panel">
+        <div ng-include="'structure/title.html'"></div>
+        <div class="card">
+            <div class="content">                
+                <md-table-container>
+                    <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                            <tr md-row>
+                                <th md-column md-order-by="codigo" md-desc style="width: 40%;">
+                                    <span>Periodo</span>
+                                </th>
+                                <th md-column md-order-by="nombre" style="width: 40%;">
+                                    <span>Agencia</span>
+                                </th>
+                                <th md-column md-order-by="nombre" style="width: 20%;">
+                                    <span>No. Cotización</span>
+                                </th>
+                                <th md-column style="width: 20%;">
+                                    <span></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in query_incoterm.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                <td md-cell>{{record.per}}</td>
+                                <td md-cell>{{record.cAgr}}</td>
+                                <td md-cell>{{record.cot}}</td>
+                                <td md-cell>
+                                    <md-button class="md-icon-button">                                            
+                                        <md-tooltip>Ver Revisiones</md-tooltip>
+                                        <md-icon md-font-icon="fas fa-file-alt"></md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{query_incoterm.count}}"
+                    md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
+                    md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+            </div>
+        </div>
+    </div>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="js/lib/angular-1.7.2/angular.js"></script>
+    <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
+    <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
+    <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
+    <script src="js/lib/angular-material/angular-material.js"></script>
+    <!-- External Libraries -->
+    <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>
+    <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
+    <!-- module -->
+    <script src="js/lib/utils.js"></script>
+    <script src="js/consulta_cotizaciones.js"></script>
+</body>
+
+</html>

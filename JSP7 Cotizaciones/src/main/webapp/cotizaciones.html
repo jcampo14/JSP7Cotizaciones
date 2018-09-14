@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
     <link rel="stylesheet" href="css/lib/sweetalert2.css">
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/lib/paper-dashboard.css"  />
-    <link rel="stylesheet" href="css/lib/base.css"  />
-    <link rel="stylesheet" href="css/lib/icon.css"  />
+    <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
+    <link rel="stylesheet" href="css/lib/base.css" />
+    <link rel="stylesheet" href="css/lib/icon.css" />
     <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
@@ -41,7 +41,6 @@
             </div>
         </div>
         <div class="panel-body" ng-show="!isLoading">
-            <legend>Encabezado de la Cotización</legend>
             <div class="card">
                 <div class="panel-body">
                     <legend>Datos de Cabecera</legend>
@@ -160,29 +159,6 @@
                     </div>
                 </div>
             </div>
-            <div ng-repeat="seccion in secciones | filter:{tipoSeccion:'ENC'}">
-                <div class="card">
-                    <div class="panel-body">
-                        <h4>{{seccion.nombreSec}}</h4>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Selecione contenido para {{seccion.nombreSec}}</label>
-                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
-                                        <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
-                                    </md-select>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <label>Descripción</label>
-                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final" rows="10"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <legend>Detalle de la Cotización</legend>
             <div class="card">
                 <form name="detalleForm" class="panel-body">
@@ -250,10 +226,9 @@
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
                                         <label>Precio Lista</label>
-                                        <input required name="precioLista" ng-model="selectedDetalle.precio_lista" ui-number-mask="2"
-                                            ng-disabled="true">
+                                        <input required name="precioLista" ng-model="selectedDetalle.precio_lista" ui-number-mask="2" ng-disabled="true">
                                         <div ng-messages="detalleForm.precioLista.$error">
-                                            <div ng-message="required">Este campo es requerido.</div>                                            
+                                            <div ng-message="required">Este campo es requerido.</div>
                                         </div>
                                     </md-input-container>
                                     <!--
@@ -267,8 +242,7 @@
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
                                         <label>Precio Venta</label>
-                                        <input required name="precioVenta" ng-model="selectedDetalle.precio_venta" ui-number-mask="2"
-                                            ng-change="changePrecioVenta(detalleForm)">
+                                        <input required name="precioVenta" ng-model="selectedDetalle.precio_venta" ui-number-mask="2" ng-change="changePrecioVenta(detalleForm)">
                                         <div ng-messages="detalleForm.precioVenta.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="validationError">Precio de venta fuera de los limites parametrizados.</div>
@@ -363,6 +337,54 @@
             <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{cot_det.length}}"
                 md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
                 md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+            <legend>Presentación de la Cotización</legend>
+            <div ng-repeat="seccion in secciones | filter:{tipoSeccion:'PRE'}">
+                <div class="card">
+                    <div class="panel-body">
+                        <h4>{{seccion.nombreSec}}</h4>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Selecione contenido para {{seccion.nombreSec}}</label>
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                        <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
+                                    </md-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final" rows="10"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <legend>Encabezado de la Cotización</legend>
+            <div ng-repeat="seccion in secciones | filter:{tipoSeccion:'ENC'}">
+                <div class="card">
+                    <div class="panel-body">
+                        <h4>{{seccion.nombreSec}}</h4>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Selecione contenido para {{seccion.nombreSec}}</label>
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                        <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
+                                    </md-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final" rows="10"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <legend>Pie de la Cotización</legend>
             <div ng-repeat="seccion in secciones | filter:{tipoSeccion:'PIE'}">
                 <div class="card">
@@ -388,7 +410,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
     <!-- Angular Material requires Angular.js Libraries -->
     <script src="js/lib/angular-1.7.2/angular.js"></script>
     <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>

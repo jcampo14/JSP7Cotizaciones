@@ -25,6 +25,7 @@ public class CreaCotizacion extends StoredProcedure {
 		declareParameter(new SqlOutParameter("codError", Types.INTEGER));
 		declareParameter(new SqlOutParameter("msgError", Types.VARCHAR));
 		declareParameter(new SqlOutParameter("numeroCot", Types.INTEGER));
+		declareParameter(new SqlOutParameter("numeroRev", Types.INTEGER));
 		// declareParameter(new SqlParameter("idDisco", Types.INTEGER));
 		// setFunction(false);
 		compile();

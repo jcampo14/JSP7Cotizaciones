@@ -12,8 +12,12 @@ public class CotizacionServices {
 	@Autowired
 	private CotizacionRepository repository;
 
-	public boolean createCotizacion(CotizacionRequest model, String idTransaccion) {		
+	public boolean insertTemporalTable(CotizacionRequest model, String idTransaccion) {		
 		repository.create(model, idTransaccion);		
 		return true;
+	}
+	
+	public void deleteTemporalTable(String idTransaccion) {
+		repository.delete(idTransaccion);
 	}
 }
