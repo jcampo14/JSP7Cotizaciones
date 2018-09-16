@@ -24,6 +24,10 @@ public class UsuAgeId implements Serializable {
 		this.cEmp = cEmp;
 	}
 
+	public UsuAgeId() {
+		super();
+	}
+
 	public String getUsuario() {
 		return usuario;
 	}

@@ -19,5 +19,13 @@ public interface CotEncRepository extends CrudRepository<CotEnc, CotEncId> {
 			+ " WHERE cEmp = :empresa AND cVen = :vendedor" + " GROUP BY cEmp, per, cAgr, cot")
 	public List<CotizacionQuery> findByEmpresaAndVendedorGroupBy(@Param("empresa") String empresa,
 			@Param("vendedor") String vendedor);
+	
+	@Query("FROM CotEnc WHERE cot = :numeroCot AND cAgr = :agencia AND per = :periodo AND cEmp = :empresa")
+	public List<CotEnc> findByCot(@Param("empresa") String empresa,@Param("agencia") String agencia,
+			@Param("periodo") String periodo, @Param("numeroCot") String numeroCot);
+	
+	@Query("FROM CotEnc WHERE cot = :numeroCot AND rev = :revision AND cAgr = :agencia AND per = :periodo AND cEmp = :empresa")
+	public List<CotEnc> findByCotAndRev(@Param("empresa") String empresa,@Param("agencia") String agencia,
+			@Param("periodo") String periodo, @Param("numeroCot") String numeroCot, @Param("revision") Integer revision);
 
 }

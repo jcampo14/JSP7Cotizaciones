@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 
-public class CotEncId implements Serializable {
+public class CotDetId implements Serializable {
 
 	/**
 	 * 
@@ -26,6 +26,9 @@ public class CotEncId implements Serializable {
 
 	@Column(name = "REV")
 	private Integer rev;
+
+	@Column(name = "COD")
+	private String cod;
 
 	public String getcEmp() {
 		return cEmp;
@@ -67,20 +70,28 @@ public class CotEncId implements Serializable {
 		this.rev = rev;
 	}
 
+	public String getCod() {
+		return cod;
+	}
+
+	public void setCod(String cod) {
+		this.cod = cod;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		CotEncId that = (CotEncId) o;
+		CotDetId that = (CotDetId) o;
 		return cEmp.equals(that.cEmp) && per.equals(that.per) && cAgr.equals(that.cAgr) && cot.equals(that.cot)
-				&& rev.equals(that.rev);
+				&& rev.equals(that.rev) && cod.equals(that.cod);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getcEmp(), getPer(), getcAgr(), getCot(), getRev());
+		return Objects.hash(getcEmp(), getPer(), getcAgr(), getCot(), getRev(), getCod());
 	}
 
 }

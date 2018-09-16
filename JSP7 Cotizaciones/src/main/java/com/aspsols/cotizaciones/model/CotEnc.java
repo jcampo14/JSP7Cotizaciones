@@ -2,6 +2,7 @@ package com.aspsols.cotizaciones.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.aspsols.cotizaciones.model.ids.CotEncId;
@@ -42,7 +44,7 @@ public class CotEnc implements Serializable {
 
 	@Id
 	@Column(name = "REV")
-	private Double rev;
+	private Integer rev;
 
 	@Column(name = "EMI")
 	private Date emi;
@@ -56,6 +58,22 @@ public class CotEnc implements Serializable {
 	@Column(name = "C_VEN")
 	private String cVen;
 
+	@Column(name = "COD_SUC")
+	private String codSuc;
+
+	@Column(name = "IDIOMA")
+	private String idioma;
+
+	@ManyToOne
+	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
+			@JoinColumn(name = "COD_EMB", referencedColumnName = "COD_EMB", insertable = false, updatable = false) })
+	private Embalaje embajale;
+
+	@ManyToOne
+	@JoinColumns({ @JoinColumn(name = "CRI", referencedColumnName = "CRI", insertable = false, updatable = false),
+			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
+	private Criterio criterio;
+
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
 			@JoinColumn(name = "N_IDE", referencedColumnName = "N_IDE", insertable = false, updatable = false) })
@@ -65,6 +83,14 @@ public class CotEnc implements Serializable {
 	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
 			@JoinColumn(name = "C_VEN", referencedColumnName = "N_IDE", insertable = false, updatable = false) })
 	private Nits vendedor;
+
+	@OneToMany
+	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
+			@JoinColumn(name = "PER", referencedColumnName = "PER", insertable = false, updatable = false),
+			@JoinColumn(name = "C_AGR", referencedColumnName = "C_AGR", insertable = false, updatable = false),
+			@JoinColumn(name = "COT", referencedColumnName = "COT", insertable = false, updatable = false),
+			@JoinColumn(name = "REV", referencedColumnName = "REV", insertable = false, updatable = false) })
+	private List<CotDet> detalle;
 
 	public String getcEmp() {
 		return cEmp;
@@ -98,11 +124,11 @@ public class CotEnc implements Serializable {
 		this.cot = cot;
 	}
 
-	public Double getRev() {
+	public Integer getRev() {
 		return rev;
 	}
 
-	public void setRev(Double rev) {
+	public void setRev(Integer rev) {
 		this.rev = rev;
 	}
 
@@ -138,6 +164,38 @@ public class CotEnc implements Serializable {
 		this.cVen = cVen;
 	}
 
+	public String getCodSuc() {
+		return codSuc;
+	}
+
+	public void setCodSuc(String codSuc) {
+		this.codSuc = codSuc;
+	}
+
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+
+	public Embalaje getEmbajale() {
+		return embajale;
+	}
+
+	public void setEmbajale(Embalaje embajale) {
+		this.embajale = embajale;
+	}
+
+	public Criterio getCriterio() {
+		return criterio;
+	}
+
+	public void setCriterio(Criterio criterio) {
+		this.criterio = criterio;
+	}
+
 	public Nits getCliente() {
 		return cliente;
 	}
@@ -152,6 +210,14 @@ public class CotEnc implements Serializable {
 
 	public void setVendedor(Nits vendedor) {
 		this.vendedor = vendedor;
+	}
+
+	public List<CotDet> getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(List<CotDet> detalle) {
+		this.detalle = detalle;
 	}
 
 }

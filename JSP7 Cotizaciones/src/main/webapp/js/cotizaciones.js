@@ -7,14 +7,20 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue');
 }]);
 
+app.config(['$locationProvider', function ($locationProvider) {
+    $locationProvider.html5Mode(true);
+    // or
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+}]);
+
 app.controller('Ctrl', [
     '$localstorage', '$consumeService',
-    '$scope', '$timeout', '$window',
-    '$http', '$mdDialog',
-    '$mdEditDialog', '$q', '$filter',
+    '$scope', '$timeout', '$http', '$q', '$filter', '$location',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $window, $http, $mdDialog, $mdEditDialog,
-        $q, $filter) {
+        $http, $q, $filter, $location) {
 
         /** Simulamos el Login */
         $localstorage.set('global.empresa', '01');
@@ -63,6 +69,12 @@ app.controller('Ctrl', [
         };
         /* Iniciar la forma */
         $scope.init = function () {
+            /* Si es una consulta */
+            var urlParams = $location.search();
+            if (urlParams.params != null) {
+                var paramsDecode = decodeURI(atob(urlParams.params));                
+                console.log(paramsDecode);
+            }
             $scope.isLoading = true;
             $scope.tieneCostos = false;
             $scope.autocompleteTerceros.selectedItem = '';
@@ -141,7 +153,7 @@ app.controller('Ctrl', [
             searchText: "",
             selectItemChange: function (item) {
                 if (item) {
-                    $scope.selectedArticulo = item;
+                    // $scope.selectedArticulo = item;
                     $scope.buscarPrecioVenta(item.cEmp, item.cod);
                     $scope.$applyAsync;
                 }
@@ -231,9 +243,7 @@ app.controller('Ctrl', [
                 if (o.length == 0) {
                     var itemToAdd = {
                         id: $scope.autocompleteArticulos.selectedItem,
-                        cEmp: $scope.autocompleteArticulos.selectedItem.cEmp,
-                        cod: $scope.autocompleteArticulos.selectedItem.cod,
-                        nom: $scope.autocompleteArticulos.selectedItem.nom,
+                        cEmp: $scope.autocompleteArticulos.selectedItem.cEmp,                        
                         cantidad: $scope.selectedDetalle.cantidad,
                         precio_lista: $scope.selectedDetalle.precio_lista,
                         precio_venta: $scope.selectedDetalle.precio_venta,
@@ -307,7 +317,7 @@ app.controller('Ctrl', [
         $scope.deleteItemDetalle = function () {
             var index = 0;
             while (index < $scope.cot_det.length) {
-                if ($scope.cot_det[index].cod == $scope.selectedArticulo.cod) {
+                if ($scope.cot_det[index].id.cod == $scope.autocompleteArticulos.selectedItem.cod) {
                     if (index > -1) {
                         $scope.cot_det.splice(index, 1);
                         delete $scope.selectedDetalle;
@@ -320,16 +330,14 @@ app.controller('Ctrl', [
         };
 
         $scope.buscarPrecioVenta = function (empresa, codigo) {
-            $scope.selectedDetalle = {};
+            // $scope.selectedDetalle = {};
             var promise = $consumeService.get('precios/?emp=' + empresa
                 + "&cod=" + codigo + "&cri=" + $scope.cot_enc.criVenta.cri);
             promise.then(function (result) {
                 if (result.pVen == null) {
                     swal("Mensaje JSP7", "El artículo no tiene precio de lista", "warning");
                 } else {
-                    $scope.selectedDetalle.precio_lista = result.pVen;
-                    $scope.selectedIva = $scope.selectedArticulo.idIva.cDes;
-                    $scope.selectedDetalle.pctjIva = $scope.selectedArticulo.idIva.pctj;
+                    $scope.selectedDetalle.precio_lista = result.pVen;                    
                 }
             });
         };
@@ -340,10 +348,9 @@ app.controller('Ctrl', [
             $scope.selectedDetalle.cantidad = item.cantidad;
             $scope.selectedDetalle.precio_lista = item.precio_lista;
             $scope.selectedDetalle.precio_venta = item.precio_venta;
-            $scope.selectedDetalle.descuento = item.descuento;
-            $scope.selectedIva = item.iva.cDes;
-            $scope.selectedDetalle.pctjIva = item.iva.pctj;
+            $scope.selectedDetalle.descuento = item.descuento;            
             $scope.isDisabled = true;
+            $scope.$applyAsync();
         };
 
         $scope.clearEditarTable = function (item) {

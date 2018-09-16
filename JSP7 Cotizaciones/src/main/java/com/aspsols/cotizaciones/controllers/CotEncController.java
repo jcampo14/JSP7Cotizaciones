@@ -15,16 +15,16 @@ import com.aspsols.cotizaciones.services.CotEncServices;
 
 @RestController
 public class CotEncController {
-
-	private static final String SERVICE_PATH = "/cot-enc/";
+	
 
 	@Autowired
 	private CotEncServices service;
 
-	@RequestMapping(method = RequestMethod.GET, path = SERVICE_PATH)
-	public QueryResponse<CotEnc> findByEmpresaAndVendedor(@RequestParam("emp") String empresa, @RequestParam("ven") String vendedor){
-		QueryResponse<CotEnc> response = new QueryResponse<>();
-		List<CotEnc> resultData = service.findByEmpresaAndVendedor(empresa, vendedor);
+	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc/")
+	public QueryResponse<CotEnc> findByEmpresaAndVendedor(@RequestParam("emp") String empresa, @RequestParam("age") String agencia,
+			@RequestParam("per") String periodo, @RequestParam("numeroCot") String numeroCot, @RequestParam("rev") Integer revision){
+		QueryResponse<CotEnc> response = new QueryResponse<>();		
+		List<CotEnc> resultData = service.findByCotAndRev(empresa, agencia, periodo, numeroCot, revision);
 		response.setCount(resultData.size());
 		response.setData(resultData);
 		return response;
@@ -34,6 +34,16 @@ public class CotEncController {
 	public QueryResponse<CotizacionQuery> findByEmpresaAndVendedorGroupBy(@RequestParam("emp") String empresa, @RequestParam("ven") String vendedor){
 		QueryResponse<CotizacionQuery> response = new QueryResponse<>();
 		List<CotizacionQuery> resultData = service.findByEmpresaAndVendedorGroupBy(empresa, vendedor);
+		response.setCount(resultData.size());
+		response.setData(resultData);
+		return response;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc-rev/")
+	public QueryResponse<CotEnc> findByCot(@RequestParam("emp") String empresa, @RequestParam("age") String agencia,
+			@RequestParam("per") String periodo, @RequestParam("numeroCot") String numeroCot){
+		QueryResponse<CotEnc> response = new QueryResponse<>();
+		List<CotEnc> resultData = service.findByCot(empresa, agencia, periodo, numeroCot);
 		response.setCount(resultData.size());
 		response.setData(resultData);
 		return response;

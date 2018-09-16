@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aspsols.cotizaciones.db.procedures.CreaCotizacion;
 import com.aspsols.cotizaciones.request.CotizacionRequest;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
-import com.aspsols.cotizaciones.responses.QueryResponse;
 import com.aspsols.cotizaciones.services.CotizacionServices;
 
 @RestController

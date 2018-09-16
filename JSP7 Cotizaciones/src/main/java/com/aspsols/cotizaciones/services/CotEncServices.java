@@ -22,7 +22,12 @@ public class CotEncServices {
 	private VendedorRepository vendedorRepository;
 
 	public List<CotEnc> findByEmpresaAndVendedor(String empresa, String vendedor) {
-		return repository.findByEmpresaAndVendedor(empresa, vendedor);
+		Vendedor vendedorNit = vendedorRepository.findByUsuario(empresa, vendedor);
+		if (vendedorNit != null) {
+			return repository.findByEmpresaAndVendedor(empresa, vendedorNit.getnIde());
+		} else {
+			return new ArrayList<CotEnc>();
+		}
 	}
 
 	public List<CotizacionQuery> findByEmpresaAndVendedorGroupBy(String empresa, String vendedor) {
@@ -34,4 +39,12 @@ public class CotEncServices {
 		}
 	}
 	
+	public List<CotEnc> findByCot(String empresa, String agencia, String periodo, String numeroCot){
+		return repository.findByCot(empresa, agencia, periodo, numeroCot);
+	}
+	
+	public List<CotEnc> findByCotAndRev(String empresa, String agencia, String periodo, String numeroCot, Integer revision){
+		return repository.findByCotAndRev(empresa, agencia, periodo, numeroCot, revision);
+	}
+
 }

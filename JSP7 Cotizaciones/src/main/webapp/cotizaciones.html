@@ -31,6 +31,12 @@
                                 <p>Guardar</p>
                             </a>
                         </li>
+                        <li class="open" ng-if="">
+                            <a class="dropdown-toggle" href="" aria-expanded="true" ng-click="grabarCotizacion()">
+                                <img src="img/guardar blanco.png" alt="Guardar" style="height: 25px">
+                                <p>Guardar</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +55,8 @@
                             <div class="form-group">
                                 <label>Agencia</label>
                                 <md-select placeholder="Agencia" ng-model="cot_enc.cAgr">
-                                    <md-option ng-value="record.cAge" ng-repeat="record in agencias">{{record.cAge}} - {{record.nom}}</md-option>
+                                    <md-option ng-value="record.cAge" ng-repeat="record in agencias">{{record.cAge}} -
+                                        {{record.nom}}</md-option>
                                 </md-select>
                             </div>
                         </div>
@@ -59,47 +66,43 @@
                                 <md-select placeholder="Criterio" ng-model="cot_enc.criVenta" md-on-close="clearSelectFilter()">
                                     <md-select-header class="demo-select-header">
                                         <input ng-model="searchCriterio" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
-                                            style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
+                                            style="width: 100%" ng-keydown="$event.stopPropagation()"
+                                            force-select-focus>
                                     </md-select-header>
-                                    <md-option ng-value="record" ng-repeat="record in criterios | filter:searchCriterio">{{record.cri}} - {{record.des}}</md-option>
+                                    <md-option ng-value="record" ng-repeat="record in criterios | filter:searchCriterio">{{record.cri}}
+                                        - {{record.des}}</md-option>
                                 </md-select>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Incoterm</label>
-                                <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()" ng-change="cargarCostosIncoterm()">
+                                <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()"
+                                    ng-change="cargarCostosIncoterm()">
                                     <md-select-header class="demo-select-header">
                                         <input ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
-                                            style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
+                                            style="width: 100%" ng-keydown="$event.stopPropagation()"
+                                            force-select-focus>
                                     </md-select-header>
-                                    <md-option ng-value="record.codIncoterm" ng-repeat="record in incoterms | filter:searchIncoterm">{{record.codIncoterm}} - {{record.nombre}}</md-option>
+                                    <md-option ng-value="record.codIncoterm" ng-repeat="record in incoterms | filter:searchIncoterm">{{record.codIncoterm}}
+                                        - {{record.nombre}}</md-option>
                                 </md-select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <md-autocomplete flex md-item-text="item.nIde + ' - ' + item.nombre" md-items="item in autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
-                                md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)" md-search-text="autocompleteTerceros.searchText"
-                                md-selected-item="autocompleteTerceros.selectedItem" md-no-cache="autocompleteTerceros.noCache"
-                                md-input-name="autocompleteField" md-selected-item-change="autocompleteTerceros.selectItemChange(item)"
-                                md-min-length="3" md-menu-class="autocomplete-custom-template" md-floating-label="Cliente">
+                                md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
+                                md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem"
+                                md-no-cache="autocompleteTerceros.noCache" md-input-name="autocompleteField"
+                                md-selected-item-change="autocompleteTerceros.selectItemChange(item)" md-min-length="3"
+                                md-menu-class="autocomplete-custom-template" md-floating-label="Cliente">
                                 <md-item-template>
                                     <span class="item-metadata">
                                         <span>
                                             <strong>{{item.nIde}} - {{item.nombre}}</strong>
                                         </span>
                                 </md-item-template>
-                            </md-autocomplete>
-                            <!-- <div class="form-group">
-                                <label>Tercero</label>
-                                <md-select placeholder="Tercero" ng-model="cot_enc.nIde" md-on-close="clearSelectFilter()">
-                                    <md-select-header class="demo-select-header">
-                                        <input ng-model="searchTercero" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
-                                            ng-keydown="$event.stopPropagation()" force-select-focus>
-                                    </md-select-header>
-                                    <md-option ng-value="record.nIde" ng-repeat="record in TercerosquerySearch(searchTercero)">{{record.nIde}} - {{record.nombre}}</md-option>
-                                </md-select>
-                            </div> -->
+                            </md-autocomplete>                           
                         </div>
                     </div>
                     <div class="row">
@@ -107,7 +110,8 @@
                             <div class="form-group">
                                 <label>Sucursal</label>
                                 <md-select placeholder="Sucursal" ng-model="cot_enc.cSuc" md-on-open="cargarSucursales()">
-                                    <md-option ng-value="record.cSuc" ng-repeat="record in sucursales">{{record.cSuc}} - {{record.nom}}</md-option>
+                                    <md-option ng-value="record.cSuc" ng-repeat="record in sucursales">{{record.cSuc}}
+                                        - {{record.nom}}</md-option>
                                 </md-select>
                             </div>
                         </div>
@@ -123,13 +127,7 @@
                             <md-input-container class="md-block">
                                 <label>Dias Validez</label>
                                 <input ng-model="cot_enc.diasValidez" ui-number-mask="0">
-                            </md-input-container>
-                            <!--
-                            <div class="form-group">
-                                <label>Dias Validez</label>
-                                <input class="form-control form-control-sm border-input" placeholder="Dias de Validez" type="number" ng-model="cot_enc.diasValidez">
-                            </div>
-                            -->
+                            </md-input-container>                            
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
@@ -137,7 +135,8 @@
                                 <md-select placeholder="Embalaje" ng-model="cot_enc.embalaje" md-on-close="clearSelectFilter()">
                                     <md-select-header class="demo-select-header">
                                         <input ng-model="searchEmbajale" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
-                                            style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
+                                            style="width: 100%" ng-keydown="$event.stopPropagation()"
+                                            force-select-focus>
                                     </md-select-header>
                                     <md-option ng-value="record.cEmb" ng-repeat="record in embalajes | filter:searchEmbajale">{{record.nombre}}</md-option>
                                 </md-select>
@@ -151,7 +150,8 @@
                                 <div class="col-md-3" ng-repeat="costo in costosAdic | filter:{facCostosAdic: {moneda : cot_enc.moneda}}">
                                     <div class="form-group">
                                         <label>{{costo.facCostosAdic.nombre}}</label>
-                                        <input class="form-control form-control-sm border-input" placeholder="Digite Valor" type="text" ng-model="costo.valor" ui-number-mask="2">
+                                        <input class="form-control form-control-sm border-input" placeholder="Digite Valor"
+                                            type="text" ng-model="costo.valor" ui-number-mask="2">
                                     </div>
                                 </div>
                             </div>
@@ -180,11 +180,13 @@
                         <div class="col-md-10">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <md-autocomplete flex required md-item-text="articulo.cod + ' - ' + articulo.nom" md-items="articulo in autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
+                                    <md-autocomplete flex required md-item-text="articulo.cod + ' - ' + articulo.nom"
+                                        md-items="articulo in autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
                                         md-search-text="autocompleteArticulos.searchText" md-selected-item="autocompleteArticulos.selectedItem"
                                         md-no-cache="autocompleteArticulos.noCache" md-input-name="autocompleteFieldArticulo"
-                                        md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)" md-menu-class="autocomplete-custom-template"
-                                        md-min-length="3" md-require-match md-floating-label="Articulo">
+                                        md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)"
+                                        md-menu-class="autocomplete-custom-template" md-min-length="3" md-require-match
+                                        md-floating-label="Articulo">
                                         <md-item-template>
                                             <span class="item-metadata">
                                                 <span>
@@ -195,106 +197,60 @@
                                         <div ng-messages="detalleForm.autocompleteFieldArticulo.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-autocomplete>
-                                    <!-- <md-select placeholder="Articulo" ng-model="selectedArticulo" ng-change="buscarPrecioVenta(selectedArticulo.cEmp, selectedArticulo.cod)"
-                                            md-on-close="clearSelectFilter()" ng-disabled="isDisabled">
-                                            <md-select-header class="demo-select-header">
-                                                <input ng-model="searchArticulo" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
-                                                    style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
-                                            </md-select-header>
-                                            <md-option ng-value="articulo" ng-repeat="articulo in articulos | filter:searchArticulo">{{articulo.cod}} - {{articulo.nom}}</md-option>
-                                        </md-select> -->
+                                    </md-autocomplete>                                   
                                 </div>
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
                                         <label>Cantidad</label>
-                                        <input required name="cantidad" ng-model="selectedDetalle.cantidad" ui-number-mask="2">
+                                        <input required name="cantidad" ng-model="selectedDetalle.cantidad"
+                                            ui-number-mask="2">
                                         <div ng-messages="detalleForm.cantidad.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-input-container>
-                                    <!-- 
-                                    <div class="form-group">
-                                        <label>Cantidad</label>
-                                        <input class="form-control form-control-sm border-input" placeholder="Cantidad" type="text" ng-model="selectedDetalle.cantidad"
-                                            ui-number-mask="2">
-                                    </div>
-                                    -->
+                                    </md-input-container>                                   
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
                                         <label>Precio Lista</label>
-                                        <input required name="precioLista" ng-model="selectedDetalle.precio_lista" ui-number-mask="2" ng-disabled="true">
+                                        <input required name="precioLista" ng-model="selectedDetalle.precio_lista"
+                                            ui-number-mask="2" ng-disabled="true">
                                         <div ng-messages="detalleForm.precioLista.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-input-container>
-                                    <!--
-                                            <div class="form-group">
-                                                <label>Precio Lista</label>
-                                                <input class="form-control form-control-sm border-input" placeholder="Precio de Lista" type="text" ng-model="selectedDetalle.precio_lista"
-                                                    ng-disabled="true" ui-number-mask="2">
-                                            </div>
-                                            -->
+                                    </md-input-container>                                   
                                 </div>
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
                                         <label>Precio Venta</label>
-                                        <input required name="precioVenta" ng-model="selectedDetalle.precio_venta" ui-number-mask="2" ng-change="changePrecioVenta(detalleForm)">
+                                        <input required name="precioVenta" ng-model="selectedDetalle.precio_venta"
+                                            ui-number-mask="2" ng-change="changePrecioVenta(detalleForm)">
                                         <div ng-messages="detalleForm.precioVenta.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
-                                            <div ng-message="validationError">Precio de venta fuera de los limites parametrizados.</div>
+                                            <div ng-message="validationError">Precio de venta fuera de los limites
+                                                parametrizados.</div>
                                         </div>
-                                    </md-input-container>
-                                    <!--
-                                            <div class="form-group">
-                                                <label>Precio Venta</label>
-                                                <input class="form-control form-control-sm border-input" placeholder="Precio de Venta" type="text" ng-model="selectedDetalle.precio_venta"
-                                                    ui-number-mask="2">
-                                            </div>
-                                            -->
+                                    </md-input-container>                                   
                                 </div>
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
                                         <label>% Descuento</label>
-                                        <input required name="descuento" ng-model="selectedDetalle.descuento" ui-number-mask="2">
+                                        <input required name="descuento" ng-model="selectedDetalle.descuento"
+                                            ui-number-mask="2">
                                         <div ng-messages="detalleForm.descuento.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-input-container>
-                                    <!--
-                                    <div class="form-group">
-                                        <label>% Descuento</label>
-                                        <input class="form-control form-control-sm border-input" placeholder="% Descuento" type="number" ng-model="selectedDetalle.descuento">
-                                    </div>
-                                    -->
-                                </div>
-                                <!--
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Codigo IVA</label>
-                                        <md-select placeholder="Codigo IVA" ng-model="selectedIva" ng-change="changeIva()">
-                                            <md-option ng-value="iva.cDes" ng-repeat="iva in ivas">{{iva.nDes}}</md-option>
-                                        </md-select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>% IVA</label>
-                                        <input class="form-control form-control-sm border-input" placeholder="% IVA" type="text" ng-model="selectedDetalle.pctjIva"
-                                            ng-disabled="true" ui-number-mask="2">
-                                    </div>
-                                </div>
-                                -->
+                                    </md-input-container>                                   
+                                </div>                               
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <md-table-container>
-                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selectedTable" md-progress="promise">
+                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selectedTable"
+                    md-progress="promise">
                     <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                         <tr md-row>
                             <th md-column md-order-by="cod" md-desc style="width: 10%;">
@@ -321,10 +277,10 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable" md-auto-select="options.autoSelect"
-                            ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                            <td md-cell>{{record.cod}}</td>
-                            <td md-cell>{{record.nom}}</td>
+                        <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable"
+                            md-auto-select="options.autoSelect" ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                            <td md-cell>{{record.id.cod}}</td>
+                            <td md-cell>{{record.id.nom}}</td>
                             <td md-cell>{{record.cantidad | number: 2}}</td>
                             <td md-cell>{{record.precio_lista | number: 2}}</td>
                             <td md-cell>{{record.precio_venta | number: 2}}</td>
@@ -346,7 +302,8 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Selecione contenido para {{seccion.nombreSec}}</label>
-                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)"
+                                        md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
                                 </div>
@@ -354,7 +311,8 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label>Descripción</label>
-                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final" rows="10"></textarea>
+                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final"
+                                        rows="10"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -370,7 +328,8 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Selecione contenido para {{seccion.nombreSec}}</label>
-                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)"
+                                        md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
                                 </div>
@@ -378,7 +337,8 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label>Descripción</label>
-                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final" rows="10"></textarea>
+                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final"
+                                        rows="10"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -394,7 +354,8 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Selecione contenido para {{seccion.nombreSec}}</label>
-                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)" md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
+                                    <md-select placeholder="Contenido" ng-model="seccion.seleccionado" ng-change="setDescripcion(seccion)"
+                                        md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
                                 </div>
@@ -402,7 +363,8 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label>Descripción</label>
-                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final" rows="10"></textarea>
+                                    <textarea class="form-control border-input" placeholder="Descripción" ng-model="seccion.descripcion_final"
+                                        rows="10"></textarea>
                                 </div>
                             </div>
                         </div>
