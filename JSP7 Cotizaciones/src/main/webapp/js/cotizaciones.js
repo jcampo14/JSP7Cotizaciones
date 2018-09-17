@@ -69,12 +69,6 @@ app.controller('Ctrl', [
         };
         /* Iniciar la forma */
         $scope.init = function () {
-            /* Si es una consulta */
-            var urlParams = $location.search();
-            if (urlParams.params != null) {
-                var paramsDecode = decodeURI(atob(urlParams.params));                
-                console.log(paramsDecode);
-            }
             $scope.isLoading = true;
             $scope.tieneCostos = false;
             $scope.autocompleteTerceros.selectedItem = '';
@@ -96,9 +90,6 @@ app.controller('Ctrl', [
                     $scope.incoterms = values[1].data;
                     $scope.criterios = values[2].data;
                     $scope.idiomas = values[3].data;
-                    $scope.agencias = values[4].data;
-                    $scope.embalajes = values[5].data;
-                    $scope.paramFac = values[6].data;
                     // Agregamos Idioma vacio (IDIOMAS)
                     var idiomaNull = {
                         "cEmp": $localstorage.get('global.empresa', null),
@@ -106,24 +97,109 @@ app.controller('Ctrl', [
                         "version": 0
                     };
                     $scope.idiomas.unshift(idiomaNull);
-                    $scope.isLoading = false;
+                    $scope.agencias = values[4].data;
+                    $scope.embalajes = values[5].data;
+                    $scope.paramFac = values[6].data;
+                    /* Si es una consulta */
+                    var urlParams = $location.search();
+                    if (urlParams.params != null) {
+                        var paramsDecode = JSON.parse(decodeURI(atob(urlParams.params)));
+                        var promiseCotizacion = $consumeService.get('cot-enc/?emp=' + paramsDecode.cEmp + '&age=' + paramsDecode.cAgr
+                            + '&per=' + paramsDecode.per + '&numeroCot=' + paramsDecode.cot + '&rev=' + paramsDecode.rev);
+                        promiseCotizacion.then(function (result) {
+                            var dateIni = new Date(result.emi);
+                            var dateFin = new Date(result.ven);
+                            var timeDiff = Math.abs( dateIni - dateFin);
+                            var dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                            $scope.cot_enc = {
+                                "cEmp": result.cEmp,
+                                "cAgr": result.cAgr,
+                                "nIde": result.nIde,
+                                "criVenta": result.criterio,
+                                "idioma": result.idioma,
+                                "incoterm": result.codIncoterm,
+                                "cot": result.cot,
+                                "rev": result.rev,
+                                "idioma": result.idioma,
+                                "embalaje": result.embalaje.cEmb,
+                                "diasValidez": dayDifference,
+                                "modificar": result.modificar
+                            };
+                            $scope.cot_det = [];
+                            var promiseNit = $consumeService.get('tercerosByNit/?emp=' + result.cEmp + '&nit=' +
+                                result.nIde);
+                            promiseNit.then(function (resultNit) {
+                                $scope.autocompleteTerceros.selectedItem = resultNit.data[0];
+                                var promise = $consumeService.get('suc-cli/?emp=' + $scope.cot_enc.cEmp
+                                    + '&nit=' + $scope.cot_enc.nIde);
+                                promise.then(function (resultSuc) {
+                                    $scope.sucursales = resultSuc.data;
+                                    $scope.cot_enc.cSuc = result.codSuc;
+                                    $scope.isLoading = false;
+                                });
+                            });
+                            /* Cargamos el detalle */
+                            var index = 0;
+                            while (index < result.detalle.length) {
+                                var recordToAdd = {
+                                    "id": result.detalle[index].articulo,
+                                    "cantidad": result.detalle[index].can,
+                                    "precio_lista": result.detalle[index].lis,
+                                    "precio_venta": result.detalle[index].ven,
+                                    "descuento": result.detalle[index].pDes,
+                                };
+                                if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
+                                    var ivaValue = {
+                                        iva: {
+                                            "cDes": $scope.autocompleteArticulos.selectedItem.idIva.cDes,
+                                            "pctj": $scope.autocompleteArticulos.selectedItem.idIva.pctj
+                                        }
+                                    };
+                                } else {
+                                    var ivaValue = {
+                                        iva: {
+                                            "cDes": null,
+                                            "pctj": 0
+                                        }
+                                    };
+                                }
+                                recordToAdd.iva = ivaValue.iva;
+                                $scope.cot_det.push(recordToAdd);
+                                index++;
+                            }
+                            /* Cargamos las secciones */
+                            index = 0;
+                            var indexSeccion;
+                            while (index < result.secciones.length) {
+                                indexSeccion = 0;
+                                while (indexSeccion < $scope.secciones.length) {
+                                    if ($scope.secciones[indexSeccion].codSeccion == result.secciones[index].codSeccion) {
+                                        $scope.secciones[indexSeccion].descripcion_final = result.secciones[index].descripcion;
+                                    }
+                                    indexSeccion++;
+                                }
+                                index++;
+                            }
+                        });
+                    } else {
+                        /* Scope de modelos para el json */
+                        $scope.cot_enc = {
+                            cEmp: $localstorage.get('global.empresa', null),
+                            cAgr: null,
+                            nIde: null,
+                            criVenta: null,
+                            cSuc: null,
+                            idioma: null,
+                            incoterm: null,
+                            diasValidez: null,
+                            embalaje: null
+                        };
+                        $scope.cot_det = [];
+                        $scope.selectedArticulo = {};
+                        $scope.isLoading = false;
+                    }
                 });
-            /* Scope de modelos para el json */
-            $scope.cot_enc = {
-                cEmp: $localstorage.get('global.empresa', null),
-                cAgr: null,
-                nIde: null,
-                criVenta: null,
-                cSuc: null,
-                idioma: null,
-                incoterm: null,
-                diasValidez: null,
-                embalaje: null
-            };
-            $scope.cot_det = [];
-            $scope.selectedArticulo = {};
         };
-
         /* Autocomplete */
         $scope.autocompleteTerceros = {
             isDisabled: false,
@@ -153,7 +229,8 @@ app.controller('Ctrl', [
             searchText: "",
             selectItemChange: function (item) {
                 if (item) {
-                    // $scope.selectedArticulo = item;
+                    //$scope.selectedArticulo = {};
+                    $scope.selectedDetalle = {};
                     $scope.buscarPrecioVenta(item.cEmp, item.cod);
                     $scope.$applyAsync;
                 }
@@ -239,11 +316,11 @@ app.controller('Ctrl', [
         /* Funciones */
         $scope.addItemDetalle = function (form) {
             if (form.$valid) {
-                var o = $filter('filter')($scope.cot_det, { 'cod': $scope.selectedArticulo.cod }, true);
+                var o = $filter('filter')($scope.cot_det, { 'id': {'cod' : $scope.autocompleteArticulos.selectedItem.cod} }, true);
                 if (o.length == 0) {
                     var itemToAdd = {
                         id: $scope.autocompleteArticulos.selectedItem,
-                        cEmp: $scope.autocompleteArticulos.selectedItem.cEmp,                        
+                        cEmp: $scope.autocompleteArticulos.selectedItem.cEmp,
                         cantidad: $scope.selectedDetalle.cantidad,
                         precio_lista: $scope.selectedDetalle.precio_lista,
                         precio_venta: $scope.selectedDetalle.precio_venta,
@@ -337,7 +414,7 @@ app.controller('Ctrl', [
                 if (result.pVen == null) {
                     swal("Mensaje JSP7", "El artículo no tiene precio de lista", "warning");
                 } else {
-                    $scope.selectedDetalle.precio_lista = result.pVen;                    
+                    $scope.selectedDetalle.precio_lista = result.pVen;
                 }
             });
         };
@@ -348,7 +425,7 @@ app.controller('Ctrl', [
             $scope.selectedDetalle.cantidad = item.cantidad;
             $scope.selectedDetalle.precio_lista = item.precio_lista;
             $scope.selectedDetalle.precio_venta = item.precio_venta;
-            $scope.selectedDetalle.descuento = item.descuento;            
+            $scope.selectedDetalle.descuento = item.descuento;
             $scope.isDisabled = true;
             $scope.$applyAsync();
         };
@@ -428,6 +505,7 @@ app.controller('Ctrl', [
                         "diasValidez": $scope.cot_enc.diasValidez,
                         "embalaje": $scope.cot_enc.embalaje,
                         "iva": $scope.autocompleteTerceros.selectedItem.iva,
+                        "incoterm": $scope.cot_enc.incoterm,
                         "secciones": secciones,
                         "detalle": detalle,
                         "costos": costos

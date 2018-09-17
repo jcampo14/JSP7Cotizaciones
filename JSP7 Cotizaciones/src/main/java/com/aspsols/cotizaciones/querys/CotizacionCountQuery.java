@@ -1,12 +1,6 @@
 package com.aspsols.cotizaciones.querys;
 
-
-
-import java.util.Date;
-
-import com.aspsols.cotizaciones.model.Nits;
-
-public class CotizacionQuery {
+public class CotizacionCountQuery {
 
 	private String cEmp;
 
@@ -16,21 +10,15 @@ public class CotizacionQuery {
 
 	private String cot;
 
-	private int numeroRev;
+	private Long numeroRev;
 
-	private Date emi;
-
-	private Nits cliente;
-
-	public CotizacionQuery(String cEmp, String per, String cAgr, String cot, int numeroRev, Date emi, Nits cliente) {
+	public CotizacionCountQuery(String cEmp, String per, String cAgr, String cot, Long numeroRev) {
 		super();
 		this.cEmp = cEmp;
 		this.per = per;
 		this.cAgr = cAgr;
 		this.cot = cot;
 		this.numeroRev = numeroRev;
-		this.emi = emi;
-		this.cliente = cliente;
 	}
 
 	public String getcEmp() {
@@ -65,28 +53,12 @@ public class CotizacionQuery {
 		this.cot = cot;
 	}
 
-	public int getNumeroRev() {
+	public Long getNumeroRev() {
 		return numeroRev;
 	}
 
-	public void setNumeroRev(int numeroRev) {
+	public void setNumeroRev(Long numeroRev) {
 		this.numeroRev = numeroRev;
-	}
-
-	public Date getEmi() {
-		return emi;
-	}
-
-	public void setEmi(Date emi) {
-		this.emi = emi;
-	}
-
-	public Nits getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Nits cliente) {
-		this.cliente = cliente;
 	}
 
 }

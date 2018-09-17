@@ -34,7 +34,7 @@ app.controller('Ctrl', [
         };
 
         $scope.query = {
-            order: 'nombre',
+            order: 'cot',
             limit: 5,
             page: 1
         };
@@ -47,7 +47,6 @@ app.controller('Ctrl', [
 
         $scope.loadStuff = function () {
             $scope.promise = $timeout(function () {
-
             }, 2000);
         };
 
@@ -115,14 +114,28 @@ app.controller('Ctrl', [
                     $mdDialog.hide(action);
                 }
             };
-            $scope.showDocument = function (item) {
+            $scope.agregarRevDocument = function (item) {
                 /* Codificar BASE64 */   
                 var jsonToSend = {
                     "cEmp": item.cEmp,
                     "per": item.per,
                     "cAgr": item.cAgr,
                     "cot": item.cot,
-                    "rev": item.rev
+                    "rev": item.rev,
+                    "modificar": 'N'
+                };
+                var params = encodeURI(btoa(JSON.stringify(jsonToSend)));
+                $window.location.href = '/cotizaciones.html?params=' + params;
+            };
+            $scope.modificarRevDocument = function (item) {
+                /* Codificar BASE64 */   
+                var jsonToSend = {
+                    "cEmp": item.cEmp,
+                    "per": item.per,
+                    "cAgr": item.cAgr,
+                    "cot": item.cot,
+                    "rev": item.rev,
+                    "modificar": 'S'
                 };
                 var params = encodeURI(btoa(JSON.stringify(jsonToSend)));
                 $window.location.href = '/cotizaciones.html?params=' + params;

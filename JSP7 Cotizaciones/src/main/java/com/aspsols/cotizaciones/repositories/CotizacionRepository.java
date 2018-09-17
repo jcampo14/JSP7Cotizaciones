@@ -26,7 +26,7 @@ public class CotizacionRepository {
 	public void create(CotizacionRequest record, String idTransaccion) {
 		/* Insertamos el encabezado */
 		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO,DIAS_VALIDEZ,"
-				+ "COD_EMBALAJE,IVA,COT,REV) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "COD_EMBALAJE,IVA,COT,REV,INCOTERM,MODIFICAR) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -45,6 +45,8 @@ public class CotizacionRepository {
 				QueryUtilities.addSqlParameter(ps, 11, record.getIva(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 12, record.getCot(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 13, record.getRev(), Types.INTEGER);
+				QueryUtilities.addSqlParameter(ps, 14, record.getIncoterm(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 15, record.getModificar(), Types.VARCHAR);
 				return ps;
 			}
 		});

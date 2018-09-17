@@ -34,6 +34,10 @@ public class CotizacionRequest implements Serializable {
 
 	private Integer rev;
 
+	private String incoterm;
+
+	private String modificar;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
@@ -158,6 +162,22 @@ public class CotizacionRequest implements Serializable {
 
 	public void setRev(Integer rev) {
 		this.rev = rev;
+	}
+
+	public String getIncoterm() {
+		return incoterm;
+	}
+
+	public void setIncoterm(String incoterm) {
+		this.incoterm = incoterm;
+	}
+
+	public String getModificar() {
+		return modificar;
+	}
+
+	public void setModificar(String modificar) {
+		this.modificar = modificar;
 	}
 
 }

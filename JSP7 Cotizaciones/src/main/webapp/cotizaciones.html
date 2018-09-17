@@ -63,7 +63,8 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Criterio</label>
-                                <md-select placeholder="Criterio" ng-model="cot_enc.criVenta" md-on-close="clearSelectFilter()">
+                                <md-select placeholder="Criterio" ng-model="cot_enc.criVenta" md-on-close="clearSelectFilter()"
+                                    ng-model-options="{trackBy: '$value.cri'}">
                                     <md-select-header class="demo-select-header">
                                         <input ng-model="searchCriterio" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
                                             style="width: 100%" ng-keydown="$event.stopPropagation()"
@@ -78,7 +79,7 @@
                             <div class="form-group">
                                 <label>Incoterm</label>
                                 <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()"
-                                    ng-change="cargarCostosIncoterm()">
+                                    ng-change="cargarCostosIncoterm()" ng-disabled="cot_enc.criVenta.mon == 'PESO'">
                                     <md-select-header class="demo-select-header">
                                         <input ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
                                             style="width: 100%" ng-keydown="$event.stopPropagation()"
@@ -102,7 +103,7 @@
                                             <strong>{{item.nIde}} - {{item.nombre}}</strong>
                                         </span>
                                 </md-item-template>
-                            </md-autocomplete>                           
+                            </md-autocomplete>
                         </div>
                     </div>
                     <div class="row">
@@ -127,7 +128,7 @@
                             <md-input-container class="md-block">
                                 <label>Dias Validez</label>
                                 <input ng-model="cot_enc.diasValidez" ui-number-mask="0">
-                            </md-input-container>                            
+                            </md-input-container>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
@@ -148,11 +149,10 @@
                             <legend>Costos Adicionales/Cargos de la Cotización</legend>
                             <div class="row">
                                 <div class="col-md-3" ng-repeat="costo in costosAdic | filter:{facCostosAdic: {moneda : cot_enc.moneda}}">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>{{costo.facCostosAdic.nombre}}</label>
-                                        <input class="form-control form-control-sm border-input" placeholder="Digite Valor"
-                                            type="text" ng-model="costo.valor" ui-number-mask="2">
-                                    </div>
+                                        <input ng-model="costo.valor" ui-number-mask="2">
+                                    </md-input-container>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +197,7 @@
                                         <div ng-messages="detalleForm.autocompleteFieldArticulo.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-autocomplete>                                   
+                                    </md-autocomplete>
                                 </div>
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
@@ -207,7 +207,7 @@
                                         <div ng-messages="detalleForm.cantidad.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-input-container>                                   
+                                    </md-input-container>
                                 </div>
                             </div>
                             <div class="row">
@@ -219,7 +219,7 @@
                                         <div ng-messages="detalleForm.precioLista.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-input-container>                                   
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
@@ -231,7 +231,7 @@
                                             <div ng-message="validationError">Precio de venta fuera de los limites
                                                 parametrizados.</div>
                                         </div>
-                                    </md-input-container>                                   
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-2">
                                     <md-input-container class="md-block">
@@ -241,8 +241,8 @@
                                         <div ng-messages="detalleForm.descuento.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
-                                    </md-input-container>                                   
-                                </div>                               
+                                    </md-input-container>
+                                </div>
                             </div>
                         </div>
                     </div>

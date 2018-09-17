@@ -18,6 +18,10 @@ public class TercerosServices {
 		return repository.findByEmpresa(empresa, filter);
 	}
 	
+	public List<Terceros> getByNit(String empresa, String nit){
+		return repository.findByNit(empresa, nit);
+	}
+	
 	public void insertProspecto(Terceros entity) {
 		repository.insertProspecto(entity);		
 	}

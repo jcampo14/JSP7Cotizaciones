@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.TercerosServices;
 public class TercerosController {
 
 	private static final String SERVICE_PATH = "/terceros/";
-	private static final String PATH_PROSPECTOS = "/prospectos/";
+	private static final String PATH_PROSPECTOS = "/prospectos/";	
 
 	@Autowired
 	private TercerosServices service;
@@ -28,6 +28,16 @@ public class TercerosController {
 			@RequestParam("filter") String filter) {
 		QueryResponse<Terceros> response = new QueryResponse<>();
 		List<Terceros> resultData = service.getTerceros(empresa, filter);
+		response.setCount(resultData.size());
+		response.setData(resultData);
+		return response;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/tercerosByNit/")
+	public QueryResponse<Terceros> findByNit(@RequestParam("emp") String empresa,
+			@RequestParam("nit") String nit) {
+		QueryResponse<Terceros> response = new QueryResponse<>();
+		List<Terceros> resultData = service.getByNit(empresa, nit);		
 		response.setCount(resultData.size());
 		response.setData(resultData);
 		return response;
