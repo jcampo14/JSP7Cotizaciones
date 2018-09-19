@@ -46,7 +46,7 @@ public class CotEnc implements Serializable {
 
 	@Id
 	@Column(name = "REV")
-	private Long rev;
+	private Integer rev;
 
 	@JsonSerialize(using = CustomDateTimeSerializer.class)
 	@Column(name = "EMI")
@@ -142,11 +142,11 @@ public class CotEnc implements Serializable {
 		this.cot = cot;
 	}
 
-	public Long getRev() {
+	public Integer getRev() {
 		return rev;
 	}
 
-	public void setRev(Long rev) {
+	public void setRev(Integer rev) {
 		this.rev = rev;
 	}
 

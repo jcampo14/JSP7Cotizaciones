@@ -23,7 +23,7 @@ public class CotEncController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc/")
 	public CotEnc findByEmpresaAndVendedor(@RequestParam("emp") String empresa, @RequestParam("age") String agencia,
-			@RequestParam("per") String periodo, @RequestParam("numeroCot") String numeroCot, @RequestParam("rev") Long revision){			
+			@RequestParam("per") String periodo, @RequestParam("numeroCot") String numeroCot, @RequestParam("rev") Integer revision){			
 		CotEnc resultData = service.findByCotAndRev(empresa, agencia, periodo, numeroCot, revision);		
 		return resultData;
 	}

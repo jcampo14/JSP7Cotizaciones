@@ -44,7 +44,7 @@ public class CotEncServices {
 		return repository.findByCot(empresa, agencia, periodo, numeroCot);
 	}
 	
-	public CotEnc findByCotAndRev(String empresa, String agencia, String periodo, String numeroCot, Long revision){
+	public CotEnc findByCotAndRev(String empresa, String agencia, String periodo, String numeroCot, Integer revision){
 		return repository.findByCotAndRev(empresa, agencia, periodo, numeroCot, revision);
 	}
 

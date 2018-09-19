@@ -46,7 +46,7 @@ public class CotizacionController {
 					+ " generada.");
 		}
 		/* Borramos de la tabla temporal */
-		service.deleteTemporalTable(idTransaccion);
+//		service.deleteTemporalTable(idTransaccion);
 		return response;
 	};
 		

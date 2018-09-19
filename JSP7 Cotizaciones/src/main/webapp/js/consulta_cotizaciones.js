@@ -39,6 +39,12 @@ app.controller('Ctrl', [
             page: 1
         };
 
+        $scope.queryRev = {
+            order: 'numeroRev',
+            limit: 5,
+            page: 1
+        };
+
         /* Mas configuraciones del data table */
         $scope.toggleLimitOptions = function () {
             $scope.limitOptions = $scope.limitOptions ? undefined : [5,
@@ -121,7 +127,7 @@ app.controller('Ctrl', [
                     "per": item.per,
                     "cAgr": item.cAgr,
                     "cot": item.cot,
-                    "rev": item.rev,
+                    "rev": item.numeroRev,
                     "modificar": 'N'
                 };
                 var params = encodeURI(btoa(JSON.stringify(jsonToSend)));
@@ -134,7 +140,7 @@ app.controller('Ctrl', [
                     "per": item.per,
                     "cAgr": item.cAgr,
                     "cot": item.cot,
-                    "rev": item.rev,
+                    "rev": item.numeroRev,
                     "modificar": 'S'
                 };
                 var params = encodeURI(btoa(JSON.stringify(jsonToSend)));

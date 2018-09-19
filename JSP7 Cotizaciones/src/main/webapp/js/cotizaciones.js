@@ -17,10 +17,10 @@ app.config(['$locationProvider', function ($locationProvider) {
 }]);
 
 app.controller('Ctrl', [
-    '$localstorage', '$consumeService',
-    '$scope', '$timeout', '$http', '$q', '$filter', '$location',
+    '$localstorage', '$consumeService', '$scope', '$timeout',
+    '$http', '$q', '$filter', '$location', '$window',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $http, $q, $filter, $location) {
+        $http, $q, $filter, $location, $window) {
 
         /** Simulamos el Login */
         $localstorage.set('global.empresa', '01');
@@ -109,7 +109,7 @@ app.controller('Ctrl', [
                         promiseCotizacion.then(function (result) {
                             var dateIni = new Date(result.emi);
                             var dateFin = new Date(result.ven);
-                            var timeDiff = Math.abs( dateIni - dateFin);
+                            var timeDiff = Math.abs(dateIni - dateFin);
                             var dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
                             $scope.cot_enc = {
                                 "cEmp": result.cEmp,
@@ -123,7 +123,7 @@ app.controller('Ctrl', [
                                 "idioma": result.idioma,
                                 "embalaje": result.embalaje.cEmb,
                                 "diasValidez": dayDifference,
-                                "modificar": result.modificar
+                                "modificar": paramsDecode.modificar
                             };
                             $scope.cot_det = [];
                             var promiseNit = $consumeService.get('tercerosByNit/?emp=' + result.cEmp + '&nit=' +
@@ -142,6 +142,7 @@ app.controller('Ctrl', [
                             var index = 0;
                             while (index < result.detalle.length) {
                                 var recordToAdd = {
+                                    "cEmp": result.detalle[index].cEmp,
                                     "id": result.detalle[index].articulo,
                                     "cantidad": result.detalle[index].can,
                                     "precio_lista": result.detalle[index].lis,
@@ -229,8 +230,9 @@ app.controller('Ctrl', [
             searchText: "",
             selectItemChange: function (item) {
                 if (item) {
-                    //$scope.selectedArticulo = {};
-                    $scope.selectedDetalle = {};
+                    if ($scope.selectedDetalle == null) {
+                        $scope.selectedDetalle = {};
+                    }
                     $scope.buscarPrecioVenta(item.cEmp, item.cod);
                     $scope.$applyAsync;
                 }
@@ -316,7 +318,7 @@ app.controller('Ctrl', [
         /* Funciones */
         $scope.addItemDetalle = function (form) {
             if (form.$valid) {
-                var o = $filter('filter')($scope.cot_det, { 'id': {'cod' : $scope.autocompleteArticulos.selectedItem.cod} }, true);
+                var o = $filter('filter')($scope.cot_det, { 'id': { 'cod': $scope.autocompleteArticulos.selectedItem.cod } }, true);
                 if (o.length == 0) {
                     var itemToAdd = {
                         id: $scope.autocompleteArticulos.selectedItem,
@@ -357,7 +359,7 @@ app.controller('Ctrl', [
             if (form.$valid) {
                 var index = 0;
                 while (index < $scope.cot_det.length) {
-                    if ($scope.cot_det[index].cod == $scope.selectedArticulo.cod) {
+                    if ($scope.cot_det[index].id.cod == $scope.autocompleteArticulos.selectedItem.cod) {
                         if (index > -1) {
                             $scope.cot_det[index].cantidad = $scope.selectedDetalle.cantidad;
                             $scope.cot_det[index].precio_lista = $scope.selectedDetalle.precio_lista;
@@ -379,15 +381,15 @@ app.controller('Ctrl', [
                                 };
                             }
                             $scope.cot_det[index].iva = ivaValue.iva;
-                            delete $scope.selectedDetalle;
-                            delete $scope.autocompleteArticulos.selectedItem;
-                            form.$setPristine();
-                            form.$setUntouched();
-                            $scope.isDisabled = false;
                         }
                     }
                     index++;
                 }
+                delete $scope.selectedDetalle;
+                delete $scope.autocompleteArticulos.selectedItem;
+                form.$setPristine();
+                form.$setUntouched();
+                $scope.isDisabled = false;
             }
         };
 
@@ -438,96 +440,136 @@ app.controller('Ctrl', [
         };
 
         $scope.grabarCotizacion = function () {
+            /* Buscamos las secciones */
+            var secciones = [];
+            var index = 0;
+            while (index < $scope.secciones.length) {
+                if ($scope.secciones[index].descripcion_final != null) {
+                    var itemSeccion = {
+                        "cEmp": $scope.secciones[index].cEmp,
+                        "codSeccion": $scope.secciones[index].codSeccion,
+                        "descripcionFinal": $scope.secciones[index].descripcion_final
+                    };
+                    secciones.push(itemSeccion);
+                }
+                index++;
+            };
+            /* Buscamos el detalle */
+            var detalle = [];
+            index = 0;
+            while (index < $scope.cot_det.length) {
+                var itemDetalle = {
+                    "cEmp": $scope.cot_det[index].cEmp,
+                    "cod": $scope.cot_det[index].id.cod,
+                    "cantidad": $scope.cot_det[index].cantidad,
+                    "precioLista": $scope.cot_det[index].precio_lista,
+                    "precioVenta": $scope.cot_det[index].precio_venta,
+                    "descuento": $scope.cot_det[index].descuento,
+                    "codIva": $scope.cot_det[index].iva.cDes
+                };
+                detalle.push(itemDetalle);
+                index++;
+            };
+            /* Buscamos los costos */
+            var costos = [];
+            index = 0;
+            if ($scope.costosAdic) {
+                while (index < $scope.costosAdic.length) {
+                    if ($scope.costosAdic[index].valor != null) {
+                        var itemCostos = {
+                            "cEmp": $scope.costosAdic[index].cEmp,
+                            "idFacCostosAdic": $scope.costosAdic[index].idFacCostosAdic,
+                            "valor": $scope.costosAdic[index].valor
+                        };
+                        costos.push(itemCostos);
+                    }
+                    index++;
+                };
+            }
+            /* Armamos el Request */
+            var requestBody = {
+                "cEmp": $scope.cot_enc.cEmp,
+                "cAgr": $scope.cot_enc.cAgr,
+                "nIde": $scope.cot_enc.nIde,
+                "criVenta": $scope.cot_enc.criVenta.cri,
+                "cSuc": $scope.cot_enc.cSuc,
+                "idioma": $scope.cot_enc.idioma,
+                "usuario": $localstorage.get('global.usuario', null),
+                "diasValidez": $scope.cot_enc.diasValidez,
+                "embalaje": $scope.cot_enc.embalaje,
+                "cot": $scope.cot_enc.cot,
+                "rev": $scope.cot_enc.rev,
+                "modificar": $scope.cot_enc.modificar,
+                "iva": $scope.autocompleteTerceros.selectedItem.iva,
+                "incoterm": $scope.cot_enc.incoterm,
+                "secciones": secciones,
+                "detalle": detalle,
+                "costos": costos
+            };
+            /* Consumimos el servicio */
+            /*
+            var configRequest = {
+                method: "POST",
+                url: "cotizacion/",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: requestBody
+            };
+            var promise = $consumeService.post(configRequest);
+            promise.then(function (result) {
+                if (result.success == true) {
+                    swal("Mensaje JSP7", result.message, "success");
+                    $window.location.href = '/cotizaciones.html';
+                } else {
+                    swal("Mensaje JSP7", result.message, "warning");
+                }
+            });
+            */
             swal({
                 title: "Mensaje JSP7", //Bold text
                 text: "¿Desea guardar la cotización?", //light text
                 type: 'question',
                 showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.value) {
-                    /* Buscamos las secciones */
-                    var secciones = [];
-                    var index = 0;
-                    while (index < $scope.secciones.length) {
-                        if ($scope.secciones[index].descripcion_final != null) {
-                            var itemSeccion = {
-                                "cEmp": $scope.secciones[index].cEmp,
-                                "codSeccion": $scope.secciones[index].codSeccion,
-                                "descripcionFinal": $scope.secciones[index].descripcion_final
-                            };
-                            secciones.push(itemSeccion);
-                        }
-                        index++;
-                    };
-                    /* Buscamos el detalle */
-                    var detalle = [];
-                    index = 0;
-                    while (index < $scope.cot_det.length) {
-                        var itemDetalle = {
-                            "cEmp": $scope.cot_det[index].cEmp,
-                            "cod": $scope.cot_det[index].cod,
-                            "cantidad": $scope.cot_det[index].cantidad,
-                            "precioLista": $scope.cot_det[index].precio_lista,
-                            "precioVenta": $scope.cot_det[index].precio_venta,
-                            "descuento": $scope.cot_det[index].descuento,
-                            "codIva": $scope.cot_det[index].iva.cDes
-                        };
-                        detalle.push(itemDetalle);
-                        index++;
-                    };
-                    /* Buscamos los costos */
-                    var costos = [];
-                    index = 0;
-                    while (index < $scope.costosAdic.length) {
-                        if ($scope.costosAdic[index].valor != null) {
-                            var itemCostos = {
-                                "cEmp": $scope.costosAdic[index].cEmp,
-                                "idFacCostosAdic": $scope.costosAdic[index].idFacCostosAdic,
-                                "valor": $scope.costosAdic[index].valor
-                            };
-                            costos.push(itemCostos);
-                        }
-                        index++;
-                    };
-                    /* Armamos el Request */
-                    var requestBody = {
-                        "cEmp": $scope.cot_enc.cEmp,
-                        "cAgr": $scope.cot_enc.cAgr,
-                        "nIde": $scope.cot_enc.nIde,
-                        "criVenta": $scope.cot_enc.criVenta.cri,
-                        "cSuc": $scope.cot_enc.cSuc,
-                        "idioma": $scope.cot_enc.idioma,
-                        "usuario": $localstorage.get('global.usuario', null),
-                        "diasValidez": $scope.cot_enc.diasValidez,
-                        "embalaje": $scope.cot_enc.embalaje,
-                        "iva": $scope.autocompleteTerceros.selectedItem.iva,
-                        "incoterm": $scope.cot_enc.incoterm,
-                        "secciones": secciones,
-                        "detalle": detalle,
-                        "costos": costos
-                    };
-                    /* Consumimos el servicio */
-                    var configRequest = {
-                        method: "POST",
-                        url: "cotizacion/",
+                showLoaderOnConfirm: true,
+                preConfirm: (promise) => {
+                    return fetch('cotizacion/', {
+                        method: 'POST', // or 'PUT'
+                        body: JSON.stringify(requestBody), // data can be `string` or {object}!
                         headers: {
                             'Content-Type': 'application/json'
-                        },
-                        data: requestBody
-                    };
-                    var promise = $consumeService.post(configRequest);
-                    promise.then(function (result) {
-                        if (result.success == true) {
-                            swal("Mensaje JSP7", result.message, "success");
-                            $scope.init();
-                        } else {
-                            swal("Mensaje JSP7", result.message, "warning");
                         }
-                    });
+                    }).then(response => {
+                        return response.json();
+                    }).catch(error => {
+                        swal.showValidationError(
+                            `Request failed: ${error}`
+                        )
+                    })
+                },
+                allowOutsideClick: () => !swal.isLoading()
+            }).then((result) => {
+                if (result.value) {
+                    if (result.value.success == true) {
+                        swal({
+                            title: 'Mensaje JSP7',
+                            text: result.value.message,
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.value) {
+                                $window.location.href = '/cotizaciones.html';
+                            }
+                        });
+                    } else {
+                        swal("Mensaje JSP7", result.value.message, "warning");
+                    }
                 }
             });
         };

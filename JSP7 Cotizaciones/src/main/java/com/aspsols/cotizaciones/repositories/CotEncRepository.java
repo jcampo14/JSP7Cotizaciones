@@ -28,6 +28,6 @@ public interface CotEncRepository extends CrudRepository<CotEnc, CotEncId> {
 	
 	@Query("FROM CotEnc WHERE cot = :numeroCot AND rev = :revision AND cAgr = :agencia AND per = :periodo AND cEmp = :empresa")
 	public CotEnc findByCotAndRev(@Param("empresa") String empresa,@Param("agencia") String agencia,
-			@Param("periodo") String periodo, @Param("numeroCot") String numeroCot, @Param("revision") Long revision);
+			@Param("periodo") String periodo, @Param("numeroCot") String numeroCot, @Param("revision") Integer revision);
 
 }
