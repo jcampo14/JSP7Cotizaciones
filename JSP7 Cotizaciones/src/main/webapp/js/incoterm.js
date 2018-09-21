@@ -19,7 +19,7 @@ app.controller('incotermController', [
         $scope.titulo_formulario = "Definición de Incoterms";
 
         /* LLenar la tabla */
-        $scope.promise = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
+        $scope.promise = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promise.then(function (result) {
             // this is only run after getData() resolves        
             $scope.query_incoterm = result;
@@ -95,7 +95,7 @@ app.controller('incotermController', [
                         var dataToSend = angular.toJson({ list: $scope.selected });
                         var configRequest = {
                             method: "DELETE",
-                            url: "incoterms/",
+                            url: "incoterms",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -104,7 +104,7 @@ app.controller('incotermController', [
                         $scope.promiseDeleteIncoterm = $consumeService.post(configRequest);
                         $scope.promiseDeleteIncoterm.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
+                                $scope.promise = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', '00'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.query_incoterm = result;
@@ -158,7 +158,7 @@ app.controller('incotermController', [
                 if (action == 'OK') {
                     var configRequest = {
                         method: "PUT",
-                        url: "incoterms/",
+                        url: "incoterms",
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -168,7 +168,7 @@ app.controller('incotermController', [
 
                     $scope.promiseEditIncoterm.then(function (result) {
                         if (result.success == true) {
-                            $scope.promise = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
+                            $scope.promise = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', '00'));
                             $scope.promise.then(function (result) {
                                 $scope.selected = [];
                                 $scope.query_incoterm = result;
@@ -228,7 +228,7 @@ app.controller('incotermController', [
                     } else {
                         var configRequest = {
                             method: "POST",
-                            url: "incoterms/",
+                            url: "incoterms",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -238,7 +238,7 @@ app.controller('incotermController', [
 
                         $scope.promiseAddIncoterm.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
+                                $scope.promise = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', '00'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.query_incoterm = result;

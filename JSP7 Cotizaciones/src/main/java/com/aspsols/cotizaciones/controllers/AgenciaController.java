@@ -15,7 +15,7 @@ import com.aspsols.cotizaciones.services.AgenciaServices;
 @RestController
 public class AgenciaController {
 	
-	private static final String SERVICE_PATH = "/agencias/";
+	private static final String SERVICE_PATH = "/agencias";
 
 	@Autowired
 	private AgenciaServices service;

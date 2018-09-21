@@ -3,6 +3,8 @@ package com.aspsols.cotizaciones.request;
 import java.io.Serializable;
 import java.util.List;
 
+import com.aspsols.cotizaciones.model.Pais;
+
 public class CotizacionRequest implements Serializable {
 
 	/**
@@ -37,6 +39,10 @@ public class CotizacionRequest implements Serializable {
 	private String incoterm;
 
 	private String modificar;
+
+	private String origen;
+
+	private Pais destino;
 
 	private List<CotizacionSeccionesRequest> secciones;
 
@@ -178,6 +184,22 @@ public class CotizacionRequest implements Serializable {
 
 	public void setModificar(String modificar) {
 		this.modificar = modificar;
+	}
+
+	public String getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
+	public Pais getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Pais destino) {
+		this.destino = destino;
 	}
 
 }

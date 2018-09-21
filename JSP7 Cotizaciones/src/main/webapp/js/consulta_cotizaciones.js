@@ -75,7 +75,7 @@ app.controller('Ctrl', [
         };
 
         /* LLenar la tabla */
-        $scope.promise = $consumeService.get('cot-enc-list/?emp=' + $localstorage.get('global.empresa', null)
+        $scope.promise = $consumeService.get('cot-enc-list?emp=' + $localstorage.get('global.empresa', null)
             + '&ven=' + $localstorage.get('global.usuario', null));
         $scope.promise.then(function (result) {
             // this is only run after getData() resolves        
@@ -100,7 +100,7 @@ app.controller('Ctrl', [
             }, function () {
                 // $scope.status = 'You cancelled the dialog.';
             });
-            $scope.promiseRevisiones = $consumeService.get('cot-enc-rev/?emp=' + item.cEmp
+            $scope.promiseRevisiones = $consumeService.get('cot-enc-rev?emp=' + item.cEmp
                 + '&age=' + item.cAgr + '&per=' + item.per + '&numeroCot=' + item.cot);
             $scope.promiseRevisiones.then(function (result) {
                 $scope.revisionesData = result;

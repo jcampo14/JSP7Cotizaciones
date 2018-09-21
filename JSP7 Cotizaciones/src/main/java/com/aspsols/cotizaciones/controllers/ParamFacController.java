@@ -15,7 +15,7 @@ import com.aspsols.cotizaciones.services.ParamFacServices;
 @RestController
 public class ParamFacController {
 	
-	private static final String SERVICE_PATH = "/param-fac/";
+	private static final String SERVICE_PATH = "/param-fac";
 
 	@Autowired
 	private ParamFacServices service;

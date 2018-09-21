@@ -77,19 +77,20 @@ app.controller('Ctrl', [
             delete $scope.cot_det;
             delete $scope.selectedDetalle;
             /* Traemos los valores inciales */
-            var promiseSecciones = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', null));
-            var promiseIncoterms = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', null));
-            var promiseCriterios = $consumeService.get('criterios/?emp=' + $localstorage.get('global.empresa', null));
-            var promiseidiomas = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', null));
-            var promiseAgencias = $consumeService.get('agencias/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseSecciones = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', null));
+            var promiseIncoterms = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', null));
+            var promiseCriterios = $consumeService.get('criterios?emp=' + $localstorage.get('global.empresa', null));
+            var promiseidiomas = $consumeService.get('idiomas?emp=' + $localstorage.get('global.empresa', null));
+            var promiseAgencias = $consumeService.get('agencias?emp=' + $localstorage.get('global.empresa', null));
             var promiseEmbalajes = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', null));
-            var promiseParamFac = $consumeService.get('param-fac/?emp=' + $localstorage.get('global.empresa', null));
+            var promiseParamFac = $consumeService.get('param-fac?emp=' + $localstorage.get('global.empresa', null));
+            var promisePaises = $consumeService.get('paises?emp=' + $localstorage.get('global.empresa', null));
             $q.all([promiseSecciones, promiseIncoterms, promiseCriterios, promiseidiomas, promiseAgencias,
-                promiseEmbalajes, promiseParamFac]).then(function (values) {
+                promiseEmbalajes, promiseParamFac, promisePaises]).then(function (values) {
                     $scope.secciones = values[0].data;
                     $scope.incoterms = values[1].data;
                     $scope.criterios = values[2].data;
-                    $scope.idiomas = values[3].data;
+                    $scope.idiomas = values[3].data;                    
                     // Agregamos Idioma vacio (IDIOMAS)
                     var idiomaNull = {
                         "cEmp": $localstorage.get('global.empresa', null),
@@ -100,11 +101,12 @@ app.controller('Ctrl', [
                     $scope.agencias = values[4].data;
                     $scope.embalajes = values[5].data;
                     $scope.paramFac = values[6].data;
+                    $scope.paises = values[7].data;
                     /* Si es una consulta */
                     var urlParams = $location.search();
                     if (urlParams.params != null) {
                         var paramsDecode = JSON.parse(decodeURI(atob(urlParams.params)));
-                        var promiseCotizacion = $consumeService.get('cot-enc/?emp=' + paramsDecode.cEmp + '&age=' + paramsDecode.cAgr
+                        var promiseCotizacion = $consumeService.get('cot-enc?emp=' + paramsDecode.cEmp + '&age=' + paramsDecode.cAgr
                             + '&per=' + paramsDecode.per + '&numeroCot=' + paramsDecode.cot + '&rev=' + paramsDecode.rev);
                         promiseCotizacion.then(function (result) {
                             var dateIni = new Date(result.emi);
@@ -126,11 +128,11 @@ app.controller('Ctrl', [
                                 "modificar": paramsDecode.modificar
                             };
                             $scope.cot_det = [];
-                            var promiseNit = $consumeService.get('tercerosByNit/?emp=' + result.cEmp + '&nit=' +
+                            var promiseNit = $consumeService.get('tercerosByNit?emp=' + result.cEmp + '&nit=' +
                                 result.nIde);
                             promiseNit.then(function (resultNit) {
                                 $scope.autocompleteTerceros.selectedItem = resultNit.data[0];
-                                var promise = $consumeService.get('suc-cli/?emp=' + $scope.cot_enc.cEmp
+                                var promise = $consumeService.get('suc-cli?emp=' + $scope.cot_enc.cEmp
                                     + '&nit=' + $scope.cot_enc.nIde);
                                 promise.then(function (resultSuc) {
                                     $scope.sucursales = resultSuc.data;
@@ -181,6 +183,9 @@ app.controller('Ctrl', [
                                 }
                                 index++;
                             }
+                        }, function (error) {
+                            console.log(error);
+                            swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
                         });
                     } else {
                         /* Scope de modelos para el json */
@@ -193,7 +198,9 @@ app.controller('Ctrl', [
                             idioma: null,
                             incoterm: null,
                             diasValidez: null,
-                            embalaje: null
+                            embalaje: null,
+                            origen: null,
+                            destino: null
                         };
                         $scope.cot_det = [];
                         $scope.selectedArticulo = {};
@@ -214,11 +221,12 @@ app.controller('Ctrl', [
                 console.log('Actual: ' + $scope.cot_enc.nIde + '\nSeleccionado: ' + $scope.autocompleteTerceros.selectedItem);
             },
             querySearch: function (query) {
-                return $http.get('terceros/?emp=' + $localstorage.get('global.empresa', null) + '&filter=' + escape(query))
+                return $http.get('terceros?emp=' + $localstorage.get('global.empresa', null) + '&filter=' + escape(query))
                     .then(function (result) {
                         return result.data.data;
-                    }, function error(error) {
+                    }, function (error) {
                         console.log(error);
+                        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
                     });
             }
         };
@@ -240,10 +248,13 @@ app.controller('Ctrl', [
             querySearch: function (query2) {
                 if (query2.length >= 3) {
                     var deferred = $q.defer();
-                    var promise = $consumeService.get('articulos/?emp=' + $localstorage.get('global.empresa', null)
+                    var promise = $consumeService.get('articulos?emp=' + $localstorage.get('global.empresa', null)
                         + "&filter=" + query2.toUpperCase());
                     promise.then(function (result) {
                         deferred.resolve(result.data);
+                    }, function (error) {
+                        console.log(error);
+                        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
                     });
                     return deferred.promise;
                 } else {
@@ -262,27 +273,34 @@ app.controller('Ctrl', [
             $scope.searchCriterio = '';
             $scope.searchIncoterm = '';
             $scope.searchEmbajale = '';
+            $scope.searchPais = '';
         };
 
         /* Funciones para los select */
         $scope.loadSeccionesDetalle = function (cEmp, codSeccion) {
-            var promise = $consumeService.get('cot-secciones-det/?emp=' + cEmp
+            var promise = $consumeService.get('cot-secciones-det?emp=' + cEmp
                 + '&seccion=' + codSeccion);
             promise.then(function (result) {
                 $scope.secciones_det = result.data;
+            }, function (error) {
+                console.log(error);
+                swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
             });
         };
 
         $scope.cargarSucursales = function () {
-            var promise = $consumeService.get('suc-cli/?emp=' + $scope.cot_enc.cEmp
+            var promise = $consumeService.get('suc-cli?emp=' + $scope.cot_enc.cEmp
                 + '&nit=' + $scope.cot_enc.nIde);
             promise.then(function (result) {
                 $scope.sucursales = result.data;
+            }, function (error) {
+                console.log(error);
+                swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
             });
         };
 
         $scope.cargarCostosIncoterm = function () {
-            var promise = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $scope.cot_enc.cEmp
+            var promise = $consumeService.get('incoterm-fac-costos-adic?emp=' + $scope.cot_enc.cEmp
                 + '&incoterm=' + $scope.cot_enc.incoterm);
             promise.then(function (result) {
                 $scope.costosAdic = result.data;
@@ -291,6 +309,9 @@ app.controller('Ctrl', [
                 } else {
                     $scope.tieneCostos = false;
                 }
+            }, function (error) {
+                console.log(error);
+                swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
             });
         };
 
@@ -410,7 +431,7 @@ app.controller('Ctrl', [
 
         $scope.buscarPrecioVenta = function (empresa, codigo) {
             // $scope.selectedDetalle = {};
-            var promise = $consumeService.get('precios/?emp=' + empresa
+            var promise = $consumeService.get('precios?emp=' + empresa
                 + "&cod=" + codigo + "&cri=" + $scope.cot_enc.criVenta.cri);
             promise.then(function (result) {
                 if (result.pVen == null) {
@@ -418,6 +439,9 @@ app.controller('Ctrl', [
                 } else {
                     $scope.selectedDetalle.precio_lista = result.pVen;
                 }
+            }, function (error) {
+                console.log(error);
+                swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
             });
         };
 
@@ -500,6 +524,8 @@ app.controller('Ctrl', [
                 "cot": $scope.cot_enc.cot,
                 "rev": $scope.cot_enc.rev,
                 "modificar": $scope.cot_enc.modificar,
+                "origen": $scope.cot_enc.origen,
+                "destino": $scope.cot_enc.destino,
                 "iva": $scope.autocompleteTerceros.selectedItem.iva,
                 "incoterm": $scope.cot_enc.incoterm,
                 "secciones": secciones,
@@ -519,13 +545,16 @@ app.controller('Ctrl', [
                 preConfirm: (promise) => {
                     return $http({
                         method: "POST",
-                        url: "cotizacion/",
+                        url: "cotizacion",
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         data: requestBody
                     }).then(function (result) {
                         return result.data;
+                    }, function (error) {
+                        console.log(error);
+                        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
                     });
                 },
                 allowOutsideClick: () => !swal.isLoading()
@@ -545,7 +574,7 @@ app.controller('Ctrl', [
                             }
                         });
                     } else {
-                        swal("Mensaje JSP7", result.data.message, "warning");
+                        swal("Mensaje JSP7", result.value.message, "warning");
                     }
                 }
             });

@@ -15,7 +15,7 @@ import com.aspsols.cotizaciones.services.ArticuloServices;
 @RestController
 public class ArticuloController {
 
-	private static final String SERVICE_PATH = "/articulos/";
+	private static final String SERVICE_PATH = "/articulos";
 
 	@Autowired
 	private ArticuloServices service;

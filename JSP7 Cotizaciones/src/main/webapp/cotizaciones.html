@@ -30,13 +30,7 @@
                                 <img src="img/guardar blanco.png" alt="Guardar" style="height: 25px">
                                 <p>Guardar</p>
                             </a>
-                        </li>
-                        <li class="open" ng-if="">
-                            <a class="dropdown-toggle" href="" aria-expanded="true" ng-click="grabarCotizacion()">
-                                <img src="img/guardar blanco.png" alt="Guardar" style="height: 25px">
-                                <p>Guardar</p>
-                            </a>
-                        </li>
+                        </li>                        
                     </ul>
                 </div>
             </div>
@@ -107,7 +101,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Sucursal</label>
                                 <md-select placeholder="Sucursal" ng-model="cot_enc.cSuc" md-on-open="cargarSucursales()">
@@ -130,7 +124,7 @@
                                 <input ng-model="cot_enc.diasValidez" ui-number-mask="0">
                             </md-input-container>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Embalaje</label>
                                 <md-select placeholder="Embalaje" ng-model="cot_enc.embalaje" md-on-close="clearSelectFilter()">
@@ -140,6 +134,27 @@
                                             force-select-focus>
                                     </md-select-header>
                                     <md-option ng-value="record.cEmb" ng-repeat="record in embalajes | filter:searchEmbajale">{{record.nombre}}</md-option>
+                                </md-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <md-input-container class="md-block">
+                                <label>Origen</label>
+                                <input ng-model="cot_enc.origen" md-max-length="50">
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Destino</label>
+                                <md-select placeholder="Destino" ng-model="cot_enc.destino" md-on-close="clearSelectFilter()">
+                                    <md-select-header class="demo-select-header">
+                                        <input ng-model="searchPais" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
+                                            style="width: 100%" ng-keydown="$event.stopPropagation()"
+                                            force-select-focus>
+                                    </md-select-header>
+                                    <md-option ng-value="record" ng-repeat="record in paises | filter:searchPais">{{record.nom}}</md-option>
                                 </md-select>
                             </div>
                         </div>

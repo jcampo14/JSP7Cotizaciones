@@ -17,7 +17,7 @@ import com.aspsols.cotizaciones.services.CategoriaComercialServices;
 @RestController
 public class CategoriaComercialController {
 	
-	private static final String SERVICE_PATH = "/categorias-comerciales/";
+	private static final String SERVICE_PATH = "/categorias-comerciales";
 
 	@Autowired
 	private CategoriaComercialServices services;

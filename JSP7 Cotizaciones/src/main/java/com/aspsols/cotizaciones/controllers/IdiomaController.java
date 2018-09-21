@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.IdiomaServices;
 @RestController
 public class IdiomaController {
 
-	private static final String SERVICE_PATH = "/idiomas/";
+	private static final String SERVICE_PATH = "/idiomas";
 
 	@Autowired
 	private IdiomaServices service;

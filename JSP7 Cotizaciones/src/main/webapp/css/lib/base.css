@@ -157,6 +157,7 @@ input.md-input {
     font-size: 1.4rem !important;
 }
 
-md-input-container {    
-    margin: 15px 0 !important;
+md-input-container {
+    margin: 0px 0 !important;
+    margin-top: 15px !important;
 }

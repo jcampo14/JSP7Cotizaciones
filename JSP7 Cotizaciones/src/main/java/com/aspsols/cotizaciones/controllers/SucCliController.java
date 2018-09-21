@@ -17,7 +17,7 @@ import com.aspsols.cotizaciones.services.SucCliServices;
 @RestController
 public class SucCliController {
 
-	private static final String SERVICE_PATH = "/suc-cli/";
+	private static final String SERVICE_PATH = "/suc-cli";
 	
 	@Autowired
 	private SucCliServices service;

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @RestController
 public class MenuController {
 
-	private static final String SERVICE_PATH = "/menu/";
+	private static final String SERVICE_PATH = "/menu";
 
 	@Autowired
 	private MenuServices service;

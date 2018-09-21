@@ -21,14 +21,14 @@ public class CotEncController {
 	@Autowired
 	private CotEncServices service;
 
-	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc/")
+	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc")
 	public CotEnc findByEmpresaAndVendedor(@RequestParam("emp") String empresa, @RequestParam("age") String agencia,
 			@RequestParam("per") String periodo, @RequestParam("numeroCot") String numeroCot, @RequestParam("rev") Integer revision){			
 		CotEnc resultData = service.findByCotAndRev(empresa, agencia, periodo, numeroCot, revision);		
 		return resultData;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc-list/")
+	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc-list")
 	public QueryResponse<CotizacionCountQuery> findByEmpresaAndVendedorGroupBy(@RequestParam("emp") String empresa, @RequestParam("ven") String vendedor){
 		QueryResponse<CotizacionCountQuery> response = new QueryResponse<>();
 		List<CotizacionCountQuery> resultData = service.findByEmpresaAndVendedorGroupBy(empresa, vendedor);
@@ -37,7 +37,7 @@ public class CotEncController {
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc-rev/")
+	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc-rev")
 	public QueryResponse<CotizacionQuery> findByCot(@RequestParam("emp") String empresa, @RequestParam("age") String agencia,
 			@RequestParam("per") String periodo, @RequestParam("numeroCot") String numeroCot){
 		QueryResponse<CotizacionQuery> response = new QueryResponse<>();

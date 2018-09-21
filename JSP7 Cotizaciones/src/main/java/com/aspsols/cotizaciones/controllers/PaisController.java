@@ -8,24 +8,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aspsols.cotizaciones.model.Criterio;
+import com.aspsols.cotizaciones.model.Pais;
 import com.aspsols.cotizaciones.responses.QueryResponse;
-import com.aspsols.cotizaciones.services.CriterioServices;
+import com.aspsols.cotizaciones.services.PaisServices;
 
 @RestController
-public class CriterioController {
-
-	private static final String SERVICE_PATH = "/criterios";
+public class PaisController {
 	
+	private static final String SERVICE_PATH = "/paises";
+
 	@Autowired
-	private CriterioServices service;
+	private PaisServices services;
 	
 	@RequestMapping(method = RequestMethod.GET, path = SERVICE_PATH)
-	public QueryResponse<Criterio> getByEmpresa(@RequestParam("emp") String empresa){
-		QueryResponse<Criterio> response = new QueryResponse<>();
-		List<Criterio> resultdata = service.showByEmpresa(empresa);		
-		response.setCount(resultdata.size());
-		response.setData(resultdata);
-		return response;		
+	public QueryResponse<Pais> findByEmpresa(@RequestParam("emp") String empresa){
+		List<Pais> resultData = services.findByEmpresa(empresa);
+		return new QueryResponse<>(resultData, resultData.size());
 	}
 }

@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.FacCostosAdicServices;
 @RestController
 public class FacCostosAdicController {
 	
-	private static final String SERVICE_PATH = "/fac-costos-adic/";
+	private static final String SERVICE_PATH = "/fac-costos-adic";
 	
 	@Autowired
 	FacCostosAdicServices service;

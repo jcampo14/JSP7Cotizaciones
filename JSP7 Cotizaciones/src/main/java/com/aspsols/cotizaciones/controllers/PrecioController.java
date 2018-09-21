@@ -13,7 +13,7 @@ import com.aspsols.cotizaciones.services.PrecioServices;
 @RestController
 public class PrecioController {
 
-	private static final String SERVICE_PATH = "/precios/";
+	private static final String SERVICE_PATH = "/precios";
 	
 	@Autowired
 	private PrecioServices service;

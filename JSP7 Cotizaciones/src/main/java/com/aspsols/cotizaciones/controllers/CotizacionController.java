@@ -16,7 +16,7 @@ import com.aspsols.cotizaciones.services.CotizacionServices;
 @RestController
 public class CotizacionController {
 
-	private static final String SERVICE_PATH = "/cotizacion/";
+	private static final String SERVICE_PATH = "/cotizacion";
 
 	@Autowired
 	private CreaCotizacion creaCotizacion;

@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.IncotermServices;
 @RestController
 public class IncotermController {
 
-	private static final String SERVICE_PATH = "/incoterms/";
+	private static final String SERVICE_PATH = "/incoterms";
 	
 	@Autowired
 	private IncotermServices service;

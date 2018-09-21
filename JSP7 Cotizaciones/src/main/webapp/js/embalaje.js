@@ -19,7 +19,7 @@ app.controller('embalajeController', [
         $scope.titulo_formulario = "Definición de Embalajes";
 
         /* LLenar la tabla */
-        $scope.promise = $consumeService.get('embalajes/?emp=' + $localstorage.get('global.empresa', '01'));
+        $scope.promise = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', '01'));
         $scope.promise.then(function (result) {
             // this is only run after getData() resolves        
             $scope.query_incoterm = result;
@@ -95,7 +95,7 @@ app.controller('embalajeController', [
                         var dataToSend = angular.toJson({ list: $scope.selected });
                         var configRequest = {
                             method: "DELETE",
-                            url: "embalajes/",
+                            url: "embalajes",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -159,7 +159,7 @@ app.controller('embalajeController', [
                 if (action == 'OK') {
                     if ($scope.editEmbalaje.nombre == null || $scope.editEmbalaje.nombre == '') {
                         swal("Mensaje JSP7", "El nombre del embalaje esta vacio.", "error");
-                        $scope.promise = $consumeService.get('embalajes/?emp=' + $localstorage.get('global.empresa', '01'));
+                        $scope.promise = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', '01'));
                         $scope.promise.then(function (result) {
                             $scope.selected = [];
                             $scope.query_incoterm = result;
@@ -168,7 +168,7 @@ app.controller('embalajeController', [
 
                         var configRequest = {
                             method: "PUT",
-                            url: "embalajes/",
+                            url: "embalajes",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -239,7 +239,7 @@ app.controller('embalajeController', [
                     } else {
                         var configRequest = {
                             method: "POST",
-                            url: "embalajes/",
+                            url: "embalajes",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -249,7 +249,7 @@ app.controller('embalajeController', [
 
                         $scope.promiseAddEmbalaje.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('embalajes/?emp=' + $localstorage.get('global.empresa', '01'));
+                                $scope.promise = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', '01'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.query_incoterm = result;

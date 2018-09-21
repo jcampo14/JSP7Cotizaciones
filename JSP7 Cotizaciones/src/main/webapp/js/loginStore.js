@@ -21,7 +21,7 @@ app.controller('loginStoreController', [
 
         /* Traemos las empresas para setear en el select */
         $scope.loadCompanies = function () {
-            var promise = $consumeService.get('WSCotizaciones/listCompanies');
+            var promise = $consumeService.get('companies');
             promise.then(function (result) {
                 // this is only run after getData() resolves        
                 $scope.companies = result.data;

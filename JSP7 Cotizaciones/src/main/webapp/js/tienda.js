@@ -21,7 +21,7 @@ app.controller('tiendaController', [
     	$scope.filterProducts = [];
         
     	$scope.init = function (){
-    		$scope.promise = $consumeService.get('tienda/?emp=' + $localstorage.get('global.empresa', '01') + '&rama=D' + '&imgprincipal=S');
+    		$scope.promise = $consumeService.get('tienda?emp=' + $localstorage.get('global.empresa', '01') + '&rama=D' + '&imgprincipal=S');
         	
         	$scope.promise.then(function (result) {
                 $scope.products = result;

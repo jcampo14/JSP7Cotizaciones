@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.CotSeccionesDetServices;
 @RestController
 public class CotSeccionesDetController {
 
-	private static final String SERVICE_PATH = "/cot-secciones-det/";
+	private static final String SERVICE_PATH = "/cot-secciones-det";
 
 	@Autowired
 	private CotSeccionesDetServices service;

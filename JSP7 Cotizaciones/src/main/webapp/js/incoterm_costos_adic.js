@@ -74,7 +74,7 @@ app.controller('incotermCostosAdicController', [
         };
 
         $scope.showDataDetail = function (item) {
-            $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $localstorage.get('global.empresa', '00')
+            $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic?emp=' + $localstorage.get('global.empresa', '00')
                 + '&incoterm=' + item.codIncoterm); //$scope.query_incoterm.data[fIndex].codigo);
             $scope.promiseCostosAdic.then(function (result) {
                 $scope.selectedCostosAdic = [];
@@ -99,7 +99,7 @@ app.controller('incotermCostosAdicController', [
         };
 
         /** Llenamos la tabla */
-        $scope.promiseIncoterm = $consumeService.get('incoterms/?emp=' + $localstorage.get('global.empresa', '00'));
+        $scope.promiseIncoterm = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promiseIncoterm.then(function (result) {
             $scope.selectedIncoterm = [];
             $scope.query_incoterm = result;
@@ -162,7 +162,7 @@ app.controller('incotermCostosAdicController', [
                         } else {
                             var configRequest = {
                                 method: "POST",
-                                url: "incoterm-fac-costos-adic/",
+                                url: "incoterm-fac-costos-adic",
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
@@ -175,7 +175,7 @@ app.controller('incotermCostosAdicController', [
                             var promise = $consumeService.post(configRequest);
                             promise.then(function (result) {
                                 if (result.success == true) {
-                                    $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $scope.selectedIncoterm[0].cEmp
+                                    $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic?emp=' + $scope.selectedIncoterm[0].cEmp
                                         + '&incoterm=' + $scope.selectedIncoterm[0].codIncoterm);
                                     $scope.promiseCostosAdic.then(function (result) {
                                         $scope.selectedCostosAdic = [];
@@ -196,7 +196,7 @@ app.controller('incotermCostosAdicController', [
             };
 
             $scope.loadCostosAdic = function () {
-                var promise = $consumeService.get('fac-costos-adic/?emp=' + $localstorage.get('global.empresa', '00'));
+                var promise = $consumeService.get('fac-costos-adic?emp=' + $localstorage.get('global.empresa', '00'));
                 promise.then(function (result) {
                     $scope.costosAdic = result.data;
                     $scope.$applyAsync();
@@ -222,7 +222,7 @@ app.controller('incotermCostosAdicController', [
                         var dataToSend = angular.toJson({ list: $scope.selectedCostosAdic });
                         var configRequest = {
                             method: "DELETE",
-                            url: "incoterm-fac-costos-adic/",
+                            url: "incoterm-fac-costos-adic",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -231,7 +231,7 @@ app.controller('incotermCostosAdicController', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic/?emp=' + $scope.selectedIncoterm[0].cEmp
+                                $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic?emp=' + $scope.selectedIncoterm[0].cEmp
                                     + '&incoterm=' + $scope.selectedIncoterm[0].codIncoterm);
                                 $scope.promiseCostosAdic.then(function (result) {
                                     $scope.selectedCostosAdic = [];

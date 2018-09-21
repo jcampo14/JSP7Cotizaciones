@@ -15,7 +15,7 @@ import com.aspsols.cotizaciones.services.TiendaServices;
 @RestController
 public class TiendaController {
 
-	private static final String SERVICE_PATH = "/tienda/";
+	private static final String SERVICE_PATH = "/tienda";
 	
 	@Autowired
 	private TiendaServices service;

@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.IncotermFacCostosAdicServices;
 @RestController
 public class IncotermFacCostosAdicController {
 
-	private static final String SERVICE_PATH = "/incoterm-fac-costos-adic/";
+	private static final String SERVICE_PATH = "/incoterm-fac-costos-adic";
 
 	@Autowired
 	private IncotermFacCostosAdicServices service;

@@ -87,7 +87,7 @@ app.controller('Ctrl', [
         ];
 
         $scope.selected = [];
-        $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
+        $scope.promise = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promise.then(function (result) {
             $scope.queryCotSecciones = result;
         });
@@ -144,7 +144,7 @@ app.controller('Ctrl', [
                     } else {
                         var configRequest = {
                             method: "POST",
-                            url: "cot-secciones/",
+                            url: "cot-secciones",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -153,7 +153,7 @@ app.controller('Ctrl', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
+                                $scope.promise = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', '00'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.queryCotSecciones = result;
@@ -213,7 +213,7 @@ app.controller('Ctrl', [
                     } else {
                         var configRequest = {
                             method: "PUT",
-                            url: "cot-secciones/",
+                            url: "cot-secciones",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -222,7 +222,7 @@ app.controller('Ctrl', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
+                                $scope.promise = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', '00'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.queryCotSecciones = result;
@@ -259,7 +259,7 @@ app.controller('Ctrl', [
                         var dataToSend = angular.toJson({ list: $scope.selected });
                         var configRequest = {
                             method: "DELETE",
-                            url: "cot-secciones/",
+                            url: "cot-secciones",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -268,7 +268,7 @@ app.controller('Ctrl', [
                         $scope.promiseDeleteIncoterm = $consumeService.post(configRequest);
                         $scope.promiseDeleteIncoterm.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
+                                $scope.promise = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', '00'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.queryCotSecciones = result;

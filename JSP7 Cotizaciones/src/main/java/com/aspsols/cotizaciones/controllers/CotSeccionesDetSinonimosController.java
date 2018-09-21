@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.CotSeccionesDetSinonimosServices;
 @RestController
 public class CotSeccionesDetSinonimosController {
 
-	private static final String SERVICE_PATH = "/cot-secciones-det-sinonimos/";
+	private static final String SERVICE_PATH = "/cot-secciones-det-sinonimos";
 
 	@Autowired
 	private CotSeccionesDetSinonimosServices service;

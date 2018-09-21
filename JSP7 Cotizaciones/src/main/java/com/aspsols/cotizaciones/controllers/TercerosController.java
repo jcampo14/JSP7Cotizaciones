@@ -17,8 +17,8 @@ import com.aspsols.cotizaciones.services.TercerosServices;
 @RestController
 public class TercerosController {
 
-	private static final String SERVICE_PATH = "/terceros/";
-	private static final String PATH_PROSPECTOS = "/prospectos/";	
+	private static final String SERVICE_PATH = "/terceros";
+	private static final String PATH_PROSPECTOS = "/prospectos";	
 
 	@Autowired
 	private TercerosServices service;

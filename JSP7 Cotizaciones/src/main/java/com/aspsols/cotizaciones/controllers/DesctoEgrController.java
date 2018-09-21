@@ -15,7 +15,7 @@ import com.aspsols.cotizaciones.services.DesctoEgrServices;
 @RestController
 public class DesctoEgrController {
 	
-	private static final String SERVICE_PATH = "/descto-egr/";
+	private static final String SERVICE_PATH = "/descto-egr";
 
 	@Autowired
 	private DesctoEgrServices service;

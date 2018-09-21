@@ -86,7 +86,7 @@ app.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '
         $scope.isLoading = true;
         $scope.style = $menu.style();
 
-        var promise = $consumeService.get('menu/');
+        var promise = $consumeService.get('menu');
         $q.all([promise]).then(function (values) {
             $scope.itemsMenu = $menu.setItems('primary', values[0].data);
             $scope.isLoading = false;

@@ -14,7 +14,7 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
     $scope.init = function () {
         $scope.titulo_formulario = "Definición de Categorias Comerciales";
         $scope.isLoading = true;
-        var promise = $http.get('categorias-comerciales/?emp=' + $localstorage.get('global.empresa', null));
+        var promise = $http.get('categorias-comerciales?emp=' + $localstorage.get('global.empresa', null));
         promise.then(function (result) {
             $scope.categorias = result.data.data;
             $scope.isLoading = false;
@@ -81,7 +81,7 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
                 if (form.$valid) {
                     var configRequest = {
                         method: "POST",
-                        url: "categorias-comerciales/",
+                        url: "categorias-comerciales",
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -151,7 +151,7 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
                 if (form.$valid) {
                     var configRequest = {
                         method: "PUT",
-                        url: "categorias-comerciales/",
+                        url: "categorias-comerciales",
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -199,7 +199,7 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
                     });
                     var configRequest = {
                         method: "DELETE",
-                        url: "categorias-comerciales/",
+                        url: "categorias-comerciales",
                         headers: {
                             'Content-Type': 'application/json'
                         },

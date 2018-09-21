@@ -83,7 +83,7 @@ app.controller('Ctrl', [
 
         $scope.showDataDetail = function (item) {
             $scope.selectedDetalle = [];
-            $scope.promiseDetalle = $consumeService.get('cot-secciones-det/?emp=' + $localstorage.get('global.empresa', '00')
+            $scope.promiseDetalle = $consumeService.get('cot-secciones-det?emp=' + $localstorage.get('global.empresa', '00')
                 + "&seccion=" + item.codSeccion);
             $scope.promiseDetalle.then(function (result) {
                 $scope.queryCotSeccionesDetalle = result;
@@ -99,7 +99,7 @@ app.controller('Ctrl', [
 
         $scope.showDataTableIdioma = function (item) {
             $scope.selectedIdioma = [];
-            $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
+            $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos?emp=' + $localstorage.get('global.empresa', '00')
                 + "&seccion=" + item.codSeccion + "&codVal=" + item.codVal);
             $scope.promiseSinonimo.then(function (result) {
                 $scope.queryCotSeccionesDetSinonimo = result;
@@ -119,7 +119,7 @@ app.controller('Ctrl', [
             console.log('limit: ', limit);
         };
 
-        $scope.promiseSeccion = $consumeService.get('cot-secciones/?emp=' + $localstorage.get('global.empresa', '00'));
+        $scope.promiseSeccion = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promiseSeccion.then(function (result) {
             $scope.queryCotSecciones = result;
         });
@@ -169,7 +169,7 @@ app.controller('Ctrl', [
                     } else {
                         var configRequest = {
                             method: "POST",
-                            url: "cot-secciones-det/",
+                            url: "cot-secciones-det",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -178,7 +178,7 @@ app.controller('Ctrl', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promiseDetalle = $consumeService.get('cot-secciones-det/?emp=' + $localstorage.get('global.empresa', '00')
+                                $scope.promiseDetalle = $consumeService.get('cot-secciones-det?emp=' + $localstorage.get('global.empresa', '00')
                                     + "&seccion=" + $scope.selectedSeccion[0].codSeccion);
                                 $scope.promiseDetalle.then(function (result) {
                                     $scope.queryCotSeccionesDetalle = result;
@@ -213,7 +213,7 @@ app.controller('Ctrl', [
                     if (result.value) {
                         var configRequest = {
                             method: "DELETE",
-                            url: "cot-secciones-det/",
+                            url: "cot-secciones-det",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -222,7 +222,7 @@ app.controller('Ctrl', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promiseDetalle = $consumeService.get('cot-secciones-det/?emp=' + $localstorage.get('global.empresa', '00')
+                                $scope.promiseDetalle = $consumeService.get('cot-secciones-det?emp=' + $localstorage.get('global.empresa', '00')
                                     + "&seccion=" + $scope.selectedSeccion[0].codSeccion);
                                 $scope.promiseDetalle.then(function (result) {
                                     $scope.queryCotSeccionesDetalle = result;
@@ -283,7 +283,7 @@ app.controller('Ctrl', [
                     } else {
                         var configRequest = {
                             method: "POST",
-                            url: "cot-secciones-det-sinonimos/",
+                            url: "cot-secciones-det-sinonimos",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -292,7 +292,7 @@ app.controller('Ctrl', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
+                                $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos?emp=' + $localstorage.get('global.empresa', '00')
                                     + "&seccion=" + $scope.selectedDetalle[0].codSeccion + "&codVal=" + $scope.selectedDetalle[0].codVal);
                                 $scope.promiseSinonimo.then(function (result) {
                                     $scope.queryCotSeccionesDetSinonimo = result;
@@ -309,7 +309,7 @@ app.controller('Ctrl', [
                 }
             };
             $scope.loadIdiomas = function () {
-                var promise = $consumeService.get('idiomas/?emp=' + $localstorage.get('global.empresa', '00'));
+                var promise = $consumeService.get('idiomas?emp=' + $localstorage.get('global.empresa', '00'));
                 promise.then(function (result) {
                     $scope.idiomas = result.data;
                 });
@@ -333,7 +333,7 @@ app.controller('Ctrl', [
                     if (result.value) {
                         var configRequest = {
                             method: "DELETE",
-                            url: "cot-secciones-det-sinonimos/",
+                            url: "cot-secciones-det-sinonimos",
                             headers: {
                                 'Content-Type': 'application/json'
                             },
@@ -342,7 +342,7 @@ app.controller('Ctrl', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
+                                $scope.promiseSinonimo = $consumeService.get('cot-secciones-det-sinonimos?emp=' + $localstorage.get('global.empresa', '00')
                                     + "&seccion=" + $scope.selectedIdioma[0].codSeccion + "&codVal=" + $scope.selectedIdioma[0].codVal);
                                 $scope.promiseSinonimo.then(function (result) {
                                     $scope.queryCotSeccionesDetSinonimo = result;
