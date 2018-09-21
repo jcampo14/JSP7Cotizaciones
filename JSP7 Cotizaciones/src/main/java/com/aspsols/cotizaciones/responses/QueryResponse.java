@@ -13,6 +13,16 @@ public class QueryResponse<E> {
 	@JsonView(JSonServiceViewer.Public.class)
 	private long count;
 
+	public QueryResponse() {
+		super();
+	}
+
+	public QueryResponse(List<E> data, long count) {
+		super();
+		this.data = data;
+		this.count = count;
+	}
+
 	public List<E> getData() {
 		return data;
 	}

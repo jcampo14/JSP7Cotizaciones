@@ -505,27 +505,7 @@ app.controller('Ctrl', [
                 "secciones": secciones,
                 "detalle": detalle,
                 "costos": costos
-            };
-            /* Consumimos el servicio */
-            /*
-            var configRequest = {
-                method: "POST",
-                url: "cotizacion/",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: requestBody
-            };
-            var promise = $consumeService.post(configRequest);
-            promise.then(function (result) {
-                if (result.success == true) {
-                    swal("Mensaje JSP7", result.message, "success");
-                    $window.location.href = '/cotizaciones.html';
-                } else {
-                    swal("Mensaje JSP7", result.message, "warning");
-                }
-            });
-            */
+            };            
             swal({
                 title: "Mensaje JSP7", //Bold text
                 text: "¿Desea guardar la cotización?", //light text
@@ -537,19 +517,16 @@ app.controller('Ctrl', [
                 cancelButtonColor: '#d33',
                 showLoaderOnConfirm: true,
                 preConfirm: (promise) => {
-                    return fetch('cotizacion/', {
-                        method: 'POST', // or 'PUT'
-                        body: JSON.stringify(requestBody), // data can be `string` or {object}!
+                    return $http({
+                        method: "POST",
+                        url: "cotizacion/",
                         headers: {
                             'Content-Type': 'application/json'
-                        }
-                    }).then(response => {
-                        return response.json();
-                    }).catch(error => {
-                        swal.showValidationError(
-                            `Request failed: ${error}`
-                        )
-                    })
+                        },
+                        data: requestBody
+                    }).then(function (result) {
+                        return result.data;
+                    });
                 },
                 allowOutsideClick: () => !swal.isLoading()
             }).then((result) => {
@@ -562,13 +539,13 @@ app.controller('Ctrl', [
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: 'Aceptar'
-                        }).then((result) => {
-                            if (result.value) {
+                        }).then((resultConfirm) => {
+                            if (resultConfirm.value) {
                                 $window.location.href = '/cotizaciones.html';
                             }
                         });
                     } else {
-                        swal("Mensaje JSP7", result.value.message, "warning");
+                        swal("Mensaje JSP7", result.data.message, "warning");
                     }
                 }
             });

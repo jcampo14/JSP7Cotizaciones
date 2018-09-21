@@ -194,7 +194,7 @@ app.controller('embalajeController', [
                     $mdDialog.hide(action);
                 }
             }
-        }
+        };
 
         /* Dialogo Adicionar */
         $scope.showAdd = function (ev) {
@@ -265,6 +265,6 @@ app.controller('embalajeController', [
                     $mdDialog.hide(action);
                 }
             }
-        }
+        };
 
     }]);    

@@ -10,6 +10,15 @@ public class MenuResponse<E> {
 	@JsonView(JSonServiceViewer.Public.class)
 	private List<E> data;
 
+	public MenuResponse() {
+		super();
+	}
+
+	public MenuResponse(List<E> data) {
+		super();
+		this.data = data;
+	}
+
 	public List<E> getData() {
 		return data;
 	}
