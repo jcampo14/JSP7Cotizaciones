@@ -101,16 +101,7 @@ app.controller('Ctrl', [
         $scope.promiseSeccion = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promiseSeccion.then(function (result) {
             $scope.queryCotSecciones = result;
-        });
-
-        // $scope.showDetail = function ($event, record) {
-        //     $scope.selectedSinonimo = [];
-        //     $scope.promiseSinonimo = $consumeService.get('cot-secciones-sinonimos/?emp=' + $localstorage.get('global.empresa', '00')
-        //         + "&seccion=" + record.codSeccion);
-        //     $scope.promiseSinonimo.then(function (result) {
-        //         $scope.queryCotSeccionesSinonimo = result;
-        //     });
-        // };
+        });        
 
         /* Dialogo Adicionar */
         $scope.showAdd = function (ev) {

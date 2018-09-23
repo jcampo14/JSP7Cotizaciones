@@ -33,7 +33,7 @@ public class TercerosController {
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/tercerosByNit/")
+	@RequestMapping(method = RequestMethod.GET, path = "/tercerosByNit")
 	public QueryResponse<Terceros> findByNit(@RequestParam("emp") String empresa,
 			@RequestParam("nit") String nit) {
 		QueryResponse<Terceros> response = new QueryResponse<>();

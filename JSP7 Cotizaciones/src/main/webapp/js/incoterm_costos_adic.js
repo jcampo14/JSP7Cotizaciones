@@ -104,18 +104,7 @@ app.controller('incotermCostosAdicController', [
             $scope.selectedIncoterm = [];
             $scope.query_incoterm = result;
             $scope.$applyAsync();
-        });
-
-        // $scope.showCostosAdic = function ($event, record) {
-        //     // $event.stopPropagation();
-        //     $scope.promiseCostosAdic = $consumeService.get('fac-costos-adic/?emp=' + $localstorage.get('CEmp', '00')
-        //         + '&incoterm=' + record.codIncoterm); //$scope.query_incoterm.data[fIndex].codigo);
-        //     $scope.promiseCostosAdic.then(function (result) {
-        //         $scope.selectedCostosAdic = [];
-        //         $scope.queryCostosAdic = result;
-        //     });
-        //     // swal("Mensaje JSP7", $scope.query_incoterm.data[fIndex].nombre, "success");
-        // };
+        });       
 
         /* Dialogos */
         $scope.showAddCostoAdic = function (ev) {

@@ -90,7 +90,7 @@ app.controller('Ctrl', [
                     $scope.secciones = values[0].data;
                     $scope.incoterms = values[1].data;
                     $scope.criterios = values[2].data;
-                    $scope.idiomas = values[3].data;                    
+                    $scope.idiomas = values[3].data;
                     // Agregamos Idioma vacio (IDIOMAS)
                     var idiomaNull = {
                         "cEmp": $localstorage.get('global.empresa', null),
@@ -125,7 +125,9 @@ app.controller('Ctrl', [
                                 "idioma": result.idioma,
                                 "embalaje": result.embalaje.cEmb,
                                 "diasValidez": dayDifference,
-                                "modificar": paramsDecode.modificar
+                                "modificar": paramsDecode.modificar,
+                                "origen": result.origen,
+                                "destino": result.pais
                             };
                             $scope.cot_det = [];
                             var promiseNit = $consumeService.get('tercerosByNit?emp=' + result.cEmp + '&nit=' +
@@ -137,7 +139,33 @@ app.controller('Ctrl', [
                                 promise.then(function (resultSuc) {
                                     $scope.sucursales = resultSuc.data;
                                     $scope.cot_enc.cSuc = result.codSuc;
-                                    $scope.isLoading = false;
+                                    /* Cargamos los cargos/Costos adicionales */
+                                    var promise = $consumeService.get('incoterm-fac-costos-adic?emp=' + $scope.cot_enc.cEmp
+                                        + '&incoterm=' + $scope.cot_enc.incoterm);
+                                    promise.then(function (resultCargos) {
+                                        $scope.costosAdic = resultCargos.data;
+                                        if ($scope.costosAdic.length > 1) {
+                                            $scope.tieneCostos = true;
+                                            index = 0;
+                                            var indexCargos;
+                                            while (index < result.cargos.length) {
+                                                indexCargos = 0;
+                                                while (indexCargos < $scope.costosAdic.length) {
+                                                    if ($scope.costosAdic[indexCargos].idFacCostosAdic == result.cargos[index].codCosto) {
+                                                        $scope.costosAdic[indexCargos].valor = result.cargos[index].valor;
+                                                    }
+                                                    indexCargos++;
+                                                }
+                                                index++;
+                                            };
+                                        } else {
+                                            $scope.tieneCostos = false;
+                                        }
+                                        $scope.isLoading = false;
+                                    }, function (error) {
+                                        console.log(error);
+                                        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+                                    });
                                 });
                             });
                             /* Cargamos el detalle */
@@ -182,7 +210,7 @@ app.controller('Ctrl', [
                                     indexSeccion++;
                                 }
                                 index++;
-                            }
+                            };
                         }, function (error) {
                             console.log(error);
                             swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
@@ -531,7 +559,7 @@ app.controller('Ctrl', [
                 "secciones": secciones,
                 "detalle": detalle,
                 "costos": costos
-            };            
+            };
             swal({
                 title: "Mensaje JSP7", //Bold text
                 text: "¿Desea guardar la cotización?", //light text

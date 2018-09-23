@@ -104,7 +104,7 @@ app.controller('embalajeController', [
                         $scope.promiseDeleteEmbalaje = $consumeService.post(configRequest);
                         $scope.promiseDeleteEmbalaje.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('embalajes/?emp=' + $localstorage.get('global.empresa', '01'));
+                                $scope.promise = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', '01'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.query_incoterm = result;
@@ -178,7 +178,7 @@ app.controller('embalajeController', [
 
                         $scope.promiseEditEmbalaje.then(function (result) {
                             if (result.success == true) {
-                                $scope.promise = $consumeService.get('embalajes/?emp=' + $localstorage.get('global.empresa', '01'));
+                                $scope.promise = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', '01'));
                                 $scope.promise.then(function (result) {
                                     $scope.selected = [];
                                     $scope.query_incoterm = result;

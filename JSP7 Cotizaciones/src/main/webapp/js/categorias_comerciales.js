@@ -208,7 +208,7 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
                     var promise = $consumeService.post(configRequest);
                     promise.then(function (result) {
                         if (result.success == true) {
-                            $scope.promise = $consumeService.get('categorias-comerciales/?emp=' + $localstorage.get('global.empresa', '01'));
+                            $scope.promise = $consumeService.get('categorias-comerciales?emp=' + $localstorage.get('global.empresa', '01'));
                             $scope.promise.then(function (result) {
                                 $scope.selected = [];
                                 $scope.query_incoterm = result;

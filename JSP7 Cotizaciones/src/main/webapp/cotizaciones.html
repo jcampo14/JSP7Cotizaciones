@@ -69,7 +69,7 @@
                                 </md-select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Incoterm</label>
                                 <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()"
@@ -84,7 +84,7 @@
                                 </md-select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <md-autocomplete flex md-item-text="item.nIde + ' - ' + item.nombre" md-items="item in autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
                                 md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
                                 md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem"
@@ -96,6 +96,7 @@
                                         <span>
                                             <strong>{{item.nIde}} - {{item.nombre}}</strong>
                                         </span>
+                                    </span>    
                                 </md-item-template>
                             </md-autocomplete>
                         </div>
@@ -148,7 +149,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Destino</label>
-                                <md-select placeholder="Destino" ng-model="cot_enc.destino" md-on-close="clearSelectFilter()">
+                                <md-select placeholder="Destino" ng-model="cot_enc.destino" md-on-close="clearSelectFilter()"
+                                    ng-model-options="{trackBy: '$value.cPai'}">
                                     <md-select-header class="demo-select-header">
                                         <input ng-model="searchPais" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control"
                                             style="width: 100%" ng-keydown="$event.stopPropagation()"

@@ -74,6 +74,14 @@ public class CotEnc implements Serializable {
 	@Column(name = "COD_INCOTERM")
 	private String codIncoterm;
 
+	@Column(name = "ORIGEN")
+	private String origen;
+
+	@ManyToOne
+	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
+			@JoinColumn(name = "DESTINO", referencedColumnName = "C_PAI", insertable = false, updatable = false) })
+	private Pais pais;
+
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
 			@JoinColumn(name = "COD_EMB", referencedColumnName = "COD_EMB", insertable = false, updatable = false) })
@@ -109,6 +117,14 @@ public class CotEnc implements Serializable {
 			@JoinColumn(name = "PER", referencedColumnName = "PER", insertable = false, updatable = false),
 			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
 	private List<CotEncSecciones> secciones;
+
+	@OneToMany
+	@JoinColumns({ @JoinColumn(name = "NUM_DOC", referencedColumnName = "COT", insertable = false, updatable = false),
+			@JoinColumn(name = "REV", referencedColumnName = "REV", insertable = false, updatable = false),
+			@JoinColumn(name = "C_AGR", referencedColumnName = "C_AGR", insertable = false, updatable = false),
+			@JoinColumn(name = "PER", referencedColumnName = "PER", insertable = false, updatable = false),
+			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
+	private List<FacCostosCot> cargos;
 
 	public String getcEmp() {
 		return cEmp;
@@ -260,6 +276,30 @@ public class CotEnc implements Serializable {
 
 	public void setSecciones(List<CotEncSecciones> secciones) {
 		this.secciones = secciones;
+	}
+
+	public List<FacCostosCot> getCargos() {
+		return cargos;
+	}
+
+	public void setCargos(List<FacCostosCot> cargos) {
+		this.cargos = cargos;
+	}
+
+	public String getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 }

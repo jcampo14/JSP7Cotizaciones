@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 
@@ -41,6 +42,21 @@ public class PaisId implements Serializable {
 
 	public void setcPai(String cPai) {
 		this.cPai = cPai;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		PaisId that = (PaisId) o;		
+		return cEmp.equals(that.cEmp) && cPai.equals(that.cPai);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getcPai());
 	}
 
 }
