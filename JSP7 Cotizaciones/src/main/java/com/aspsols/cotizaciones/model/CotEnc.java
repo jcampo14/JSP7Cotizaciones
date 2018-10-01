@@ -78,13 +78,14 @@ public class CotEnc implements Serializable {
 	private String origen;
 
 	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
-			@JoinColumn(name = "DESTINO", referencedColumnName = "C_PAI", insertable = false, updatable = false) })
+	@JoinColumns({ @JoinColumn(name = "DESTINO", referencedColumnName = "C_PAI", insertable = false, updatable = false),
+			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
 	private Pais pais;
 
 	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
-			@JoinColumn(name = "COD_EMB", referencedColumnName = "COD_EMB", insertable = false, updatable = false) })
+	@JoinColumns({
+			@JoinColumn(name = "COD_EMB", referencedColumnName = "COD_EMB", insertable = false, updatable = false),
+			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
 	private Embalaje embalaje;
 
 	@ManyToOne

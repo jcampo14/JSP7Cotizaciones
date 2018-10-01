@@ -101,8 +101,8 @@ app.controller('embalajeController', [
                             },
                             data: dataToSend
                         };
-                        $scope.promiseDeleteEmbalaje = $consumeService.post(configRequest);
-                        $scope.promiseDeleteEmbalaje.then(function (result) {
+                        var promise = $consumeService.post(configRequest);
+                        promise.then(function (result) {
                             if (result.success == true) {
                                 $scope.promise = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', '01'));
                                 $scope.promise.then(function (result) {
@@ -118,7 +118,6 @@ app.controller('embalajeController', [
                 });                
             }
         };
-
 
         /* Dialogo Editar */
         $scope.showEdit = function (ev) {

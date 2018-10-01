@@ -270,6 +270,7 @@ app.controller('Ctrl', [
                         $scope.selectedDetalle = {};
                     }
                     $scope.buscarPrecioVenta(item.cEmp, item.cod);
+                    $scope.traerDescripcionComercial(item.cEmp, item.cod, $scope.cot_enc.idioma);
                     $scope.$applyAsync;
                 }
             },
@@ -375,7 +376,8 @@ app.controller('Ctrl', [
                         cantidad: $scope.selectedDetalle.cantidad,
                         precio_lista: $scope.selectedDetalle.precio_lista,
                         precio_venta: $scope.selectedDetalle.precio_venta,
-                        descuento: $scope.selectedDetalle.descuento
+                        descuento: $scope.selectedDetalle.descuento,
+                        descripcion: $scope.selectedDetalle.descripcion
                     };
                     if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
                         var ivaValue = {
@@ -404,6 +406,18 @@ app.controller('Ctrl', [
             }
         };
 
+        $scope.showEditarTable = function (item) {
+            $scope.selectedDetalle = {};
+            $scope.autocompleteArticulos.selectedItem = item.id;
+            $scope.selectedDetalle.cantidad = item.cantidad;
+            $scope.selectedDetalle.precio_lista = item.precio_lista;
+            $scope.selectedDetalle.precio_venta = item.precio_venta;
+            $scope.selectedDetalle.descuento = item.descuento;
+            $scope.selectedDetalle.descripcion = item.descripcion;
+            $scope.isDisabled = true;
+            $scope.$applyAsync();
+        };
+
         $scope.editItemDetalle = function (form) {
             if (form.$valid) {
                 var index = 0;
@@ -414,6 +428,7 @@ app.controller('Ctrl', [
                             $scope.cot_det[index].precio_lista = $scope.selectedDetalle.precio_lista;
                             $scope.cot_det[index].precio_venta = $scope.selectedDetalle.precio_venta;
                             $scope.cot_det[index].descuento = $scope.selectedDetalle.descuento;
+                            $scope.cot_det[index].descripcion = $scope.selectedDetalle.descripcion;
                             if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
                                 var ivaValue = {
                                     iva: {
@@ -473,15 +488,14 @@ app.controller('Ctrl', [
             });
         };
 
-        $scope.showEditarTable = function (item) {
-            $scope.selectedDetalle = {};
-            $scope.autocompleteArticulos.selectedItem = item.id;
-            $scope.selectedDetalle.cantidad = item.cantidad;
-            $scope.selectedDetalle.precio_lista = item.precio_lista;
-            $scope.selectedDetalle.precio_venta = item.precio_venta;
-            $scope.selectedDetalle.descuento = item.descuento;
-            $scope.isDisabled = true;
-            $scope.$applyAsync();
+        $scope.traerDescripcionComercial = function (empresa, codigo, idioma) {
+            var promise = $consumeService.get('articulo-descripcion?emp=' + empresa + '&cod=' 
+                + codigo + '&idioma=' + idioma);
+            promise.then(function(result){
+                $scope.selectedDetalle.descripcion = result.data[0].descripcion;
+            }, function(error){
+                swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+            });   
         };
 
         $scope.clearEditarTable = function (item) {
@@ -517,7 +531,8 @@ app.controller('Ctrl', [
                     "precioLista": $scope.cot_det[index].precio_lista,
                     "precioVenta": $scope.cot_det[index].precio_venta,
                     "descuento": $scope.cot_det[index].descuento,
-                    "codIva": $scope.cot_det[index].iva.cDes
+                    "codIva": $scope.cot_det[index].iva.cDes,
+                    "descripcion": $scope.cot_det[index].descripcion
                 };
                 detalle.push(itemDetalle);
                 index++;

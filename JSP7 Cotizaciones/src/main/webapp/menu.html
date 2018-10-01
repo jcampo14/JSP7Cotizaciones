@@ -80,8 +80,9 @@
             <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex" style="overflow-y: overlay;">
                 <md-tab ng-repeat="tab in tabs">
                     <md-tab-label>
-                        {{tab.title}} &nbsp; &nbsp;
-                        <i class="fa fa-times-circle" ng-click="eliminar($index)" ng-show="tab.close"></i>
+                        <md-tooltip>{{tab.title}}</md-tooltip>
+                        <div class="text-tab">{{tab.title}}</div>
+                        <i class="fa fa-times-circle" ng-click="eliminar($index)"></i>
                     </md-tab-label>
                     <md-tab-body>
                         <iframe class='inner-frame' id='page-content-{{$index}}' height="800px" width="100%" ng-src='{{ trustSrc(tab.contentUrl) }}'
@@ -106,7 +107,7 @@
     <script src="js/lib/angular-1.7.2/angular.js"></script>
     <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
     <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
-    <script src="js/lib/angular-material/angular-material.js"></script>    
+    <script src="js/lib/angular-material/angular-material.js"></script>
     <script src="js/menu/angular-material-icons.min.js"></script>
     <script src="js/menu/angular-material-badge.min.js"></script>
     <script src="js/menu/angular-route.min.js"></script>
@@ -120,7 +121,7 @@
     <!-- Scripts Menu -->
     <script src="js/menu/angular-material-multilevel-menu.js"></script>
     <script src="js/lib/utils.js"></script>
-    <script src="js/menu/menu.js"></script>    
+    <script src="js/menu/menu.js"></script>
 </body>
 
 </html>

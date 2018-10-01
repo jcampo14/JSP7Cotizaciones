@@ -30,7 +30,7 @@
                                 <img src="img/guardar blanco.png" alt="Guardar" style="height: 25px">
                                 <p>Guardar</p>
                             </a>
-                        </li>                        
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                                         <span>
                                             <strong>{{item.nIde}} - {{item.nombre}}</strong>
                                         </span>
-                                    </span>    
+                                    </span>
                                 </md-item-template>
                             </md-autocomplete>
                         </div>
@@ -180,21 +180,29 @@
             <div class="card">
                 <form name="detalleForm" class="panel-body">
                     <div class="row">
-                        <div class="col-md-2" style="padding-top: 40px">
-                            <md-button type="submit" class="md-icon md-icon-button-png" ng-click="addItemDetalle(detalleForm)">
-                                <md-tooltip>Agregar Registro</md-tooltip>
-                                <img src="img/agregar 1.png" alt="Agregar" style="height: 25px">
-                            </md-button>
-                            <md-button class="md-icon md-icon-button-png" ng-click="editItemDetalle(detalleForm)">
-                                <md-tooltip>Editar Registro</md-tooltip>
-                                <img src="img/editar 2.png" alt="Editar" style="height: 25px">
-                            </md-button>
-                            <md-button class="md-icon md-icon-button-png" ng-click="deleteItemDetalle()">
-                                <md-tooltip>Eliminar Registro</md-tooltip>
-                                <img src="img/eliminar 2.png" alt="Editar" style="height: 25px">
-                            </md-button>
+                        <div class="col-md-1" style="padding-top: 25px">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3" style="padding-left: 6px !important">
+                                    <md-button type="submit" class="md-icon md-icon-button-png" ng-click="addItemDetalle(detalleForm)">
+                                        <md-tooltip>Agregar Registro</md-tooltip>
+                                        <img src="img/agregar 1.png" alt="Agregar" style="height: 25px">
+                                    </md-button>
+                                </div>
+                                <div class="col-md-6 col-md-offset-3">
+                                    <md-button class="md-icon md-icon-button-png" ng-click="editItemDetalle(detalleForm)">
+                                        <md-tooltip>Editar Registro</md-tooltip>
+                                        <img src="img/editar 2.png" alt="Editar" style="height: 25px">
+                                    </md-button>
+                                </div>
+                                <div class="col-md-6 col-md-offset-3">
+                                    <md-button class="md-icon md-icon-button-png" ng-click="deleteItemDetalle()">
+                                        <md-tooltip>Eliminar Registro</md-tooltip>
+                                        <img src="img/eliminar 2.png" alt="Editar" style="height: 25px">
+                                    </md-button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-11">
                             <div class="row">
                                 <div class="col-md-10">
                                     <md-autocomplete flex required md-item-text="articulo.cod + ' - ' + articulo.nom"
@@ -261,55 +269,70 @@
                                     </md-input-container>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <md-input-container class="md-block">
+                                        <label>Descripción</label>
+                                        <textarea md-maxlength="2000" required name="descripcion" ng-model="selectedDetalle.descripcion"></textarea>
+                                        <div ng-messages="detalleForm.descripcion.$error">
+                                            <div ng-message="required">Este campo es requerido.</div>
+                                            <div ng-message="md-maxlength">La descripcion debe ser menos de 2000
+                                                carácteres.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <md-table-container>
-                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selectedTable"
-                    md-progress="promise">
-                    <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
-                        <tr md-row>
-                            <th md-column md-order-by="cod" md-desc style="width: 10%;">
-                                <span>Código</span>
-                            </th>
-                            <th md-column md-order-by="nom" style="width: 40%;">
-                                <span>Nombre</span>
-                            </th>
-                            <th md-column md-order-by="cantidad" style="width: 10%;">
-                                <span>Cantidad</span>
-                            </th>
-                            <th md-column md-order-by="precio_lista" style="width: 10%;">
-                                <span>Precio Lista</span>
-                            </th>
-                            <th md-column md-order-by="precio_venta" style="width: 10%;">
-                                <span>Precio Venta</span>
-                            </th>
-                            <th md-column md-order-by="descuento" style="width: 10%;">
-                                <span>% Descuento</span>
-                            </th>
-                            <th md-column md-order-by="descuento" style="width: 10%;">
-                                <span>% IVA</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody md-body>
-                        <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable"
-                            md-auto-select="options.autoSelect" ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                            <td md-cell>{{record.id.cod}}</td>
-                            <td md-cell>{{record.id.nom}}</td>
-                            <td md-cell>{{record.cantidad | number: 2}}</td>
-                            <td md-cell>{{record.precio_lista | number: 2}}</td>
-                            <td md-cell>{{record.precio_venta | number: 2}}</td>
-                            <td md-cell>{{record.descuento | number: 2}}</td>
-                            <td md-cell>{{record.iva.pctj | number: 2}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </md-table-container>
-            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{cot_det.length}}"
-                md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
-                md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+            <div class="card panel-body">
+                <md-table-container>
+                    <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selectedTable"
+                        md-progress="promise">
+                        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                            <tr md-row>
+                                <th md-column md-order-by="cod" md-desc style="width: 10%;">
+                                    <span>Código</span>
+                                </th>
+                                <th md-column md-order-by="nom" style="width: 40%;">
+                                    <span>Nombre</span>
+                                </th>
+                                <th md-column md-order-by="cantidad" style="width: 10%;">
+                                    <span>Cantidad</span>
+                                </th>
+                                <th md-column md-order-by="precio_lista" style="width: 10%;">
+                                    <span>Precio Lista</span>
+                                </th>
+                                <th md-column md-order-by="precio_venta" style="width: 10%;">
+                                    <span>Precio Venta</span>
+                                </th>
+                                <th md-column md-order-by="descuento" style="width: 10%;">
+                                    <span>% Descuento</span>
+                                </th>
+                                <th md-column md-order-by="descuento" style="width: 10%;">
+                                    <span>% IVA</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable"
+                                md-auto-select="options.autoSelect" ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                <td md-cell>{{record.id.cod}}</td>
+                                <td md-cell>{{record.id.nom}}</td>
+                                <td md-cell>{{record.cantidad | number: 2}}</td>
+                                <td md-cell>{{record.precio_lista | number: 2}}</td>
+                                <td md-cell>{{record.precio_venta | number: 2}}</td>
+                                <td md-cell>{{record.descuento | number: 2}}</td>
+                                <td md-cell>{{record.iva.pctj | number: 2}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+                    md-total="{{cot_det.length}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"
+                    md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+            </div>
             <legend>Presentación de la Cotización</legend>
             <div ng-repeat="seccion in secciones | filter:{tipoSeccion:'PRE'}">
                 <div class="card">

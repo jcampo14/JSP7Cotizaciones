@@ -40,7 +40,7 @@ app.controller('Ctrl', [
         };
 
         $scope.queryRev = {
-            order: 'numeroRev',
+            order: '-numeroRev',
             limit: 5,
             page: 1
         };

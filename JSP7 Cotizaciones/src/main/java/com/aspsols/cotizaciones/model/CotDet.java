@@ -25,7 +25,7 @@ public class CotDet implements Serializable {
 
 	@Column(name = "C_EMP")
 	private String cEmp;
-	
+
 	@Id
 	@Column(name = "PER")
 	private String per;
@@ -41,7 +41,7 @@ public class CotDet implements Serializable {
 	@Id
 	@Column(name = "REV")
 	private Integer rev;
-	
+
 	@Id
 	@Column(name = "COD")
 	private String cod;
@@ -57,6 +57,9 @@ public class CotDet implements Serializable {
 
 	@Column(name = "P_DES")
 	private Double pDes;
+
+	@Column(name = "INF7")
+	private String inf7;
 
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
@@ -141,6 +144,22 @@ public class CotDet implements Serializable {
 
 	public void setRev(Integer rev) {
 		this.rev = rev;
+	}
+
+	public String getInf7() {
+		return inf7;
+	}
+
+	public void setInf7(String inf7) {
+		this.inf7 = inf7;
+	}
+
+	public String getCod() {
+		return cod;
+	}
+
+	public void setCod(String cod) {
+		this.cod = cod;
 	}
 
 }

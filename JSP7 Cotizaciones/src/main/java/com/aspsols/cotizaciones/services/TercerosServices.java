@@ -22,8 +22,20 @@ public class TercerosServices {
 		return repository.findByNit(empresa, nit);
 	}
 	
+	public List<Terceros> getByProspecto(String empresa){
+		return repository.findByProspecto(empresa);
+	}
+	
 	public void insertProspecto(Terceros entity) {
 		repository.insertProspecto(entity);		
+	}
+	
+	public void updateProspecto(Terceros entity) {
+		repository.updateProspecto(entity);		
+	}
+	
+	public void deleteProspecto(Terceros entity) {
+		repository.deleteProspecto(entity);		
 	}
 	
 }

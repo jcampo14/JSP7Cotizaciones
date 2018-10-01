@@ -87,36 +87,29 @@
                         <md-table-container>
                             <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promiseRevisiones">
                                 <thead ng-if="!options.decapitate" md-head md-order="queryRev.order" md-on-reorder="logOrder">
-                                    <tr md-row>
-                                        <th md-column md-order-by="per" style="width: 10%;">
-                                            <span>Periodo</span>
-                                        </th>
-                                        <th md-column md-order-by="cAgr" style="width: 10%;">
+                                    <tr md-row>                                        
+                                        <th md-column md-order-by="cAgr">
                                             <span>Agencia</span>
                                         </th>
-                                        <th md-column md-order-by="cot" style="width: 10%;">
-                                            <span>No. Cotización</span>
+                                        <th md-column md-order-by="cot">
+                                            <span>#Cotización</span>
                                         </th>
-                                        <th md-column md-order-by="numeroRev"  style="width: 10%;">
-                                            <span>No. Revisión</span>
+                                        <th md-column md-order-by="numeroRev" md-desc>
+                                            <span>#Revisión</span>
                                         </th>
-                                        <th md-column md-order-by="emi" style="width: 10%;">
+                                        <th md-column md-order-by="emi" >
                                             <span>Fecha</span>
                                         </th>
-                                        <th md-column md-order-by="cliente.nom" style="width: 40%;">
+                                        <th md-column md-order-by="cliente.nom">
                                             <span>Cliente</span>
                                         </th>                                                    
-                                        <th md-column style="width: 5%;">
+                                        <th md-column>
                                             <span></span>
-                                        </th>   
-                                        <th md-column style="width: 5%;">
-                                            <span></span>
-                                        </th>                  
+                                        </th>                                                           
                                     </tr>
                                 </thead>
                                 <tbody md-body>
-                                    <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in revisionesData.data | filter: filter.search | orderBy: queryRev.order | limitTo: queryRev.limit : (queryRev.page -1) * queryRev.limit">
-                                        <td md-cell>{{ record.per }}</td>
+                                    <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in revisionesData.data | filter: filter.search | orderBy: queryRev.order | limitTo: queryRev.limit : (queryRev.page -1) * queryRev.limit">                                        
                                         <td md-cell>{{ record.cAgr }}</td>
                                         <td md-cell>{{ record.cot }}</td>
                                         <td md-cell>{{ record.numeroRev }}</td>
@@ -127,13 +120,11 @@
                                                 <md-tooltip>Agregar Revision</md-tooltip>
                                                 <md-icon md-font-icon="fas fa-plus"></md-icon>
                                             </md-button>
-                                        </td>
-                                        <td md-cell>
                                             <md-button class="md-icon-button" ng-click="modificarRevDocument(record)">
                                                 <md-tooltip>Modificar Documento</md-tooltip>
                                                 <md-icon md-font-icon="fas fa-pen"></md-icon>
                                             </md-button>
-                                        </td>
+                                        </td>                                        
                                     </tr>
                                 </tbody>
                             </table>

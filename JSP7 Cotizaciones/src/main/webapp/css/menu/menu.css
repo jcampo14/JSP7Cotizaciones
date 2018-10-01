@@ -34,6 +34,15 @@ data-ng-model {
 .toolbar-label {
     margin-bottom: 0px !important;
 }
+
 md-sidenav {
     width: 300px ;
+}
+
+.text-tab {
+    max-width: 175px;    
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
+    display: inline-block;
 }
