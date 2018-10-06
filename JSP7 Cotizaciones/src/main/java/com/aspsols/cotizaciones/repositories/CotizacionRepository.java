@@ -26,7 +26,8 @@ public class CotizacionRepository {
 	public void create(CotizacionRequest record, String idTransaccion) {
 		/* Insertamos el encabezado */
 		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO,DIAS_VALIDEZ,"
-				+ "COD_EMBALAJE,IVA,COT,REV,INCOTERM,MODIFICAR,ORIGEN,DESTINO) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "COD_EMBALAJE,IVA,COT,REV,INCOTERM,MODIFICAR,ORIGEN,DESTINO,DESPACHO,TERMINO_PAGO) "
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -48,12 +49,14 @@ public class CotizacionRepository {
 				QueryUtilities.addSqlParameter(ps, 13, record.getRev(), Types.INTEGER);
 				QueryUtilities.addSqlParameter(ps, 14, record.getIncoterm(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 15, record.getModificar(), Types.VARCHAR);
-				QueryUtilities.addSqlParameter(ps, 16, record.getOrigen(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 16, record.getOrigen(), Types.VARCHAR);				
 				if (record.getDestino() != null) {
 					QueryUtilities.addSqlParameter(ps, 17, record.getDestino().getcPai(), Types.VARCHAR);
 				} else {
 					QueryUtilities.addSqlParameter(ps, 17, null, Types.VARCHAR);
 				}
+				QueryUtilities.addSqlParameter(ps, 18, record.getDespacho(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 19, record.getTerminoPago(), Types.VARCHAR);
 				return ps;
 			}
 		});

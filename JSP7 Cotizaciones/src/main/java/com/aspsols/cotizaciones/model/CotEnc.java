@@ -77,6 +77,12 @@ public class CotEnc implements Serializable {
 	@Column(name = "ORIGEN")
 	private String origen;
 
+	@Column(name = "DESPACHO")
+	private String despacho;
+
+	@Column(name = "TERMINO_PAGO")
+	private String terminoPago;
+
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "DESTINO", referencedColumnName = "C_PAI", insertable = false, updatable = false),
 			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
@@ -301,6 +307,22 @@ public class CotEnc implements Serializable {
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
+	}
+
+	public String getDespacho() {
+		return despacho;
+	}
+
+	public void setDespacho(String despacho) {
+		this.despacho = despacho;
+	}
+
+	public String getTerminoPago() {
+		return terminoPago;
+	}
+
+	public void setTerminoPago(String terminoPago) {
+		this.terminoPago = terminoPago;
 	}
 
 }

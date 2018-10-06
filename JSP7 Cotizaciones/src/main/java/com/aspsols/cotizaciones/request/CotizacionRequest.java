@@ -44,6 +44,10 @@ public class CotizacionRequest implements Serializable {
 
 	private Pais destino;
 
+	private String despacho;
+
+	private String terminoPago;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
@@ -200,6 +204,22 @@ public class CotizacionRequest implements Serializable {
 
 	public void setDestino(Pais destino) {
 		this.destino = destino;
+	}
+
+	public String getDespacho() {
+		return despacho;
+	}
+
+	public void setDespacho(String despacho) {
+		this.despacho = despacho;
+	}
+
+	public String getTerminoPago() {
+		return terminoPago;
+	}
+
+	public void setTerminoPago(String terminoPago) {
+		this.terminoPago = terminoPago;
 	}
 
 }

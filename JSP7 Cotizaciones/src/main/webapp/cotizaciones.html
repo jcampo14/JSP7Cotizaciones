@@ -1,6 +1,7 @@
 <html lang="en">
 
 <head>
+    <title>Grabación de Cotizaciones</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <!-- Angular Material style sheet -->
     <link rel="stylesheet" href="css/lib/angular-material.css">
@@ -160,6 +161,20 @@
                                 </md-select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <md-input-container class="md-block">
+                                <label>Términos de Pago</label>
+                                <input ng-model="cot_enc.terminoPago" md-max-length="200">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <md-input-container class="md-block">
+                                <label>Despacho</label>
+                                <input ng-model="cot_enc.despacho" md-max-length="70">
+                            </md-input-container>
+                        </div>
                     </div>
                     <div class="row" ng-show="tieneCostos">
                         <div class="col-md-12">
@@ -211,7 +226,7 @@
                                         md-no-cache="autocompleteArticulos.noCache" md-input-name="autocompleteFieldArticulo"
                                         md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)"
                                         md-menu-class="autocomplete-custom-template" md-min-length="3" md-require-match
-                                        md-floating-label="Articulo">
+                                        md-floating-label="Articulo" ng-disabled="isDisabled">
                                         <md-item-template>
                                             <span class="item-metadata">
                                                 <span>

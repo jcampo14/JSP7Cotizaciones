@@ -76,7 +76,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect"
-                            ng-repeat="record in queryClientes.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                            ng-repeat="record in queryClientes.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                             <td md-cell>{{record.nIde}}</td>
                             <td md-cell>{{record.nombre}}</td>
                         </tr>

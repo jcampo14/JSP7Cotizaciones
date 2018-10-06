@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +20,9 @@ public class ArticuloDesCom implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTICULO_DESC_COM_ID_SEQ")
+	@SequenceGenerator(name = "ARTICULO_DESC_COM_ID_SEQ", sequenceName = "ARTICULO_DESC_COM_ID_SEQ", allocationSize = 1, initialValue = 1)
+	@Column(name = "ID")	
 	private Long id;
 
 	@Column(name = "C_EMP")

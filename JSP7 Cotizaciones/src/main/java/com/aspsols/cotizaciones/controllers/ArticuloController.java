@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.model.Articulo;
+import com.aspsols.cotizaciones.responses.PaginationResponse;
 import com.aspsols.cotizaciones.responses.QueryResponse;
 import com.aspsols.cotizaciones.services.ArticuloServices;
 
@@ -27,6 +28,13 @@ public class ArticuloController {
 		response.setCount(resultdata.size());
 		response.setData(resultdata);
 		return response;
+	};
+
+	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH + "Pagina")
+	public QueryResponse<Articulo> obtener(@RequestParam("emp") String empresa, @RequestParam("filter") String filtro,
+			@RequestParam("page") int page, @RequestParam("size") int size) {
+		PaginationResponse<Articulo> resultData = service.showByEmpresa(empresa, filtro, page, size);
+		return new QueryResponse<>(resultData.getData(), resultData.getTotalElements());				
 	};
 
 }

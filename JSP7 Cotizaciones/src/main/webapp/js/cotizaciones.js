@@ -127,7 +127,9 @@ app.controller('Ctrl', [
                                 "diasValidez": dayDifference,
                                 "modificar": paramsDecode.modificar,
                                 "origen": result.origen,
-                                "destino": result.pais
+                                "destino": result.pais,
+                                "despacho": result.despacho,
+                                "terminoPago": result.terminoPago
                             };
                             $scope.cot_det = [];
                             var promiseNit = $consumeService.get('tercerosByNit?emp=' + result.cEmp + '&nit=' +
@@ -473,7 +475,6 @@ app.controller('Ctrl', [
         };
 
         $scope.buscarPrecioVenta = function (empresa, codigo) {
-            // $scope.selectedDetalle = {};
             var promise = $consumeService.get('precios?emp=' + empresa
                 + "&cod=" + codigo + "&cri=" + $scope.cot_enc.criVenta.cri);
             promise.then(function (result) {
@@ -489,13 +490,15 @@ app.controller('Ctrl', [
         };
 
         $scope.traerDescripcionComercial = function (empresa, codigo, idioma) {
-            var promise = $consumeService.get('articulo-descripcion?emp=' + empresa + '&cod=' 
+            var promise = $consumeService.get('articulo-descripcion?emp=' + empresa + '&cod='
                 + codigo + '&idioma=' + idioma);
-            promise.then(function(result){
-                $scope.selectedDetalle.descripcion = result.data[0].descripcion;
-            }, function(error){
+            promise.then(function (result) {
+                if (result.data.length > 0){
+                    $scope.selectedDetalle.descripcion = result.data[0].descripcion;
+                }                
+            }, function (error) {
                 swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
-            });   
+            });
         };
 
         $scope.clearEditarTable = function (item) {
@@ -623,7 +626,4 @@ app.controller('Ctrl', [
             });
         };
 
-        $scope.logIva = function () {
-            console.log($scope.selectedIva);
-        };
     }]);
