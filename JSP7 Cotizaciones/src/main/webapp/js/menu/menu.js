@@ -1,7 +1,8 @@
 var app = angular.module('MenuJSP7', ['ngMaterial', 'ngMdMultiLevelMenu', 'ngMdBadge', 'ngRoute', 'hc.marked', 'App.utils']);
 
 app.config(['$mdThemingProvider', 'menuProvider', function ($mdThemingProvider, menuProvider) {
-    $mdThemingProvider.theme('default').primaryPalette('blue-grey');
+    $mdThemingProvider.theme('default').primaryPalette('orange');
+    $mdThemingProvider.theme('altTheme').primaryPalette('blue-grey');
     /*
     menuProvider.items('primary', [
         {

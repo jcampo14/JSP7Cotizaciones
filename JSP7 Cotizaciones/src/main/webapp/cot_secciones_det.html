@@ -1,6 +1,7 @@
 <html lang="en">
 
 <head>
+    <title>Definición de Conceptos para las Secciones</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <!-- Angular Material style sheet -->
     <link rel="stylesheet" href="css/lib/angular-material.css">
@@ -20,7 +21,7 @@
     <div class="panel-body principal-panel">
         <div ng-include="'structure/title.html'"></div>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="panel-body">
                         <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
@@ -49,19 +50,19 @@
                                         ng-repeat="record in queryCotSecciones.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell>{{record.codSeccion}}</td>
                                         <td md-cell>{{record.nombreSec}}</td>
-                                        <td md-cell>{{record.tipoSeccion == 'ENC' ? 'Encabezado de documento' : record.tipoSeccion ==
-                                            'PIE' ? 'Pie de documento' : ''}}</td>
+                                        <td md-cell>{{record.tipoSeccion == 'ENC' ? 'Encabezado de documento' : record.tipoSeccion == 'PIE' ?
+                                            'Pie de documento' : record.tipoSeccion == 'PRE' ? 'Presentación de documento' : ''}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </md-table-container>
-                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{query_incoterm.count}}"
+                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryCotSecciones.count}}"
                             md-page-select="optionsMaster.pageSelect" md-boundary-links="optionsMaster.boundaryLinks" md-on-paginate="logPagination"
                             md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="panel-body">
                         <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">

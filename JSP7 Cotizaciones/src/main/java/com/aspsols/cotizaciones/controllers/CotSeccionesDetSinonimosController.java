@@ -33,6 +33,14 @@ public class CotSeccionesDetSinonimosController {
 		return response;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH + "ByIdioma")
+	public QueryResponse<CotSeccionesDetSinonimos> findBySeccionDetalleAndIdioma(
+			@RequestParam("seccion") String codSeccion, @RequestParam("idioma") String idioma,
+			@RequestParam("emp") String cEmp) {
+		List<CotSeccionesDetSinonimos> resultData = service.findBySeccionDetalleAndIdioma(codSeccion, idioma, cEmp);
+		return new QueryResponse<>(resultData, resultData.size());
+	}
+
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
 	public ProcessResponse<CotSeccionesDetSinonimos> insertar(@RequestBody CotSeccionesDetSinonimos body) {
 		return service.insert(body);

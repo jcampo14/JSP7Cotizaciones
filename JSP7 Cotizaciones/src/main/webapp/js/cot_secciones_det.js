@@ -74,14 +74,14 @@ app.controller('Ctrl', [
             $scope.promiseDetalle = $timeout(function () {
                 $scope.selectedDetalle = [];
                 $scope.queryCotSeccionesDetalle = [];
-            }, 500);
-            $scope.promiseSinonimo = $timeout(function () {
                 $scope.selectedIdioma = [];
                 $scope.queryCotSeccionesDetSinonimo = [];
-            }, 500);
+            }, 500);            
         };
 
         $scope.showDataDetail = function (item) {
+            $scope.selectedIdioma = [];
+            $scope.queryCotSeccionesDetSinonimo = [];
             $scope.selectedDetalle = [];
             $scope.promiseDetalle = $consumeService.get('cot-secciones-det?emp=' + $localstorage.get('global.empresa', '00')
                 + "&seccion=" + item.codSeccion);

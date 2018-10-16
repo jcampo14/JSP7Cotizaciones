@@ -34,7 +34,7 @@ app.controller('Ctrl', [
         };
 
         $scope.query = {
-            order: 'cot',
+            order: '-cot',
             limit: 5,
             page: 1
         };
@@ -85,6 +85,7 @@ app.controller('Ctrl', [
 
         /* Traer Revisiones */
         $scope.mostrarRevisiones = function (item) {
+            $scope.revisionesData = [];
             $mdDialog.show({
                 locals: { dataToPass: $scope.selected[0] },
                 controller: DialogController,

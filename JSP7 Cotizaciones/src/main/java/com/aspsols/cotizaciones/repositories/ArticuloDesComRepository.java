@@ -11,7 +11,7 @@ import com.aspsols.cotizaciones.model.ArticuloDesCom;
 public interface ArticuloDesComRepository extends PagingAndSortingRepository<ArticuloDesCom, Long> {
 
 	@Query("FROM ArticuloDesCom WHERE cod = :articulo AND cEmp = :empresa "
-			+ "AND ((:idioma is null AND idioma is null) OR (:idioma is null AND idioma = :idioma))")
+			+ "AND ((:idioma is null AND idioma is null) OR (:idioma is not null AND idioma = :idioma))")
 	public List<ArticuloDesCom> findByArticuloAndIdioma(@Param("empresa") String empresa,
 			@Param("articulo") String articulo, @Param("idioma") String idioma);
 	

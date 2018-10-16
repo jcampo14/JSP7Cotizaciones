@@ -76,4 +76,8 @@ public class CotSeccionesDetSinonimosServices {
 		return (List<CotSeccionesDetSinonimos>) repository.findBySeccionDetalle(codSeccion, codVal, cEmp);
 	}
 
+	public List<CotSeccionesDetSinonimos> findBySeccionDetalleAndIdioma(String codSeccion, String idioma, String cEmp) {
+		return repository.findBySeccionDetalleAndIdioma(codSeccion, idioma, cEmp);
+	}
+
 }

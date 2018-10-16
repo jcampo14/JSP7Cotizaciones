@@ -32,6 +32,13 @@ public class IncotermFacCostosAdicController {
 		response.setData(list);
 		return response;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH + "ByMoneda")
+	public QueryResponse<IncotermFacCostosAdic> findByIncotermAndMoneda(@RequestParam("incoterm") String incoterm,
+			@RequestParam("moneda") String moneda, @RequestParam("emp") String empresa) {
+		List<IncotermFacCostosAdic> list = service.findByIncotermAndMoneda(incoterm, moneda, empresa);				
+		return new QueryResponse<>(list, list.size());
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
 	public ProcessResponse<IncotermFacCostosAdic> insertar(@RequestBody IncotermFacCostosAdic body) {

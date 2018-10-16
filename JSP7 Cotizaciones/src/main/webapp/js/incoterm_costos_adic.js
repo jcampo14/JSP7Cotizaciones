@@ -220,7 +220,7 @@ app.controller('incotermCostosAdicController', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic?emp=' + $scope.selectedIncoterm[0].cEmp
+                                $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.selectedIncoterm[0].cEmp
                                     + '&incoterm=' + $scope.selectedIncoterm[0].codIncoterm);
                                 $scope.promiseCostosAdic.then(function (result) {
                                     $scope.selectedCostosAdic = [];

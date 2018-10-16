@@ -17,7 +17,7 @@ public interface CotEncRepository extends CrudRepository<CotEnc, CotEncId> {
 	public List<CotEnc> findByEmpresaAndVendedor(@Param("empresa") String empresa, @Param("vendedor") String vendedor);
 
 	@Query("SELECT new com.aspsols.cotizaciones.querys.CotizacionCountQuery(cEmp, per, cAgr, cot, count(rev)) " + " FROM CotEnc"
-			+ " WHERE cEmp = :empresa AND cVen = :vendedor" + " GROUP BY cEmp, per, cAgr, cot")
+			+ " WHERE cVen = :vendedor AND cEmp = :empresa" + " GROUP BY cEmp, per, cAgr, cot")
 	public List<CotizacionCountQuery> findByEmpresaAndVendedorGroupBy(@Param("empresa") String empresa,
 			@Param("vendedor") String vendedor);
 	
