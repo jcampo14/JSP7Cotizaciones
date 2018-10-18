@@ -8,6 +8,8 @@ public class CotizacionSeccionesRequest {
 
 	private String descripcionFinal;
 
+	private String etiquetaFinal;
+
 	public String getcEmp() {
 		return cEmp;
 	}
@@ -30,6 +32,14 @@ public class CotizacionSeccionesRequest {
 
 	public void setDescripcionFinal(String descripcionFinal) {
 		this.descripcionFinal = descripcionFinal;
+	}
+
+	public String getEtiquetaFinal() {
+		return etiquetaFinal;
+	}
+
+	public void setEtiquetaFinal(String etiquetaFinal) {
+		this.etiquetaFinal = etiquetaFinal;
 	}
 
 }

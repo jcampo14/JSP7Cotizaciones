@@ -216,8 +216,8 @@ app.controller('Ctrl', [
                         $scope.sucursales = resultSuc.data;
                         $scope.cot_enc.cSuc = result.codSuc;
                         /* Cargamos los cargos/Costos adicionales */
-                        var promise = $consumeService.get('incoterm-fac-costos-adic?emp=' + $scope.cot_enc.cEmp
-                            + '&incoterm=' + $scope.cot_enc.incoterm);
+                        var promise = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.cot_enc.cEmp
+                            + '&incoterm=' + $scope.cot_enc.incoterm + "&moneda=" + $scope.cot_enc.criVenta.mon);
                         promise.then(function (resultCargos) {
                             $scope.costosAdic = resultCargos.data;
                             if ($scope.costosAdic.length > 1) {
@@ -282,6 +282,7 @@ app.controller('Ctrl', [
                     while (indexSeccion < $scope.secciones.length) {
                         if ($scope.secciones[indexSeccion].codSeccion == result.secciones[index].codSeccion) {
                             $scope.secciones[indexSeccion].descripcion_final = result.secciones[index].descripcion;
+                            $scope.secciones[indexSeccion].etiqueta_final = result.secciones[index].etiqueta;
                         }
                         indexSeccion++;
                     }
@@ -530,7 +531,8 @@ app.controller('Ctrl', [
                         var itemSeccion = {
                             "cEmp": $scope.secciones[index].cEmp,
                             "codSeccion": $scope.secciones[index].codSeccion,
-                            "descripcionFinal": $scope.secciones[index].descripcion_final
+                            "descripcionFinal": $scope.secciones[index].descripcion_final,
+                            "etiquetaFinal": $scope.secciones[index].etiqueta_final
                         };
                         secciones.push(itemSeccion);
                     }

@@ -1,7 +1,7 @@
 package com.aspsols.cotizaciones.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,10 +13,10 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.aspsols.cotizaciones.model.ids.CotEncId;
-import com.aspsols.cotizaciones.utilities.CustomDateTimeSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "COT_ENC")
@@ -48,13 +48,17 @@ public class CotEnc implements Serializable {
 	@Column(name = "REV")
 	private Integer rev;
 
-	@JsonSerialize(using = CustomDateTimeSerializer.class)
+	
 	@Column(name = "EMI")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date emi;
-
-	@JsonSerialize(using = CustomDateTimeSerializer.class)
+	
 	@Column(name = "VEN")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ven;
+
+	@Column(name = "PER_CT")
+	private String perCt;
 
 	@Column(name = "TOTD")
 	private Double totd;
@@ -82,6 +86,9 @@ public class CotEnc implements Serializable {
 
 	@Column(name = "TERMINO_PAGO")
 	private String terminoPago;
+
+	@Column(name = "EST")
+	private String est;
 
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "DESTINO", referencedColumnName = "C_PAI", insertable = false, updatable = false),
@@ -187,6 +194,14 @@ public class CotEnc implements Serializable {
 
 	public void setVen(Date ven) {
 		this.ven = ven;
+	}
+
+	public String getPerCt() {
+		return perCt;
+	}
+
+	public void setPerCt(String perCt) {
+		this.perCt = perCt;
 	}
 
 	public Double getTotd() {
@@ -323,6 +338,14 @@ public class CotEnc implements Serializable {
 
 	public void setTerminoPago(String terminoPago) {
 		this.terminoPago = terminoPago;
+	}
+
+	public String getEst() {
+		return est;
+	}
+
+	public void setEst(String est) {
+		this.est = est;
 	}
 
 }

@@ -64,7 +64,7 @@ public class CotizacionRepository {
 		if (record.getSecciones().size() > 0) {
 			for (CotizacionSeccionesRequest item : record.getSecciones()) {
 				if (item.getDescripcionFinal() != null) {
-					String sqlSecciones = "insert into TMP_COT_SECCIONES(ID_TRANSACCION,C_EMP,COD_SECCION,DESCRIPCION_FINAL) values(?,?,?,?)";
+					String sqlSecciones = "insert into TMP_COT_SECCIONES(ID_TRANSACCION,C_EMP,COD_SECCION,DESCRIPCION_FINAL,ETIQUETA_FINAL) values(?,?,?,?,?)";
 					jdbcTemplate.update(new PreparedStatementCreator() {
 						@Override
 						public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -74,6 +74,7 @@ public class CotizacionRepository {
 							QueryUtilities.addSqlParameter(ps, 2, item.getcEmp(), Types.VARCHAR);
 							QueryUtilities.addSqlParameter(ps, 3, item.getCodSeccion(), Types.VARCHAR);
 							QueryUtilities.addSqlParameter(ps, 4, item.getDescripcionFinal(), Types.VARCHAR);
+							QueryUtilities.addSqlParameter(ps, 5, item.getEtiquetaFinal(), Types.VARCHAR);
 							return ps;
 						}
 					});

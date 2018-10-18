@@ -88,6 +88,10 @@
     src: url(/fonts/POPPINS-THINITALIC.OTF);
 }
 
+body {
+    background-color:  #f1f1f1 !important;
+}
+
 .md-title {
     font-family: PoppinsSemiBold;
 }
@@ -171,4 +175,8 @@ md-input-container {
 
 div.md-errors-spacer {
     min-height: 0px !important;
+}
+
+.md-icon-hover:hover > md-icon{
+    color: #3bc123 !important;
 }

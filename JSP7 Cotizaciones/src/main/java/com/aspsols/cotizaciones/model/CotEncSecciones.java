@@ -47,6 +47,9 @@ public class CotEncSecciones implements Serializable {
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
 
+	@Column(name = "ETIQUETA")
+	private String etiqueta;
+
 	public String getcEmp() {
 		return cEmp;
 	}
@@ -101,6 +104,14 @@ public class CotEncSecciones implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getEtiqueta() {
+		return etiqueta;
+	}
+
+	public void setEtiqueta(String etiqueta) {
+		this.etiqueta = etiqueta;
 	}
 
 }

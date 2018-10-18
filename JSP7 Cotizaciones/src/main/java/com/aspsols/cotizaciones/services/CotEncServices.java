@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.aspsols.cotizaciones.model.CotEnc;
@@ -12,6 +14,7 @@ import com.aspsols.cotizaciones.querys.CotizacionCountQuery;
 import com.aspsols.cotizaciones.querys.CotizacionQuery;
 import com.aspsols.cotizaciones.repositories.CotEncRepository;
 import com.aspsols.cotizaciones.repositories.VendedorRepository;
+import com.aspsols.cotizaciones.utilities.QueryUtilities;
 
 @Service
 public class CotEncServices {
@@ -31,6 +34,16 @@ public class CotEncServices {
 		}
 	}
 
+	public Page<CotEnc> findByPeriod(String perIni, String perFin, String empresa, int page, int size, String order) {
+		return repository.findByPeriod(perIni, perFin, empresa,
+				new PageRequest(page - 1, size, QueryUtilities.oderBy(order)));
+	}
+
+	public Page<CotEnc> findByCliente(String cliente, String empresa, int page, int size, String order) {
+		return repository.findByCliente(cliente, empresa,
+				new PageRequest(page - 1, size, QueryUtilities.oderBy(order)));
+	}
+
 	public List<CotizacionCountQuery> findByEmpresaAndVendedorGroupBy(String empresa, String vendedor) {
 		Vendedor vendedorNit = vendedorRepository.findByUsuario(empresa, vendedor);
 		if (vendedorNit != null) {
@@ -39,12 +52,12 @@ public class CotEncServices {
 			return new ArrayList<CotizacionCountQuery>();
 		}
 	}
-	
-	public List<CotizacionQuery> findByCot(String empresa, String agencia, String periodo, String numeroCot){
+
+	public List<CotizacionQuery> findByCot(String empresa, String agencia, String periodo, String numeroCot) {
 		return repository.findByCot(empresa, agencia, periodo, numeroCot);
 	}
-	
-	public CotEnc findByCotAndRev(String empresa, String agencia, String periodo, String numeroCot, Integer revision){
+
+	public CotEnc findByCotAndRev(String empresa, String agencia, String periodo, String numeroCot, Integer revision) {
 		return repository.findByCotAndRev(empresa, agencia, periodo, numeroCot, revision);
 	}
 

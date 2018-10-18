@@ -16,6 +16,9 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $q, $wi
         $q.all([promiseAgencias]).then(function (values) {
             $scope.agencias = values[0].data;
         });
+        $scope.param = {
+            ocultarTotales: 'N'
+        };
     };
 
     $scope.runReport = function () {
@@ -24,7 +27,8 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $q, $wi
             promise.then(function (result) {
                 var urlToExecute = result.data + "&createPl=T" + "&c_emp=" + $localstorage.get('global.empresa', null)
                     + "&c_agr=" + $scope.param.cAgr + "&cot=" + $scope.param.cot + "&rev=" + $scope.param.rev
-                    + "&per=" + $scope.param.per;
+                    + "&per=" + $scope.param.per + "&ver_totales=" + $scope.param.ocultarTotales
+                    + "&paramform=NO";
                 $window.location.href = urlToExecute;
             });
         }

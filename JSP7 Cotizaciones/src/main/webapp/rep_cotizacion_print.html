@@ -28,11 +28,12 @@
                     </md-toolbar-filler>
                     <div class="md-toolbar-tools">
                         <h2 flex="" md-truncate="" class="md-truncate flex">Impresión de Cotización</h2>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="runReport()" aria-label="Agregar">
+                        <button class="md-icon-button md-button md-icon-hover md-ink-ripple" type="button" ng-click="runReport()"
+                            aria-label="Agregar">
                             <md-tooltip>Ejecutar</md-tooltip>
                             <md-icon md-font-icon="fas fa-arrow-circle-right"></md-icon>
                             <div class="md-ripple-container"></div>
-                        </button>
+                        </button>                        
                     </div>
                 </div>
 
@@ -84,6 +85,14 @@
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
                             </md-input-container>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <md-checkbox ng-model="param.ocultarTotales" aria-label="Ocultar Totales" ng-true-value="'S'"
+                                ng-false-value="'N'" class="md-warn md-align-top-left" flex>
+                                Ocultar Totales
+                            </md-checkbox>
                         </div>
                     </div>
                 </form>

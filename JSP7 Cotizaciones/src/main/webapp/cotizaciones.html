@@ -110,7 +110,6 @@
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
                             </md-autocomplete>
-
                         </div>
                     </div>
                     <div class="row">
@@ -307,9 +306,8 @@
                                 <div class="col-md-12">
                                     <md-input-container class="md-block">
                                         <label>Descripción</label>
-                                        <textarea md-maxlength="2000" required name="descripcion" ng-model="selectedDetalle.descripcion"></textarea>
+                                        <textarea md-maxlength="2000" name="descripcion" ng-model="selectedDetalle.descripcion"></textarea>
                                         <div ng-messages="detalleForm.descripcion.$error">
-                                            <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="md-maxlength">La descripcion debe ser menos de 2000
                                                 carácteres.</div>
                                         </div>
@@ -326,19 +324,16 @@
                         md-progress="promise">
                         <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                             <tr md-row>
-                                <th md-column md-order-by="cod" md-desc style="width: 10%;">
+                                <th md-column md-order-by="cod" md-desc style="width: 15%;">
                                     <span>Código</span>
                                 </th>
-                                <th md-column md-order-by="nom" style="width: 40%;">
+                                <th md-column md-order-by="nom" style="width: 30%;">
                                     <span>Nombre</span>
                                 </th>
-                                <th md-column md-order-by="cantidad" style="width: 10%;">
+                                <th md-column md-order-by="cantidad" style="width: 15%;">
                                     <span>Cantidad</span>
-                                </th>
-                                <th md-column md-order-by="precio_lista" style="width: 10%;">
-                                    <span>Precio Lista</span>
-                                </th>
-                                <th md-column md-order-by="precio_venta" style="width: 10%;">
+                                </th>                               
+                                <th md-column md-order-by="precio_venta" style="width: 20%;">
                                     <span>Precio Venta</span>
                                 </th>
                                 <th md-column md-order-by="descuento" style="width: 10%;">
@@ -354,8 +349,7 @@
                                 md-auto-select="options.autoSelect" ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                 <td md-cell>{{record.id.cod}}</td>
                                 <td md-cell>{{record.id.nom}}</td>
-                                <td md-cell>{{record.cantidad | number: 2}}</td>
-                                <td md-cell>{{record.precio_lista | number: 2}}</td>
+                                <td md-cell>{{record.cantidad | number: 2}}</td>                                
                                 <td md-cell>{{record.precio_venta | number: 2}}</td>
                                 <td md-cell>{{record.descuento | number: 2}}</td>
                                 <td md-cell>{{record.iva.pctj | number: 2}}</td>
@@ -380,6 +374,11 @@
                                         md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Etiqueta</label>
+                                    <textarea type="text" class="form-control border-input" placeholder="Etiqueta"
+                                        ng-model="seccion.etiqueta_final" rows="4"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -407,6 +406,11 @@
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Etiqueta</label>
+                                    <textarea type="text" class="form-control border-input" placeholder="Etiqueta"
+                                        ng-model="seccion.etiqueta_final" rows="4"></textarea>
+                                </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
@@ -432,6 +436,11 @@
                                         md-on-open="loadSeccionesDetalle(seccion.cEmp, seccion.codSeccion)">
                                         <md-option ng-value="record" ng-repeat="record in secciones_det">{{record.descripcion}}</md-option>
                                     </md-select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Etiqueta</label>
+                                    <textarea type="text" class="form-control border-input" placeholder="Etiqueta"
+                                        ng-model="seccion.etiqueta_final" rows="4"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-8">
