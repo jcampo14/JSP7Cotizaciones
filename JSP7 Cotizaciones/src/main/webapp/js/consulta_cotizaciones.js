@@ -7,9 +7,6 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 
 app.controller('Ctrl',
     function ($localstorage, $scope, $http, $window) {
-        /** Simulamos el Login */
-        $localstorage.set('global.empresa', '01');
-        $localstorage.set('global.usuario', 'ADMIN');
         $scope.titulo_formulario = "Consulta de Cotizaciones";
 
         $scope.init = function () {
@@ -88,7 +85,11 @@ app.controller('Ctrl',
                     method: "GET",
                     url: "cot-encByPeriodo?emp=" + $localstorage.get("global.empresa", null) + "&perIni="
                         + $scope.param.perIni + "&perFin=" + $scope.param.perFin + "&page=" + $scope.query.page
-                        + "&size=" + $scope.query.limit + "&order=" + $scope.query.order
+                        + "&size=" + $scope.query.limit + "&order=" + $scope.query.order,
+                    headers: {
+                        Authorization: window.localStorage.getItem('token.jsp7')
+                    }
+
                 };
                 $scope.promise = $http(requestConfig);
                 $scope.promise.then(function (result) {
@@ -104,7 +105,10 @@ app.controller('Ctrl',
                 method: "GET",
                 url: "cot-encByCliente?emp=" + $localstorage.get("global.empresa", null) + "&cliente="
                     + $scope.param.cliente + "&page=" + $scope.query.page
-                    + "&size=" + $scope.query.limit + "&order=" + $scope.query.order
+                    + "&size=" + $scope.query.limit + "&order=" + $scope.query.order,
+                headers: {
+                    Authorization: window.localStorage.getItem('token.jsp7')
+                }
             };
             $scope.promise = $http(requestConfig);
             $scope.promise.then(function (result) {
@@ -149,7 +153,14 @@ app.controller('Ctrl',
                 }
             },
             querySearch: function (query) {
-                return $http.get('terceros?emp=' + $localstorage.get('global.empresa', null) + '&filter=' + escape(query))
+                var requestConfig = {
+                    method: "GET",
+                    url: "terceros?emp=" + $localstorage.get('global.empresa', null) + "&filter=" + escape(query),
+                    headers: {
+                        Authorization: window.localStorage.getItem('token.jsp7')
+                    }
+                }
+                return $http(requestConfig)
                     .then(function (result) {
                         return result.data.data;
                     }, function (error) {

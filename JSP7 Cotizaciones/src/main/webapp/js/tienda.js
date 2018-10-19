@@ -10,11 +10,7 @@ app.controller('tiendaController', [
     '$scope', '$timeout', '$window',
     '$http', '$mdDialog', 'SweetAlert',
     function ($localstorage, $consumeService, $scope, $timeout,
-        $window, $http, $mdDialog, SweetAlert) {
-    	
-    	$localstorage.set('global.empresa', '01');
-        $localstorage.set('global.usuario', 'ADMIN');
-        
+        $window, $http, $mdDialog, SweetAlert) {    	        
     	$scope.currentPage = 1;
     	$scope.numContPage = 9;
     	$scope.maxSize = 9;

@@ -11,11 +11,7 @@ app.controller('incotermCostosAdicController', [
     '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog) {
-        'use strict';
-        /* Simulamos el Login */
-        $localstorage.set('global.empresa', '01');
-        $localstorage.set('global.usuario', 'ADMIN');
-
+        'use strict';        
         $scope.titulo_formulario = "Asociación de Costos Adicionales a Incoterms";
 
         $scope.selectedCostosAdic = [];
@@ -220,12 +216,13 @@ app.controller('incotermCostosAdicController', [
                         var promise = $consumeService.post(configRequest);
                         promise.then(function (result) {
                             if (result.success == true) {
-                                $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.selectedIncoterm[0].cEmp
-                                    + '&incoterm=' + $scope.selectedIncoterm[0].codIncoterm);
-                                $scope.promiseCostosAdic.then(function (result) {
-                                    $scope.selectedCostosAdic = [];
-                                    $scope.queryCostosAdic = result;
-                                });
+                                $scope.promiseCostosAdic = $consumeService.get('incoterm-fac-costos-adic?emp=' + $scope.selectedIncoterm[0].cEmp
+                                        + '&incoterm=' + $scope.selectedIncoterm[0].codIncoterm);
+                                    $scope.promiseCostosAdic.then(function (result) {
+                                        $scope.selectedCostosAdic = [];
+                                        $scope.queryCostosAdic = result;
+                                        $scope.$applyAsync();
+                                    });
                                 swal("Mensaje JSP7", "¡Transacción exitosa!", "success");
                             } else {
                                 swal("Mensaje JSP7", result.message, "error");

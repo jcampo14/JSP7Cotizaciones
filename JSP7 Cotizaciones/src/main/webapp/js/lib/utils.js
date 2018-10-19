@@ -20,7 +20,14 @@ app.factory('$localstorage', ['$window', function($window) {
   app.factory('$consumeService',['$http', function($http){
     return {
         get: function(url){
-            var promise = $http.get(url)
+            var requestConfig = {
+              method: "GET",
+              url: url,
+              headers: {
+                Authorization: window.localStorage.getItem('token.jsp7')
+              }
+            }
+            var promise = $http(requestConfig)
             .then(function (result) {
                 var datos = result.data;
                 return datos;
@@ -28,6 +35,10 @@ app.factory('$localstorage', ['$window', function($window) {
             return promise;
         },
         post: function(configJson){
+            configJson.headers = {
+              'Content-Type': 'application/json',
+              'Authorization': window.localStorage.getItem('token.jsp7')
+            }
             var promise = $http(configJson).then(function successCallback(response) {                        
                 return response.data;
             }, function errorCallback(response) {

@@ -7,10 +7,7 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 }]);
 
 app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeout,
-    $mdDialog) {
-    /** Simulamos el Login */
-    $localstorage.set('global.empresa', '01');
-    $localstorage.set('global.usuario', 'ADMIN');
+    $mdDialog) {    
     $scope.titulo_formulario = "Actualización de Prospectos";
     $scope.init = function () {
         $scope.filter = {};

@@ -21,11 +21,6 @@ app.controller('Ctrl', [
     '$http', '$q', '$filter', '$location', '$window',
     function ($localstorage, $consumeService, $scope, $timeout,
         $http, $q, $filter, $location, $window) {
-
-        /** Simulamos el Login */
-        $localstorage.set('global.empresa', '01');
-        $localstorage.set('global.usuario', 'ADMIN');
-
         $scope.titulo_formulario = "Grabación de Cotizaciones";
 
         /* Configurar DataTable */
@@ -134,7 +129,14 @@ app.controller('Ctrl', [
                 console.log('Actual: ' + $scope.cot_enc.nIde + '\nSeleccionado: ' + $scope.autocompleteTerceros.selectedItem);
             },
             querySearch: function (query) {
-                return $http.get('terceros?emp=' + $localstorage.get('global.empresa', null) + '&filter=' + escape(query))
+                var requestConfig = {
+                    method: "GET",
+                    url: 'terceros?emp=' + $localstorage.get('global.empresa', null) + '&filter=' + escape(query),
+                    headers: {
+                        Authorization: window.localStorage.getItem('token.jsp7')
+                    }
+                };
+                return $http(requestConfig)
                     .then(function (result) {
                         return result.data.data;
                     }, function (error) {
@@ -161,16 +163,21 @@ app.controller('Ctrl', [
             },
             querySearch: function (query2) {
                 if (query2.length >= 3) {
-                    var deferred = $q.defer();
-                    var promise = $consumeService.get('articulos?emp=' + $localstorage.get('global.empresa', null)
-                        + "&filter=" + query2.toUpperCase());
-                    promise.then(function (result) {
-                        deferred.resolve(result.data);
+                    var requestConfig = {
+                        method: "GET",
+                        url: 'articulos?emp=' + $localstorage.get('global.empresa', null)
+                            + "&filter=" + query2.toUpperCase(),
+                        headers: {
+                            Authorization: window.localStorage.getItem('token.jsp7')
+                        }
+                    };
+                    return $http(requestConfig)
+                    .then(function (result) {
+                        return result.data.data;
                     }, function (error) {
                         console.log(error);
                         swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
-                    });
-                    return deferred.promise;
+                    });                                                       
                 } else {
                     return [];
                 }
@@ -179,7 +186,7 @@ app.controller('Ctrl', [
 
         /* Cargar cotizacion para revision o modificación */
         $scope.traerCotizacion = function (urlParams) {
-            var paramsDecode = JSON.parse(decodeURI(atob(urlParams.params)));
+            var paramsDecode = JSON.parse(decodeURI(atob(urlParams.params)));            
             var promiseCotizacion = $consumeService.get('cot-enc?emp=' + paramsDecode.cEmp + '&age=' + paramsDecode.cAgr
                 + '&per=' + paramsDecode.per + '&numeroCot=' + paramsDecode.cot + '&rev=' + paramsDecode.rev);
             promiseCotizacion.then(function (result) {
@@ -610,7 +617,8 @@ app.controller('Ctrl', [
                             method: "POST",
                             url: "cotizacion",
                             headers: {
-                                'Content-Type': 'application/json'
+                                'Content-Type': 'application/json',
+                                Authorization: window.localStorage.getItem('token.jsp7')
                             },
                             data: requestBody
                         }).then(function (result) {

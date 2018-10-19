@@ -6,15 +6,18 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 }]);
 
 app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeout,
-    $window, $http, $mdDialog) {
-    /* Simulamos el Login */
-    $localstorage.set('global.empresa', '01');
-    $localstorage.set('global.usuario', 'ADMIN');
-
+    $window, $http, $mdDialog) {    
     $scope.init = function () {
         $scope.titulo_formulario = "Definición de Categorias Comerciales";
         $scope.isLoading = true;
-        var promise = $http.get('categorias-comerciales?emp=' + $localstorage.get('global.empresa', null));
+        var requestConfig = {
+            method: "GET",
+            url: "categorias-comerciales?emp=" + $localstorage.get('global.empresa', null),
+            headers: {
+                Authorization: window.localStorage.getItem('token.jsp7')
+            }
+        };
+        var promise = $http(requestConfig);
         promise.then(function (result) {
             $scope.categorias = result.data.data;
             $scope.isLoading = false;

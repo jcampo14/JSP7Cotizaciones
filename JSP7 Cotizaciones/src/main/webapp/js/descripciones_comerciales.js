@@ -6,11 +6,7 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 }]);
 
 app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeout,
-    $window, $mdDialog, $q) {
-    /* Simulamos el Login */
-    $localstorage.set('global.empresa', '01');
-    $localstorage.set('global.usuario', 'ADMIN');
-
+    $window, $mdDialog, $q) {    
     $scope.titulo_formulario = "Actualización de Descripciones Comerciales";
 
     /* Parametros del data table */

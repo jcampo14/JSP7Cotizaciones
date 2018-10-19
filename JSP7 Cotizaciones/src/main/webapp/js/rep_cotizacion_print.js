@@ -6,11 +6,6 @@ app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 }]);
 
 app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $q, $window) {
-
-    /** Simulamos el Login */
-    $localstorage.set('global.empresa', '01');
-    $localstorage.set('global.usuario', 'ADMIN');
-
     $scope.init = function () {
         var promiseAgencias = $consumeService.get('agencias?emp=' + $localstorage.get('global.empresa', null));
         $q.all([promiseAgencias]).then(function (values) {

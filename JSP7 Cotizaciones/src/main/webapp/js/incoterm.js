@@ -11,11 +11,7 @@ app.controller('incotermController', [
     '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog) {
-        'use strict';
-        /* Simulamos el Login */
-        $localstorage.set('global.empresa', '01');
-        $localstorage.set('global.usuario', 'ADMIN');
-
+        'use strict';        
         $scope.titulo_formulario = "Definición de Incoterms";
 
         /* LLenar la tabla */

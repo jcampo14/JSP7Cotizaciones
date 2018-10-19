@@ -11,11 +11,6 @@ app.controller('Ctrl', [
     '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog) {
-
-        /** Simulamos el Login */
-        $localstorage.set('global.empresa', '01');
-        $localstorage.set('global.usuario', 'ADMIN');
-
         $scope.titulo_formulario = "Definición de Conceptos para las Secciones";
 
         $scope.selectedSeccion = [];
