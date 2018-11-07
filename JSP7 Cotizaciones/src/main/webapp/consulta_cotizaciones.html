@@ -20,8 +20,14 @@
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="Ctrl">
+    <md-toolbar aria-hidden="false">
+        <div layout="row">            
+            <div class="md-toolbar-tools">
+                <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
+            </div>
+        </div>
+    </md-toolbar>
     <div class="panel-body">
-        <div ng-include="'structure/title.html'"></div>
         <div class="card panel-body">
             <legend>Parámetros de Búsqueda</legend>
             <md-radio-group ng-model="searchParam" layout="row">
@@ -64,26 +70,23 @@
             <form name="formBuscarCliente">
                 <div class="row">
                     <div class="col-md-4">
-                        <md-input-container class="md-block">
-                            <label>Cliente</label>
-                            <md-autocomplete required flex md-item-text="item.nIde + ' - ' + item.nombre" md-items="item in autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
-                                md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
-                                md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem"
-                                md-no-cache="autocompleteTerceros.noCache" md-input-name="autocompleteField"
-                                md-selected-item-change="autocompleteTerceros.selectItemChange(item)" md-min-length="3"
-                                md-menu-class="autocomplete-custom-template">
-                                <md-item-template>
-                                    <span class="item-metadata">
-                                        <span>
-                                            <strong>{{item.nIde}} - {{item.nombre}}</strong>
-                                        </span>
+                        <md-autocomplete required flex md-item-text="item.nIde + ' - ' + item.nombre" md-items="item in autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
+                            md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
+                            md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem"
+                            md-no-cache="autocompleteTerceros.noCache" md-input-name="autocompleteField"
+                            md-selected-item-change="autocompleteTerceros.selectItemChange(item)" md-min-length="3"
+                            md-menu-class="autocomplete-custom-template" md-floating-label="Cliente">
+                            <md-item-template>
+                                <span class="item-metadata">
+                                    <span>
+                                        <strong>{{item.nIde}} - {{item.nombre}}</strong>
                                     </span>
-                                </md-item-template>
-                                <div ng-messages="formBuscarCliente.autocompleteField.$error">
-                                    <div ng-message="required">Este campo es requerido.</div>
-                                </div>
-                            </md-autocomplete>
-                        </md-input-container>
+                                </span>
+                            </md-item-template>
+                            <div ng-messages="formBuscarCliente.autocompleteField.$error">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                        </md-autocomplete>
                     </div>
                     <div class="col-md-3">
                         <md-button ng-click="searchByCliente()" class="md-raised md-primary">Buscar</md-button>

@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'App.utils']);
+var app = angular.module('App', ['ngMaterial', 'App.utils', 'ngMessages', 'ngAnimate']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';

@@ -82,8 +82,8 @@ app.config(['markedProvider', function (markedProvider) {
 }]);
 
 app.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '$sce', '$localstorage',
-    '$consumeService', '$q', function ($scope, $menu, $mdSidenav, $mdBottomSheet, $sce, $localstorage,
-        $consumeService, $q) {
+    '$consumeService', '$q', '$window', function ($scope, $menu, $mdSidenav, $mdBottomSheet, $sce, $localstorage,
+        $consumeService, $q, $window) {
         $scope.isLoading = true;
         $scope.style = $menu.style();
 
@@ -189,6 +189,10 @@ app.controller('MenuJSP7', ['$scope', '$menu', '$mdSidenav', '$mdBottomSheet', '
 
         $scope.trustSrc = function (src) {
             return $sce.trustAsResourceUrl(src);
+        }
+
+        $scope.cerrarSesion = function(){
+            $window.location.href = 'login.html';
         }
 
     }]);

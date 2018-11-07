@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
     <link rel="stylesheet" href="css/lib/sweetalert2.css">
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/lib/paper-dashboard.css"  />
-    <link rel="stylesheet" href="css/lib/base.css"  />
-    <link rel="stylesheet" href="css/lib/icon.css"  />
+    <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
+    <link rel="stylesheet" href="css/lib/base.css" />
+    <link rel="stylesheet" href="css/lib/icon.css" />
     <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
@@ -18,8 +18,14 @@
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="Ctrl">
+    <md-toolbar aria-hidden="false">
+        <div layout="row">
+            <div class="md-toolbar-tools">
+                <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
+            </div>
+        </div>
+    </md-toolbar>
     <div class="panel-body principal-panel">
-        <div ng-include="'structure/title.html'"></div>
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
@@ -30,8 +36,8 @@
                             </div>
                         </md-toolbar>
                         <md-table-container>
-                            <table md-table md-row-select="optionsMaster.rowSelection" multiple="{{optionsMaster.multiSelect}}" ng-model="selectedSeccion"
-                                md-progress="promiseSeccion">
+                            <table md-table md-row-select="optionsMaster.rowSelection" multiple="{{optionsMaster.multiSelect}}"
+                                ng-model="selectedSeccion" md-progress="promiseSeccion">
                                 <thead ng-if="!optionsMaster.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                                     <tr md-row>
                                         <th md-column md-order-by="codigo" md-desc style="width: 10%;">
@@ -46,19 +52,21 @@
                                     </tr>
                                 </thead>
                                 <tbody md-body>
-                                    <tr md-row md-select="record" md-on-deselect="clearTableDetail" md-on-select="showDataDetail" md-auto-select="optionsMaster.autoSelect"
-                                        ng-repeat="record in queryCotSecciones.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                    <tr md-row md-select="record" md-on-deselect="clearTableDetail" md-on-select="showDataDetail"
+                                        md-auto-select="optionsMaster.autoSelect" ng-repeat="record in queryCotSecciones.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell>{{record.codSeccion}}</td>
                                         <td md-cell>{{record.nombreSec}}</td>
-                                        <td md-cell>{{record.tipoSeccion == 'ENC' ? 'Encabezado de documento' : record.tipoSeccion == 'PIE' ?
-                                            'Pie de documento' : record.tipoSeccion == 'PRE' ? 'Presentación de documento' : ''}}</td>
+                                        <td md-cell>{{record.tipoSeccion == 'ENC' ? 'Encabezado de documento' :
+                                            record.tipoSeccion == 'PIE' ?
+                                            'Pie de documento' : record.tipoSeccion == 'PRE' ? 'Presentación de
+                                            documento' : ''}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </md-table-container>
-                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryCotSecciones.count}}"
-                            md-page-select="optionsMaster.pageSelect" md-boundary-links="optionsMaster.boundaryLinks" md-on-paginate="logPagination"
-                            md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+                            md-total="{{queryCotSecciones.count}}" md-page-select="optionsMaster.pageSelect"
+                            md-boundary-links="optionsMaster.boundaryLinks" md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
                     </div>
                 </div>
             </div>
@@ -67,14 +75,17 @@
                     <div class="panel-body">
                         <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
                             <div class="md-toolbar-tools">
-                                <h2 class="md-title">Detalle de Sección {{selectedSeccion.length == 1 ? '-' : ''}} {{selectedSeccion[0].nombreSec}}</h2>
+                                <h2 class="md-title">Detalle de Sección {{selectedSeccion.length == 1 ? '-' : ''}}
+                                    {{selectedSeccion[0].nombreSec}}</h2>
                                 <div flex="" class="flex"></div>
-                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAddDetalle()" aria-label="Agregar">
+                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAddDetalle()"
+                                    aria-label="Agregar">
                                     <md-tooltip>Agregar Registro</md-tooltip>
                                     <md-icon md-font-icon="fas fa-plus"></md-icon>
                                     <div class="md-ripple-container"></div>
                                 </button>
-                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDeteleDetalle()" aria-label="Eliminar">
+                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDeteleDetalle()"
+                                    aria-label="Eliminar">
                                     <md-tooltip>Eliminar Registro</md-tooltip>
                                     <md-icon md-font-icon="fas fa-trash"></md-icon>
                                     <div class="md-ripple-container"></div>
@@ -82,8 +93,8 @@
                             </div>
                         </md-toolbar>
                         <md-table-container>
-                            <table md-table md-row-select="optionsDetail.rowSelection" multiple="{{optionsDetail.multiSelect}}" ng-model="selectedDetalle"
-                                md-progress="promiseDetalle">
+                            <table md-table md-row-select="optionsDetail.rowSelection" multiple="{{optionsDetail.multiSelect}}"
+                                ng-model="selectedDetalle" md-progress="promiseDetalle">
                                 <thead ng-if="!optionsDetail.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                                     <tr md-row>
                                         <th md-column md-order-by="codigo" md-desc style="width: 30%;">
@@ -95,30 +106,34 @@
                                     </tr>
                                 </thead>
                                 <tbody md-body>
-                                    <tr md-row md-select="record" md-on-deselect="clearTableIdioma" md-on-select="showDataTableIdioma" md-auto-select="optionsDetail.autoSelect" ng-repeat="record in queryCotSeccionesDetalle.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                    <tr md-row md-select="record" md-on-deselect="clearTableIdioma" md-on-select="showDataTableIdioma"
+                                        md-auto-select="optionsDetail.autoSelect" ng-repeat="record in queryCotSeccionesDetalle.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell>{{record.codVal}}</td>
                                         <td md-cell>{{record.descripcion}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </md-table-container>
-                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryCotSeccionesDetalle.count}}"
-                            md-page-select="optionsDetail.pageSelect" md-boundary-links="optionsDetail.boundaryLinks" md-on-paginate="logPagination"
-                            md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+                            md-total="{{queryCotSeccionesDetalle.count}}" md-page-select="optionsDetail.pageSelect"
+                            md-boundary-links="optionsDetail.boundaryLinks" md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
                     </div>
                 </div>
                 <div class="card">
                     <div class="panel-body">
                         <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
                             <div class="md-toolbar-tools">
-                                <h2 class="md-title">Idiomas del Detalle {{selectedDetalle.length == 1 ? '-' : ''}} {{selectedDetalle[0].codVal}}</h2>
+                                <h2 class="md-title">Idiomas del Detalle {{selectedDetalle.length == 1 ? '-' : ''}}
+                                    {{selectedDetalle[0].codVal}}</h2>
                                 <div flex="" class="flex"></div>
-                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAddIdioma()" aria-label="Agregar">
+                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAddIdioma()"
+                                    aria-label="Agregar">
                                     <md-tooltip>Agregar Registro</md-tooltip>
                                     <md-icon md-font-icon="fas fa-plus"></md-icon>
                                     <div class="md-ripple-container"></div>
                                 </button>
-                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDeleteIdioma()" aria-label="Eliminar">
+                                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDeleteIdioma()"
+                                    aria-label="Eliminar">
                                     <md-tooltip>Eliminar Registro</md-tooltip>
                                     <md-icon md-font-icon="fas fa-trash"></md-icon>
                                     <div class="md-ripple-container"></div>
@@ -126,8 +141,8 @@
                             </div>
                         </md-toolbar>
                         <md-table-container>
-                            <table md-table md-row-select="optionsDetail.rowSelection" multiple="{{optionsDetail.multiSelect}}" ng-model="selectedIdioma"
-                                md-progress="promiseSinonimo">
+                            <table md-table md-row-select="optionsDetail.rowSelection" multiple="{{optionsDetail.multiSelect}}"
+                                ng-model="selectedIdioma" md-progress="promiseSinonimo">
                                 <thead ng-if="!optionsDetail.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                                     <tr md-row>
                                         <th md-column md-order-by="codigo" md-desc style="width: 30%;">
@@ -139,16 +154,17 @@
                                     </tr>
                                 </thead>
                                 <tbody md-body>
-                                    <tr md-row md-select="record" md-on-select="logItem" md-auto-select="optionsDetail.autoSelect" ng-repeat="record in queryCotSeccionesDetSinonimo.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                    <tr md-row md-select="record" md-on-select="logItem" md-auto-select="optionsDetail.autoSelect"
+                                        ng-repeat="record in queryCotSeccionesDetSinonimo.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                         <td md-cell>{{record.idioma}}</td>
                                         <td md-cell>{{record.descripcion}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </md-table-container>
-                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryCotSeccionesDetSinonimo.count}}"
-                            md-page-select="optionsDetail.pageSelect" md-boundary-links="optionsDetail.boundaryLinks" md-on-paginate="logPagination"
-                            md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+                            md-total="{{queryCotSeccionesDetSinonimo.count}}" md-page-select="optionsDetail.pageSelect"
+                            md-boundary-links="optionsDetail.boundaryLinks" md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
                     </div>
                 </div>
             </div>
@@ -239,7 +255,7 @@
     <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
     <!-- module -->
     <script src="js/lib/utils.js"></script>
-    <script src="js/cot_secciones_det.js"></script>    
+    <script src="js/cot_secciones_det.js"></script>
 </body>
 
 </html>

@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
     <link rel="stylesheet" href="css/lib/sweetalert2.css">
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/lib/paper-dashboard.css"  />
-    <link rel="stylesheet" href="css/lib/base.css"  />
-    <link rel="stylesheet" href="css/lib/icon.css"  />
+    <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
+    <link rel="stylesheet" href="css/lib/base.css" />
+    <link rel="stylesheet" href="css/lib/icon.css" />
     <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
@@ -18,25 +18,34 @@
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="incotermController">
+    <md-toolbar aria-hidden="false">
+        <div layout="row">
+            <div class="md-toolbar-tools">
+                <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
+            </div>
+        </div>
+    </md-toolbar>
     <div class="panel-body principal-panel">
-        <div ng-include="'structure/title.html'"></div>
         <div class="card">
             <div class="content">
                 <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
                     <div class="md-toolbar-tools">
                         <h2 class="md-title">Incoterm</h2>
                         <div flex="" class="flex"></div>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAdd()" aria-label="Agregar">
+                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAdd()"
+                            aria-label="Agregar">
                             <md-tooltip>Agregar Registro</md-tooltip>
                             <md-icon md-font-icon="fas fa-plus"></md-icon>
                             <div class="md-ripple-container"></div>
                         </button>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showEdit()" aria-label="Editar">
+                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showEdit()"
+                            aria-label="Editar">
                             <md-tooltip>Editar Registro</md-tooltip>
                             <md-icon md-font-icon="fas fa-pen"></md-icon>
                             <div class="md-ripple-container"></div>
                         </button>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="delete()" aria-label="Eliminar">
+                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="delete()"
+                            aria-label="Eliminar">
                             <md-tooltip>Eliminar Registro</md-tooltip>
                             <md-icon md-font-icon="fas fa-trash"></md-icon>
                             <div class="md-ripple-container"></div>
@@ -57,16 +66,17 @@
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in query_incoterm.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                            <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect"
+                                ng-repeat="record in query_incoterm.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                 <td md-cell>{{record.codIncoterm}}</td>
                                 <td md-cell>{{record.nombre}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </md-table-container>
-                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{query_incoterm.count}}"
-                    md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
-                    md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+                    md-total="{{query_incoterm.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"
+                    md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
             </div>
         </div>
     </div>

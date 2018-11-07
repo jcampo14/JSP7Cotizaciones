@@ -1,6 +1,7 @@
 <html lang="en">
 
 <head>
+    <title>Centro de Autenticación JSP7</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" , charset="UTF-8">
     <!-- Angular Material style sheet -->
     <link rel="stylesheet" href="css/lib/angular-material.css">
@@ -23,50 +24,63 @@
                 <div class="row">
                     <div class="col-xs-offset-3 col-xs-6">
                         <div class="panel-body" style="max-width: 700px;">
-                            <nav class="navbar navbar-default dashboard-title">
-                                <div class="container-fluid">
-                                    <div class="navbar-header" style="width: 100%">
-                                        <a class="navbar-brand" style="width: 100%">{{titulo_formulario}}</a>
+                            <md-toolbar aria-hidden="false">
+                                <div layout="row">
+                                    <div class="md-toolbar-tools">
+                                        <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
                                     </div>
                                 </div>
-                            </nav>
-                            <div class="card">
+                            </md-toolbar>
+                            <form name="formLogin" class="card">
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="form-group">
+                                        <div class="col-xs-12" style="margin-bottom: 15px">
+                                            <md-input-container class="md-block">
                                                 <label>Usuario</label>
-                                                <i class="fa fa-key"></i>
-                                                <input class="form-control border-input" placeholder="Usuario" type="text" ng-model="credentials.username">
-                                            </div>
+                                                <md-icon md-font-icon="fas fa-user"></md-icon>
+                                                <input required name="username" ng-model="credentials.username"
+                                                    autofocus>
+                                                <div ng-messages="formLogin.username.$error">
+                                                    <div ng-message="required">Este campo es requerido.</div>
+                                                </div>
+                                            </md-input-container>
                                         </div>
-                                        <div class="col-xs-12">
-                                            <div class="form-group">
-                                                <label>Clave</label>
-                                                <i class="fa fa-lock"></i>
-                                                <input class="form-control border-input" placeholder="Clave" type="password" ng-model="credentials.password">
-                                            </div>
+                                        <div class="col-xs-12" style="margin-bottom: 15px">
+                                            <md-input-container class="md-block">
+                                                <label>Contraseña</label>
+                                                <md-icon md-font-icon="fas fa-key"></md-icon>
+                                                <input required type="password" name="password" ng-model="credentials.password">
+                                                <div ng-messages="formLogin.password.$error">
+                                                    <div ng-message="required">Este campo es requerido.</div>
+                                                </div>
+                                            </md-input-container>
                                         </div>
-                                        <div class="col-xs-12">
-                                            <div class="form-group">
-                                                <label>Empresa</label>
-                                                <md-select placeholder="Empresa" ng-model="credentials.company" md-on-open="loadCompanies()">
+                                        <div class="col-xs-12" style="margin-bottom: 15px">
+                                            <md-input-container class="md-block">
+                                                <label>Contraseña</label>
+                                                <md-icon md-font-icon="fas fa-building"></md-icon>                                                
+                                                <md-select required name="company" placeholder="Empresa" ng-model="credentials.company"
+                                                    md-on-open="loadCompanies()">
                                                     <md-option ng-value="company.cEmp" ng-repeat="company in companies">{{company.emp}}</md-option>
                                                 </md-select>
-                                            </div>
+                                                <div ng-messages="formLogin.company.$error">
+                                                    <div ng-message="required">Este campo es requerido.</div>
+                                                </div>
+                                            </md-input-container>                                            
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-offset-1 col-xs-10">
                                                 <div class="row">
                                                     <div class="col-xs-offset-4 col-xs-4">
-                                                        <md-button class="md-raised" ng-click="iniciarSesion()">Iniciar Sesion</md-button>
+                                                        <md-button class="md-raised md-primary" ng-click="iniciarSesion()">Iniciar
+                                                            Sesion</md-button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -24,7 +24,7 @@
 </head>
 
 <body ng-controller="MenuJSP7" layout="column" ng-cloak>
-    <md-toolbar>
+    <md-toolbar md-colors="{background: 'amber-500'}">
         <md-truncate class="md-toolbar-tools">
             <md-button class="md-icon-button" ng-click="toggle()" hide-gt-sm aria-label="Toogle Menu">
                 <ng-md-icon icon="{{icon}}"></ng-md-icon>
@@ -41,7 +41,7 @@
                 </md-button>
                 <md-menu-content width="4">
                     <md-menu-item>
-                        <md-button ng-click="">
+                        <md-button ng-click="cerrarSesion()">
                             <md-icon md-font-icon="fas fa-sign-out-alt"></md-icon>
                             Cerrar Sesión
                         </md-button>

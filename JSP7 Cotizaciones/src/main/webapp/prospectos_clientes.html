@@ -17,8 +17,14 @@
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="Ctrl">
+    <md-toolbar aria-hidden="false">
+        <div layout="row">
+            <div class="md-toolbar-tools">
+                <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
+            </div>
+        </div>
+    </md-toolbar>
     <div class="panel-body principal-panel">
-        <div ng-include="'structure/title.html'"></div>
         <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length"
             aria-hidden="true">
             <div class="md-toolbar-tools">
