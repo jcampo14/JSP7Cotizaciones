@@ -9,22 +9,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspsols.cotizaciones.db.procedures.CreaCotizacion;
+import com.aspsols.cotizaciones.db.procedures.CreaPedidoCotizacion;
+import com.aspsols.cotizaciones.request.CotizacionAPedidoRequest;
 import com.aspsols.cotizaciones.request.CotizacionRequest;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.services.CotizacionServices;
 
 @RestController
-public class CotizacionController {
-
-	private static final String SERVICE_PATH = "/cotizacion";
+public class CotizacionController {	
 
 	@Autowired
 	private CreaCotizacion creaCotizacion;
 
 	@Autowired
+	private CreaPedidoCotizacion creaPedidoCotizacion;
+
+	@Autowired
 	private CotizacionServices service;
 
-	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
+	@RequestMapping(method = RequestMethod.POST, value = "/cotizacion")
 	public ProcessResponse<CotizacionRequest> crearCotizacion(@RequestBody CotizacionRequest request) {
 		ProcessResponse<CotizacionRequest> response = new ProcessResponse<>();
 		/* Generamos el ID de transaccion */
@@ -46,8 +49,23 @@ public class CotizacionController {
 					+ " generada.");
 		}
 		/* Borramos de la tabla temporal */
-//		service.deleteTemporalTable(idTransaccion);
+		service.deleteTemporalTable(idTransaccion);
 		return response;
 	};
-		
+
+	@RequestMapping(method = RequestMethod.POST, path = "/cotizacionAPedido")
+	public ProcessResponse<CotizacionRequest> convertirCotizacionAPedido(
+			@RequestBody CotizacionAPedidoRequest request) {
+		Map<String, Object> resultData = creaPedidoCotizacion.execute(request.getcEmp(), request.getPer(),
+				request.getcAgr(), request.getCot(), request.getRev());
+		Integer codErr = (Integer) resultData.get("codError");
+		String msgErr = (String) resultData.get("msgError");
+		Integer numeroPedido = (Integer) resultData.get("numeroPed");
+		if (codErr != 0) {
+			return new ProcessResponse<>(false, msgErr);
+		} else {
+			return new ProcessResponse<>(true, msgErr + ".\n" + "Pedido No. " + numeroPedido + " generado.");
+		}
+	}
+
 }

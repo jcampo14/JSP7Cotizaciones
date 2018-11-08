@@ -46,3 +46,9 @@ md-sidenav {
     vertical-align: middle;
     display: inline-block;
 }
+
+.logo {
+    width: 64px;
+    height: 64px;
+    margin: 0 1%;
+}
