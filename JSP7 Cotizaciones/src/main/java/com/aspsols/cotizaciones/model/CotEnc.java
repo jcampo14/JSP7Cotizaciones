@@ -48,11 +48,10 @@ public class CotEnc implements Serializable {
 	@Column(name = "REV")
 	private Integer rev;
 
-	
 	@Column(name = "EMI")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date emi;
-	
+
 	@Column(name = "VEN")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ven;
@@ -87,8 +86,14 @@ public class CotEnc implements Serializable {
 	@Column(name = "TERMINO_PAGO")
 	private String terminoPago;
 
+	@Column(name = "TIEMPO_ENTREGA")
+	private String tiempoEntrega;
+
 	@Column(name = "EST")
 	private String est;
+
+	@Column(name = "LUGAR_DESTINO")
+	private String lugarDestino;
 
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "DESTINO", referencedColumnName = "C_PAI", insertable = false, updatable = false),
@@ -346,6 +351,22 @@ public class CotEnc implements Serializable {
 
 	public void setEst(String est) {
 		this.est = est;
+	}
+
+	public String getTiempoEntrega() {
+		return tiempoEntrega;
+	}
+
+	public void setTiempoEntrega(String tiempoEntrega) {
+		this.tiempoEntrega = tiempoEntrega;
+	}
+
+	public String getLugarDestino() {
+		return lugarDestino;
+	}
+
+	public void setLugarDestino(String lugarDestino) {
+		this.lugarDestino = lugarDestino;
 	}
 
 }

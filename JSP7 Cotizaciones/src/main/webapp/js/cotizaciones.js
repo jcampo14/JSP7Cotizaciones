@@ -107,7 +107,9 @@ app.controller('Ctrl', [
                             diasValidez: null,
                             embalaje: null,
                             origen: null,
-                            destino: null
+                            destino: null,
+                            tiempoEntrega: null,
+                            lugarDestino: null
                         };
                         $scope.cot_det = [];
                         $scope.selectedArticulo = {};
@@ -203,15 +205,17 @@ app.controller('Ctrl', [
                     "incoterm": result.codIncoterm,
                     "cot": result.cot,
                     "rev": result.rev,
-                    "idioma": result.idioma,
-                    "embalaje": result.embalaje.cEmb,
+                    "idioma": result.idioma,                    
                     "diasValidez": dayDifference,
                     "modificar": paramsDecode.modificar,
                     "origen": result.origen,
                     "destino": result.pais,
                     "despacho": result.despacho,
-                    "terminoPago": result.terminoPago
-                };
+                    "terminoPago": result.terminoPago,
+                    "tiempoEntrega": result.tiempoEntrega,
+                    "lugarDestino": result.lugarDestino,
+                    "embalaje": result.embalaje ? result.embalaje.cEmb : null
+                };                                
                 $scope.cot_det = [];
                 var promiseNit = $consumeService.get('tercerosByNit?emp=' + result.cEmp + '&nit=' +
                     result.nIde);
@@ -534,7 +538,8 @@ app.controller('Ctrl', [
                 var secciones = [];
                 var index = 0;
                 while (index < $scope.secciones.length) {
-                    if ($scope.secciones[index].descripcion_final != null || $scope.secciones[index].descripcion_final != "") {
+                    if (($scope.secciones[index].descripcion_final != null || $scope.secciones[index].descripcion_final != "") &&
+                     ($scope.secciones[index].etiqueta_final != null || $scope.secciones[index].etiqueta_final != "")) {
                         var itemSeccion = {
                             "cEmp": $scope.secciones[index].cEmp,
                             "codSeccion": $scope.secciones[index].codSeccion,
@@ -597,6 +602,8 @@ app.controller('Ctrl', [
                     "iva": $scope.autocompleteTerceros.selectedItem.iva,
                     "incoterm": $scope.cot_enc.incoterm,
                     "terminoPago": $scope.cot_enc.terminoPago,
+                    "tiempoEntrega": $scope.cot_enc.tiempoEntrega,
+                    "lugarDestino": $scope.cot_enc.lugarDestino,
                     "despacho": $scope.cot_enc.despacho,
                     "secciones": secciones,
                     "detalle": detalle,

@@ -26,8 +26,9 @@ public class CotizacionRepository {
 	public void create(CotizacionRequest record, String idTransaccion) {
 		/* Insertamos el encabezado */
 		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO,DIAS_VALIDEZ,"
-				+ "COD_EMBALAJE,IVA,COT,REV,INCOTERM,MODIFICAR,ORIGEN,DESTINO,DESPACHO,TERMINO_PAGO) "
-				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "COD_EMBALAJE,IVA,COT,REV,INCOTERM,MODIFICAR,ORIGEN,DESTINO,DESPACHO,TERMINO_PAGO,TIEMPO_ENTREGA,"
+				+ "LUGAR_DESTINO) "
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -57,13 +58,15 @@ public class CotizacionRepository {
 				}
 				QueryUtilities.addSqlParameter(ps, 18, record.getDespacho(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 19, record.getTerminoPago(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 20, record.getTiempoEntrega(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 21, record.getLugarDestino(), Types.VARCHAR);
 				return ps;
 			}
 		});
 		/* Insertamos las secciones */
 		if (record.getSecciones().size() > 0) {
 			for (CotizacionSeccionesRequest item : record.getSecciones()) {
-				if (item.getDescripcionFinal() != null) {
+				if (item.getDescripcionFinal() != null || item.getEtiquetaFinal() != null) {
 					String sqlSecciones = "insert into TMP_COT_SECCIONES(ID_TRANSACCION,C_EMP,COD_SECCION,DESCRIPCION_FINAL,ETIQUETA_FINAL) values(?,?,?,?,?)";
 					jdbcTemplate.update(new PreparedStatementCreator() {
 						@Override

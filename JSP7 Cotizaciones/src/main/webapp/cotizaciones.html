@@ -20,17 +20,17 @@
 
 <body ng-app="App" ng-cloak ng-controller="Ctrl">
     <md-toolbar>
-        <div class="md-toolbar-tools">            
-            <h2 flex md-truncate>{{titulo_formulario}}</h2>            
-            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="grabarCotizacion()" aria-label="Guardar"
-                style="width: 60px; height: 60px;">
+        <div class="md-toolbar-tools">
+            <h2 flex md-truncate>{{titulo_formulario}}</h2>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="grabarCotizacion()"
+                aria-label="Guardar" style="width: 60px; height: 60px;">
                 <md-tooltip>Guardar</md-tooltip>
                 <img src="img/guardar blanco.png" alt="Guardar">
-                <div class="md-ripple-container"></div>                
-            </button>                                  
+                <div class="md-ripple-container"></div>
+            </button>
         </div>
     </md-toolbar>
-    <div class="panel-body principal-panel">        
+    <div class="panel-body principal-panel">
         <div ng-show="isLoading" class="progress">
             <div class="progress-bar progress-bar-striped active" style="width: 100%">
                 Cargando, Espere por favor...
@@ -147,6 +147,7 @@
                                             class="demo-header-searchbox md-text form-control" style="width: 100%"
                                             ng-keydown="$event.stopPropagation()" force-select-focus>
                                     </md-select-header>
+                                    <md-option ng-value="">No Embalaje</md-option>
                                     <md-option ng-value="record.cEmb" ng-repeat="record in embalajes | filter:searchEmbajale">{{record.nombre}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -177,6 +178,20 @@
                                     </md-select-header>
                                     <md-option ng-value="record" ng-repeat="record in paises | filter:searchPais">{{record.nom}}</md-option>
                                 </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <md-input-container class="md-block">
+                                <label>Lugar Destino</label>
+                                <input type="text" ng-model="cot_enc.lugarDestino" md-max-length="70">
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-4">
+                            <md-input-container class="md-block">
+                                <label>Tiempo de Entrega</label>
+                                <input type="text" ng-model="cot_enc.tiempoEntrega" md-max-length="100">
                             </md-input-container>
                         </div>
                     </div>

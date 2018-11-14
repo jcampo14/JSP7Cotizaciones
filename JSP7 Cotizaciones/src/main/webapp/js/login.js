@@ -21,9 +21,8 @@ app.controller('loginController',
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            };
-            var promise = $http(requestConfig);
-            promise.then(function (result) {
+            };            
+            return $http(requestConfig).then(function (result) {
                 // this is only run after getData() resolves        
                 $scope.companies = result.data.data;
                 $scope.$applyAsync();
