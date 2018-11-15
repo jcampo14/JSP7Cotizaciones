@@ -27,8 +27,7 @@ public class CotizacionRepository {
 		/* Insertamos el encabezado */
 		String sqlEnc = "insert into TMP_COT_ENC(ID_TRANSACCION,C_EMP,C_AGR,N_IDE,CRI,C_SUC,IDIOMA,USUARIO,DIAS_VALIDEZ,"
 				+ "COD_EMBALAJE,IVA,COT,REV,INCOTERM,MODIFICAR,ORIGEN,DESTINO,DESPACHO,TERMINO_PAGO,TIEMPO_ENTREGA,"
-				+ "LUGAR_DESTINO) "
-				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "LUGAR_DESTINO,ID_CONTACTO) " + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -50,16 +49,15 @@ public class CotizacionRepository {
 				QueryUtilities.addSqlParameter(ps, 13, record.getRev(), Types.INTEGER);
 				QueryUtilities.addSqlParameter(ps, 14, record.getIncoterm(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 15, record.getModificar(), Types.VARCHAR);
-				QueryUtilities.addSqlParameter(ps, 16, record.getOrigen(), Types.VARCHAR);				
-				if (record.getDestino() != null) {
-					QueryUtilities.addSqlParameter(ps, 17, record.getDestino().getcPai(), Types.VARCHAR);
-				} else {
-					QueryUtilities.addSqlParameter(ps, 17, null, Types.VARCHAR);
-				}
+				QueryUtilities.addSqlParameter(ps, 16, record.getOrigen(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 17,
+						record.getDestino() != null ? record.getDestino().getcPai() : null, Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 18, record.getDespacho(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 19, record.getTerminoPago(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 20, record.getTiempoEntrega(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 21, record.getLugarDestino(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 22,
+						record.getContacto() != null ? record.getContacto().getId() : null, Types.VARCHAR);
 				return ps;
 			}
 		});
@@ -169,7 +167,7 @@ public class CotizacionRepository {
 				QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);
 				return ps;
 			}
-		});		
+		});
 	}
 
 }

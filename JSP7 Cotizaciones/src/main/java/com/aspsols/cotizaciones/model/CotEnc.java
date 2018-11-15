@@ -96,6 +96,10 @@ public class CotEnc implements Serializable {
 	private String lugarDestino;
 
 	@ManyToOne
+	@JoinColumn(name = "ID_CONTACTO", referencedColumnName = "ID")
+	private CliContacto contacto;
+
+	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "DESTINO", referencedColumnName = "C_PAI", insertable = false, updatable = false),
 			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
 	private Pais pais;
@@ -367,6 +371,14 @@ public class CotEnc implements Serializable {
 
 	public void setLugarDestino(String lugarDestino) {
 		this.lugarDestino = lugarDestino;
+	}
+
+	public CliContacto getContacto() {
+		return contacto;
+	}
+
+	public void setContacto(CliContacto contacto) {
+		this.contacto = contacto;
 	}
 
 }

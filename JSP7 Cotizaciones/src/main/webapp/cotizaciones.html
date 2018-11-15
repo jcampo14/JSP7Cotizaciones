@@ -194,6 +194,21 @@
                                 <input type="text" ng-model="cot_enc.tiempoEntrega" md-max-length="100">
                             </md-input-container>
                         </div>
+                        <div class="col-md-4">
+                            <md-input-container class="md-block">
+                                <label>Persona Contacto</label>
+                                <md-select placeholder="Persona Contacto" ng-model="cot_enc.contacto" md-on-open="cargarContactos()"
+                                    md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.id'}">
+                                    <md-select-header class="demo-select-header">
+                                        <input type="text" ng-model="searchContacto" type="search" placeholder="Buscar..."
+                                            class="demo-header-searchbox md-text form-control" style="width: 100%"
+                                            ng-keydown="$event.stopPropagation()" force-select-focus>
+                                    </md-select-header>
+                                    <md-option ng-value="">Sin Contacto</md-option>
+                                    <md-option ng-value="record" ng-repeat="record in contactos | filter:searchContacto">{{record.perCargo + ' - ' + record.cargo }}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

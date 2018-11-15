@@ -3,6 +3,7 @@ package com.aspsols.cotizaciones.request;
 import java.io.Serializable;
 import java.util.List;
 
+import com.aspsols.cotizaciones.model.CliContacto;
 import com.aspsols.cotizaciones.model.Pais;
 
 public class CotizacionRequest implements Serializable {
@@ -51,6 +52,8 @@ public class CotizacionRequest implements Serializable {
 	private String tiempoEntrega;
 
 	private String lugarDestino;
+
+	private CliContacto contacto;
 
 	private List<CotizacionSeccionesRequest> secciones;
 
@@ -240,6 +243,14 @@ public class CotizacionRequest implements Serializable {
 
 	public void setLugarDestino(String lugarDestino) {
 		this.lugarDestino = lugarDestino;
+	}
+
+	public CliContacto getContacto() {
+		return contacto;
+	}
+
+	public void setContacto(CliContacto contacto) {
+		this.contacto = contacto;
 	}
 
 }

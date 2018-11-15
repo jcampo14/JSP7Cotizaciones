@@ -62,8 +62,8 @@ public class CotDet implements Serializable {
 	private String inf7;
 
 	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
-			@JoinColumn(name = "COD", referencedColumnName = "COD", insertable = false, updatable = false) })
+	@JoinColumns({ @JoinColumn(name = "COD", referencedColumnName = "COD", insertable = false, updatable = false),
+			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
 	private Articulo articulo;
 
 	public String getcEmp() {
