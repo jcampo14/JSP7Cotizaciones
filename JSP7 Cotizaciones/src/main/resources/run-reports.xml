@@ -3,7 +3,7 @@
 	<!-- 
 	<primaryAddress   url="http://app01.aspsols.com:8091/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
 	<secondaryAddress url="http://app01.aspsols.com:8092/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
-	<secondaryAddress url="http://app01.aspsols.com:8093/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
+	<secondaryAddress url="http://app01.aspsols.com:8093/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?n=" />
 	<secondaryAddress url="http://app01.aspsols.com:8094/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
 	<secondaryAddress url="http://app02.aspsols.com:8091/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
 	<secondaryAddress url="http://app02.aspsols.com:8092/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
@@ -25,8 +25,10 @@
 	<secondaryAddress url="http://app06.aspsols.com:8092/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
 	<secondaryAddress url="http://app06.aspsols.com:8093/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
 	<secondaryAddress url="http://app06.aspsols.com:8094/JSP7_ASP_Rep/resources/GWTJReportGenerator.html?cn=" />
-	 -->
+	 
 	 <primaryAddress   url="http://localhost:8089/JSP7_Cotizaciones_Rep/resources/GWTJReportGenerator.html?cn=" />
+	 -->
+	 <primaryAddress   url="http://192.168.43.141:8088/JSP7_Cotizaciones_Rep/resources/GWTJReportGenerator.html?cn=" />
 </Root>
 
 
