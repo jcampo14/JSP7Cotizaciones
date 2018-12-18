@@ -146,9 +146,9 @@ app.controller('Ctrl', [
                         $scope.selectedDetalle = {};
                     }
                     $scope.buscarPrecioVenta(item.cEmp, item.cod);
-                    if (!item.descripcion){
+                    if (!item.descripcion) {
                         $scope.traerDescripcionComercial(item.cEmp, item.cod, $scope.cot_enc.idioma);
-                    }                    
+                    }
                     $scope.$applyAsync;
                 }
             },
@@ -438,8 +438,8 @@ app.controller('Ctrl', [
                     if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
                         var ivaValue = {
                             iva: {
-                                "cDes": $scope.autocompleteArticulos.selectedItem.idIva.cDes,
-                                "pctj": $scope.autocompleteArticulos.selectedItem.idIva.pctj
+                                "cDes": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.cDes : null,
+                                "pctj": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.pctj : 0
                             }
                         };
                     } else {
@@ -453,7 +453,7 @@ app.controller('Ctrl', [
                     itemToAdd.iva = ivaValue.iva;
                     $scope.cot_det.push(itemToAdd);
                     delete $scope.autocompleteArticulos.selectedItem;
-                    $scope.selectedDetalle = {};                
+                    $scope.selectedDetalle = {};
                     form.$setPristine();
                     form.$setUntouched();
                 } else {
