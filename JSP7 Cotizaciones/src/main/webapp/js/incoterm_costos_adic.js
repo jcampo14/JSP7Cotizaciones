@@ -2,7 +2,7 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('incotermCostosAdicController', [
@@ -11,7 +11,7 @@ app.controller('incotermCostosAdicController', [
     '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog) {
-        'use strict';        
+        'use strict';
         $scope.titulo_formulario = "Asociación de Costos Adicionales a Incoterms";
 
         $scope.selectedCostosAdic = [];
@@ -45,6 +45,12 @@ app.controller('incotermCostosAdicController', [
             order: 'nombre',
             limit: 5,
             page: 1
+        };
+
+        $scope.queryDet = {
+          order: 'nombre',
+          limit: 5,
+          page: 1
         };
 
         /* Mas configuraciones del data table */
@@ -100,7 +106,7 @@ app.controller('incotermCostosAdicController', [
             $scope.selectedIncoterm = [];
             $scope.query_incoterm = result;
             $scope.$applyAsync();
-        });       
+        });
 
         /* Dialogos */
         $scope.showAddCostoAdic = function (ev) {
@@ -229,8 +235,8 @@ app.controller('incotermCostosAdicController', [
                             }
                         });
                     }
-                });                
+                });
             }
         };
 
-    }]);        
+    }]);

@@ -2,7 +2,7 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('Ctrl', [
@@ -71,7 +71,7 @@ app.controller('Ctrl', [
                 $scope.queryCotSeccionesDetalle = [];
                 $scope.selectedIdioma = [];
                 $scope.queryCotSeccionesDetSinonimo = [];
-            }, 500);            
+            }, 500);
         };
 
         $scope.showDataDetail = function (item) {
@@ -348,7 +348,7 @@ app.controller('Ctrl', [
                             }
                         });
                     }
-                });                
+                });
             }
         };
 

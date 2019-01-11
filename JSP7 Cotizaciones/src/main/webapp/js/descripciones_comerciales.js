@@ -2,11 +2,11 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils', 'ng
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeout,
-    $window, $mdDialog, $q) {    
+    $window, $mdDialog, $q) {
     $scope.titulo_formulario = "Actualización de Descripciones Comerciales";
 
     /* Parametros del data table */

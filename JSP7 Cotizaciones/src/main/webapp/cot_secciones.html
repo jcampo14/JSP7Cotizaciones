@@ -97,49 +97,49 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>{{dialog.titulo}}</h2>
-                        <span flex></span>                        
+                        <span flex></span>
                     </div>
-                </md-toolbar>          
+                </md-toolbar>
                 <md-dialog-content>
                     <div class="card">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Código</label>
-                                        <input class="form-control border-input" ng-disabled="model.isDisabled" ng-model="cotSeccionesRecord.codSeccion" placeholder="Código" type="text">
-                                    </div>
+                                        <input ng-disabled="model.isDisabled" ng-model="cotSeccionesRecord.codSeccion" type="text">
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-9">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Nombre</label>
-                                        <input class="form-control border-input" ng-model="cotSeccionesRecord.nombreSec" placeholder="Nombre" type="text">
-                                    </div>
+                                        <input ng-model="cotSeccionesRecord.nombreSec" type="text">
+                                    </md-input-container>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Tipo Sección</label>
                                         <md-select placeholder="Tipo Sección" ng-model="cotSeccionesRecord.tipoSeccion" >
                                             <md-option ng-value="option.codigo" ng-repeat="option in getTiposSec">{{option.nombre}}</md-option>
                                         </md-select>
-                                    </div>
+                                    </md-input-container>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Orden</label>
-                                        <input class="form-control border-input" ng-model="cotSeccionesRecord.orden" placeholder="Orden" type="number">
-                                    </div>
+                                        <input ng-model="cotSeccionesRecord.orden" type="number">
+                                    </md-input-container>
                                 </div>
-                            </div>                                                             
+                            </div>
                         </div>
                     </div>
                 </md-dialog-content>
-          
-                <md-dialog-actions layout="row">                                        
+
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>

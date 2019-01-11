@@ -2,7 +2,7 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils', 'ng
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('embalajeController', [
@@ -76,7 +76,7 @@ app.controller('embalajeController', [
             /* LLenar la tabla */
             $scope.promise = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', '01'));
             $scope.promise.then(function (result) {
-                // this is only run after getData() resolves        
+                // this is only run after getData() resolves
                 $scope.dataEmbalaje = result;
                 $scope.$applyAsync();
             });
@@ -397,7 +397,7 @@ app.controller('embalajeController', [
                         promise.then(function (result) {
                             if (result.success == true) {
                                 $scope.showSinonimo();
-                                swal("Mensaje JSP7", "¡Registro borrado exitosamente!", "success");                               
+                                swal("Mensaje JSP7", "¡Registro borrado exitosamente!", "success");
                             } else {
                                 swal("Mensaje JSP7", result.message, "error");
                             }
@@ -410,4 +410,4 @@ app.controller('embalajeController', [
         /* Iniciamos el formulario */
         $scope.init();
 
-    }]);    
+    }]);

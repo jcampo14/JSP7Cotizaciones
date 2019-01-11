@@ -2,7 +2,7 @@ var app = angular.module('App', ['ngMaterial', 'oitozero.ngSweetAlert', 'App.uti
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('loginStoreController', [
@@ -23,7 +23,7 @@ app.controller('loginStoreController', [
         $scope.loadCompanies = function () {
             var promise = $consumeService.get('companies');
             promise.then(function (result) {
-                // this is only run after getData() resolves        
+                // this is only run after getData() resolves
                 $scope.companies = result.data;
                 $scope.$applyAsync();
             });

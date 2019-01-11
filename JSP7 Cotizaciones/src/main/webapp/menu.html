@@ -26,7 +26,8 @@
 <body ng-controller="MenuJSP7" layout="column" ng-cloak>
     <md-toolbar md-colors="{background: 'amber-500'}">
         <md-truncate class="md-toolbar-tools">
-            <md-button class="md-icon-button" ng-click="toggle()" hide-gt-sm aria-label="Toogle Menu">
+            <!-- <md-button class="md-icon-button" ng-click="toggle()" hide-gt-sm aria-label="Toogle Menu"> -->
+            <md-button class="md-icon-button" ng-click="toggle()" aria-label="Toogle Menu">
                 <ng-md-icon icon="{{icon}}"></ng-md-icon>
             </md-button>
             <img class="logo" src="img/logo-solagro.png">
@@ -56,10 +57,11 @@
         </div>
     </div>
     <md-content ng-show="!isLoading" layout="row" flex>
-        <md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left">
+        <!-- <md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"> -->
+        <md-sidenav class="md-sidenav-left" md-component-id="left">
             <div>
                 <md-toolbar md-theme="altTheme">
-                    <h2 style="margin-top: 10px !important; margin-bottom: 10px !important" class="md-title text-center">Bienvenido {{usuario.nombre}}</h2>
+                    <h2 style="margin-top: 10px !important; margin-bottom: 10px !important" class="md-title text-center">Bienvenido<br/>{{usuario.nombre}}</h2>
                 </md-toolbar>
             </div>
             <md-divider></md-divider>

@@ -2,7 +2,7 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('Ctrl', [
@@ -11,7 +11,7 @@ app.controller('Ctrl', [
     '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog) {
-        'use strict';        
+        'use strict';
         $scope.titulo_formulario = "Definición de Secciones de la Cotización";
 
         $scope.selectedSeccion = [];
@@ -97,7 +97,7 @@ app.controller('Ctrl', [
         $scope.promiseSeccion = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promiseSeccion.then(function (result) {
             $scope.queryCotSecciones = result;
-        });        
+        });
 
         /* Dialogo Adicionar */
         $scope.showAdd = function (ev) {
@@ -219,7 +219,7 @@ app.controller('Ctrl', [
                                 }
                             });
                         }
-                    });                    
+                    });
                 }
             }
         };

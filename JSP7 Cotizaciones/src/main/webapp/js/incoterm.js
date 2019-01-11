@@ -2,7 +2,7 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('incotermController', [
@@ -11,13 +11,13 @@ app.controller('incotermController', [
     '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog) {
-        'use strict';        
+        'use strict';
         $scope.titulo_formulario = "Definición de Incoterms";
 
         /* LLenar la tabla */
         $scope.promise = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', '00'));
         $scope.promise.then(function (result) {
-            // this is only run after getData() resolves        
+            // this is only run after getData() resolves
             $scope.query_incoterm = result;
             $scope.$applyAsync();
         });
@@ -111,7 +111,7 @@ app.controller('incotermController', [
                             }
                         });
                     }
-                });                
+                });
             }
         };
 
@@ -252,4 +252,4 @@ app.controller('incotermController', [
             }
         }
 
-    }]);    
+    }]);

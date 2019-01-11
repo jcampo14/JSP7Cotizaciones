@@ -35,12 +35,8 @@ data-ng-model {
     margin-bottom: 0px !important;
 }
 
-md-sidenav {
-    width: 270px ;    
-}
-
 .text-tab {
-    max-width: 175px;    
+    max-width: 175px;
     text-overflow: ellipsis;
     overflow: hidden;
     vertical-align: middle;

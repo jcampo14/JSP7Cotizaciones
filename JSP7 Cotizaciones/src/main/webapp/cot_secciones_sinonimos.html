@@ -65,7 +65,7 @@
                             </table>
                         </md-table-container>
                         <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
-                            md-total="{{query_incoterm.count}}" md-page-select="optionsMaster.pageSelect"
+                            md-total="{{queryCotSecciones.count}}" md-page-select="optionsMaster.pageSelect"
                             md-boundary-links="optionsMaster.boundaryLinks" md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
                     </div>
                 </div>
@@ -129,16 +129,16 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>{{dialog.titulo}}</h2>
-                        <span flex></span>                        
+                        <span flex></span>
                     </div>
-                </md-toolbar>          
+                </md-toolbar>
                 <md-dialog-content>
                     <div class="card">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Idioma</label>                                        
+                                        <label>Idioma</label>
                                         <md-select placeholder="Idioma" ng-model="tableRecord.idioma" md-on-open="loadIdiomas()">
                                             <md-option ng-value="idioma.idioma" ng-repeat="idioma in idiomas">{{idioma.idioma}}</md-option>
                                         </md-select>
@@ -149,12 +149,12 @@
                                         <label>Descripción</label>
                                         <textarea class="form-control border-input" ng-model="tableRecord.descripcion" placeholder="Descripción" rows="3"></textarea>
                                     </div>
-                                </div>                               
-                            </div>                                                                                                                   
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </md-dialog-content>          
-                <md-dialog-actions layout="row">                                        
+                </md-dialog-content>
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>

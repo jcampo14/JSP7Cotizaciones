@@ -94,7 +94,7 @@
                         <md-table-container>
                             <table id="costosAdicTable" md-table md-row-select="optionsDetail.rowSelection" multiple="{{optionsDetail.multiSelect}}"
                                 ng-model="selectedCostosAdic" md-progress="promiseCostosAdic">
-                                <thead ng-if="!optionsDetail.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                                <thead ng-if="!optionsDetail.decapitate" md-head md-order="queryDet.order" md-on-reorder="logOrder">
                                     <tr md-row>
                                         <th md-column md-order-by="codigo" md-desc style="width: 20%;">
                                             <span>Código</span>
@@ -106,14 +106,14 @@
                                 </thead>
                                 <tbody md-body>
                                     <tr md-row md-select="record" md-on-select="logItem" md-auto-select="optionsDetail.autoSelect"
-                                        ng-repeat="record in queryCostosAdic.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        ng-repeat="record in queryCostosAdic.data | filter: filter.search | orderBy: queryDet.order | limitTo: queryDet.limit : (queryDet.page -1) * queryDet.limit">
                                         <td md-cell>{{record.facCostosAdic.codigo}}</td>
                                         <td md-cell>{{record.facCostosAdic.nombre}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </md-table-container>
-                        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+                        <md-table-pagination md-limit="queryDet.limit" md-limit-options="limitOptions" md-page="queryDet.page"
                             md-total="{{queryCostosAdic.count}}" md-page-select="optionsDetail.pageSelect"
                             md-boundary-links="optionsDetail.boundaryLinks" md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
                     </div>
@@ -136,12 +136,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Codigo</label>
                                         <md-select placeholder="Costo Adicional" ng-model="addCostoAdic" md-on-open="loadCostosAdic()">
                                             <md-option ng-value="addCostoAdic" ng-repeat="addCostoAdic in costosAdic">{{addCostoAdic.nombre}}</md-option>
                                         </md-select>
-                                    </div>
+                                    </md-input-container>
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,7 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table',
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeout,
@@ -60,7 +60,7 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
         };
         $scope.promise = $consumeService.get('prospectos?emp=' + $localstorage.get('global.empresa', null));
         $scope.promise.then(function (result) {
-            // this is only run after getData() resolves        
+            // this is only run after getData() resolves
             $scope.queryClientes = result;
             $scope.$applyAsync();
         });

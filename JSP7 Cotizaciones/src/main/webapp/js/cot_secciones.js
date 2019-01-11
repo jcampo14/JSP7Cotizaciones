@@ -2,7 +2,7 @@ var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils']);
 
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
     'use strict';
-    $mdThemingProvider.theme('default').primaryPalette('blue');
+    $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
 app.controller('Ctrl', [
@@ -11,7 +11,7 @@ app.controller('Ctrl', [
     '$http', '$mdDialog',
     function ($localstorage, $consumeService, $scope, $timeout,
         $window, $http, $mdDialog) {
-        'use strict';        
+        'use strict';
         $scope.model = {
             isDisabled: true
         };
@@ -275,7 +275,7 @@ app.controller('Ctrl', [
                             }
                         });
                     }
-                });                
+                });
             }
         };
 

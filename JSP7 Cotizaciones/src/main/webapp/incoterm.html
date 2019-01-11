@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="css/incoterm.css">
+        crossorigin="anonymous">    
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="incotermController">
@@ -87,30 +86,30 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>Editar Incoterm</h2>
-                        <span flex></span>                        
+                        <span flex></span>
                     </div>
-                </md-toolbar>          
+                </md-toolbar>
                 <md-dialog-content>
                     <div class="card">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Código</label>
-                                        <input class="form-control border-input" ng-disabled="true" ng-model="editIncoterm.codIncoterm" placeholder="Código" type="text">
-                                    </div>
+                                        <input ng-disabled="true" ng-model="editIncoterm.codIncoterm" type="text">
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-9">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Nombre</label>
-                                        <input class="form-control border-input" ng-model="editIncoterm.nombre" placeholder="Nombre" type="text">
-                                    </div>
+                                        <input ng-model="editIncoterm.nombre" type="text">
+                                    </md-input-container>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </md-dialog-content>          
-                <md-dialog-actions layout="row">                                        
+                </md-dialog-content>
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>
@@ -123,31 +122,30 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>Adicionar Incoterm</h2>
-                        <span flex></span>                        
+                        <span flex></span>
                     </div>
-                </md-toolbar>          
+                </md-toolbar>
                 <md-dialog-content>
                     <div class="card">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Código</label>
-                                        <input class="form-control border-input" ng-model="addIncoterm.codIncoterm" placeholder="Código" type="text">
-                                    </div>
+                                        <input ng-model="addIncoterm.codIncoterm" type="text">
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-9">
-                                    <div class="form-group">
+                                    <md-input-container class="md-block">
                                         <label>Nombre</label>
-                                        <input class="form-control border-input" ng-model="addIncoterm.nombre" placeholder="Nombre" type="text">
-                                    </div>
+                                        <input ng-model="addIncoterm.nombre" type="text">
+                                    </md-input-container>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </md-dialog-content>
-          
-                <md-dialog-actions layout="row">                                        
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>

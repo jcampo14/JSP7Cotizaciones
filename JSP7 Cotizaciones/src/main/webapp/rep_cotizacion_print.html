@@ -2,117 +2,108 @@
 <html>
 
 <head>
-    <title>Impresión de Cotización</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="css/lib/angular-material.css">
-    <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
-    <link rel="stylesheet" href="css/lib/sweetalert2.css">
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
-    <link rel="stylesheet" href="css/lib/base.css" />
-    <link rel="stylesheet" href="css/lib/icon.css" />
-    <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
-        crossorigin="anonymous">
+  <title>Impresión de Cotización</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="css/lib/angular-material.css">
+  <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
+  <link rel="stylesheet" href="css/lib/sweetalert2.css">
+  <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
+  <link rel="stylesheet" href="css/lib/base.css" />
+  <link rel="stylesheet" href="css/lib/icon.css" />
+  <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
 </head>
 
 <body ng-app="App" ng-controller="Ctrl">
-    <div layout="row" layout-align="center">
-        <div class="panel-body" style="width: 50%">
-            <md-toolbar class="md-hue-2 _md _md-toolbar-transitions">
-                <div layout="row">
-                    <md-toolbar-filler layout="row" layout-align="center center">
-                        <md-icon md-font-icon="fas fa-chart-pie"></md-icon>
-                    </md-toolbar-filler>
-                    <div class="md-toolbar-tools">
-                        <h2 flex="" md-truncate="" class="md-truncate flex">Impresión de Cotización</h2>
-                        <button class="md-icon-button md-button md-icon-hover md-ink-ripple" type="button" ng-click="runReport()"
-                            aria-label="Agregar">
-                            <md-tooltip>Ejecutar</md-tooltip>
-                            <md-icon md-font-icon="fas fa-arrow-circle-right"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>                        
-                    </div>
-                </div>
-
-            </md-toolbar>
-            <div class="card">
-                <form name="mainForm" class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <md-input-container class="md-block">
-                                <label>Agencia</label>
-                                <md-select required name="cAgr" ng-model="param.cAgr">
-                                    <md-option ng-value="record.cAge" ng-repeat="record in agencias">{{record.cAge}} -
-                                        {{record.nom}}</md-option>
-                                </md-select>
-                                <div ng-messages="mainForm.cAgr.$error">
-                                    <div ng-message="required">Este campo es requerido.</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <md-input-container class="md-block">
-                                <label>Periodo</label>
-                                <input required type="text" ng-model="param.per">
-                                <div ng-messages="mainForm.cAgr.$error">
-                                    <div ng-message="required">Este campo es requerido.</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <md-input-container class="md-block">
-                                <label>No. Cotización</label>
-                                <input required type="text" ng-model="param.cot">
-                                <div ng-messages="mainForm.cot.$error">
-                                    <div ng-message="required">Este campo es requerido.</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <md-input-container class="md-block">
-                                <label>No. Revisión</label>
-                                <input required type="text" ng-model="param.rev">
-                                <div ng-messages="mainForm.rev.$error">
-                                    <div ng-message="required">Este campo es requerido.</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <md-checkbox ng-model="param.ocultarTotales" aria-label="Ocultar Totales" ng-true-value="'S'"
-                                ng-false-value="'N'" class="md-warn md-align-top-left" flex>
-                                Ocultar Totales
-                            </md-checkbox>
-                        </div>
-                    </div>
-                </form>
-            </div>
+  <div layout="row" layout-align="center">
+    <div class="panel-body" style="width: 50%">
+      <md-toolbar class="md-hue-2 _md _md-toolbar-transitions">
+        <div layout="row">
+          <md-toolbar-filler layout="row" layout-align="center center">
+            <md-icon md-font-icon="fas fa-chart-pie"></md-icon>
+          </md-toolbar-filler>
+          <div class="md-toolbar-tools">
+            <h2 flex="" md-truncate="" class="md-truncate flex">Impresión de Cotización</h2>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="runReport()" aria-label="Agregar">
+              <md-tooltip>Ejecutar</md-tooltip>
+              <md-icon md-font-icon="fas fa-arrow-circle-right"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+          </div>
         </div>
+      </md-toolbar>
+      <div class="card">
+        <form name="mainForm" class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <md-input-container class="md-block">
+                <label>Agencia</label>
+                <md-select required name="cAgr" ng-model="param.cAgr">
+                  <md-option ng-value="record.cAge" ng-repeat="record in agencias">{{record.cAge}} -
+                    {{record.nom}}</md-option>
+                </md-select>
+                <div ng-messages="mainForm.cAgr.$error">
+                  <div ng-message="required">Este campo es requerido.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div class="col-md-6">
+              <md-input-container class="md-block">
+                <label>Periodo</label>
+                <input required type="text" ng-model="param.per">
+                <div ng-messages="mainForm.cAgr.$error">
+                  <div ng-message="required">Este campo es requerido.</div>
+                </div>
+              </md-input-container>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <md-input-container class="md-block">
+                <label>No. Cotización</label>
+                <input required type="text" ng-model="param.cot">
+                <div ng-messages="mainForm.cot.$error">
+                  <div ng-message="required">Este campo es requerido.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div class="col-md-6">
+              <md-input-container class="md-block">
+                <label>No. Revisión</label>
+                <input required type="text" ng-model="param.rev">
+                <div ng-messages="mainForm.rev.$error">
+                  <div ng-message="required">Este campo es requerido.</div>
+                </div>
+              </md-input-container>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <md-checkbox ng-model="param.ocultarTotales" aria-label="Ocultar Totales" ng-true-value="'S'" ng-false-value="'N'" class="md-primary md-align-top-left">
+                Ocultar Totales
+              </md-checkbox>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <!-- Angular Material requires Angular.js Libraries -->
-    <script src="js/lib/angular-1.7.2/angular.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
-    <script src="js/lib/angular-material/angular-material.js"></script>
-    <!-- External Libraries -->
-    <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>
-    <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
-    <!-- module -->
-    <script src="js/lib/utils.js"></script>
-    <script src="js/rep_cotizacion_print.js"></script>
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="js/lib/angular-1.7.2/angular.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
+  <script src="js/lib/angular-material/angular-material.js"></script>
+  <!-- External Libraries -->
+  <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
+  <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>
+  <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
+  <!-- module -->
+  <script src="js/lib/utils.js"></script>
+  <script src="js/rep_cotizacion_print.js"></script>
 </body>
 
 </html>
