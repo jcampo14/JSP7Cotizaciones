@@ -6,13 +6,19 @@ app.factory('$localstorage', ['$window', function($window) {
         window.localStorage.setItem(key, value);
       },
       get: function(key, defaultValue) {
-        return window.localStorage.getItem(key) || defaultValue;                
+        return window.localStorage.getItem(key) || defaultValue;
       },
       setObject: function(key, value) {
-        window.localStorage.setItem(key, JSON.stringify(value));        
+        window.localStorage.setItem(key, JSON.stringify(value));
       },
       getObject: function(key) {
         return JSON.parse(window.localStorage.getItem(key) || '{}');
+      },
+      clear: function(){
+        window.localStorage.removeItem("token.jsp7");
+        window.localStorage.removeItem("global.empresa");
+        window.localStorage.removeItem("global.usuario");
+        window.localStorage.removeItem("global.nombreUsuario");        
       }
     }
   }]);
@@ -39,10 +45,10 @@ app.factory('$localstorage', ['$window', function($window) {
               'Content-Type': 'application/json',
               'Authorization': window.localStorage.getItem('token.jsp7')
             }
-            var promise = $http(configJson).then(function successCallback(response) {                        
+            var promise = $http(configJson).then(function successCallback(response) {
                 return response.data;
             }, function errorCallback(response) {
-                return response.data;                        
+                return response.data;
             });
             return promise;
         }

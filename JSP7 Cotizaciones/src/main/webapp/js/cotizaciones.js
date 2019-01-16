@@ -13,6 +13,10 @@ app.config(['$locationProvider', function($locationProvider) {
   });
 }]);
 
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
+
 app.controller('Ctrl', [
   '$localstorage', '$consumeService', '$scope', '$timeout',
   '$http', '$q', '$filter', '$location', '$window',
@@ -77,8 +81,9 @@ app.controller('Ctrl', [
       var promiseEmbalajes = $consumeService.get('embalajes?emp=' + $localstorage.get('global.empresa', null));
       var promiseParamFac = $consumeService.get('param-fac?emp=' + $localstorage.get('global.empresa', null));
       var promisePaises = $consumeService.get('paises?emp=' + $localstorage.get('global.empresa', null));
+      var promiseVendedor = $consumeService.get('vendedor?emp=' + $localstorage.get('global.empresa', null));
       $q.all([promiseSecciones, promiseIncoterms, promiseCriterios, promiseidiomas, promiseAgencias,
-        promiseEmbalajes, promiseParamFac, promisePaises
+        promiseEmbalajes, promiseParamFac, promisePaises, promiseVendedor
       ]).then(function(values) {
         $scope.secciones = values[0].data;
         $scope.incoterms = values[1].data;
@@ -88,6 +93,7 @@ app.controller('Ctrl', [
         $scope.embalajes = values[5].data;
         $scope.paramFac = values[6].data;
         $scope.paises = values[7].data;
+        $scope.vendedores = values[8].data;
         /* Si es una consulta */
         var urlParams = $location.search();
         if (urlParams.params != null) {
@@ -101,6 +107,8 @@ app.controller('Ctrl', [
           $scope.selectedArticulo = {};
           $scope.isLoading = false;
         }
+        /* Colocamos el vendedor por defecto */
+        $scope.cot_enc.usuario = $localstorage.get('global.usuario', null);
       });
     };
 
@@ -504,8 +512,8 @@ app.controller('Ctrl', [
               if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
                 var ivaValue = {
                   iva: {
-                    "cDes": $scope.autocompleteArticulos.selectedItem.idIva.cDes,
-                    "pctj": $scope.autocompleteArticulos.selectedItem.idIva.pctj
+                    "cDes": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.cDes : null,
+                    "pctj": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.pctj : 0
                   }
                 };
               } else {
@@ -611,7 +619,8 @@ app.controller('Ctrl', [
           "criVenta": $scope.cot_enc.criVenta.cri,
           "cSuc": $scope.cot_enc.cSuc,
           "idioma": $scope.cot_enc.idioma,
-          "usuario": $localstorage.get('global.usuario', null),
+          "usuario": $scope.cot_enc.usuario,
+          "usuarioElabora": $localstorage.get('global.usuario', null),
           "diasValidez": $scope.cot_enc.diasValidez,
           "embalaje": $scope.cot_enc.embalaje,
           "cot": $scope.cot_enc.cot,

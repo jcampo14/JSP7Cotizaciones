@@ -9,6 +9,8 @@ app.controller('loginController',
   function($localstorage, $consumeService, $scope,
     $window, $http) {
 
+    $localstorage.clear();
+
     $scope.titulo_formulario = "Centro de Autenticación JSP7";
 
     $scope.credentials = {};
@@ -69,7 +71,6 @@ app.controller('loginController',
             if (result.data.success == true) {
               $localstorage.set('global.empresa', $scope.credentials.company);
               $localstorage.set('global.usuario', $scope.credentials.username);
-
               /* Seteamos el nombre de usuario */
               $localstorage.set('global.nombreUsuario', result.data.message);
               /* Navegamos al Menu */

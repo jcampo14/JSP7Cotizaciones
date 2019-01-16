@@ -1,5 +1,7 @@
 package com.aspsols.cotizaciones.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -11,5 +13,8 @@ public interface VendedorRepository extends CrudRepository<Vendedor, VendedorId>
 
 	@Query("FROM Vendedor WHERE cEmp = :empresa AND usuario = :usuario")
 	public Vendedor findByUsuario(@Param("empresa") String empresa, @Param("usuario") String usuario);
+	
+	@Query("FROM Vendedor WHERE cEmp = :empresa")
+	public List<Vendedor> findByEmpresa(@Param("empresa") String empresa);
 
 }

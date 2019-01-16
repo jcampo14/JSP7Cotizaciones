@@ -21,7 +21,7 @@
 
 <body ng-app="App" ng-cloak ng-controller="Ctrl">
     <md-toolbar aria-hidden="false">
-        <div layout="row">            
+        <div layout="row">
             <div class="md-toolbar-tools">
                 <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
             </div>
@@ -33,6 +33,7 @@
             <md-radio-group ng-model="searchParam" layout="row">
                 <md-radio-button value="BY-PER" class="md-primary">Por Periodo</md-radio-button>
                 <md-radio-button value="BY-CLIENTE" class="md-primary">Por Cliente</md-radio-button>
+                <md-radio-button value="BY-NUMERO" class="md-primary">Por Número</md-radio-button>
             </md-radio-group>
         </div>
         <div class="card panel-body" ng-show="searchParam == 'BY-PER'">
@@ -60,7 +61,7 @@
                         </md-input-container>
                     </div>
                     <div class="col-md-3">
-                        <md-button ng-click="searchByPer()" class="md-raised md-primary">Buscar</md-button>
+                        <md-button ng-click="getRecordsByPer()" class="md-raised md-primary">Buscar</md-button>
                     </div>
                 </div>
             </form>
@@ -89,7 +90,27 @@
                         </md-autocomplete>
                     </div>
                     <div class="col-md-3">
-                        <md-button ng-click="searchByCliente()" class="md-raised md-primary">Buscar</md-button>
+                        <md-button ng-click="getRecordsByCliente()" class="md-raised md-primary">Buscar</md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card panel-body" ng-show="searchParam == 'BY-NUMERO'">
+            <legend>Búsqueda por Número</legend>
+            <form name="formBuscarNumero">
+                <div class="row">
+                    <div class="col-md-3">
+                        <md-input-container class="md-block">
+                            <label>Número</label>
+                            <input required type="number" name="num" ng-model="param.numeroCot"
+                                placeholder="Número de Cotización">
+                            <div ng-messages="formBuscarNumero.num.$error">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-3">
+                        <md-button ng-click="getRecordsByNumero()" class="md-raised md-primary">Buscar</md-button>
                     </div>
                 </div>
             </form>
@@ -112,8 +133,8 @@
                     <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="convertirAPedido()">
                         <md-tooltip>Convertir a Pedido</md-tooltip>
                         <md-icon md-font-icon="fas fa-check-circle"></md-icon>
-                        <div class="md-ripple-container"></div>                        
-                    </button>                    
+                        <div class="md-ripple-container"></div>
+                    </button>
                 </div>
             </md-toolbar>
             <md-table-container>

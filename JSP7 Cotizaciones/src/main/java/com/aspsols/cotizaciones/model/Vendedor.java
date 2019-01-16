@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.aspsols.cotizaciones.model.ids.VendedorId;
@@ -31,6 +34,11 @@ public class Vendedor implements Serializable {
 	@Column(name = "USUARIO_SP6")
 	private String usuario;
 
+	@ManyToOne
+	@JoinColumns(value = { @JoinColumn(name = "N_IDE", referencedColumnName = "N_IDE", insertable = false, updatable = false),
+			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
+	private Nits nit;
+
 	public String getcEmp() {
 		return cEmp;
 	}
@@ -53,6 +61,14 @@ public class Vendedor implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public Nits getNit() {
+		return nit;
+	}
+
+	public void setNit(Nits nit) {
+		this.nit = nit;
 	}
 
 }

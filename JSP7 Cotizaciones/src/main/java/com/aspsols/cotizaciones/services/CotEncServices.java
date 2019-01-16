@@ -44,6 +44,10 @@ public class CotEncServices {
 				new PageRequest(page - 1, size, QueryUtilities.oderBy(order)));
 	}
 
+	public Page<CotEnc> findByNumero(String numeroCot, String empresa, int page, int size, String order) {
+		return repository.findByNumero(numeroCot, empresa, new PageRequest(page - 1, size, QueryUtilities.oderBy(order)));
+	}
+
 	public List<CotizacionCountQuery> findByEmpresaAndVendedorGroupBy(String empresa, String vendedor) {
 		Vendedor vendedorNit = vendedorRepository.findByUsuario(empresa, vendedor);
 		if (vendedorNit != null) {

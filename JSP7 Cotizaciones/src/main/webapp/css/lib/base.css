@@ -222,3 +222,7 @@ button.button-action:hover {
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
 }
+
+md-content {
+  background-color: #f4f3ef !important;
+}

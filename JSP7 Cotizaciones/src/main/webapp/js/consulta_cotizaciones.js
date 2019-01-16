@@ -73,14 +73,6 @@ app.controller('Ctrl',
       }
     };
 
-    $scope.searchByPer = function() {
-      $scope.getRecordsByPer($scope.query.page, $scope.query.limit);
-    };
-
-    $scope.searchByCliente = function() {
-      $scope.getRecordsByCliente($scope.query.page, $scope.query.limit);
-    };
-
     $scope.getRecordsByPer = function() {
       if ($scope.formBuscarPeriodo.$valid) {
         console.log('page: ', $scope.query.page);
@@ -109,6 +101,24 @@ app.controller('Ctrl',
         method: "GET",
         url: "cot-encByCliente?emp=" + $localstorage.get("global.empresa", null) + "&cliente=" +
           $scope.param.cliente + "&page=" + $scope.query.page +
+          "&size=" + $scope.query.limit + "&order=" + $scope.query.order,
+        headers: {
+          Authorization: window.localStorage.getItem('token.jsp7')
+        }
+      };
+      $scope.promise = $http(requestConfig);
+      $scope.promise.then(function(result) {
+        $scope.queryData = result.data;
+      });
+    };
+
+    $scope.getRecordsByNumero = function() {
+      console.log('page: ', $scope.query.page);
+      console.log('limit: ', $scope.query.limit);
+      var requestConfig = {
+        method: "GET",
+        url: "cot-encByNumero?emp=" + $localstorage.get("global.empresa", null) + "&numeroCot=" +
+          $scope.param.numeroCot + "&page=" + $scope.query.page +
           "&size=" + $scope.query.limit + "&order=" + $scope.query.order,
         headers: {
           Authorization: window.localStorage.getItem('token.jsp7')

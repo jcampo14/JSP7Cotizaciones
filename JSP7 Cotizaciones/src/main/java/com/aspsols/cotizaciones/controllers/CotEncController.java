@@ -37,6 +37,14 @@ public class CotEncController {
 		return new QueryResponse<>(pageResult.getContent(), pageResult.getTotalElements());
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = "/cot-encByNumero")
+	public QueryResponse<CotEnc> findByNumero(@RequestParam("emp") String empresa,
+			@RequestParam("numeroCot") String numeroCot, @RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("order") String order) {
+		Page<CotEnc> pageResult = service.findByNumero(numeroCot, empresa, page, size, order);
+		return new QueryResponse<>(pageResult.getContent(), pageResult.getTotalElements());
+	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/cot-enc")
 	public CotEnc findByEmpresaAndVendedor(@RequestParam("emp") String empresa, @RequestParam("age") String agencia,
 			@RequestParam("per") String periodo, @RequestParam("numeroCot") String numeroCot,

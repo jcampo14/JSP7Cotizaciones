@@ -23,7 +23,8 @@
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2 flex md-truncate>{{titulo_formulario}}</h2>
-      <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="grabarCotizacion()" aria-label="Guardar" style="width: 60px; height: 60px;">
+      <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="grabarCotizacion()" aria-label="Guardar"
+        style="width: 60px; height: 60px; margin-right: 0px">
         <md-tooltip>Guardar</md-tooltip>
         <img src="img/guardar blanco.png" alt="Guardar">
         <div class="md-ripple-container"></div>
@@ -145,19 +146,27 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
+                    <md-input-container class="md-block">
+                      <label>Vendedor</label>
+                      <md-select required placeholder="Vendedor" ng-model="cot_enc.usuario">
+                        <md-option ng-value="record.usuario" ng-repeat="record in vendedores">{{record.nit.nom}}</md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Origen</label>
                       <input type="text" ng-model="cot_enc.origen" md-max-length="50">
                     </md-input-container>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Despacho</label>
                       <input type="text" ng-model="cot_enc.despacho" md-max-length="70">
                     </md-input-container>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Destino</label>
                       <md-select placeholder="Destino" ng-model="cot_enc.destino" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.cPai'}">
@@ -260,9 +269,11 @@
                               </span>
                             </span>
                           </md-item-template>
+                          <!--
                           <div ng-messages="detalleForm.autocompleteFieldArticulo.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
+                        -->
                         </md-autocomplete>
                       </div>
                       <div class="col-md-2">

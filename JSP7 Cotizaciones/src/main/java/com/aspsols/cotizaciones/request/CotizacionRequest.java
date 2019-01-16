@@ -55,6 +55,8 @@ public class CotizacionRequest implements Serializable {
 
 	private CliContacto contacto;
 
+	private String usuarioElabora;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
@@ -251,6 +253,14 @@ public class CotizacionRequest implements Serializable {
 
 	public void setContacto(CliContacto contacto) {
 		this.contacto = contacto;
+	}
+
+	public String getUsuarioElabora() {
+		return usuarioElabora;
+	}
+
+	public void setUsuarioElabora(String usuarioElabora) {
+		this.usuarioElabora = usuarioElabora;
 	}
 
 }

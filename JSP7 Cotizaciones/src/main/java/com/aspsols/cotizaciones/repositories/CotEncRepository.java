@@ -25,6 +25,9 @@ public interface CotEncRepository extends CrudRepository<CotEnc, CotEncId> {
 	@Query("SELECT c FROM CotEnc c WHERE nIde = :cliente AND cEmp = :empresa")
 	public Page<CotEnc> findByCliente(@Param("cliente") String cliente, @Param("empresa") String empresa, Pageable pageable);
 	
+	@Query("SELECT c FROM CotEnc c WHERE cot = :numeroCot AND cEmp = :empresa")
+	public Page<CotEnc> findByNumero(@Param("numeroCot") String numeroCot, @Param("empresa") String empresa, Pageable pageable);
+	
 	@Query("SELECT c FROM CotEnc c WHERE cot = :cot AND per = :periodo AND cAgr = :agencia AND cEmp = :empresa")
 	public Page<CotEnc> findByNumeroCot(@Param("empresa") String empresa, @Param("cot") String cot,
 			@Param("agencia") String agencia, @Param("periodo") String periodo, Pageable pageable);
