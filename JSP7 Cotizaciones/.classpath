@@ -33,16 +33,5 @@
 	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/JSON.jar"/>
 	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/RuntimeDBMetadata.jar"/>
 	<classpathentry kind="lib" path="/Asp/src/main/resources/version4/_20170502/despliegue/SQLTools4.jar"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

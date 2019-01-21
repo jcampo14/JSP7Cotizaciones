@@ -6,9 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,10 +36,12 @@ public class CliContacto implements Serializable {
 	@Column(name = "PER_CARGO")
 	private String perCargo;
 
+	/*
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
 			@JoinColumn(name = "NIT", referencedColumnName = "N_IDE", insertable = false, updatable = false) })
 	private Nits personaNit;
+	*/
 
 	public Long getId() {
 		return id;
@@ -83,7 +82,7 @@ public class CliContacto implements Serializable {
 	public void setPerCargo(String perCargo) {
 		this.perCargo = perCargo;
 	}
-
+/*
 	public Nits getPersonaNit() {
 		return personaNit;
 	}
@@ -91,5 +90,5 @@ public class CliContacto implements Serializable {
 	public void setPersonaNit(Nits personaNit) {
 		this.personaNit = personaNit;
 	}
-
+*/
 }

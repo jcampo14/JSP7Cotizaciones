@@ -4,7 +4,7 @@
     <title>Definición de Conceptos para las Secciones</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="css/lib/angular-material.css">
+    <link rel="stylesheet" href="css/lib/angular-material.min.css">
     <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
     <link rel="stylesheet" href="css/lib/sweetalert2.css">
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
@@ -176,9 +176,9 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>{{dialog.titulo}}</h2>
-                            <span flex></span>                        
+                            <span flex></span>
                         </div>
-                </md-toolbar>          
+                </md-toolbar>
                 <md-dialog-content>
                     <div class="card">
                         <div class="panel-body">
@@ -192,14 +192,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Descripción</label>
-                                        <textarea class="form-control border-input" ng-model="seccion_detalle.descripcion" placeholder="Descripción" rows="7"></textarea>                                        
+                                        <textarea class="form-control border-input" ng-model="seccion_detalle.descripcion" placeholder="Descripción" rows="7"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </md-dialog-content>
-                <md-dialog-actions layout="row">                                        
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>
@@ -212,9 +212,9 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>{{dialog.titulo}}</h2>
-                            <span flex></span>                        
+                            <span flex></span>
                         </div>
-                </md-toolbar>          
+                </md-toolbar>
                 <md-dialog-content>
                     <div class="card">
                         <div class="panel-body">
@@ -226,17 +226,17 @@
                                             <md-option ng-value="idioma.idioma" ng-repeat="idioma in idiomas">{{idioma.idioma}}</md-option>
                                         </md-select>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Descripción</label>
                                         <textarea class="form-control border-input" ng-model="detalle_idioma.descripcion" placeholder="Descripción" rows="7"></textarea>                                        </div>
-                                </div>                                                                  
+                                </div>
                             </div>
                         </div>
                     </div>
                 </md-dialog-content>
-                <md-dialog-actions layout="row">                                        
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>
@@ -248,7 +248,7 @@
     <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
     <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
     <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
-    <script src="js/lib/angular-material/angular-material.js"></script>
+    <script src="js/lib/angular-material/angular-material.min.js"></script>
     <!-- External Libraries -->
     <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
     <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>

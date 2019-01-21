@@ -95,6 +95,9 @@ public class CotEnc implements Serializable {
 	@Column(name = "LUGAR_DESTINO")
 	private String lugarDestino;
 
+	@Column(name = "OBS")
+	private String obs;
+
 	@ManyToOne
 	@JoinColumn(name = "ID_CONTACTO", referencedColumnName = "ID")
 	private CliContacto contacto;
@@ -379,6 +382,14 @@ public class CotEnc implements Serializable {
 
 	public void setContacto(CliContacto contacto) {
 		this.contacto = contacto;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}
 
 }

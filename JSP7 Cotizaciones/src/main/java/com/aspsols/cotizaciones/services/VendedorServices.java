@@ -17,4 +17,12 @@ public class VendedorServices {
 	public List<Vendedor> findAll(String empresa) {
 		return repository.findByEmpresa(empresa);
 	}
+	
+	public Vendedor findByNit(String nIde, String empresa) {
+		return repository.findByNit(nIde, empresa);
+	}
+	
+	public Vendedor findByUsuario(String usuario, String empresa) {
+		return repository.findByUsuario(empresa, usuario);
+	}
 }

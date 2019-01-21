@@ -34,8 +34,12 @@ public class Vendedor implements Serializable {
 	@Column(name = "USUARIO_SP6")
 	private String usuario;
 
+	@Column(name = "EST")
+	private String est;
+
 	@ManyToOne
-	@JoinColumns(value = { @JoinColumn(name = "N_IDE", referencedColumnName = "N_IDE", insertable = false, updatable = false),
+	@JoinColumns(value = {
+			@JoinColumn(name = "N_IDE", referencedColumnName = "N_IDE", insertable = false, updatable = false),
 			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
 	private Nits nit;
 
@@ -69,6 +73,14 @@ public class Vendedor implements Serializable {
 
 	public void setNit(Nits nit) {
 		this.nit = nit;
+	}
+
+	public String getEst() {
+		return est;
+	}
+
+	public void setEst(String est) {
+		this.est = est;
 	}
 
 }

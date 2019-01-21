@@ -4,7 +4,7 @@
     <title>Definición de Embalajes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="css/lib/angular-material.css">
+    <link rel="stylesheet" href="css/lib/angular-material.min.css">
     <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
     <link rel="stylesheet" href="css/lib/sweetalert2.css">
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
@@ -91,7 +91,7 @@
                                 <md-tooltip>Agregar Registro</md-tooltip>
                                 <md-icon md-font-icon="fas fa-plus"></md-icon>
                                 <div class="md-ripple-container"></div>
-                            </button>                            
+                            </button>
                             <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="deleteSinonimo()"
                                 aria-label="Eliminar">
                                 <md-tooltip>Eliminar Registro</md-tooltip>
@@ -136,9 +136,9 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>{{dialogTitle}}</h2>
-                        <span flex></span>                        
+                        <span flex></span>
                     </div>
-                </md-toolbar>          
+                </md-toolbar>
                 <md-dialog-content>
                     <div class="card">
                         <div class="panel-body">
@@ -147,19 +147,19 @@
                                     <md-input-container class="md-block">
                                         <label>Código</label>
                                         <input required ng-disabled="isDisabled" type="text" ng-model="record.cEmb" md-max-length="5">
-                                    </md-input-container>                                    
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-9">
                                     <md-input-container class="md-block">
                                         <label>Nombre</label>
                                         <input required type="text" ng-model="record.nombre" md-max-length="2000">
-                                    </md-input-container>                                     
+                                    </md-input-container>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </md-dialog-content>          
-                <md-dialog-actions layout="row">                                        
+                </md-dialog-content>
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>
@@ -172,7 +172,7 @@
                 <md-toolbar>
                     <div class="md-toolbar-tools">
                         <h2>{{dialogTitle}}</h2>
-                        <span flex></span>                        
+                        <span flex></span>
                     </div>
                 </md-toolbar>
                 <md-dialog-content>
@@ -182,13 +182,13 @@
                                 <div class="col-md-12 form-group">
                                     <md-input-container class="md-block">
                                         <label>Idioma</label>
-                                        <md-select required md-on-open="loadIdiomas()" placeholder="Idioma" ng-model="record.idioma" name="idioma">                                            
+                                        <md-select required md-on-open="loadIdiomas()" placeholder="Idioma" ng-model="record.idioma" name="idioma">
                                             <md-option ng-value="record.idioma" ng-repeat="record in idiomas">{{record.idioma}}</md-option>
                                         </md-select>
                                     <div ng-messages="sinonimoForm.idioma.$error">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
-                                    </md-input-container>                                    
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-12">
                                     <md-input-container class="md-block">
@@ -197,14 +197,14 @@
                                     <div ng-messages="sinonimoForm.descripcion.$error">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
-                                    </md-input-container>                                     
+                                    </md-input-container>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <md-divider></md-divider>
-                </md-dialog-content>                
-                <md-dialog-actions layout="row">                                        
+                </md-dialog-content>
+                <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
                     <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
                 </md-dialog-actions>
@@ -216,7 +216,7 @@
     <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
     <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
     <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
-    <script src="js/lib/angular-material/angular-material.js"></script>
+    <script src="js/lib/angular-material/angular-material.min.js"></script>
     <!-- External Libraries -->
     <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
     <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>

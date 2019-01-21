@@ -1,12 +1,13 @@
 package com.aspsols.cotizaciones.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import com.aspsols.cotizaciones.model.ids.PrecioId;
@@ -41,6 +42,11 @@ public class Precio implements Serializable {
 
 	public Precio() {
 		super();
+	}
+	
+	@PrePersist
+	public void preInsert() {
+		setFecha(new Date());
 	}
 
 	public String getcEmp() {

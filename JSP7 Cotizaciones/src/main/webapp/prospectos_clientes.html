@@ -4,7 +4,7 @@
     <title>Prospectos de Clientes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="css/lib/angular-material.css">
+    <link rel="stylesheet" href="css/lib/angular-material.min.css">
     <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
     <link rel="stylesheet" href="css/lib/sweetalert2.css" />
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
@@ -158,9 +158,9 @@
                         <span flex></span>
                     </div>
                 </md-toolbar>
-                <md-dialog-content>                    
+                <md-dialog-content>
                     <div class="card">
-                        <div class="panel-body">    
+                        <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <md-input-container class="md-block">
@@ -171,7 +171,7 @@
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
                                     </md-input-container>
-                                </div>                                    
+                                </div>
                                 <div class="col-md-12">
                                     <md-input-container class="md-block">
                                         <label>Nombre</label>
@@ -179,27 +179,27 @@
                                             type="text" md-max-length="40">
                                         <div ng-messages="formDialog.nombre.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
-                                        </div>                                                
-                                    </md-input-container>                                    
+                                        </div>
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label>Zona</label>
-                                        <md-select required placeholder="Zona" ng-model="record.zona" >                                                
+                                        <md-select required placeholder="Zona" ng-model="record.zona" >
                                             <md-option ng-value="record.zon" ng-repeat="record in zonas">{{record.nom}}</md-option>
                                         </md-select>
-                                    </div>                                  
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>¿Maneja IVA?</label>
-                                        <md-switch ng-model="record.iva" aria-label="Iva" ng-true-value="'S'" ng-false-value="'N'">                                            
+                                        <md-switch ng-model="record.iva" aria-label="Iva" ng-true-value="'S'" ng-false-value="'N'">
                                         </md-switch>
-                                    </div>                                  
-                                </div>                                
-                            </div>                          
-                        </div>    
-                    </div>                  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </md-dialog-content>
                 <md-dialog-actions layout="row">
                     <md-button class="md-primary md-raised edgePadding" ng-click="action(true,formDialog)">Aceptar</md-button>
@@ -217,8 +217,8 @@
                         <span flex></span>
                     </div>
                 </md-toolbar>
-                <md-dialog-content>                                        
-                    <div class="panel-body">    
+                <md-dialog-content>
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <md-input-container class="md-block">
@@ -229,7 +229,7 @@
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
                                 </md-input-container>
-                            </div>                                    
+                            </div>
                             <div class="col-md-12">
                                 <md-input-container class="md-block">
                                     <label>Nombre Persona</label>
@@ -237,11 +237,11 @@
                                         type="text" md-max-length="2000">
                                     <div ng-messages="formDialog.perCargo.$error">
                                         <div ng-message="required">Este campo es requerido.</div>
-                                    </div>                                                
-                                </md-input-container>                                    
-                            </div>                                                                                              
-                        </div>                          
-                    </div>    
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
                     <md-divider></md-divider>
                 </md-dialog-content>
                 <md-dialog-actions layout="row">
@@ -256,7 +256,7 @@
     <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
     <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
     <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
-    <script src="js/lib/angular-material/angular-material.js"></script>
+    <script src="js/lib/angular-material/angular-material.min.js"></script>
     <!-- External Libraries -->
     <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
     <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>

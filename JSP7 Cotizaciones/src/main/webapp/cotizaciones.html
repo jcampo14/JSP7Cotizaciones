@@ -20,18 +20,17 @@
   <div class="loading" ng-show="consumingService">
     <img src="img/loading.svg" class="loading-spinner">
   </div>
-  <md-toolbar>
+  <md-toolbar md-scroll-shrink>
     <div class="md-toolbar-tools">
       <h2 flex md-truncate>{{titulo_formulario}}</h2>
-      <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="grabarCotizacion()" aria-label="Guardar"
-        style="width: 60px; height: 60px; margin-right: 0px">
+      <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="grabarCotizacion()" aria-label="Guardar" style="width: 60px; height: 60px; margin-right: 0px">
         <md-tooltip>Guardar</md-tooltip>
         <img src="img/guardar blanco.png" alt="Guardar">
         <div class="md-ripple-container"></div>
       </button>
     </div>
   </md-toolbar>
-  <div class="panel-body principal-panel">
+  <md-content class="panel-body principal-panel">
     <div ng-show="isLoading" class="progress">
       <div class="progress-bar progress-bar-striped active" style="width: 100%">
         Cargando, Espere por favor...
@@ -75,7 +74,7 @@
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Incoterm</label>
-                      <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()" ng-change="cargarCostosIncoterm()" ng-disabled="cot_enc.criVenta.mon == 'PESO'">
+                      <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()" ng-change="cargarCostosIncoterm()" ng-disabled="cot_enc.criVenta.mon == 'PESO' || cot_enc.criVenta == undefined">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -89,11 +88,7 @@
                       md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem" md-no-cache="autocompleteTerceros.noCache" md-input-name="autocompleteField" md-selected-item-change="autocompleteTerceros.selectItemChange(item)"
                       md-min-length="3" md-menu-class="autocomplete-custom-template" md-floating-label="Cliente">
                       <md-item-template>
-                        <span class="item-metadata">
-                          <span>
-                            <strong>{{item.nIde}} - {{item.nombre}}</strong>
-                          </span>
-                        </span>
+                        <span md-highlight-text="autocompleteArticulos.searchText">{{item.nIde}} - {{item.nombre}}</span>
                       </md-item-template>
                       <div ng-messages="EncForm.autocompleteField.$error">
                         <div ng-message="required">Este campo es requerido.</div>
@@ -212,6 +207,14 @@
                     </md-input-container>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <md-input-container class="md-block">
+                      <label>Observación</label>
+                      <textarea ng-model="cot_enc.obs" md-max-length="2000"></textarea>
+                    </md-input-container>
+                  </div>
+                </div>
                 <div class="row" ng-show="tieneCostos">
                   <div class="col-md-12">
                     <legend>Costos Adicionales/Cargos de la Cotización</legend>
@@ -258,24 +261,27 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="row">
-                      <div class="col-md-10">
-                        <md-autocomplete required flex md-item-text="articulo.cod + ' - ' + articulo.nom" md-items="articulo in autocompleteArticulos.querySearch(autocompleteArticulos.searchText)" md-search-text="autocompleteArticulos.searchText"
-                          md-selected-item="autocompleteArticulos.selectedItem" md-no-cache="autocompleteArticulos.noCache" md-input-name="autocompleteFieldArticulo" md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)"
-                          md-menu-class="autocomplete-custom-template" md-min-length="3" md-require-match md-floating-label="Articulo" ng-disabled="isDisabled">
+                      <div class="col-md-4">
+                        <md-autocomplete required flex md-item-text="articulo.cod" md-items="articulo in autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
+                          md-search-text-change="autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
+                          md-search-text="autocompleteArticulos.searchText" md-selected-item="autocompleteArticulos.selectedItem"
+                          md-no-cache="autocompleteArticulos.noCache" md-input-name="autocompleteFieldArticulo"
+                          md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)" md-select-on-match
+                          md-menu-class="autocomplete-custom-template" md-min-length="3" md-floating-label="Código Articulo" ng-disabled="isDisabled">
                           <md-item-template>
-                            <span class="item-metadata">
-                              <span>
-                                <strong>{{articulo.cod}} - {{articulo.nom}}</strong>
-                              </span>
-                            </span>
+                            <span md-highlight-text="autocompleteArticulos.searchText">{{articulo.cod}} - {{articulo.nom}}</span>
                           </md-item-template>
-                          <!--
                           <div ng-messages="detalleForm.autocompleteFieldArticulo.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
-                        -->
                         </md-autocomplete>
-                      </div>
+                        </div>
+                        <div class="col-md-6">
+                            <md-input-container class="md-block">
+                              <label>Nombre Articulo</label>
+                              <input type="text" disabled name="nombreArticulo" ng-model="autocompleteArticulos.selectedItem.nom">
+                            </md-input-container>
+                        </div>
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>Cantidad</label>
@@ -290,7 +296,7 @@
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>Precio Lista</label>
-                          <input required name="precioLista" ng-model="selectedDetalle.precio_lista" ui-number-mask="2" ng-disabled="true">
+                          <input ng-required="selectedDetalle.tienePrecio" name="precioLista" ng-model="selectedDetalle.precio_lista" ui-number-mask="2" ng-disabled="true">
                           <div ng-messages="detalleForm.precioLista.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
@@ -471,7 +477,7 @@
           </md-content>
         </md-tab>
     </div>
-  </div>
+  </md-content>
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="js/lib/angular-1.7.2/angular.min.js"></script>
   <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>

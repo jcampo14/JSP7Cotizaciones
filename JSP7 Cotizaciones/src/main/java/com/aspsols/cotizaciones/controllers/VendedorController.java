@@ -22,7 +22,16 @@ public class VendedorController {
 	@GetMapping(value = SERVICE_PATH)
 	public QueryResponse<Vendedor> findByEmpresa(@RequestParam("emp") String empresa) {
 		List<Vendedor> data = services.findAll(empresa);
-		return new QueryResponse<>(data, data.size()); 
+		return new QueryResponse<>(data, data.size());
 	}
 
+	@GetMapping(value = "/vendedorByNit")
+	public Vendedor findByNit(@RequestParam("emp") String empresa, @RequestParam("nit") String nIde) {
+		return services.findByNit(nIde, empresa);
+	}
+
+	@GetMapping(value = "/vendedorByUsuario")
+	public Vendedor findByUsuario(@RequestParam("emp") String empresa, @RequestParam("usuario") String usuario) {
+		return services.findByUsuario(usuario, empresa);
+	}
 }

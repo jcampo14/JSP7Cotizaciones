@@ -57,6 +57,8 @@ public class CotizacionRequest implements Serializable {
 
 	private String usuarioElabora;
 
+	private String obs;
+
 	private List<CotizacionSeccionesRequest> secciones;
 
 	private List<CotizacionDetRequest> detalle;
@@ -261,6 +263,14 @@ public class CotizacionRequest implements Serializable {
 
 	public void setUsuarioElabora(String usuarioElabora) {
 		this.usuarioElabora = usuarioElabora;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}
 
 }
