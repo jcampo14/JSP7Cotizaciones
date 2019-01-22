@@ -62,6 +62,9 @@ public class CotEnc implements Serializable {
 	@Column(name = "TOTD")
 	private Double totd;
 
+	@Column(name = "IVA")
+	private Double iva;
+
 	@Column(name = "N_IDE")
 	private String nIde;
 
@@ -390,6 +393,14 @@ public class CotEnc implements Serializable {
 
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+
+	public Double getIva() {
+		return iva;
+	}
+
+	public void setIva(Double iva) {
+		this.iva = iva;
 	}
 
 }
