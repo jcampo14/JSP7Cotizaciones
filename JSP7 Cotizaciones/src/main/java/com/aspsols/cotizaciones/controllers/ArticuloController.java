@@ -3,6 +3,7 @@ package com.aspsols.cotizaciones.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,5 +37,11 @@ public class ArticuloController {
 		PaginationResponse<Articulo> resultData = service.showByEmpresa(empresa, filtro, page, size);
 		return new QueryResponse<>(resultData.getData(), resultData.getTotalElements());				
 	};
+	
+	@GetMapping(value = SERVICE_PATH + "ByCod")
+	public QueryResponse<Articulo> findByCodigo(@RequestParam("emp") String empresa, @RequestParam("cod") String codigo){
+		List<Articulo> resultData = service.findByCodigo(empresa, codigo);
+		return new QueryResponse<>(resultData, resultData.size());
+	}
 
 }

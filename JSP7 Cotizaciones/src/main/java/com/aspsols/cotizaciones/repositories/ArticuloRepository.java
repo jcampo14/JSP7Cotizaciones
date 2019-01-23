@@ -1,5 +1,7 @@
 package com.aspsols.cotizaciones.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +20,8 @@ public interface ArticuloRepository extends PagingAndSortingRepository<Articulo,
 	@Query("SELECT A FROM Articulo A WHERE (cod LIKE '%'||:filtro||'%' OR nom LIKE '%'||:filtro||'%') AND fact = 'S' "
 			+ " AND rama = 'D' AND cEmp = :empresa")
 	public Page<Articulo> findByEmpresa(@Param("empresa") String empresa, @Param("filtro") String filtro, Pageable page);
+	
+	@Query("FROM Articulo WHERE cod = :codigo AND cEmp = :empresa")
+	public List<Articulo> findByCodigo(@Param("empresa") String empresa, @Param("codigo") String codigo);
 	
 }

@@ -97,7 +97,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Sucursal</label>
                       <md-select required name="cSuc" ng-model="cot_enc.cSuc" md-on-open="cargarSucursales()">
@@ -138,6 +138,12 @@
                         <md-option ng-value="record.cEmb" ng-repeat="record in embalajes | filter:searchEmbajale">{{record.nombre}}</md-option>
                       </md-select>
                     </md-input-container>
+                  </div>
+                  <div class="col-md-1">
+                    <md-switch ng-model="cot_enc.iva" aria-label="¿IVA?" ng-true-value="'S'" ng-false-value="'N'" class="md-primary"
+                      ng-change="ivaChangeDocument()">
+                      ¿IVA?
+                    </md-switch>
                   </div>
                 </div>
                 <div class="row">
@@ -262,12 +268,9 @@
                   <div class="col-md-12">
                     <div class="row">
                       <div class="col-md-4">
-                        <md-autocomplete required flex md-item-text="articulo.cod" md-items="articulo in autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
-                          md-search-text-change="autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
-                          md-search-text="autocompleteArticulos.searchText" md-selected-item="autocompleteArticulos.selectedItem"
-                          md-no-cache="autocompleteArticulos.noCache" md-input-name="autocompleteFieldArticulo"
-                          md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)" md-select-on-match
-                          md-menu-class="autocomplete-custom-template" md-min-length="3" md-floating-label="Código Articulo" ng-disabled="isDisabled">
+                        <md-autocomplete required flex md-item-text="articulo.cod" md-items="articulo in autocompleteArticulos.querySearch(autocompleteArticulos.searchText)" md-search-text-change="autocompleteArticulos.querySearch(autocompleteArticulos.searchText)"
+                          md-search-text="autocompleteArticulos.searchText" md-selected-item="autocompleteArticulos.selectedItem" md-no-cache="autocompleteArticulos.noCache" md-input-name="autocompleteFieldArticulo" md-selected-item-change="autocompleteArticulos.selectItemChange(articulo)"
+                          md-select-on-match md-menu-class="autocomplete-custom-template" md-min-length="3" md-floating-label="Código Articulo" ng-disabled="isDisabled">
                           <md-item-template>
                             <span md-highlight-text="autocompleteArticulos.searchText">{{articulo.cod}} - {{articulo.nom}}</span>
                           </md-item-template>
@@ -275,13 +278,13 @@
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
                         </md-autocomplete>
-                        </div>
-                        <div class="col-md-6">
-                            <md-input-container class="md-block">
-                              <label>Nombre Articulo</label>
-                              <input type="text" disabled name="nombreArticulo" ng-model="autocompleteArticulos.selectedItem.nom">
-                            </md-input-container>
-                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <md-input-container class="md-block">
+                          <label>Nombre Articulo</label>
+                          <input type="text" disabled name="nombreArticulo" ng-model="autocompleteArticulos.selectedItem.nom">
+                        </md-input-container>
+                      </div>
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>Cantidad</label>

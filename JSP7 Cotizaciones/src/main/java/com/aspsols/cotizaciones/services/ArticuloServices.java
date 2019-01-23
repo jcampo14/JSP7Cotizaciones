@@ -28,4 +28,8 @@ public class ArticuloServices {
 		pageResult.forEach(resultData::add);		
 		return new PaginationResponse<>(resultData, pageResult.getTotalElements());
 	}
+	
+	public List<Articulo> findByCodigo(String empresa, String codigo){
+		return repository.findByCodigo(empresa, codigo);
+	}
 }

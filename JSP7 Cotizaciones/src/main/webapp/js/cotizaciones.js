@@ -122,6 +122,7 @@ app.controller('Ctrl', [
           $scope.cot_enc.cSuc = {};
           $scope.cot_enc.contacto = {};
           $scope.cot_enc.nIde = item.nIde;
+          $scope.cot_enc.iva = item.iva;
         }
       },
       querySearch: function(query) {
@@ -213,6 +214,11 @@ app.controller('Ctrl', [
           "cVen": result.cVen,
           "embalaje": result.embalaje ? result.embalaje.cEmb : null
         };
+        if (result.iva > 0) {
+          $scope.cot_enc.iva = 'S';
+        } else {
+          $scope.cot_enc.iva = 'N';
+        }
         $scope.cot_det = [];
         /* Buscamos el usuario grabado */
         var promiseGetVendedorByUsuario = $consumeService.get('vendedorByNit?emp=' + $localstorage.get('global.empresa', null) +
@@ -278,7 +284,7 @@ app.controller('Ctrl', [
             "descuento": result.detalle[index].pDes,
             "descripcion": result.detalle[index].inf7
           };
-          if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
+          if ($scope.cot_enc.iva == 'S') {
             var ivaValue = {
               iva: {
                 "cDes": $scope.autocompleteArticulos.selectedItem.idIva.cDes,
@@ -315,6 +321,33 @@ app.controller('Ctrl', [
         console.log(error);
         swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
       });
+    };
+
+    $scope.ivaChangeDocument = function() {
+      if ($scope.cot_enc.iva == 'S') {
+        var promiseArray = [];
+        $scope.cot_det.forEach(function callback(currentValue, index, array) {
+          var promiseObject = $consumeService.get('articulosByCod?emp=' + currentValue.cEmp + '&cod=' + currentValue.id.cod);
+          promiseArray.push(promiseObject);
+        });
+        $scope.consumingService = true;
+        $q.all(promiseArray).then(function(values) {
+          $scope.cot_det.forEach(function callback(currentValue, index, array) {
+            $scope.cot_det[index].iva = {
+              "cDes": values[index].data[0].idIva != undefined ? values[index].data[0].idIva.cDes : null,
+              "pctj": values[index].data[0].idIva != undefined ? values[index].data[0].idIva.pctj : 0
+            };
+          });
+          $scope.consumingService = false;
+        });
+      } else {
+        $scope.cot_det.forEach(function callback(currentValue, index, array) {
+          $scope.cot_det[index].iva = {
+            "cDes": null,
+            "pctj": 0
+          };
+        });
+      }
     };
 
     /* Limpiar el filtro del select */
@@ -469,7 +502,7 @@ app.controller('Ctrl', [
             descuento: $scope.selectedDetalle.descuento,
             descripcion: $scope.selectedDetalle.descripcion
           };
-          if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
+          if ($scope.cot_enc.iva == 'S') {
             var ivaValue = {
               iva: {
                 "cDes": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.cDes : null,
@@ -519,7 +552,7 @@ app.controller('Ctrl', [
               $scope.cot_det[index].precio_venta = $scope.selectedDetalle.precio_venta;
               $scope.cot_det[index].descuento = $scope.selectedDetalle.descuento;
               $scope.cot_det[index].descripcion = $scope.selectedDetalle.descripcion;
-              if ($scope.autocompleteTerceros.selectedItem.iva == 'S') {
+              if ($scope.cot_enc.iva == 'S') {
                 var ivaValue = {
                   iva: {
                     "cDes": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.cDes : null,
@@ -639,7 +672,7 @@ app.controller('Ctrl', [
           "modificar": $scope.cot_enc.modificar,
           "origen": $scope.cot_enc.origen,
           "destino": $scope.cot_enc.destino,
-          "iva": $scope.autocompleteTerceros.selectedItem.iva,
+          "iva": $scope.cot_enc.iva,
           "incoterm": $scope.cot_enc.incoterm,
           "terminoPago": $scope.cot_enc.terminoPago,
           "tiempoEntrega": $scope.cot_enc.tiempoEntrega,
