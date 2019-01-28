@@ -16,16 +16,19 @@ public class Terceros implements Serializable {
 	private String nombre;
 
 	private String iva;
-	
-	private String zona;	
 
-	public Terceros(String cEmp, String nIde, String nombre, String iva, String zona) {
+	private String zona;
+
+	private String suc;
+
+	public Terceros(String cEmp, String nIde, String nombre, String iva, String zona, String suc) {
 		super();
 		this.cEmp = cEmp;
 		this.nIde = nIde;
 		this.nombre = nombre;
 		this.iva = iva;
 		this.zona = zona;
+		this.suc = suc;
 	}
 
 	public Terceros() {
@@ -70,6 +73,14 @@ public class Terceros implements Serializable {
 
 	public void setZona(String zona) {
 		this.zona = zona;
+	}
+
+	public String getSuc() {
+		return suc;
+	}
+
+	public void setSuc(String suc) {
+		this.suc = suc;
 	}
 
 }

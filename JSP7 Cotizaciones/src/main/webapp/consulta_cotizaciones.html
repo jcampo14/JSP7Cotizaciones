@@ -2,197 +2,227 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>Consulta de Cotizaciones</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="css/lib/angular-material.min.css">
-    <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
-    <link rel="stylesheet" href="css/lib/sweetalert2.css">
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
-    <link rel="stylesheet" href="css/lib/base.css" />
-    <link rel="stylesheet" href="css/lib/icon.css" />
-    <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
-        crossorigin="anonymous">
+  <meta charset="utf-8" />
+  <title>Consulta de Cotizaciones</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="css/lib/angular-material.min.css">
+  <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
+  <link rel="stylesheet" href="css/lib/sweetalert2.css">
+  <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
+  <link rel="stylesheet" href="css/lib/base.css" />
+  <link rel="stylesheet" href="css/lib/icon.css" />
+  <link rel="stylesheet" href="css/lib/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/lib/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="Ctrl">
-    <md-toolbar aria-hidden="false">
-        <div layout="row">
-            <div class="md-toolbar-tools">
-                <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
-            </div>
-        </div>
-    </md-toolbar>
-    <div class="panel-body">
-        <div class="card panel-body">
-            <legend>Parámetros de Búsqueda</legend>
-            <md-radio-group ng-model="searchParam" layout="row">
-                <md-radio-button value="BY-PER" class="md-primary">Por Periodo</md-radio-button>
-                <md-radio-button value="BY-CLIENTE" class="md-primary">Por Cliente</md-radio-button>
-                <md-radio-button value="BY-NUMERO" class="md-primary">Por Número</md-radio-button>
-            </md-radio-group>
-        </div>
-        <div class="card panel-body" ng-show="searchParam == 'BY-PER'">
-            <legend>Búsqueda por Periodos</legend>
-            <form name="formBuscarPeriodo">
-                <div class="row">
-                    <div class="col-md-3">
-                        <md-input-container class="md-block">
-                            <label>Periodo Inicial</label>
-                            <input required type="text" name="perIni" ng-model="param.perIni" md-max-length="6"
-                                placeholder="YYYYMM">
-                            <div ng-messages="formBuscarPeriodo.perIni.$error">
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                    <div class="col-md-3">
-                        <md-input-container class="md-block">
-                            <label>Periodo Final</label>
-                            <input required type="text" name="perFin" ng-model="param.perFin" md-max-length="6"
-                                placeholder="YYYYMM">
-                            <div ng-messages="formBuscarPeriodo.perFin.$error">
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                    <div class="col-md-3">
-                        <md-button ng-click="getRecordsByPer()" class="md-raised md-primary">Buscar</md-button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="card panel-body" ng-show="searchParam == 'BY-CLIENTE'">
-            <legend>Búsqueda por Cliente</legend>
-            <form name="formBuscarCliente">
-                <div class="row">
-                    <div class="col-md-4">
-                        <md-autocomplete required flex md-item-text="item.nIde + ' - ' + item.nombre" md-items="item in autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
-                            md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
-                            md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem"
-                            md-no-cache="autocompleteTerceros.noCache" md-input-name="autocompleteField"
-                            md-selected-item-change="autocompleteTerceros.selectItemChange(item)" md-min-length="3"
-                            md-menu-class="autocomplete-custom-template" md-floating-label="Cliente">
-                            <md-item-template>
-                                <span class="item-metadata">
-                                    <span>
-                                        <strong>{{item.nIde}} - {{item.nombre}}</strong>
-                                    </span>
-                                </span>
-                            </md-item-template>
-                            <div ng-messages="formBuscarCliente.autocompleteField.$error">
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-                        </md-autocomplete>
-                    </div>
-                    <div class="col-md-3">
-                        <md-button ng-click="getRecordsByCliente()" class="md-raised md-primary">Buscar</md-button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="card panel-body" ng-show="searchParam == 'BY-NUMERO'">
-            <legend>Búsqueda por Número</legend>
-            <form name="formBuscarNumero">
-                <div class="row">
-                    <div class="col-md-3">
-                        <md-input-container class="md-block">
-                            <label>Número</label>
-                            <input required type="number" name="num" ng-model="param.numeroCot"
-                                placeholder="Número de Cotización">
-                            <div ng-messages="formBuscarNumero.num.$error">
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                    <div class="col-md-3">
-                        <md-button ng-click="getRecordsByNumero()" class="md-raised md-primary">Buscar</md-button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="card">
-            <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
-                <div class="md-toolbar-tools">
-                    <h2 class="md-title">Cotizaciones Registradas</h2>
-                    <div flex="" class="flex"></div>
-                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="llamarFormulario('N')">
-                        <md-tooltip>Agregar Revision</md-tooltip>
-                        <md-icon md-font-icon="fas fa-plus"></md-icon>
-                        <div class="md-ripple-container"></div>
-                    </button>
-                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="llamarFormulario('S')">
-                        <md-tooltip>Editar Documento</md-tooltip>
-                        <md-icon md-font-icon="fas fa-pen"></md-icon>
-                        <div class="md-ripple-container"></div>
-                    </button>
-                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="convertirAPedido()">
-                        <md-tooltip>Convertir a Pedido</md-tooltip>
-                        <md-icon md-font-icon="fas fa-check-circle"></md-icon>
-                        <div class="md-ripple-container"></div>
-                    </button>
-                </div>
-            </md-toolbar>
-            <md-table-container>
-                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected"
-                    md-progress="promise">
-                    <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="getRecords">
-                        <tr md-row>
-                            <th md-column md-order-by="per" style="width: 10%;">
-                                <span>Periodo</span>
-                            </th>
-                            <th md-column md-order-by="cAgr" md-desc style="width: 10%;">
-                                <span>Agencia</span>
-                            </th>
-                            <th md-column md-order-by="cot" md-desc style="width: 10%;">
-                                <span>#Cotización</span>
-                            </th>
-                            <th md-column md-order-by="rev" md-desc style="width: 10%;">
-                                <span>#Revisión</span>
-                            </th>
-                            <th md-column md-desc style="width: 40%;">
-                                <span>Cliente</span>
-                            </th>
-                            <th md-column md-order-by="emi" md-desc style="width: 20%;">
-                                <span>Fecha</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody md-body>
-                        <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect"
-                            ng-repeat="record in queryData.data">
-                            <td md-cell>{{record.per}}</td>
-                            <td md-cell>{{record.cAgr}}</td>
-                            <td md-cell>{{record.cot}}</td>
-                            <td md-cell>{{record.rev}}</td>
-                            <td md-cell>{{record.cliente.nom}}</td>
-                            <td md-cell>{{record.emi | date: 'dd/MM/yyyy'}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </md-table-container>
-            <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryData.count}}"
-                md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="getRecords"
-                md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
-        </div>
+  <md-toolbar aria-hidden="false">
+    <div layout="row">
+      <div class="md-toolbar-tools">
+        <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
+      </div>
     </div>
-    <!-- Angular Material requires Angular.js Libraries -->
-    <script src="js/lib/angular-1.7.2/angular.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
-    <script src="js/lib/angular-material/angular-material.min.js"></script>
-    <!-- External Libraries -->
-    <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>
-    <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
-    <!-- module -->
-    <script src="js/lib/utils.js"></script>
-    <script src="js/consulta_cotizaciones.js"></script>
+  </md-toolbar>
+  <div class="panel-body">
+    <div class="card panel-body">
+      <legend>Parámetros de Búsqueda</legend>
+      <md-radio-group ng-model="searchParam" layout="row">
+        <md-radio-button value="BY-PER" class="md-primary">Por Periodo</md-radio-button>
+        <md-radio-button value="BY-CLIENTE" class="md-primary">Por Cliente</md-radio-button>
+        <md-radio-button value="BY-NUMERO" class="md-primary">Por Número</md-radio-button>
+      </md-radio-group>
+    </div>
+    <div class="card panel-body" ng-show="searchParam == 'BY-PER'">
+      <legend>Búsqueda por Periodos</legend>
+      <form name="formBuscarPeriodo">
+        <div class="row">
+          <div class="col-md-3">
+            <md-input-container class="md-block">
+              <label>Periodo Inicial</label>
+              <input required type="text" name="perIni" ng-model="param.perIni" md-max-length="6" placeholder="YYYYMM">
+              <div ng-messages="formBuscarPeriodo.perIni.$error">
+                <div ng-message="required">Este campo es requerido.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="col-md-3">
+            <md-input-container class="md-block">
+              <label>Periodo Final</label>
+              <input required type="text" name="perFin" ng-model="param.perFin" md-max-length="6" placeholder="YYYYMM">
+              <div ng-messages="formBuscarPeriodo.perFin.$error">
+                <div ng-message="required">Este campo es requerido.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="col-md-3">
+            <md-button ng-click="getRecordsByPer()" class="md-raised md-primary">Buscar</md-button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card panel-body" ng-show="searchParam == 'BY-CLIENTE'">
+      <legend>Búsqueda por Cliente</legend>
+      <form name="formBuscarCliente">
+        <div class="row">
+          <div class="col-md-4">
+            <md-autocomplete required flex md-item-text="item.nIde + ' - ' + item.nombre" md-items="item in autocompleteTerceros.querySearch(autocompleteTerceros.searchText)" md-search-text-change="autocompleteTerceros.querySearch(autocompleteTerceros.searchText)"
+              md-search-text="autocompleteTerceros.searchText" md-selected-item="autocompleteTerceros.selectedItem" md-no-cache="autocompleteTerceros.noCache" md-input-name="autocompleteField" md-selected-item-change="autocompleteTerceros.selectItemChange(item)"
+              md-min-length="3" md-menu-class="autocomplete-custom-template" md-floating-label="Cliente">
+              <md-item-template>
+                <span class="item-metadata">
+                  <span>
+                    <strong>{{item.nIde}} - {{item.nombre}}</strong>
+                  </span>
+                </span>
+              </md-item-template>
+              <div ng-messages="formBuscarCliente.autocompleteField.$error">
+                <div ng-message="required">Este campo es requerido.</div>
+              </div>
+            </md-autocomplete>
+          </div>
+          <div class="col-md-3">
+            <md-button ng-click="getRecordsByCliente()" class="md-raised md-primary">Buscar</md-button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card panel-body" ng-show="searchParam == 'BY-NUMERO'">
+      <legend>Búsqueda por Número</legend>
+      <form name="formBuscarNumero">
+        <div class="row">
+          <div class="col-md-3">
+            <md-input-container class="md-block">
+              <label>Número</label>
+              <input required type="number" name="num" ng-model="param.numeroCot" placeholder="Número de Cotización">
+              <div ng-messages="formBuscarNumero.num.$error">
+                <div ng-message="required">Este campo es requerido.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="col-md-3">
+            <md-button ng-click="getRecordsByNumero()" class="md-raised md-primary">Buscar</md-button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card">
+      <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
+        <div class="md-toolbar-tools">
+          <h2 class="md-title">Cotizaciones Registradas</h2>
+          <div flex="" class="flex"></div>
+          <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="llamarFormulario('N')">
+            <md-tooltip>Agregar Revision</md-tooltip>
+            <md-icon md-font-icon="fas fa-plus"></md-icon>
+            <div class="md-ripple-container"></div>
+          </button>
+          <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="llamarFormulario('S')">
+            <md-tooltip>Editar Documento</md-tooltip>
+            <md-icon md-font-icon="fas fa-pen"></md-icon>
+            <div class="md-ripple-container"></div>
+          </button>
+          <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="convertirAPedido()">
+            <md-tooltip>Convertir a Pedido</md-tooltip>
+            <md-icon md-font-icon="fas fa-check-circle"></md-icon>
+            <div class="md-ripple-container"></div>
+          </button>
+        </div>
+      </md-toolbar>
+      <md-table-container>
+        <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+          <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="getRecords">
+            <tr md-row>
+              <th md-column md-order-by="per" style="width: 10%;">
+                <span>Periodo</span>
+              </th>
+              <th md-column md-order-by="cAgr" md-desc style="width: 10%;">
+                <span>Agencia</span>
+              </th>
+              <th md-column md-order-by="cot" md-desc style="width: 10%;">
+                <span>#Cotización</span>
+              </th>
+              <th md-column md-order-by="rev" md-desc style="width: 10%;">
+                <span>#Revisión</span>
+              </th>
+              <th md-column md-desc style="width: 40%;">
+                <span>Cliente</span>
+              </th>
+              <th md-column md-order-by="emi" md-desc style="width: 20%;">
+                <span>Fecha</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row md-select="record" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="record in queryData.data">
+              <td md-cell>{{record.per}}</td>
+              <td md-cell>{{record.cAgr}}</td>
+              <td md-cell>{{record.cot}}</td>
+              <td md-cell>{{record.rev}}</td>
+              <td md-cell>{{record.cliente.nom}}</td>
+              <td md-cell>{{record.emi | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryData.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="getRecords" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+    </div>
+  </div>
+  <script type="text/ng-template" id="dialog1.tmpl.html">
+    <md-dialog>
+      <form ng-cloak>
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2>{{dialog.titulo}}</h2>
+            <span flex></span>
+          </div>
+        </md-toolbar>
+        <md-dialog-content>
+          <div class="card">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <md-input-container class="md-block">
+                        <label>Sucursal</label>
+                        <md-select ng-disabled="selected[0].cliente.cSuc == 'N' || selected[0].codSuc != null"
+                          ng-required="selected[0].cliente.cSuc == 'S' && selected[0].codSuc == null"
+                          name="cSuc" ng-model="record.cSuc" md-on-open="cargarSucursales()">
+                          <md-option ng-value="record.cSuc" ng-repeat="record in sucursales">{{record.cSuc}}
+                            - {{record.nom}}</md-option>
+                        </md-select>
+                        <div ng-messages="EncForm.cSuc.$error">
+                          <div ng-message="required">Este campo es requerido.</div>
+                        </div>
+                      </md-input-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-primary md-raised edgePadding" ng-click="action('OK')">Aceptar</md-button>
+            <md-button class="md-primary md-raised edgePadding" ng-click="action('CANCEL')">Cancelar</md-button>
+        </md-dialog-actions>
+      </form>
+    </md-dialog>
+  </script>
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="js/lib/angular-1.7.2/angular.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
+  <script src="js/lib/angular-material/angular-material.min.js"></script>
+  <!-- External Libraries -->
+  <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
+  <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>
+  <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
+  <!-- module -->
+  <script src="js/lib/utils.js"></script>
+  <script src="js/consulta_cotizaciones.js"></script>
 </body>
 
 </html>

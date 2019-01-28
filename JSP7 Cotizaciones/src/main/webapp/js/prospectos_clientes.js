@@ -106,7 +106,9 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
             scope: $scope,
             preserveScope: true,
             clickOutsideToClose: true,
-            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            fullscreen: $scope.customFullscreen, // Only for -xs, -sm breakpoints.
+            onComplete: function(){$scope.dialogClosed = false;},
+            onRemoving: function(){$scope.dialogClosed = true;}
         })
             .then(function (action) {
                 // $scope.status = 'You said the information was "' + answer + '".';
@@ -117,7 +119,8 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
 
     function addDialogCtrl($scope, $mdDialog) {
         $scope.record = {
-            "cEmp": $localstorage.get('global.empresa', null)
+            "cEmp": $localstorage.get('global.empresa', null),
+            "iva": 'N'
         };
         $scope.dialogConfig = {
             "disableId": false,

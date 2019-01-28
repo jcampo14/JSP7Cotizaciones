@@ -26,6 +26,7 @@ public class CreaPedidoCotizacion extends StoredProcedure {
 		declareParameter(new SqlParameter("pCodAgr", Types.VARCHAR));
 		declareParameter(new SqlParameter("pCot", Types.INTEGER));
 		declareParameter(new SqlParameter("pRev", Types.INTEGER));
+		declareParameter(new SqlParameter("pCodSuc", Types.VARCHAR));
 		declareParameter(new SqlOutParameter("codError", Types.INTEGER));
 		declareParameter(new SqlOutParameter("msgError", Types.VARCHAR));
 		declareParameter(new SqlOutParameter("numeroPed", Types.INTEGER));		
@@ -34,7 +35,7 @@ public class CreaPedidoCotizacion extends StoredProcedure {
 		compile();
 	}
 
-	public Map<String, Object> execute(String empresa, String periodo, String agencia, int numCot, int numRev) {		
+	public Map<String, Object> execute(String empresa, String periodo, String agencia, int numCot, int numRev, String codSuc) {		
 		Map<String, Object> result;
 		Map<String, Object> paramsEntrada = new HashMap<String, Object>();
 		paramsEntrada.put("pCodEmp", empresa);
@@ -42,6 +43,7 @@ public class CreaPedidoCotizacion extends StoredProcedure {
 		paramsEntrada.put("pCodAgr", agencia);
 		paramsEntrada.put("pCot", numCot);
 		paramsEntrada.put("pRev", numRev);
+		paramsEntrada.put("pCodSuc", codSuc);
 		result = execute(paramsEntrada);		
 		return result;
 	}

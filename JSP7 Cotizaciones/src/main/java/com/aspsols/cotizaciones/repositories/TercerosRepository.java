@@ -26,7 +26,7 @@ public class TercerosRepository {
 	public List<Terceros> findByEmpresa(String empresa, String filter) {
 		return jdbcTemplate.query("SELECT * FROM ( "
 				+ "    SELECT NVL(N.C_EMP,P.C_EMP) C_EMP, NVL(N.N_IDE,P.N_IDE) N_IDE, NVL(N.NOM,P.NOMBRE) NOMBRE,"
-				+ "    NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA FROM CLIENTE C"
+				+ "    NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA, NVL(N.SUC,'N') SUC FROM CLIENTE C"
 				+ "    INNER JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP"
 				+ "    FULL OUTER JOIN PROSP_CL P ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP)"
 				+ "    WHERE C_EMP = ? AND (UPPER(NOMBRE) LIKE '%'||UPPER(?)||'%' OR UPPER(N_IDE) LIKE '%'||UPPER(?)||'%')",
@@ -37,7 +37,7 @@ public class TercerosRepository {
 	public List<Terceros> findByNit(String empresa, String nit) {
 		return jdbcTemplate
 				.query("SELECT * FROM ( SELECT NVL(N.C_EMP,P.C_EMP) C_EMP, NVL(N.N_IDE,P.N_IDE) N_IDE, NVL(N.NOM,P.NOMBRE) NOMBRE,"
-						+ " NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA" + " FROM CLIENTE C"
+						+ " NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA, NVL(N.SUC,'N') SUC" + " FROM CLIENTE C"
 						+ " INNER JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP"
 						+ " FULL OUTER JOIN PROSP_CL P ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP )"
 						+ " WHERE C_EMP = ? AND N_IDE = ?", new Object[] { empresa, nit }, new TercerosQuery());
@@ -45,12 +45,12 @@ public class TercerosRepository {
 
 	public List<Terceros> findByProspecto(String empresa) {
 		return jdbcTemplate
-				.query("SELECT * FROM (" + " SELECT P.C_EMP C_EMP, P.N_IDE N_IDE, P.NOMBRE NOMBRE, P.IVA IVA, P.ZONA"
+				.query("SELECT * FROM (" + " SELECT P.C_EMP C_EMP, P.N_IDE N_IDE, P.NOMBRE NOMBRE, P.IVA IVA, P.ZONA, 'N' SUC"
 						+ " FROM PROSP_CL P)" + " WHERE C_EMP = ?", new Object[] { empresa }, new TercerosQuery());
 	}
-
+	
 	public void insertProspecto(Terceros entity) {
-		String sql = "insert into PROSP_CL(C_EMP,N_IDE,NOMBRE,ZONA,IVA)" + " values(?,?,?,?,?)";
+		String sql = "insert into PROSP_CL(C_EMP,N_IDE,NOMBRE,ZONA,IVA,)" + " values(?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {

@@ -159,7 +159,7 @@
                     </div>
                 </md-toolbar>
                 <md-dialog-content>
-                    <div class="card">
+                    <div class="card" ng-if="!dialogClosed">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -183,19 +183,20 @@
                                     </md-input-container>
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label>Zona</label>
-                                        <md-select required placeholder="Zona" ng-model="record.zona" >
-                                            <md-option ng-value="record.zon" ng-repeat="record in zonas">{{record.nom}}</md-option>
-                                        </md-select>
-                                    </div>
+                                    <md-input-container class="md-block">
+                                      <label>Zona</label>
+                                      <md-select required ng-model="record.zona" name="zona">
+                                        <md-option ng-value="record.zon" ng-repeat="record in zonas">{{record.nom}}</md-option>
+                                      </md-select>
+                                      <div ng-messages="formDialog.zona.$error">
+                                          <div ng-message="required">Este campo es requerido.</div>
+                                      </div>
+                                    </md-input-container>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>¿Maneja IVA?</label>
-                                        <md-switch ng-model="record.iva" aria-label="Iva" ng-true-value="'S'" ng-false-value="'N'">
-                                        </md-switch>
-                                    </div>
+                                  <md-switch class="md-primary" ng-model="record.iva" aria-label="Iva" ng-true-value="'S'" ng-false-value="'N'">
+                                    ¿Maneja IVA?
+                                  </md-switch>
                                 </div>
                             </div>
                         </div>
