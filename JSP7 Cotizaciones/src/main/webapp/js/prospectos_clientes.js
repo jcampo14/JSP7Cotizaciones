@@ -117,7 +117,8 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
 
     function addDialogCtrl($scope, $mdDialog) {
         $scope.record = {
-            "cEmp": $localstorage.get('global.empresa', null)
+            "cEmp": $localstorage.get('global.empresa', null),
+            "iva": 'N'
         };
         $scope.dialogConfig = {
             "disableId": false,
@@ -276,8 +277,6 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
                 }, function () {
                     // $scope.status = 'You cancelled the dialog.';
                 });
-        } else {
-
         }
     };
 
