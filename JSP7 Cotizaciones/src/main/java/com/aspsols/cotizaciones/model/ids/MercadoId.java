@@ -1,8 +1,9 @@
 package com.aspsols.cotizaciones.model.ids;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-import javax.persistence.Column;
+import com.aspsolutions.jdbc.annotations.Column;
 
 public class MercadoId implements Serializable {
 
@@ -41,6 +42,21 @@ public class MercadoId implements Serializable {
 
 	public void setMerc(String merc) {
 		this.merc = merc;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		MercadoId that = (MercadoId) o;
+		return merc.equals(that.getMerc()) && cEmp.equals(that.cEmp);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cEmp, merc);
 	}
 
 }

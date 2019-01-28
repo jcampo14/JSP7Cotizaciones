@@ -10,7 +10,8 @@ import com.aspsols.cotizaciones.model.Mercado;
 import com.aspsols.cotizaciones.model.ids.MercadoId;
 
 public interface MercadoRepository extends CrudRepository<Mercado, MercadoId> {
-
+	
 	@Query("FROM Mercado WHERE tipo = 'D' AND cEmp = :empresa")
 	public List<Mercado> findByEmpresa(@Param("empresa") String empresa);
+
 }

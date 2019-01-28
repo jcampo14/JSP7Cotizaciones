@@ -1,12 +1,12 @@
 package com.aspsols.cotizaciones.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import com.aspsols.cotizaciones.model.ids.MercadoId;
+import com.aspsolutions.jdbc.annotations.Column;
 
 @Entity
 @Table(name = "MERCADO")

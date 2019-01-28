@@ -661,7 +661,7 @@ app.controller('Ctrl', [
           "cAgr": $scope.cot_enc.cAgr,
           "nIde": $scope.cot_enc.nIde,
           "criVenta": $scope.cot_enc.criVenta.cri,
-          "cSuc": $scope.cot_enc.cSuc,
+          "cSuc": $scope.autocompleteTerceros.selectedItem.suc == 'S' ? $scope.cot_enc.cSuc: undefined,
           "idioma": $scope.cot_enc.idioma,
           "usuario": $scope.cot_enc.usuario,
           "usuarioElabora": $localstorage.get('global.usuario', null),

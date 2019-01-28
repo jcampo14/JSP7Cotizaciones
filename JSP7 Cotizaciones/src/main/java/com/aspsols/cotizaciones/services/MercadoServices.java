@@ -10,12 +10,12 @@ import com.aspsols.cotizaciones.repositories.MercadoRepository;
 
 @Service
 public class MercadoServices {
-
+	
 	@Autowired
 	private MercadoRepository repository;
 	
-	public List<Mercado> findByEmpresa(String empresa){
+	public List<Mercado> findByEmpresa(String empresa) {
 		return repository.findByEmpresa(empresa);
 	}
-	
+
 }

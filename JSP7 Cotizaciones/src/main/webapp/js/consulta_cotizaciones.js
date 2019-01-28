@@ -6,7 +6,7 @@ app.config(['$mdThemingProvider', function($mdThemingProvider) {
 }]);
 
 app.controller('Ctrl',
-  function($localstorage, $scope, $http, $window) {
+  function($localstorage, $scope, $http, $window, $mdDialog, $consumeService) {
     $scope.titulo_formulario = "Consulta de Cotizaciones";
 
     $scope.init = function() {
@@ -184,6 +184,113 @@ app.controller('Ctrl',
       }
     };
 
+    $scope.convertirAPedido = function(ev) {
+      $scope.dialog = {
+        titulo: "Convertir Cotización a Pedido"
+      };
+      $mdDialog.show({
+          controller: ConvertirAPedidoController,
+          templateUrl: 'dialog1.tmpl.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          scope: $scope,
+          preserveScope: true,
+          clickOutsideToClose: true,
+          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+        .then(function(action) {
+          // $scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+          // $scope.status = 'You cancelled the dialog.';
+        });
+    };
+
+    function ConvertirAPedidoController($scope, $mdDialog) {
+      $scope.record = {};
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.action = function(action) {
+        if (action == 'OK') {
+          if ($scope.selected.length == 1) {
+            var requestBody = {
+              "cEmp": $scope.selected[0].cEmp,
+              "per": $scope.selected[0].per,
+              "cAgr": $scope.selected[0].cAgr,
+              "cot": $scope.selected[0].cot,
+              "rev": $scope.selected[0].rev
+            };
+            swal({
+              title: "Mensaje JSP7", //Bold text
+              text: "¿Desea convertir la cotización en pedido?", //light text
+              type: 'question',
+              showCancelButton: true,
+              confirmButtonText: 'Aceptar',
+              cancelButtonText: 'Cancelar',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              showLoaderOnConfirm: true,
+              preConfirm: (promise) => {
+                return $http({
+                  method: "POST",
+                  url: "cotizacionAPedido",
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: window.localStorage.getItem('token.jsp7')
+                  },
+                  data: requestBody
+                }).then(function(result) {
+                  return result.data;
+                }, function(error) {
+                  console.log(error);
+                  swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+                });
+              },
+              allowOutsideClick: () => !swal.isLoading()
+            }).then((result) => {
+              if (result.value) {
+                if (result.value.success == true) {
+                  swal({
+                    title: 'Mensaje JSP7',
+                    text: result.value.message,
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Aceptar'
+                  }).then((resultConfirm) => {
+                    if (resultConfirm.value) {
+                      $mdDialog.hide(action);
+                      $scope.init();
+                    }
+                  });
+                } else {
+                  swal("Mensaje JSP7", result.value.message, "warning");
+                  $mdDialog.hide(action);
+                }
+              }
+            });
+          } else {
+            swal("Mensaje JSP7", "Debe seleccionar un registro.", "warning");
+          }
+        } else {
+          $mdDialog.hide(action);
+        }
+      };
+    };
+
+    $scope.cargarSucursales = function() {
+      return $consumeService.get('suc-cli?emp=' + $scope.selected[0].cEmp +
+        '&nit=' + $scope.selected[0].cliente.nIde).then(function(result) {
+        $scope.sucursales = result.data;
+      }, function(error) {
+        console.log(error);
+        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+      });
+    };
+    /*
     $scope.convertirAPedido = function() {
       if ($scope.selected.length == 1) {
         var requestBody = {
@@ -243,7 +350,8 @@ app.controller('Ctrl',
       } else {
         swal("Mensaje JSP7", "Debe seleccionar un registro.", "warning");
       }
-    }
+    };
+    */
 
     $scope.init();
   });

@@ -100,7 +100,8 @@
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Sucursal</label>
-                      <md-select required name="cSuc" ng-model="cot_enc.cSuc" md-on-open="cargarSucursales()">
+                      <md-select ng-disabled="autocompleteTerceros.selectedItem.suc == 'N'"
+                        ng-required="autocompleteTerceros.selectedItem.suc == 'S'" name="cSuc" ng-model="cot_enc.cSuc" md-on-open="cargarSucursales()">
                         <md-option ng-value="record.cSuc" ng-repeat="record in sucursales">{{record.cSuc}}
                           - {{record.nom}}</md-option>
                       </md-select>

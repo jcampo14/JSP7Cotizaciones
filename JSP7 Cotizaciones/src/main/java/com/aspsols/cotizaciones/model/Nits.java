@@ -13,7 +13,7 @@ import com.aspsols.cotizaciones.model.ids.NitsId;
 @Entity
 @Table(name = "NITS")
 @IdClass(NitsId.class)
-public class Nits implements Serializable{
+public class Nits implements Serializable {
 
 	/**
 	 * 
@@ -33,6 +33,9 @@ public class Nits implements Serializable{
 
 	@Column(name = "EST")
 	private String est;
+
+	@Column(name = "SUC")
+	private String cSuc;
 
 	public Nits() {
 		super();
@@ -68,6 +71,14 @@ public class Nits implements Serializable{
 
 	public void setEst(String est) {
 		this.est = est;
+	}
+
+	public String getcSuc() {
+		return cSuc;
+	}
+
+	public void setcSuc(String cSuc) {
+		this.cSuc = cSuc;
 	}
 
 }

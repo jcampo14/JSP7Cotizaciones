@@ -13,14 +13,14 @@ import com.aspsols.cotizaciones.services.MercadoServices;
 
 @RestController
 public class MercadoController {
-
+	
 	private static final String SERVICE_PATH = "/mercados";
-
+	
 	@Autowired
 	private MercadoServices services;
-
+	
 	@GetMapping(value = SERVICE_PATH)
-	public QueryResponse<Mercado> findByEmpresa(@RequestParam("emp") String empresa) {
+	public QueryResponse<Mercado> findByEmpresa(@RequestParam("emp") String empresa){
 		List<Mercado> resultData = services.findByEmpresa(empresa);
 		return new QueryResponse<>(resultData, resultData.size());
 	}
