@@ -26,7 +26,7 @@ public class TercerosRepository {
 	public List<Terceros> findByEmpresa(String empresa, String filter) {
 		return jdbcTemplate.query("SELECT * FROM ( "
 				+ "    SELECT NVL(N.C_EMP,P.C_EMP) C_EMP, NVL(N.N_IDE,P.N_IDE) N_IDE, NVL(N.NOM,P.NOMBRE) NOMBRE,"
-				+ "    NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA, NVL(N.SUC,'N') SUC FROM CLIENTE C"
+				+ "    NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA, NVL(N.SUC,'N') SUC, NULL MERC FROM CLIENTE C"
 				+ "    INNER JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP"
 				+ "    FULL OUTER JOIN PROSP_CL P ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP)"
 				+ "    WHERE C_EMP = ? AND (UPPER(NOMBRE) LIKE '%'||UPPER(?)||'%' OR UPPER(N_IDE) LIKE '%'||UPPER(?)||'%')",
@@ -37,7 +37,7 @@ public class TercerosRepository {
 	public List<Terceros> findByNit(String empresa, String nit) {
 		return jdbcTemplate
 				.query("SELECT * FROM ( SELECT NVL(N.C_EMP,P.C_EMP) C_EMP, NVL(N.N_IDE,P.N_IDE) N_IDE, NVL(N.NOM,P.NOMBRE) NOMBRE,"
-						+ " NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA, NVL(N.SUC,'N') SUC" + " FROM CLIENTE C"
+						+ " NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA, NVL(N.SUC,'N') SUC, NULL MERC" + " FROM CLIENTE C"
 						+ " INNER JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP"
 						+ " FULL OUTER JOIN PROSP_CL P ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP )"
 						+ " WHERE C_EMP = ? AND N_IDE = ?", new Object[] { empresa, nit }, new TercerosQuery());
@@ -45,12 +45,12 @@ public class TercerosRepository {
 
 	public List<Terceros> findByProspecto(String empresa) {
 		return jdbcTemplate
-				.query("SELECT * FROM (" + " SELECT P.C_EMP C_EMP, P.N_IDE N_IDE, P.NOMBRE NOMBRE, P.IVA IVA, P.ZONA, 'N' SUC"
+				.query("SELECT * FROM (" + " SELECT P.C_EMP C_EMP, P.N_IDE N_IDE, P.NOMBRE NOMBRE, P.IVA IVA, P.ZONA, 'N' SUC, P.MERC MERC"
 						+ " FROM PROSP_CL P)" + " WHERE C_EMP = ?", new Object[] { empresa }, new TercerosQuery());
 	}
 	
 	public void insertProspecto(Terceros entity) {
-		String sql = "insert into PROSP_CL(C_EMP,N_IDE,NOMBRE,ZONA,IVA,)" + " values(?,?,?,?,?)";
+		String sql = "insert into PROSP_CL(C_EMP,N_IDE,NOMBRE,ZONA,IVA,MERC)" + " values(?,?,?,?,?,?)";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -62,13 +62,14 @@ public class TercerosRepository {
 				QueryUtilities.addSqlParameter(ps, 3, entity.getNombre(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 4, entity.getZona(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 5, entity.getIva(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 6, entity.getMercado(), Types.VARCHAR);
 				return ps;
 			}
 		});
 	}
 
 	public void updateProspecto(Terceros entity) {
-		String sql = "UPDATE PROSP_CL SET NOMBRE = ?, ZONA = ?, IVA = ?" + " where N_IDE = ? AND C_EMP = ?";
+		String sql = "UPDATE PROSP_CL SET NOMBRE = ?, ZONA = ?, IVA = ?, MERC = ?" + " where N_IDE = ? AND C_EMP = ?";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -78,16 +79,16 @@ public class TercerosRepository {
 				QueryUtilities.addSqlParameter(ps, 1, entity.getNombre(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 2, entity.getZona(), Types.VARCHAR);
 				QueryUtilities.addSqlParameter(ps, 3, entity.getIva(), Types.VARCHAR);
-				QueryUtilities.addSqlParameter(ps, 4, entity.getnIde(), Types.VARCHAR);
-				QueryUtilities.addSqlParameter(ps, 5, entity.getcEmp(), Types.VARCHAR);
-
+				QueryUtilities.addSqlParameter(ps, 4, entity.getMercado(), Types.VARCHAR);
+				QueryUtilities.addSqlParameter(ps, 5, entity.getnIde(), Types.VARCHAR);				
+				QueryUtilities.addSqlParameter(ps, 6, entity.getcEmp(), Types.VARCHAR);
 				return ps;
 			}
 		});
 	}
 
 	public void deleteProspecto(Terceros entity) {
-		String sql = "delete FROM PROSP_CL" + " where N_IDE = ? AND C_EMP = ?";
+		String sql = "DELETE FROM PROSP_CL" + " WHERE N_IDE = ? AND C_EMP = ?";
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {

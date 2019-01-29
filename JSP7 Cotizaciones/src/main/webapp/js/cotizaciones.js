@@ -214,11 +214,6 @@ app.controller('Ctrl', [
           "cVen": result.cVen,
           "embalaje": result.embalaje ? result.embalaje.cEmb : null
         };
-        if (result.iva > 0) {
-          $scope.cot_enc.iva = 'S';
-        } else {
-          $scope.cot_enc.iva = 'N';
-        }
         $scope.cot_det = [];
         /* Buscamos el usuario grabado */
         var promiseGetVendedorByUsuario = $consumeService.get('vendedorByNit?emp=' + $localstorage.get('global.empresa', null) +
@@ -287,8 +282,8 @@ app.controller('Ctrl', [
           if ($scope.cot_enc.iva == 'S') {
             var ivaValue = {
               iva: {
-                "cDes": $scope.autocompleteArticulos.selectedItem.idIva.cDes,
-                "pctj": $scope.autocompleteArticulos.selectedItem.idIva.pctj
+                "cDes": result.detalle[index].articulo.idIva.cDes,
+                "pctj": result.detalle[index].articulo.idIva.pctj
               }
             };
           } else {
@@ -317,6 +312,15 @@ app.controller('Ctrl', [
           }
           index++;
         };
+        if (result.iva > 0) {
+          $scope.cot_enc.iva = 'S';
+          scope.$apply(function() {
+            cot_enc.iva = 'S';
+          });
+        } else {
+          cot_enc.iva = 'N';
+        }
+        $scope.$applyAsync();
       }, function(error) {
         console.log(error);
         swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
@@ -661,7 +665,7 @@ app.controller('Ctrl', [
           "cAgr": $scope.cot_enc.cAgr,
           "nIde": $scope.cot_enc.nIde,
           "criVenta": $scope.cot_enc.criVenta.cri,
-          "cSuc": $scope.autocompleteTerceros.selectedItem.suc == 'S' ? $scope.cot_enc.cSuc: undefined,
+          "cSuc": $scope.autocompleteTerceros.selectedItem.suc == 'S' ? $scope.cot_enc.cSuc : undefined,
           "idioma": $scope.cot_enc.idioma,
           "usuario": $scope.cot_enc.usuario,
           "usuarioElabora": $localstorage.get('global.usuario', null),

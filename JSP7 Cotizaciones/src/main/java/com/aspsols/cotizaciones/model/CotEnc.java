@@ -121,10 +121,17 @@ public class CotEnc implements Serializable {
 			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
 	private Criterio criterio;
 
+	// @ManyToOne
+	// @JoinColumns({ @JoinColumn(name = "N_IDE", referencedColumnName = "N_IDE",
+	// insertable = false, updatable = false),
+	// @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable =
+	// false, updatable = false) })
+	// private Nits cliente;
+
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "N_IDE", referencedColumnName = "N_IDE", insertable = false, updatable = false),
 			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
-	private Nits cliente;
+	private FctTerceros cliente;
 
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "C_VEN", referencedColumnName = "N_IDE", insertable = false, updatable = false),
@@ -275,16 +282,24 @@ public class CotEnc implements Serializable {
 		this.criterio = criterio;
 	}
 
-	public Nits getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Nits cliente) {
-		this.cliente = cliente;
-	}
+	// public Nits getCliente() {
+	// return cliente;
+	// }
+	//
+	// public void setCliente(Nits cliente) {
+	// this.cliente = cliente;
+	// }
 
 	public Nits getVendedor() {
 		return vendedor;
+	}
+
+	public FctTerceros getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(FctTerceros cliente) {
+		this.cliente = cliente;
 	}
 
 	public void setVendedor(Nits vendedor) {

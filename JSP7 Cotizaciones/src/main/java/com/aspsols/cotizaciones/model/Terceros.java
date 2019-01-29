@@ -21,6 +21,8 @@ public class Terceros implements Serializable {
 
 	private String suc;
 
+	private String mercado;
+
 	public Terceros(String cEmp, String nIde, String nombre, String iva, String zona, String suc) {
 		super();
 		this.cEmp = cEmp;
@@ -81,6 +83,14 @@ public class Terceros implements Serializable {
 
 	public void setSuc(String suc) {
 		this.suc = suc;
+	}
+
+	public String getMercado() {
+		return mercado;
+	}
+
+	public void setMercado(String mercado) {
+		this.mercado = mercado;
 	}
 
 }

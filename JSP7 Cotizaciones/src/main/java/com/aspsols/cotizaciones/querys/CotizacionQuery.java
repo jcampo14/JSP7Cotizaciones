@@ -1,10 +1,8 @@
 package com.aspsols.cotizaciones.querys;
 
-
-
 import java.util.Date;
 
-import com.aspsols.cotizaciones.model.Nits;
+import com.aspsols.cotizaciones.model.FctTerceros;
 
 public class CotizacionQuery {
 
@@ -20,9 +18,12 @@ public class CotizacionQuery {
 
 	private Date emi;
 
-	private Nits cliente;
+	// private Nits cliente;
 
-	public CotizacionQuery(String cEmp, String per, String cAgr, String cot, int numeroRev, Date emi, Nits cliente) {
+	private FctTerceros cliente;
+
+	public CotizacionQuery(String cEmp, String per, String cAgr, String cot, int numeroRev, Date emi,
+			FctTerceros cliente) {
 		super();
 		this.cEmp = cEmp;
 		this.per = per;
@@ -32,6 +33,18 @@ public class CotizacionQuery {
 		this.emi = emi;
 		this.cliente = cliente;
 	}
+
+	// public CotizacionQuery(String cEmp, String per, String cAgr, String cot, int
+	// numeroRev, Date emi, Nits cliente) {
+	// super();
+	// this.cEmp = cEmp;
+	// this.per = per;
+	// this.cAgr = cAgr;
+	// this.cot = cot;
+	// this.numeroRev = numeroRev;
+	// this.emi = emi;
+	// this.cliente = cliente;
+	// }
 
 	public String getcEmp() {
 		return cEmp;
@@ -81,12 +94,20 @@ public class CotizacionQuery {
 		this.emi = emi;
 	}
 
-	public Nits getCliente() {
+	public FctTerceros getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Nits cliente) {
+	public void setCliente(FctTerceros cliente) {
 		this.cliente = cliente;
 	}
+
+	// public Nits getCliente() {
+	// return cliente;
+	// }
+	//
+	// public void setCliente(Nits cliente) {
+	// this.cliente = cliente;
+	// }
 
 }

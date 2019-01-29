@@ -150,7 +150,7 @@
         </div>
     </div>
     <script type="text/ng-template" id="dialog1.tmpl.html">
-        <md-dialog>
+        <md-dialog style="width: 60%">
             <form name="formDialog" ng-cloak>
                 <md-toolbar>
                     <div class="md-toolbar-tools">
@@ -172,6 +172,8 @@
                                         </div>
                                     </md-input-container>
                                 </div>
+                              </div>
+                              <div class="row">
                                 <div class="col-md-12">
                                     <md-input-container class="md-block">
                                         <label>Nombre</label>
@@ -182,6 +184,8 @@
                                         </div>
                                     </md-input-container>
                                 </div>
+                              </div>
+                              <div class="row">
                                 <div class="col-md-8">
                                     <md-input-container class="md-block">
                                       <label>Zona</label>
@@ -197,6 +201,19 @@
                                   <md-switch class="md-primary" ng-model="record.iva" aria-label="Iva" ng-true-value="'S'" ng-false-value="'N'">
                                     ¿Maneja IVA?
                                   </md-switch>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <md-input-container class="md-block">
+                                    <label>Mercado</label>
+                                    <md-select required ng-model="record.mercado" name="mercado">
+                                      <md-option ng-value="record.merc" ng-repeat="record in mercados">{{record.desMerc}}</md-option>
+                                    </md-select>
+                                    <div ng-messages="formDialog.mercado.$error">
+                                        <div ng-message="required">Este campo es requerido.</div>
+                                    </div>
+                                  </md-input-container>
                                 </div>
                             </div>
                         </div>

@@ -18,6 +18,7 @@ public class TercerosQuery implements RowMapper<Terceros> {
 		row.setIva(arg0.getString("IVA"));
 		row.setZona(arg0.getString("ZONA"));
 		row.setSuc(arg0.getString("SUC"));		
+		row.setMercado(arg0.getString("MERC"));		
 		return row;
 	}
 
