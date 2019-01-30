@@ -200,7 +200,7 @@ app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout
   };
 
   function editDialogCtrl($scope, $mdDialog) {
-    $scope.record = $scope.selected[0];
+    $scope.record = angular.copy($scope.selected[0]);
     $scope.dialogConfig = {
       "disableId": false,
       "title": "Agregar Prospecto"

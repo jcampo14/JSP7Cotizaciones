@@ -118,7 +118,6 @@ div.label.ng-binding {
 }
 
 md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
-
   /* background-color: rgb(33, 150, 243) !important; */
 }
 
@@ -192,7 +191,7 @@ md-autocomplete {
   margin: 18px 0;
 }
 
-button.button-action:hover > md-icon {
+button.button-action:hover>md-icon {
   color: black;
 }
 
@@ -201,28 +200,54 @@ button.button-action:hover {
 }
 
 .loading {
-  position: fixed; /* Sit on top of the page content */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  position: fixed;
+  /* Sit on top of the page content */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 9999; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black background with opacity */
+  z-index: 9999;
+  /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+  /* Add a pointer on hover */
 }
 
-.loading-spinner{
+.loading-spinner {
   position: absolute;
   top: 50%;
   left: 50%;
   font-size: 50px;
   color: white;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
 md-content {
   background-color: #f4f3ef !important;
+}
+
+.container-loading-report {
+  display: block;
+  position: relative;
+  width: 50%;
+  margin: auto;
+  margin-top: 5px;
+  border: 2px solid #aad1f9;
+  transition: opacity 0.1s linear;
+  border-top: 0px;
+}
+
+.bottom-block-loading-report {
+  display: block;
+  position: relative;
+  background-color: rgba(255, 235, 169, 0.25);
+  height: 85px;
+  width: 100%;
+  text-align: center;
 }

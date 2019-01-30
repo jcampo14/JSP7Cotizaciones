@@ -31,23 +31,19 @@
     </div>
   </md-toolbar>
   <md-content class="panel-body principal-panel">
-    <div ng-show="isLoading" class="progress">
-      <div class="progress-bar progress-bar-striped active" style="width: 100%">
-        Cargando, Espere por favor...
-      </div>
-    </div>
+    <md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
     <div class="container-fluid" ng-show="!isLoading">
       <md-tabs md-dynamic-height md-border-bottom md-selected="myTabIndex">
         <md-tab label="Datos de Encabezado">
           <md-content class="md-padding">
             <div class="card">
               <form id="EncForm" name="EncForm" class="panel-body">
-                <legend>Datos de Cabecera</legend>
+                <legend>Datos de Cabecera {{cotEnc.cot != undefined ? ' - Cotización No. ' + cotEnc.cot + ' Revisión No. ' + cotEnc.rev : ''}}</legend>
                 <div class="row">
                   <div class="col-md-2">
                     <md-input-container class="md-block">
                       <label>Agencia</label>
-                      <md-select required name="cAgr" ng-model="cot_enc.cAgr">
+                      <md-select required name="cAgr" ng-model="cotEnc.cAgr">
                         <md-option ng-value="record.cAge" ng-repeat="record in agencias">{{record.cAge}} -
                           {{record.nom}}</md-option>
                       </md-select>
@@ -59,7 +55,7 @@
                   <div class="col-md-2">
                     <md-input-container class="md-block">
                       <label>Criterio</label>
-                      <md-select required name="criVenta" ng-model="cot_enc.criVenta" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.cri'}">
+                      <md-select required name="criVenta" ng-model="cotEnc.criVenta" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.cri'}">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchCriterio" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -74,7 +70,7 @@
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Incoterm</label>
-                      <md-select placeholder="Incoterm" ng-model="cot_enc.incoterm" md-on-close="clearSelectFilter()" ng-change="cargarCostosIncoterm()" ng-disabled="cot_enc.criVenta.mon == 'PESO' || cot_enc.criVenta == undefined">
+                      <md-select placeholder="Incoterm" ng-model="cotEnc.incoterm" md-on-close="clearSelectFilter()" ng-change="cargarCostosIncoterm()" ng-disabled="cotEnc.criVenta.mon == 'PESO' || cotEnc.criVenta == undefined">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -101,7 +97,7 @@
                     <md-input-container class="md-block">
                       <label>Sucursal</label>
                       <md-select ng-disabled="autocompleteTerceros.selectedItem.suc == 'N'"
-                        ng-required="autocompleteTerceros.selectedItem.suc == 'S'" name="cSuc" ng-model="cot_enc.cSuc" md-on-open="cargarSucursales()">
+                        ng-required="autocompleteTerceros.selectedItem.suc == 'S'" name="cSuc" ng-model="cotEnc.cSuc" md-on-open="cargarSucursales()">
                         <md-option ng-value="record.cSuc" ng-repeat="record in sucursales">{{record.cSuc}}
                           - {{record.nom}}</md-option>
                       </md-select>
@@ -113,7 +109,7 @@
                   <div class="col-md-2">
                     <md-input-container class="md-block">
                       <label>Idioma</label>
-                      <md-select placeholder="Por Defecto" ng-model="cot_enc.idioma">
+                      <md-select placeholder="Por Defecto" ng-model="cotEnc.idioma">
                         <md-option ng-value="">Por Defecto</md-option>
                         <md-option ng-value="record.idioma" ng-repeat="record in idiomas">{{record.idioma}}</md-option>
                       </md-select>
@@ -122,7 +118,7 @@
                   <div class="col-md-2">
                     <md-input-container class="md-block">
                       <label>Dias Validez</label>
-                      <input required type="text" name="diasValidez" ng-model="cot_enc.diasValidez" ui-number-mask="0">
+                      <input required type="text" name="diasValidez" ng-model="cotEnc.diasValidez" ui-number-mask="0">
                       <div ng-messages="EncForm.diasValidez.$error">
                         <div ng-message="required">Este campo es requerido.</div>
                       </div>
@@ -131,7 +127,7 @@
                   <div class="col-md-4">
                     <md-input-container class="md-block">
                       <label>Embalaje</label>
-                      <md-select placeholder="Embalaje" ng-model="cot_enc.embalaje" md-on-close="clearSelectFilter()">
+                      <md-select placeholder="Embalaje" ng-model="cotEnc.embalaje" md-on-close="clearSelectFilter()">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchEmbajale" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -141,7 +137,7 @@
                     </md-input-container>
                   </div>
                   <div class="col-md-1">
-                    <md-switch ng-model="cot_enc.iva" aria-label="¿IVA?" ng-true-value="'S'" ng-false-value="'N'" class="md-primary"
+                    <md-switch ng-model="cotEnc.iva" aria-label="¿IVA?" ng-true-value="'S'" ng-false-value="'N'" class="md-primary"
                       ng-change="ivaChangeDocument()">
                       ¿IVA?
                     </md-switch>
@@ -151,7 +147,7 @@
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Vendedor</label>
-                      <md-select required placeholder="Vendedor" ng-model="cot_enc.usuario">
+                      <md-select required placeholder="Vendedor" ng-model="cotEnc.usuario">
                         <md-option ng-value="record.usuario" ng-repeat="record in vendedores">{{record.nit.nom}}</md-option>
                       </md-select>
                     </md-input-container>
@@ -159,19 +155,19 @@
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Origen</label>
-                      <input type="text" ng-model="cot_enc.origen" md-max-length="50">
+                      <input type="text" ng-model="cotEnc.origen" md-max-length="50">
                     </md-input-container>
                   </div>
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Despacho</label>
-                      <input type="text" ng-model="cot_enc.despacho" md-max-length="70">
+                      <input type="text" ng-model="cotEnc.despacho" md-max-length="70">
                     </md-input-container>
                   </div>
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Destino</label>
-                      <md-select placeholder="Destino" ng-model="cot_enc.destino" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.cPai'}">
+                      <md-select placeholder="Destino" ng-model="cotEnc.destino" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.cPai'}">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchPais" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -184,19 +180,19 @@
                   <div class="col-md-4">
                     <md-input-container class="md-block">
                       <label>Lugar Destino</label>
-                      <input type="text" ng-model="cot_enc.lugarDestino" md-max-length="70">
+                      <input type="text" ng-model="cotEnc.lugarDestino" md-max-length="70">
                     </md-input-container>
                   </div>
                   <div class="col-md-4">
                     <md-input-container class="md-block">
                       <label>Tiempo de Entrega</label>
-                      <input type="text" ng-model="cot_enc.tiempoEntrega" md-max-length="100">
+                      <input type="text" ng-model="cotEnc.tiempoEntrega" md-max-length="100">
                     </md-input-container>
                   </div>
                   <div class="col-md-4">
                     <md-input-container class="md-block">
                       <label>Persona Contacto</label>
-                      <md-select placeholder="Persona Contacto" ng-model="cot_enc.contacto" md-on-open="cargarContactos()" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.id'}">
+                      <md-select placeholder="Persona Contacto" ng-model="cotEnc.contacto" md-on-open="cargarContactos()" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.id'}">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchContacto" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -210,7 +206,7 @@
                   <div class="col-md-12">
                     <md-input-container class="md-block">
                       <label>Términos de Pago</label>
-                      <input type="text" ng-model="cot_enc.terminoPago" md-max-length="200">
+                      <input type="text" ng-model="cotEnc.terminoPago" md-max-length="200">
                     </md-input-container>
                   </div>
                 </div>
@@ -218,7 +214,7 @@
                   <div class="col-md-12">
                     <md-input-container class="md-block">
                       <label>Observación</label>
-                      <textarea ng-model="cot_enc.obs" md-max-length="2000"></textarea>
+                      <textarea ng-model="cotEnc.obs" md-max-length="2000"></textarea>
                     </md-input-container>
                   </div>
                 </div>
@@ -226,7 +222,7 @@
                   <div class="col-md-12">
                     <legend>Costos Adicionales/Cargos de la Cotización</legend>
                     <div class="row">
-                      <div class="col-md-3" ng-repeat="costo in costosAdic | filter:{facCostosAdic: {moneda : cot_enc.moneda}}">
+                      <div class="col-md-3" ng-repeat="costo in costosAdic | filter:{facCostosAdic: {moneda : cotEnc.moneda}}">
                         <md-input-container class="md-block">
                           <label>{{costo.facCostosAdic.nombre}}</label>
                           <input type="text" ng-model="costo.valor" ui-number-mask="2">
@@ -369,7 +365,7 @@
                     </tr>
                   </thead>
                   <tbody md-body>
-                    <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable" md-auto-select="options.autoSelect" ng-repeat="record in cot_det | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable" md-auto-select="options.autoSelect" ng-repeat="record in cotDet | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                       <td md-cell>{{record.id.cod}}</td>
                       <td md-cell>{{record.id.nom}}</td>
                       <td md-cell>{{record.cantidad | number: 2}}</td>
@@ -380,12 +376,12 @@
                   </tbody>
                 </table>
               </md-table-container>
-              <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{cot_det.length}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
+              <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{cotDet.length}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
                 md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
             </div>
             <div style="text-align: right">
               <md-button class="md-raised md-primary" ng-click="myTabIndex = myTabIndex - 1">Atras</md-button>
-              <md-button class="md-raised md-primary" ng-click="myTabIndex = myTabIndex + 1" ng-disabled="cot_det.length == 0">Siguiente</md-button>
+              <md-button class="md-raised md-primary" ng-click="myTabIndex = myTabIndex + 1" ng-disabled="cotDet.length == 0">Siguiente</md-button>
             </div>
           </md-content>
         </md-tab>

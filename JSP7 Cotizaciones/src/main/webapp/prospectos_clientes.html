@@ -166,7 +166,8 @@
                                     <md-input-container class="md-block">
                                         <label>Identificación</label>
                                         <input required ng-model="record.nIde" name="nIde"
-                                            type="text" md-max-length="12" ng-disabled="dialogConfig.disableId">
+                                            type="text" md-max-length="12" ng-disabled="dialogConfig.disableId"
+                                            oninput="this.value = this.value.toUpperCase()">
                                         <div ng-messages="formDialog.nIde.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
@@ -178,7 +179,7 @@
                                     <md-input-container class="md-block">
                                         <label>Nombre</label>
                                         <input required ng-model="record.nombre" name="nombre"
-                                            type="text" md-max-length="40">
+                                            type="text" md-max-length="40" oninput="this.value = this.value.toUpperCase()">
                                         <div ng-messages="formDialog.nombre.$error">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
@@ -242,7 +243,8 @@
                                 <md-input-container class="md-block">
                                     <label>Cargo</label>
                                     <input required ng-model="record.cargo" name="cargo"
-                                        type="text" md-max-length="200" ng-disabled="dialogConfig.disableId">
+                                        type="text" md-max-length="200"
+                                        oninput="this.value = this.value.toUpperCase()">
                                     <div ng-messages="formDialog.cargo.$error">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
@@ -252,7 +254,7 @@
                                 <md-input-container class="md-block">
                                     <label>Nombre Persona</label>
                                     <input required ng-model="record.perCargo" name="perCargo"
-                                        type="text" md-max-length="2000">
+                                        type="text" md-max-length="2000" oninput="this.value = this.value.toUpperCase()">
                                     <div ng-messages="formDialog.perCargo.$error">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>

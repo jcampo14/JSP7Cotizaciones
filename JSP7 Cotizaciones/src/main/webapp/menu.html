@@ -51,11 +51,7 @@
             </md-menu>
         </md-truncate>
     </md-toolbar>
-    <div ng-show="isLoading" class="progress" style="margin-top: 5px;">
-        <div class="progress-bar progress-bar-striped active" style="width: 100%">
-            Cargando...
-        </div>
-    </div>
+    <md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>    
     <md-content ng-show="!isLoading" layout="row" flex>
         <!-- <md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"> -->
         <md-sidenav class="md-sidenav-left" md-component-id="left">

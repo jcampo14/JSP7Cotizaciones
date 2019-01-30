@@ -69,8 +69,8 @@ app.controller('Ctrl', [
       $scope.tieneCostos = false;
       $scope.autocompleteTerceros.selectedItem = '';
       $scope.autocompleteArticulos.selectedItem = '';
-      delete $scope.cot_enc;
-      delete $scope.cot_det;
+      delete $scope.cotEnc;
+      delete $scope.cotDet;
       delete $scope.selectedDetalle;
       /* Traemos los valores inciales */
       var promiseSecciones = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', null));
@@ -100,11 +100,11 @@ app.controller('Ctrl', [
           $scope.traerCotizacion(urlParams);
         } else {
           /* Scope de modelos para el json */
-          $scope.cot_enc = {
+          $scope.cotEnc = {
             cEmp: $localstorage.get('global.empresa', null),
             usuario: $localstorage.get('global.usuario', null)
           };
-          $scope.cot_det = [];
+          $scope.cotDet = [];
           $scope.selectedArticulo = {};
           $scope.isLoading = false;
         }
@@ -119,10 +119,12 @@ app.controller('Ctrl', [
       searchText: "",
       selectItemChange: function(item) {
         if (item) {
-          $scope.cot_enc.cSuc = {};
-          $scope.cot_enc.contacto = {};
-          $scope.cot_enc.nIde = item.nIde;
-          $scope.cot_enc.iva = item.iva;
+          $scope.cotEnc.cSuc = {};
+          $scope.cotEnc.contacto = {};
+          $scope.cotEnc.nIde = item.nIde;
+          if ($scope.cotEnc.iva == undefined){
+              $scope.cotEnc.iva = item.iva;
+          }
         }
       },
       querySearch: function(query) {
@@ -155,7 +157,7 @@ app.controller('Ctrl', [
           }
           $scope.buscarPrecioVenta(item.cEmp, item.cod);
           if (!item.descripcion) {
-            $scope.traerDescripcionComercial(item.cEmp, item.cod, $scope.cot_enc.idioma);
+            $scope.traerDescripcionComercial(item.cEmp, item.cod, $scope.cotEnc.idioma);
           }
         }
       },
@@ -192,7 +194,7 @@ app.controller('Ctrl', [
         var dateFin = new Date(result.ven);
         var timeDiff = Math.abs(dateIni - dateFin);
         var dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        $scope.cot_enc = {
+        $scope.cotEnc = {
           "cEmp": result.cEmp,
           "cAgr": result.cAgr,
           "nIde": result.nIde,
@@ -214,12 +216,17 @@ app.controller('Ctrl', [
           "cVen": result.cVen,
           "embalaje": result.embalaje ? result.embalaje.cEmb : null
         };
-        $scope.cot_det = [];
+        if (result.iva > 0) {
+          $scope.cotEnc.iva = 'S';
+        } else {
+          $scope.cotEnc.iva = 'N';
+        }
+        $scope.cotDet = [];
         /* Buscamos el usuario grabado */
         var promiseGetVendedorByUsuario = $consumeService.get('vendedorByNit?emp=' + $localstorage.get('global.empresa', null) +
-          '&nit=' + $scope.cot_enc.cVen);
+          '&nit=' + $scope.cotEnc.cVen);
         promiseGetVendedorByUsuario.then(function(result) {
-          $scope.cot_enc.usuario = result.usuario;
+          $scope.cotEnc.usuario = result.usuario;
         }, function(error) {
           console.log(error);
         })
@@ -228,19 +235,19 @@ app.controller('Ctrl', [
         promiseNit.then(function(resultNit) {
           $scope.autocompleteTerceros.selectedItem = resultNit.data[0];
           var promiseContacto = $consumeService.get('cli-contacto?emp=' + $localstorage.get('global.empresa', null) +
-            '&nit=' + $scope.cot_enc.nIde);
+            '&nit=' + $scope.cotEnc.nIde);
           promiseContacto.then(function(resultContacto) {
             $scope.contactos = resultContacto.data;
-            $scope.cot_enc.contacto = result.contacto;
+            $scope.cotEnc.contacto = result.contacto;
           });
-          var promise = $consumeService.get('suc-cli?emp=' + $scope.cot_enc.cEmp +
-            '&nit=' + $scope.cot_enc.nIde);
+          var promise = $consumeService.get('suc-cli?emp=' + $scope.cotEnc.cEmp +
+            '&nit=' + $scope.cotEnc.nIde);
           promise.then(function(resultSuc) {
             $scope.sucursales = resultSuc.data;
-            $scope.cot_enc.cSuc = result.codSuc;
+            $scope.cotEnc.cSuc = result.codSuc;
             /* Cargamos los cargos/Costos adicionales */
-            var promise = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.cot_enc.cEmp +
-              '&incoterm=' + $scope.cot_enc.incoterm + "&moneda=" + $scope.cot_enc.criVenta.mon);
+            var promise = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.cotEnc.cEmp +
+              '&incoterm=' + $scope.cotEnc.incoterm + "&moneda=" + $scope.cotEnc.criVenta.mon);
             promise.then(function(resultCargos) {
               $scope.costosAdic = resultCargos.data;
               if ($scope.costosAdic.length > 1) {
@@ -279,7 +286,7 @@ app.controller('Ctrl', [
             "descuento": result.detalle[index].pDes,
             "descripcion": result.detalle[index].inf7
           };
-          if ($scope.cot_enc.iva == 'S') {
+          if ($scope.cotEnc.iva == 'S') {
             var ivaValue = {
               iva: {
                 "cDes": result.detalle[index].articulo.idIva.cDes,
@@ -295,7 +302,7 @@ app.controller('Ctrl', [
             };
           }
           recordToAdd.iva = ivaValue.iva;
-          $scope.cot_det.push(recordToAdd);
+          $scope.cotDet.push(recordToAdd);
           index++;
         }
         /* Cargamos las secciones */
@@ -312,14 +319,6 @@ app.controller('Ctrl', [
           }
           index++;
         };
-        if (result.iva > 0) {
-          $scope.cot_enc.iva = 'S';
-          scope.$apply(function() {
-            cot_enc.iva = 'S';
-          });
-        } else {
-          cot_enc.iva = 'N';
-        }
         $scope.$applyAsync();
       }, function(error) {
         console.log(error);
@@ -328,16 +327,16 @@ app.controller('Ctrl', [
     };
 
     $scope.ivaChangeDocument = function() {
-      if ($scope.cot_enc.iva == 'S') {
+      if ($scope.cotEnc.iva == 'S') {
         var promiseArray = [];
-        $scope.cot_det.forEach(function callback(currentValue, index, array) {
+        $scope.cotDet.forEach(function callback(currentValue, index, array) {
           var promiseObject = $consumeService.get('articulosByCod?emp=' + currentValue.cEmp + '&cod=' + currentValue.id.cod);
           promiseArray.push(promiseObject);
         });
         $scope.consumingService = true;
         $q.all(promiseArray).then(function(values) {
-          $scope.cot_det.forEach(function callback(currentValue, index, array) {
-            $scope.cot_det[index].iva = {
+          $scope.cotDet.forEach(function callback(currentValue, index, array) {
+            $scope.cotDet[index].iva = {
               "cDes": values[index].data[0].idIva != undefined ? values[index].data[0].idIva.cDes : null,
               "pctj": values[index].data[0].idIva != undefined ? values[index].data[0].idIva.pctj : 0
             };
@@ -345,8 +344,8 @@ app.controller('Ctrl', [
           $scope.consumingService = false;
         });
       } else {
-        $scope.cot_det.forEach(function callback(currentValue, index, array) {
-          $scope.cot_det[index].iva = {
+        $scope.cotDet.forEach(function callback(currentValue, index, array) {
+          $scope.cotDet[index].iva = {
             "cDes": null,
             "pctj": 0
           };
@@ -367,9 +366,9 @@ app.controller('Ctrl', [
 
     /* Funciones para los select */
     $scope.loadSeccionesDetalle = function(cEmp, codSeccion) {
-      if ($scope.cot_enc.idioma != undefined) {
+      if ($scope.cotEnc.idioma != undefined) {
         var promise = $consumeService.get('cot-secciones-det-sinonimosByIdioma?emp=' + cEmp +
-          '&seccion=' + codSeccion + "&idioma=" + $scope.cot_enc.idioma);
+          '&seccion=' + codSeccion + "&idioma=" + $scope.cotEnc.idioma);
         promise.then(function(result) {
           $scope.secciones_det = result.data;
         }, function(error) {
@@ -389,8 +388,8 @@ app.controller('Ctrl', [
     };
 
     $scope.cargarSucursales = function() {
-      return $consumeService.get('suc-cli?emp=' + $scope.cot_enc.cEmp +
-        '&nit=' + $scope.cot_enc.nIde).then(function(result) {
+      return $consumeService.get('suc-cli?emp=' + $scope.cotEnc.cEmp +
+        '&nit=' + $scope.cotEnc.nIde).then(function(result) {
         $scope.sucursales = result.data;
       }, function(error) {
         console.log(error);
@@ -400,15 +399,15 @@ app.controller('Ctrl', [
 
     $scope.cargarContactos = function() {
       return $consumeService.get('cli-contacto?emp=' + $localstorage.get('global.empresa', null) +
-        '&nit=' + $scope.cot_enc.nIde).then(function(result) {
+        '&nit=' + $scope.cotEnc.nIde).then(function(result) {
         $scope.contactos = result.data;
       });
     };
 
     $scope.cargarCostosIncoterm = function() {
       $scope.consumingService = true;
-      var promise = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.cot_enc.cEmp +
-        '&incoterm=' + $scope.cot_enc.incoterm + "&moneda=" + $scope.cot_enc.criVenta.mon);
+      var promise = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.cotEnc.cEmp +
+        '&incoterm=' + $scope.cotEnc.incoterm + "&moneda=" + $scope.cotEnc.criVenta.mon);
       promise.then(function(result) {
         $scope.costosAdic = result.data;
         if ($scope.costosAdic.length > 1) {
@@ -452,7 +451,7 @@ app.controller('Ctrl', [
     $scope.buscarPrecioVenta = function(empresa, codigo) {
       $scope.consumingService = true;
       var promise = $consumeService.get('precios?emp=' + empresa +
-        "&cod=" + codigo + "&cri=" + $scope.cot_enc.criVenta.cri);
+        "&cod=" + codigo + "&cri=" + $scope.cotEnc.criVenta.cri);
       promise.then(function(result) {
         if (result.pVen == null) {
           $scope.selectedDetalle.tienePrecio = false;
@@ -491,7 +490,7 @@ app.controller('Ctrl', [
     /* Funciones */
     $scope.addItemDetalle = function(form) {
       if (form.$valid) {
-        var o = $filter('filter')($scope.cot_det, {
+        var o = $filter('filter')($scope.cotDet, {
           'id': {
             'cod': $scope.autocompleteArticulos.selectedItem.cod
           }
@@ -506,7 +505,7 @@ app.controller('Ctrl', [
             descuento: $scope.selectedDetalle.descuento,
             descripcion: $scope.selectedDetalle.descripcion
           };
-          if ($scope.cot_enc.iva == 'S') {
+          if ($scope.cotEnc.iva == 'S') {
             var ivaValue = {
               iva: {
                 "cDes": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.cDes : null,
@@ -522,7 +521,7 @@ app.controller('Ctrl', [
             };
           }
           itemToAdd.iva = ivaValue.iva;
-          $scope.cot_det.push(itemToAdd);
+          $scope.cotDet.push(itemToAdd);
           delete $scope.autocompleteArticulos.selectedItem;
           $scope.selectedDetalle = {};
           form.$setPristine();
@@ -548,15 +547,15 @@ app.controller('Ctrl', [
     $scope.editItemDetalle = function(form) {
       if (form.$valid) {
         var index = 0;
-        while (index < $scope.cot_det.length) {
-          if ($scope.cot_det[index].id.cod == $scope.autocompleteArticulos.selectedItem.cod) {
+        while (index < $scope.cotDet.length) {
+          if ($scope.cotDet[index].id.cod == $scope.autocompleteArticulos.selectedItem.cod) {
             if (index > -1) {
-              $scope.cot_det[index].cantidad = $scope.selectedDetalle.cantidad;
-              $scope.cot_det[index].precio_lista = $scope.selectedDetalle.precio_lista;
-              $scope.cot_det[index].precio_venta = $scope.selectedDetalle.precio_venta;
-              $scope.cot_det[index].descuento = $scope.selectedDetalle.descuento;
-              $scope.cot_det[index].descripcion = $scope.selectedDetalle.descripcion;
-              if ($scope.cot_enc.iva == 'S') {
+              $scope.cotDet[index].cantidad = $scope.selectedDetalle.cantidad;
+              $scope.cotDet[index].precio_lista = $scope.selectedDetalle.precio_lista;
+              $scope.cotDet[index].precio_venta = $scope.selectedDetalle.precio_venta;
+              $scope.cotDet[index].descuento = $scope.selectedDetalle.descuento;
+              $scope.cotDet[index].descripcion = $scope.selectedDetalle.descripcion;
+              if ($scope.cotEnc.iva == 'S') {
                 var ivaValue = {
                   iva: {
                     "cDes": $scope.autocompleteArticulos.selectedItem.idIva != undefined ? $scope.autocompleteArticulos.selectedItem.idIva.cDes : null,
@@ -571,7 +570,7 @@ app.controller('Ctrl', [
                   }
                 };
               }
-              $scope.cot_det[index].iva = ivaValue.iva;
+              $scope.cotDet[index].iva = ivaValue.iva;
             }
           }
           index++;
@@ -587,10 +586,10 @@ app.controller('Ctrl', [
 
     $scope.deleteItemDetalle = function() {
       var index = 0;
-      while (index < $scope.cot_det.length) {
-        if ($scope.cot_det[index].id.cod == $scope.autocompleteArticulos.selectedItem.cod) {
+      while (index < $scope.cotDet.length) {
+        if ($scope.cotDet[index].id.cod == $scope.autocompleteArticulos.selectedItem.cod) {
           if (index > -1) {
-            $scope.cot_det.splice(index, 1);
+            $scope.cotDet.splice(index, 1);
             delete $scope.selectedDetalle;
             $scope.autocompleteArticulos.selectedItem = '';
             $scope.isDisabled = false;
@@ -628,16 +627,16 @@ app.controller('Ctrl', [
         /* Buscamos el detalle */
         var detalle = [];
         index = 0;
-        while (index < $scope.cot_det.length) {
+        while (index < $scope.cotDet.length) {
           var itemDetalle = {
-            "cEmp": $scope.cot_det[index].cEmp,
-            "cod": $scope.cot_det[index].id.cod,
-            "cantidad": $scope.cot_det[index].cantidad,
-            "precioLista": $scope.cot_det[index].precio_lista == null ? $scope.cot_det[index].precio_venta : $scope.cot_det[index].precio_lista,
-            "precioVenta": $scope.cot_det[index].precio_venta,
-            "descuento": $scope.cot_det[index].descuento,
-            "codIva": $scope.cot_det[index].iva.cDes,
-            "descripcion": $scope.cot_det[index].descripcion
+            "cEmp": $scope.cotDet[index].cEmp,
+            "cod": $scope.cotDet[index].id.cod,
+            "cantidad": $scope.cotDet[index].cantidad,
+            "precioLista": $scope.cotDet[index].precio_lista == null ? $scope.cotDet[index].precio_venta : $scope.cotDet[index].precio_lista,
+            "precioVenta": $scope.cotDet[index].precio_venta,
+            "descuento": $scope.cotDet[index].descuento,
+            "codIva": $scope.cotDet[index].iva.cDes,
+            "descripcion": $scope.cotDet[index].descripcion
           };
           detalle.push(itemDetalle);
           index++;
@@ -661,29 +660,29 @@ app.controller('Ctrl', [
 
         /* Armamos el Request */
         var requestBody = {
-          "cEmp": $scope.cot_enc.cEmp,
-          "cAgr": $scope.cot_enc.cAgr,
-          "nIde": $scope.cot_enc.nIde,
-          "criVenta": $scope.cot_enc.criVenta.cri,
-          "cSuc": $scope.autocompleteTerceros.selectedItem.suc == 'S' ? $scope.cot_enc.cSuc : undefined,
-          "idioma": $scope.cot_enc.idioma,
-          "usuario": $scope.cot_enc.usuario,
+          "cEmp": $scope.cotEnc.cEmp,
+          "cAgr": $scope.cotEnc.cAgr,
+          "nIde": $scope.cotEnc.nIde,
+          "criVenta": $scope.cotEnc.criVenta.cri,
+          "cSuc": $scope.autocompleteTerceros.selectedItem.suc == 'S' ? $scope.cotEnc.cSuc : undefined,
+          "idioma": $scope.cotEnc.idioma,
+          "usuario": $scope.cotEnc.usuario,
           "usuarioElabora": $localstorage.get('global.usuario', null),
-          "diasValidez": $scope.cot_enc.diasValidez,
-          "embalaje": $scope.cot_enc.embalaje,
-          "cot": $scope.cot_enc.cot,
-          "rev": $scope.cot_enc.rev,
-          "modificar": $scope.cot_enc.modificar,
-          "origen": $scope.cot_enc.origen,
-          "destino": $scope.cot_enc.destino,
-          "iva": $scope.cot_enc.iva,
-          "incoterm": $scope.cot_enc.incoterm,
-          "terminoPago": $scope.cot_enc.terminoPago,
-          "tiempoEntrega": $scope.cot_enc.tiempoEntrega,
-          "lugarDestino": $scope.cot_enc.lugarDestino,
-          "despacho": $scope.cot_enc.despacho,
-          "contacto": $scope.cot_enc.contacto,
-          "obs": $scope.cot_enc.obs,
+          "diasValidez": $scope.cotEnc.diasValidez,
+          "embalaje": $scope.cotEnc.embalaje,
+          "cot": $scope.cotEnc.cot,
+          "rev": $scope.cotEnc.rev,
+          "modificar": $scope.cotEnc.modificar,
+          "origen": $scope.cotEnc.origen,
+          "destino": $scope.cotEnc.destino,
+          "iva": $scope.cotEnc.iva,
+          "incoterm": $scope.cotEnc.incoterm,
+          "terminoPago": $scope.cotEnc.terminoPago,
+          "tiempoEntrega": $scope.cotEnc.tiempoEntrega,
+          "lugarDestino": $scope.cotEnc.lugarDestino,
+          "despacho": $scope.cotEnc.despacho,
+          "contacto": $scope.cotEnc.contacto,
+          "obs": $scope.cotEnc.obs,
           "secciones": secciones,
           "detalle": detalle,
           "costos": costos
