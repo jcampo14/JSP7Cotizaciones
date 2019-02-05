@@ -20,8 +20,8 @@ public class CotSeccionesDetServices {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<CotSeccionesDet> insert(CotSeccionesDet model) {
-		ProcessResponse<CotSeccionesDet> response = new ProcessResponse<CotSeccionesDet>();
+	public ProcessResponse insert(CotSeccionesDet model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesDetId id = new CotSeccionesDetId(model.getcEmp(), model.getCodSeccion(), model.getCodVal());
 		CotSeccionesDet record = repository.findOne(id);
 		if (record == null) {
@@ -35,8 +35,8 @@ public class CotSeccionesDetServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSeccionesDet> update(CotSeccionesDet model) {
-		ProcessResponse<CotSeccionesDet> response = new ProcessResponse<CotSeccionesDet>();
+	public ProcessResponse update(CotSeccionesDet model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesDetId id = new CotSeccionesDetId(model.getcEmp(), model.getCodSeccion(), model.getCodVal());
 		CotSeccionesDet record = repository.findOne(id);
 		if (record == null) {
@@ -50,8 +50,8 @@ public class CotSeccionesDetServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSeccionesDet> delete(CotSeccionesDet model) {
-		ProcessResponse<CotSeccionesDet> response = new ProcessResponse<CotSeccionesDet>();
+	public ProcessResponse delete(CotSeccionesDet model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesDetId id = new CotSeccionesDetId(model.getcEmp(), model.getCodSeccion(), model.getCodVal());
 		CotSeccionesDet record = repository.findOne(id);
 		if (record == null) {

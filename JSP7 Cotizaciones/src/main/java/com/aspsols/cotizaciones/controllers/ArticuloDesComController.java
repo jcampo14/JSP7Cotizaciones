@@ -38,24 +38,24 @@ public class ArticuloDesComController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = SERVICE_PATH)
-	public ProcessResponse<ArticuloDesCom> create(@RequestBody ArticuloDesCom body) {
+	public ProcessResponse create(@RequestBody ArticuloDesCom body) {
 		services.create(body);
-		return new ProcessResponse<>(true, "Insertado exitosamente.");
+		return new ProcessResponse(true, "Insertado exitosamente.");
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, path = SERVICE_PATH)
-	public ProcessResponse<ArticuloDesCom> update(@RequestBody ArticuloDesCom body) {
+	public ProcessResponse update(@RequestBody ArticuloDesCom body) {
 		if (services.update(body)) {
-			return new ProcessResponse<>(true, "Editado exitosamente.");
+			return new ProcessResponse(true, "Editado exitosamente.");
 		} else {
-			return new ProcessResponse<>(false, "No existe el registro para editar.");
+			return new ProcessResponse(false, "No existe el registro para editar.");
 		}
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, path = SERVICE_PATH)
-	public ProcessResponse<ArticuloDesCom> delete(@RequestBody ArticuloDesComList body) {
+	public ProcessResponse delete(@RequestBody ArticuloDesComList body) {
 		services.delete(body);
-		return new ProcessResponse<>(true, "Borrado exitosamente.");
+		return new ProcessResponse(true, "Borrado exitosamente.");
 	}
 
 }

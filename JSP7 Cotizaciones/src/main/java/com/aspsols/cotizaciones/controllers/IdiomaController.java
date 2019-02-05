@@ -33,22 +33,22 @@ public class IdiomaController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
-	public ProcessResponse<Idioma> insertar(@RequestBody Idioma body) {
+	public ProcessResponse insertar(@RequestBody Idioma body) {
 		return service.insert(body);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = SERVICE_PATH)
-	public ProcessResponse<Idioma> actualizar(@RequestBody Idioma body) {
+	public ProcessResponse actualizar(@RequestBody Idioma body) {
 		return service.update(body);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = SERVICE_PATH)
-	public ProcessResponse<Idioma> eliminar(@RequestBody IdiomaList body) {
-		ProcessResponse<Idioma> response = new ProcessResponse<>();
+	public ProcessResponse eliminar(@RequestBody IdiomaList body) {
+		ProcessResponse response = new ProcessResponse();
 		response.setSuccess(true);
 		response.setMessage("OK");
 		for (Idioma record : body.getList()) {
-			ProcessResponse<Idioma> responseRecord = service.delete(record);
+			ProcessResponse responseRecord = service.delete(record);
 			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());

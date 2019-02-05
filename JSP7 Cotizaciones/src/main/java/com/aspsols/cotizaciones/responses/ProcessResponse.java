@@ -3,7 +3,7 @@ package com.aspsols.cotizaciones.responses;
 import com.aspsols.cotizaciones.jsonviewer.JSonServiceViewer;
 import com.fasterxml.jackson.annotation.JsonView;
 
-public class ProcessResponse<E> {
+public class ProcessResponse {
 
 	@JsonView(JSonServiceViewer.Public.class)
 	private boolean success;

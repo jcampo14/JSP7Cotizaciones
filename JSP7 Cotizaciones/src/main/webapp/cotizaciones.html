@@ -30,8 +30,8 @@
       </button>
     </div>
   </md-toolbar>
+  <md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
   <md-content class="panel-body principal-panel">
-    <md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
     <div class="container-fluid" ng-show="!isLoading">
       <md-tabs md-dynamic-height md-border-bottom md-selected="myTabIndex">
         <md-tab label="Datos de Encabezado">
@@ -96,8 +96,7 @@
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Sucursal</label>
-                      <md-select ng-disabled="autocompleteTerceros.selectedItem.suc == 'N'"
-                        ng-required="autocompleteTerceros.selectedItem.suc == 'S'" name="cSuc" ng-model="cotEnc.cSuc" md-on-open="cargarSucursales()">
+                      <md-select ng-disabled="autocompleteTerceros.selectedItem.suc == 'N'" ng-required="autocompleteTerceros.selectedItem.suc == 'S'" name="cSuc" ng-model="cotEnc.cSuc" md-on-open="cargarSucursales()">
                         <md-option ng-value="record.cSuc" ng-repeat="record in sucursales">{{record.cSuc}}
                           - {{record.nom}}</md-option>
                       </md-select>
@@ -109,7 +108,7 @@
                   <div class="col-md-2">
                     <md-input-container class="md-block">
                       <label>Idioma</label>
-                      <md-select placeholder="Por Defecto" ng-model="cotEnc.idioma">
+                      <md-select ng-model="cotEnc.idioma">
                         <md-option ng-value="">Por Defecto</md-option>
                         <md-option ng-value="record.idioma" ng-repeat="record in idiomas">{{record.idioma}}</md-option>
                       </md-select>
@@ -137,8 +136,7 @@
                     </md-input-container>
                   </div>
                   <div class="col-md-1">
-                    <md-switch ng-model="cotEnc.iva" aria-label="¿IVA?" ng-true-value="'S'" ng-false-value="'N'" class="md-primary"
-                      ng-change="ivaChangeDocument()">
+                    <md-switch ng-model="cotEnc.iva" aria-label="¿IVA?" ng-true-value="'S'" ng-false-value="'N'" class="md-primary" ng-change="ivaChangeDocument()">
                       ¿IVA?
                     </md-switch>
                   </div>
@@ -284,15 +282,21 @@
                       </div>
                       <div class="col-md-2">
                         <md-input-container class="md-block">
+                          <label>Unidad</label>
+                          <input disabled type="text" name="unidad" ng-model="autocompleteArticulos.selectedItem.uni">
+                        </md-input-container>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <md-input-container class="md-block">
                           <label>Cantidad</label>
-                          <input type="text" required name="cantidad" ng-model="selectedDetalle.cantidad" ui-number-mask="2">
+                          <input required name="cantidad" ng-model="selectedDetalle.cantidad" ui-number-mask="2">
                           <div ng-messages="detalleForm.cantidad.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
                         </md-input-container>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>Precio Lista</label>
@@ -340,6 +344,29 @@
               </form>
             </div>
             <div class="card panel-body">
+              <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length" aria-hidden="true">
+                <div class="md-toolbar-tools">
+                  <md-icon md-font-icon="fas fa-search"></md-icon>
+                  <form flex="" name="filter.form" class="ng-pristine ng-valid flex" style="margin-bottom: 0px; margin-left: 10px">
+                    <input id="searchProspecto" type="text" ng-model="filter.search" placeholder="Search" class="input-filter ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                  </form>
+                  <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="hideSearch()" aria-label="close">
+                    <md-icon md-font-icon="fas fa-times"></md-icon>
+                    <div class="md-ripple-container"></div>
+                  </button>
+                </div>
+              </md-toolbar>
+              <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
+                <div class="md-toolbar-tools">
+                  <h2 class="md-title"></h2>
+                  <div flex="" class="flex"></div>
+                  <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showSearch()" aria-label="Buscar" ng-show="!filter.show">
+                    <md-tooltip>Buscar Registro</md-tooltip>
+                    <md-icon md-font-icon="fas fa-search"></md-icon>
+                    <div class="md-ripple-container"></div>
+                  </button>
+                </div>
+              </md-toolbar>
               <md-table-container>
                 <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selectedTable" md-progress="promise">
                   <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
@@ -365,7 +392,9 @@
                     </tr>
                   </thead>
                   <tbody md-body>
-                    <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable" md-auto-select="options.autoSelect" ng-repeat="record in cotDet | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable"
+                      md-auto-select="options.autoSelect"
+                      ng-repeat="record in cotDet | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit | filter: filter.search">
                       <td md-cell>{{record.id.cod}}</td>
                       <td md-cell>{{record.id.nom}}</td>
                       <td md-cell>{{record.cantidad | number: 2}}</td>

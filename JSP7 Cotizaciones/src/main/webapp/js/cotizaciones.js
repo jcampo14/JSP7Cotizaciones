@@ -353,6 +353,18 @@ app.controller('Ctrl', [
       }
     };
 
+    $scope.showSearch = function() {
+      $scope.filter.show = true;
+      $timeout(function() {
+        document.getElementById("searchProspecto").focus();
+      }, 10);
+    };
+
+    $scope.hideSearch = function() {
+      $scope.filter.show = false;
+      $scope.filter.search = '';
+    };
+
     /* Limpiar el filtro del select */
     $scope.clearSelectFilter = function() {
       $scope.searchArticulo = '';
@@ -431,7 +443,7 @@ app.controller('Ctrl', [
     };
 
     $scope.changePrecioVenta = function(form) {
-      if ($scope.selectedDetalle.precio_lista == null) {
+      if ($scope.selectedDetalle.precio_lista != null) {
         var valArr = $scope.selectedDetalle.precio_lista * (1 + $scope.paramFac[0].incpArr / 100);
         var valAbj = $scope.selectedDetalle.precio_lista * (1 - $scope.paramFac[0].incpArr / 100);
         if ($scope.selectedDetalle.precio_venta > valArr || $scope.selectedDetalle.precio_venta < valAbj) {

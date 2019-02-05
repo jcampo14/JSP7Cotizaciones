@@ -20,8 +20,8 @@ public class IdiomaServices {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<Idioma> insert(Idioma model) {
-		ProcessResponse<Idioma> response = new ProcessResponse<Idioma>();
+	public ProcessResponse insert(Idioma model) {
+		ProcessResponse response = new ProcessResponse();
 		IdiomaId id = new IdiomaId();
 		id.setcEmp(model.getcEmp());
 		id.setIdioma(model.getIdioma());
@@ -37,8 +37,8 @@ public class IdiomaServices {
 		return response;
 	}
 
-	public ProcessResponse<Idioma> update(Idioma model) {
-		ProcessResponse<Idioma> response = new ProcessResponse<Idioma>();
+	public ProcessResponse update(Idioma model) {
+		ProcessResponse response = new ProcessResponse();
 		IdiomaId id = new IdiomaId();
 		id.setcEmp(model.getcEmp());
 		id.setIdioma(model.getIdioma());
@@ -54,8 +54,8 @@ public class IdiomaServices {
 		return response;
 	}
 
-	public ProcessResponse<Idioma> delete(Idioma model) {
-		ProcessResponse<Idioma> response = new ProcessResponse<Idioma>();
+	public ProcessResponse delete(Idioma model) {
+		ProcessResponse response = new ProcessResponse();
 		IdiomaId id = new IdiomaId();
 		id.setcEmp(model.getcEmp());
 		id.setIdioma(model.getIdioma());

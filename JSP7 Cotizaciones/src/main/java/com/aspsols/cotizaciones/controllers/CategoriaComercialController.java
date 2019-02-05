@@ -16,33 +16,33 @@ import com.aspsols.cotizaciones.services.CategoriaComercialServices;
 
 @RestController
 public class CategoriaComercialController {
-	
+
 	private static final String SERVICE_PATH = "/categorias-comerciales";
 
 	@Autowired
 	private CategoriaComercialServices services;
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = SERVICE_PATH)
-	public MenuResponse<CategoriaComercial> findByRoot(@RequestParam("emp") String empresa){
+	public MenuResponse<CategoriaComercial> findByRoot(@RequestParam("emp") String empresa) {
 		List<CategoriaComercial> resultData = services.findByRoot(empresa);
 		return new MenuResponse<>(resultData);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, path = SERVICE_PATH)
-	public ProcessResponse<CategoriaComercial> create(@RequestBody CategoriaComercial body){
+	public ProcessResponse create(@RequestBody CategoriaComercial body) {
 		services.create(body);
-		return new ProcessResponse<>(true, "Agregado exitosamente.");
+		return new ProcessResponse(true, "Agregado exitosamente.");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.PUT, path = SERVICE_PATH)
-	public ProcessResponse<CategoriaComercial> update(@RequestBody CategoriaComercial body){
+	public ProcessResponse update(@RequestBody CategoriaComercial body) {
 		services.update(body);
-		return new ProcessResponse<>(true, "Editado exitosamente.");
+		return new ProcessResponse(true, "Editado exitosamente.");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.DELETE, path = SERVICE_PATH)
-	public ProcessResponse<CategoriaComercial> delete(@RequestBody CategoriaComercial body){
+	public ProcessResponse delete(@RequestBody CategoriaComercial body) {
 		services.delete(body);
-		return new ProcessResponse<>(true, "Borrado exitosamente.");
+		return new ProcessResponse(true, "Borrado exitosamente.");
 	}
 }

@@ -221,7 +221,8 @@ app.controller('Ctrl',
               "per": $scope.selected[0].per,
               "cAgr": $scope.selected[0].cAgr,
               "cot": $scope.selected[0].cot,
-              "rev": $scope.selected[0].rev
+              "rev": $scope.selected[0].rev,
+              "codSuc": $scope.record.cSuc
             };
             swal({
               title: "Mensaje JSP7", //Bold text
@@ -290,19 +291,20 @@ app.controller('Ctrl',
         swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
       });
     };
-    /*
-    $scope.convertirAPedido = function() {
+
+    $scope.copiarCotizacion = function() {
       if ($scope.selected.length == 1) {
         var requestBody = {
           "cEmp": $scope.selected[0].cEmp,
           "per": $scope.selected[0].per,
           "cAgr": $scope.selected[0].cAgr,
           "cot": $scope.selected[0].cot,
-          "rev": $scope.selected[0].rev
+          "rev": $scope.selected[0].rev,
+          "usuarioElabora": $localstorage.get('global.usuario', null)
         };
         swal({
           title: "Mensaje JSP7", //Bold text
-          text: "¿Desea convertir la cotización en pedido?", //light text
+          text: "¿Desea copiar la cotización?", //light text
           type: 'question',
           showCancelButton: true,
           confirmButtonText: 'Aceptar',
@@ -313,7 +315,7 @@ app.controller('Ctrl',
           preConfirm: (promise) => {
             return $http({
               method: "POST",
-              url: "cotizacionAPedido",
+              url: "copiarCotizacion",
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: window.localStorage.getItem('token.jsp7')
@@ -351,7 +353,6 @@ app.controller('Ctrl',
         swal("Mensaje JSP7", "Debe seleccionar un registro.", "warning");
       }
     };
-    */
 
     $scope.init();
   });

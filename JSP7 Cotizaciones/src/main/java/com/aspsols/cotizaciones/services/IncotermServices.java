@@ -20,11 +20,11 @@ public class IncotermServices {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<Incoterm> insert(Incoterm model) {
-		ProcessResponse<Incoterm> response = new ProcessResponse<Incoterm>();
+	public ProcessResponse insert(Incoterm model) {
+		ProcessResponse response = new ProcessResponse();
 		IncotermId id = new IncotermId();
 		id.setcEmp(model.getcEmp());
-		id.setCodIncoterm(model.getCodIncoterm());		
+		id.setCodIncoterm(model.getCodIncoterm());
 		Incoterm record = repository.findOne(id);
 		if (record == null) {
 			repository.save(model);
@@ -37,45 +37,45 @@ public class IncotermServices {
 		return response;
 	}
 
-	public ProcessResponse<Incoterm> update(Incoterm model) {
-		ProcessResponse<Incoterm> response = new ProcessResponse<Incoterm>();
+	public ProcessResponse update(Incoterm model) {
+		ProcessResponse response = new ProcessResponse();
 		IncotermId id = new IncotermId();
 		id.setcEmp(model.getcEmp());
-		id.setCodIncoterm(model.getCodIncoterm());		
+		id.setCodIncoterm(model.getCodIncoterm());
 		Incoterm record = repository.findOne(id);
 		if (record == null) {
 			response.setSuccess(false);
-			response.setMessage("No existe el registro");			
-		} else {			
+			response.setMessage("No existe el registro");
+		} else {
 			repository.save(model);
 			response.setSuccess(true);
 			response.setMessage("OK");
 		}
-		return response;		
+		return response;
 	}
 
-	public ProcessResponse<Incoterm> delete(Incoterm model) {
-		ProcessResponse<Incoterm> response = new ProcessResponse<Incoterm>();
+	public ProcessResponse delete(Incoterm model) {
+		ProcessResponse response = new ProcessResponse();
 		IncotermId id = new IncotermId();
 		id.setcEmp(model.getcEmp());
-		id.setCodIncoterm(model.getCodIncoterm());		
+		id.setCodIncoterm(model.getCodIncoterm());
 		Incoterm record = repository.findOne(id);
 		if (record == null) {
 			response.setSuccess(false);
-			response.setMessage("No existe el registro");			
+			response.setMessage("No existe el registro");
 		} else {
 			repository.delete(model);
 			response.setSuccess(true);
 			response.setMessage("OK");
 		}
-		return response;		
+		return response;
 	}
-	
+
 	public List<Incoterm> showAll() {
-		return (List<Incoterm>) repository.findAll();		
+		return (List<Incoterm>) repository.findAll();
 	}
-	
+
 	public List<Incoterm> showByEmpresa(String emp) {
-		return (List<Incoterm>) repository.findByEmpresa(emp);		
+		return (List<Incoterm>) repository.findByEmpresa(emp);
 	}
 }

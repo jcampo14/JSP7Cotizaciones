@@ -17,12 +17,12 @@ import com.aspsols.cotizaciones.services.FacCostosAdicServices;
 
 @RestController
 public class FacCostosAdicController {
-	
+
 	private static final String SERVICE_PATH = "/fac-costos-adic";
-	
+
 	@Autowired
 	FacCostosAdicServices service;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH)
 	public QueryResponse<FacCostosAdic> obtener(@RequestParam("emp") String codEmp) {
 		QueryResponse<FacCostosAdic> response = new QueryResponse<>();
@@ -33,23 +33,23 @@ public class FacCostosAdicController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
-	public ProcessResponse<FacCostosAdic> insertar(@RequestBody FacCostosAdic body) {
+	public ProcessResponse insertar(@RequestBody FacCostosAdic body) {
 		return service.insert(body);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = SERVICE_PATH)
-	public ProcessResponse<FacCostosAdic> actualizar(@RequestBody FacCostosAdic body) {		
+	public ProcessResponse actualizar(@RequestBody FacCostosAdic body) {
 		return service.update(body);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = SERVICE_PATH)
-	public ProcessResponse<FacCostosAdic> eliminar(@RequestBody FacCostosAdicList body) {
-		ProcessResponse<FacCostosAdic> response = new ProcessResponse<>();
+	public ProcessResponse eliminar(@RequestBody FacCostosAdicList body) {
+		ProcessResponse response = new ProcessResponse();
 		response.setSuccess(true);
-		response.setMessage("OK");		
+		response.setMessage("OK");
 		for (FacCostosAdic record : body.getList()) {
-			ProcessResponse<FacCostosAdic> responseRecord = service.delete(record);
-			if(!responseRecord.isSuccess()) {
+			ProcessResponse responseRecord = service.delete(record);
+			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());
 			}
@@ -57,5 +57,4 @@ public class FacCostosAdicController {
 		return response;
 	}
 
-	
 }

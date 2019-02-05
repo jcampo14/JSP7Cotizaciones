@@ -18,7 +18,7 @@ import com.aspsols.cotizaciones.services.TercerosServices;
 public class TercerosController {
 
 	private static final String SERVICE_PATH = "/terceros";
-	private static final String PATH_PROSPECTOS = "/prospectos";	
+	private static final String PATH_PROSPECTOS = "/prospectos";
 
 	@Autowired
 	private TercerosServices service;
@@ -32,41 +32,40 @@ public class TercerosController {
 		response.setData(resultData);
 		return response;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = PATH_PROSPECTOS)
-	public QueryResponse<Terceros> findByProspectos(@RequestParam("emp") String empresa) {		
-		List<Terceros> resultData = service.getByProspecto(empresa);				
-		return new QueryResponse<>(resultData, resultData.size());		
+	public QueryResponse<Terceros> findByProspectos(@RequestParam("emp") String empresa) {
+		List<Terceros> resultData = service.getByProspecto(empresa);
+		return new QueryResponse<>(resultData, resultData.size());
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/tercerosByNit")
-	public QueryResponse<Terceros> findByNit(@RequestParam("emp") String empresa,
-			@RequestParam("nit") String nit) {
+	public QueryResponse<Terceros> findByNit(@RequestParam("emp") String empresa, @RequestParam("nit") String nit) {
 		QueryResponse<Terceros> response = new QueryResponse<>();
-		List<Terceros> resultData = service.getByNit(empresa, nit);		
+		List<Terceros> resultData = service.getByNit(empresa, nit);
 		response.setCount(resultData.size());
 		response.setData(resultData);
 		return response;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = PATH_PROSPECTOS)
-	public ProcessResponse<Terceros> insertProspecto(@RequestBody Terceros body) {
-		ProcessResponse<Terceros> response = new ProcessResponse<>();
+	public ProcessResponse insertProspecto(@RequestBody Terceros body) {
+		ProcessResponse response = new ProcessResponse();
 		service.insertProspecto(body);
 		response.setSuccess(true);
 		response.setMessage("Insertado correctamente.");
 		return response;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.PUT, path = PATH_PROSPECTOS)
-	public ProcessResponse<Terceros> updateProspecto(@RequestBody Terceros body) {		
-		service.updateProspecto(body);		
-		return new ProcessResponse<>(true, "Editado correctamente.");
+	public ProcessResponse updateProspecto(@RequestBody Terceros body) {
+		service.updateProspecto(body);
+		return new ProcessResponse(true, "Editado correctamente.");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.DELETE, path = PATH_PROSPECTOS)
-	public ProcessResponse<Terceros> deleteProspecto(@RequestBody Terceros body) {		
-		service.deleteProspecto(body);		
-		return new ProcessResponse<>(true, "Borrado correctamente.");
+	public ProcessResponse deleteProspecto(@RequestBody Terceros body) {
+		service.deleteProspecto(body);
+		return new ProcessResponse(true, "Borrado correctamente.");
 	}
 }

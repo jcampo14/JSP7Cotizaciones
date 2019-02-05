@@ -122,6 +122,11 @@
             <md-icon md-font-icon="fas fa-pen"></md-icon>
             <div class="md-ripple-container"></div>
           </button>
+          <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="copiarCotizacion()">
+            <md-tooltip>Copiar Cotizacion</md-tooltip>
+            <md-icon md-font-icon="fas fa-copy"></md-icon>
+            <div class="md-ripple-container"></div>
+          </button>
           <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="convertirAPedido()">
             <md-tooltip>Convertir a Pedido</md-tooltip>
             <md-icon md-font-icon="fas fa-check-circle"></md-icon>
@@ -189,7 +194,7 @@
                         <md-select ng-disabled="selected[0].cliente.cSuc == 'N' || selected[0].codSuc != null"
                           ng-required="selected[0].cliente.cSuc == 'S' && selected[0].codSuc == null"
                           name="cSuc" ng-model="record.cSuc" md-on-open="cargarSucursales()">
-                          <md-option ng-value="record.cSuc" ng-repeat="record in sucursales">{{record.cSuc}}
+                          <md-option ng-value="item.cSuc" ng-repeat="item in sucursales">{{record.cSuc}}
                             - {{record.nom}}</md-option>
                         </md-select>
                         <div ng-messages="EncForm.cSuc.$error">

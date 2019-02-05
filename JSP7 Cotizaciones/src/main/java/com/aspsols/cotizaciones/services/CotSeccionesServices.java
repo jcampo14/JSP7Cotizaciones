@@ -15,13 +15,13 @@ public class CotSeccionesServices {
 
 	@Autowired
 	private CotSeccionesRepository repository;
-	
+
 	public CotSecciones findById(CotSeccionesId id) {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<CotSecciones> insert(CotSecciones model) {
-		ProcessResponse<CotSecciones> response = new ProcessResponse<CotSecciones>();
+	public ProcessResponse insert(CotSecciones model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesId id = new CotSeccionesId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -37,8 +37,8 @@ public class CotSeccionesServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSecciones> update(CotSecciones model) {
-		ProcessResponse<CotSecciones> response = new ProcessResponse<CotSecciones>();
+	public ProcessResponse update(CotSecciones model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesId id = new CotSeccionesId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -54,8 +54,8 @@ public class CotSeccionesServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSecciones> delete(CotSecciones model) {
-		ProcessResponse<CotSecciones> response = new ProcessResponse<CotSecciones>();
+	public ProcessResponse delete(CotSecciones model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesId id = new CotSeccionesId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());

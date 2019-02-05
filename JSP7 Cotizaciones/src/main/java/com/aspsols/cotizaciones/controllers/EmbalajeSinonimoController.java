@@ -32,23 +32,23 @@ public class EmbalajeSinonimoController {
 	}
 
 	@PostMapping(path = SERVICE_PATH)
-	public ProcessResponse<EmbalajeSinonimo> create(@RequestBody EmbalajeSinonimo body) {
+	public ProcessResponse create(@RequestBody EmbalajeSinonimo body) {
 		services.create(body);
-		return new ProcessResponse<>(true, "Insertado exitosamente.");
+		return new ProcessResponse(true, "Insertado exitosamente.");
 	}
 
 	@PutMapping(path = SERVICE_PATH)
-	public ProcessResponse<EmbalajeSinonimo> update(@RequestBody EmbalajeSinonimo body) {
+	public ProcessResponse update(@RequestBody EmbalajeSinonimo body) {
 		if (services.update(body)) {
-			return new ProcessResponse<>(true, "Editado exitosamente.");
+			return new ProcessResponse(true, "Editado exitosamente.");
 		} else {
-			return new ProcessResponse<>(false, "El registro no existe.");
+			return new ProcessResponse(false, "El registro no existe.");
 		}
 	}
-	
+
 	@DeleteMapping(path = SERVICE_PATH)
-	public ProcessResponse<EmbalajeSinonimo> delete(@RequestBody List<EmbalajeSinonimo> body) {
-		services.delete(body);		
-		return new ProcessResponse<>(true, "Borrado exitosamente.");
+	public ProcessResponse delete(@RequestBody List<EmbalajeSinonimo> body) {
+		services.delete(body);
+		return new ProcessResponse(true, "Borrado exitosamente.");
 	}
 }

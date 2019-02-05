@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.aspsols.cotizaciones.model.Usuarios;
 import com.aspsols.cotizaciones.querys.CursorWorkingSchedule;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsolutions.framework.database.SQLParameter;
@@ -23,8 +22,8 @@ import com.aspsolutions.jforms.commons.exceptions.NoDataFoundException;
 @Service
 public class LoginServices {
 			
-	public ProcessResponse<Usuarios> login(String usuario, String clave, String empresa){
-		ProcessResponse<Usuarios> response = new ProcessResponse<>();
+	public ProcessResponse login(String usuario, String clave, String empresa){
+		ProcessResponse response = new ProcessResponse();
 		SQL sql = ConnectionManager.stablishDatabaseConnection();
 		try {
 			sql = ConnectionManager.stablishDatabaseConnection();

@@ -42,22 +42,22 @@ public class CotSeccionesDetSinonimosController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
-	public ProcessResponse<CotSeccionesDetSinonimos> insertar(@RequestBody CotSeccionesDetSinonimos body) {
+	public ProcessResponse insertar(@RequestBody CotSeccionesDetSinonimos body) {
 		return service.insert(body);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = SERVICE_PATH)
-	public ProcessResponse<CotSeccionesDetSinonimos> actualizar(@RequestBody CotSeccionesDetSinonimos body) {
+	public ProcessResponse actualizar(@RequestBody CotSeccionesDetSinonimos body) {
 		return service.update(body);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = SERVICE_PATH)
-	public ProcessResponse<CotSeccionesDetSinonimos> eliminar(@RequestBody CotSeccionesDetSinonimosList body) {
-		ProcessResponse<CotSeccionesDetSinonimos> response = new ProcessResponse<>();
+	public ProcessResponse eliminar(@RequestBody CotSeccionesDetSinonimosList body) {
+		ProcessResponse response = new ProcessResponse();
 		response.setSuccess(true);
 		response.setMessage("OK");
 		for (CotSeccionesDetSinonimos record : body.getList()) {
-			ProcessResponse<CotSeccionesDetSinonimos> responseRecord = service.delete(record);
+			ProcessResponse responseRecord = service.delete(record);
 			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());

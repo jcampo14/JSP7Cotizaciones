@@ -90,6 +90,7 @@ app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout
 
   $scope.hideSearch = function() {
     $scope.filter.show = false;
+    $scope.filter.search = '';
   };
 
   $scope.showContactos = function() {

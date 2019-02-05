@@ -20,8 +20,8 @@ public class CotSeccionesDetSinonimosServices {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<CotSeccionesDetSinonimos> insert(CotSeccionesDetSinonimos model) {
-		ProcessResponse<CotSeccionesDetSinonimos> response = new ProcessResponse<CotSeccionesDetSinonimos>();
+	public ProcessResponse insert(CotSeccionesDetSinonimos model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesDetSinonimosId id = new CotSeccionesDetSinonimosId(model.getcEmp(), model.getCodSeccion(),
 				model.getCodVal(), model.getIdioma());
 		CotSeccionesDetSinonimos record = repository.findOne(id);
@@ -36,8 +36,8 @@ public class CotSeccionesDetSinonimosServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSeccionesDetSinonimos> update(CotSeccionesDetSinonimos model) {
-		ProcessResponse<CotSeccionesDetSinonimos> response = new ProcessResponse<CotSeccionesDetSinonimos>();
+	public ProcessResponse update(CotSeccionesDetSinonimos model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesDetSinonimosId id = new CotSeccionesDetSinonimosId(model.getcEmp(), model.getCodSeccion(),
 				model.getCodVal(), model.getIdioma());
 		CotSeccionesDetSinonimos record = repository.findOne(id);
@@ -52,8 +52,8 @@ public class CotSeccionesDetSinonimosServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSeccionesDetSinonimos> delete(CotSeccionesDetSinonimos model) {
-		ProcessResponse<CotSeccionesDetSinonimos> response = new ProcessResponse<CotSeccionesDetSinonimos>();
+	public ProcessResponse delete(CotSeccionesDetSinonimos model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesDetSinonimosId id = new CotSeccionesDetSinonimosId(model.getcEmp(), model.getCodSeccion(),
 				model.getCodVal(), model.getIdioma());
 		CotSeccionesDetSinonimos record = repository.findOne(id);

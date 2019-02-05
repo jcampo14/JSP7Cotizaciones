@@ -19,45 +19,45 @@ import com.aspsols.cotizaciones.services.EmbalajeServices;
 public class EmbalajeController {
 
 	private static final String SERVICE_PATH = "/embalajes";
-	
+
 	@Autowired
 	private EmbalajeServices services;
-	
-	@RequestMapping(method=RequestMethod.GET, path=SERVICE_PATH)
-	public QueryResponse<Embalaje> showByEmpresaServices(@RequestParam("emp") String emp){
+
+	@RequestMapping(method = RequestMethod.GET, path = SERVICE_PATH)
+	public QueryResponse<Embalaje> showByEmpresaServices(@RequestParam("emp") String emp) {
 		QueryResponse<Embalaje> response = new QueryResponse<>();
 		List<Embalaje> list = services.showByEmpresa(emp);
 		response.setCount(list.size());
 		response.setData(list);
-		
+
 		return response;
 	}
-	
-	@RequestMapping(method=RequestMethod.POST, path=SERVICE_PATH)
-	public ProcessResponse<Embalaje> Insert(@RequestBody Embalaje body){
+
+	@RequestMapping(method = RequestMethod.POST, path = SERVICE_PATH)
+	public ProcessResponse Insert(@RequestBody Embalaje body) {
 		return services.Insert(body);
 	}
-	
-	@RequestMapping(method=RequestMethod.PUT, path=SERVICE_PATH)
-	public ProcessResponse<Embalaje> Update(@RequestBody Embalaje body){
+
+	@RequestMapping(method = RequestMethod.PUT, path = SERVICE_PATH)
+	public ProcessResponse Update(@RequestBody Embalaje body) {
 		return services.Update(body);
 	}
-	
-	@RequestMapping(method = RequestMethod.DELETE, path=SERVICE_PATH)
-	public ProcessResponse<Embalaje> Delete(@RequestBody EmbalajeList body){
-		ProcessResponse<Embalaje> response = new ProcessResponse<Embalaje>();
+
+	@RequestMapping(method = RequestMethod.DELETE, path = SERVICE_PATH)
+	public ProcessResponse Delete(@RequestBody EmbalajeList body) {
+		ProcessResponse response = new ProcessResponse();
 		response.setSuccess(true);
-		response.setMessage("OK");	
-		
-		for(Embalaje record : body.getList()) {
-			ProcessResponse<Embalaje> responseRecord = services.Delete(record);
-			if(!responseRecord.isSuccess()) {
+		response.setMessage("OK");
+
+		for (Embalaje record : body.getList()) {
+			ProcessResponse responseRecord = services.Delete(record);
+			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());
 			}
 		}
-		
+
 		return response;
 	}
-	
+
 }

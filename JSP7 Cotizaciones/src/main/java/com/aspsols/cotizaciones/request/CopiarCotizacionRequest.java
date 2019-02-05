@@ -1,13 +1,6 @@
 package com.aspsols.cotizaciones.request;
 
-import java.io.Serializable;
-
-public class CotizacionAPedidoRequest implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class CopiarCotizacionRequest {
 
 	private String cEmp;
 
@@ -19,7 +12,7 @@ public class CotizacionAPedidoRequest implements Serializable {
 
 	private int rev;
 
-	private String codSuc;
+	private String usuarioElabora;
 
 	public String getcEmp() {
 		return cEmp;
@@ -61,12 +54,12 @@ public class CotizacionAPedidoRequest implements Serializable {
 		this.rev = rev;
 	}
 
-	public String getCodSuc() {
-		return codSuc;
+	public String getUsuarioElabora() {
+		return usuarioElabora;
 	}
 
-	public void setCodSuc(String codSuc) {
-		this.codSuc = codSuc;
+	public void setUsuarioElabora(String usuarioElabora) {
+		this.usuarioElabora = usuarioElabora;
 	}
 
 }

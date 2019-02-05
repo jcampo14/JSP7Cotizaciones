@@ -15,13 +15,13 @@ public class CotSeccionesSinonimosServices {
 
 	@Autowired
 	private CotSeccionesSinonimosRepository repository;
-	
+
 	public CotSeccionesSinonimos findById(CotSeccionesSinonimosId id) {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<CotSeccionesSinonimos> insert(CotSeccionesSinonimos model) {
-		ProcessResponse<CotSeccionesSinonimos> response = new ProcessResponse<CotSeccionesSinonimos>();
+	public ProcessResponse insert(CotSeccionesSinonimos model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesSinonimosId id = new CotSeccionesSinonimosId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -38,8 +38,8 @@ public class CotSeccionesSinonimosServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSeccionesSinonimos> update(CotSeccionesSinonimos model) {
-		ProcessResponse<CotSeccionesSinonimos> response = new ProcessResponse<CotSeccionesSinonimos>();
+	public ProcessResponse update(CotSeccionesSinonimos model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesSinonimosId id = new CotSeccionesSinonimosId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
@@ -56,12 +56,12 @@ public class CotSeccionesSinonimosServices {
 		return response;
 	}
 
-	public ProcessResponse<CotSeccionesSinonimos> delete(CotSeccionesSinonimos model) {
-		ProcessResponse<CotSeccionesSinonimos> response = new ProcessResponse<CotSeccionesSinonimos>();
+	public ProcessResponse delete(CotSeccionesSinonimos model) {
+		ProcessResponse response = new ProcessResponse();
 		CotSeccionesSinonimosId id = new CotSeccionesSinonimosId();
 		id.setcEmp(model.getcEmp());
 		id.setCodSeccion(model.getCodSeccion());
-		id.setIdioma(model.getIdioma());		
+		id.setIdioma(model.getIdioma());
 		CotSeccionesSinonimos record = repository.findOne(id);
 		if (record == null) {
 			response.setSuccess(false);

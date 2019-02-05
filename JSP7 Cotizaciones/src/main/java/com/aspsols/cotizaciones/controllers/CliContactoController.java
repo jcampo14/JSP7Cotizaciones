@@ -31,21 +31,21 @@ public class CliContactoController {
 	}
 
 	@PostMapping(path = SERVICE_PATH)
-	public ProcessResponse<CliContacto> create(@RequestBody CliContacto body) {
+	public ProcessResponse create(@RequestBody CliContacto body) {
 		services.create(body);
-		return new ProcessResponse<>(true, "Insertado exitosamente.");
+		return new ProcessResponse(true, "Insertado exitosamente.");
 	}
 
 	@PutMapping(path = SERVICE_PATH)
-	public ProcessResponse<CliContacto> update(@RequestBody CliContacto body) {
+	public ProcessResponse update(@RequestBody CliContacto body) {
 		services.update(body);
-		return new ProcessResponse<>(true, "Editado exitosamente.");
+		return new ProcessResponse(true, "Editado exitosamente.");
 	}
 
 	@DeleteMapping(path = SERVICE_PATH)
-	public ProcessResponse<CliContacto> delete(@RequestBody List<CliContacto> body) {
+	public ProcessResponse delete(@RequestBody List<CliContacto> body) {
 		services.delete(body);
-		return new ProcessResponse<>(true, "Borrado exitosamente");
+		return new ProcessResponse(true, "Borrado exitosamente");
 	}
 
 }

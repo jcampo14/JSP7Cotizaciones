@@ -20,8 +20,8 @@ public class FacCostosAdicServices {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<FacCostosAdic> insert(FacCostosAdic model) {
-		ProcessResponse<FacCostosAdic> response = new ProcessResponse<FacCostosAdic>();
+	public ProcessResponse insert(FacCostosAdic model) {
+		ProcessResponse response = new ProcessResponse();
 		FacCostosAdicId id = new FacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setCodigo(model.getCodigo());
@@ -37,8 +37,8 @@ public class FacCostosAdicServices {
 		return response;
 	}
 
-	public ProcessResponse<FacCostosAdic> update(FacCostosAdic model) {
-		ProcessResponse<FacCostosAdic> response = new ProcessResponse<FacCostosAdic>();
+	public ProcessResponse update(FacCostosAdic model) {
+		ProcessResponse response = new ProcessResponse();
 		FacCostosAdicId id = new FacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setCodigo(model.getCodigo());
@@ -54,8 +54,8 @@ public class FacCostosAdicServices {
 		return response;
 	}
 
-	public ProcessResponse<FacCostosAdic> delete(FacCostosAdic model) {
-		ProcessResponse<FacCostosAdic> response = new ProcessResponse<FacCostosAdic>();
+	public ProcessResponse delete(FacCostosAdic model) {
+		ProcessResponse response = new ProcessResponse();
 		FacCostosAdicId id = new FacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setCodigo(model.getCodigo());

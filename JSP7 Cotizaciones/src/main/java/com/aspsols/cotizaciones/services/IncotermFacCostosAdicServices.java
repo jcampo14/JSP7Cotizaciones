@@ -20,8 +20,8 @@ public class IncotermFacCostosAdicServices {
 		return repository.findOne(id);
 	}
 
-	public ProcessResponse<IncotermFacCostosAdic> insert(IncotermFacCostosAdic model) {
-		ProcessResponse<IncotermFacCostosAdic> response = new ProcessResponse<IncotermFacCostosAdic>();
+	public ProcessResponse insert(IncotermFacCostosAdic model) {
+		ProcessResponse response = new ProcessResponse();
 		IncotermFacCostosAdicId id = new IncotermFacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setIdFacCostosAdic(model.getIdFacCostosAdic());
@@ -38,8 +38,8 @@ public class IncotermFacCostosAdicServices {
 		return response;
 	}
 
-	public ProcessResponse<IncotermFacCostosAdic> update(IncotermFacCostosAdic model) {
-		ProcessResponse<IncotermFacCostosAdic> response = new ProcessResponse<IncotermFacCostosAdic>();
+	public ProcessResponse update(IncotermFacCostosAdic model) {
+		ProcessResponse response = new ProcessResponse();
 		IncotermFacCostosAdicId id = new IncotermFacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setIdFacCostosAdic(model.getIdFacCostosAdic());
@@ -56,8 +56,8 @@ public class IncotermFacCostosAdicServices {
 		return response;
 	}
 
-	public ProcessResponse<IncotermFacCostosAdic> delete(IncotermFacCostosAdic model) {
-		ProcessResponse<IncotermFacCostosAdic> response = new ProcessResponse<IncotermFacCostosAdic>();
+	public ProcessResponse delete(IncotermFacCostosAdic model) {
+		ProcessResponse response = new ProcessResponse();
 		IncotermFacCostosAdicId id = new IncotermFacCostosAdicId();
 		id.setcEmp(model.getcEmp());
 		id.setIdFacCostosAdic(model.getIdFacCostosAdic());

@@ -17,14 +17,15 @@ import com.aspsols.cotizaciones.services.CotSeccionesSinonimosServices;
 
 @RestController
 public class CotSeccionesSinonimosController {
-	
+
 	private static final String SERVICE_PATH = "/cot-secciones-sinonimos";
 
 	@Autowired
 	private CotSeccionesSinonimosServices service;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = SERVICE_PATH)
-	public QueryResponse<CotSeccionesSinonimos> obtener(@RequestParam("emp") String codEmp,@RequestParam("seccion") String seccion) {
+	public QueryResponse<CotSeccionesSinonimos> obtener(@RequestParam("emp") String codEmp,
+			@RequestParam("seccion") String seccion) {
 		QueryResponse<CotSeccionesSinonimos> response = new QueryResponse<>();
 		List<CotSeccionesSinonimos> list = service.showBySeccion(codEmp, seccion);
 		response.setCount(list.size());
@@ -33,28 +34,28 @@ public class CotSeccionesSinonimosController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = SERVICE_PATH)
-	public ProcessResponse<CotSeccionesSinonimos> insertar(@RequestBody CotSeccionesSinonimos body) {
+	public ProcessResponse insertar(@RequestBody CotSeccionesSinonimos body) {
 		return service.insert(body);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = SERVICE_PATH)
-	public ProcessResponse<CotSeccionesSinonimos> actualizar(@RequestBody CotSeccionesSinonimos body) {		
+	public ProcessResponse actualizar(@RequestBody CotSeccionesSinonimos body) {
 		return service.update(body);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = SERVICE_PATH)
-	public ProcessResponse<CotSeccionesSinonimos> eliminar(@RequestBody CotSeccionesSinonimosList body) {
-		ProcessResponse<CotSeccionesSinonimos> response = new ProcessResponse<>();
+	public ProcessResponse eliminar(@RequestBody CotSeccionesSinonimosList body) {
+		ProcessResponse response = new ProcessResponse();
 		response.setSuccess(true);
-		response.setMessage("OK");		
+		response.setMessage("OK");
 		for (CotSeccionesSinonimos record : body.getList()) {
-			ProcessResponse<CotSeccionesSinonimos> responseRecord = service.delete(record);
-			if(!responseRecord.isSuccess()) {
+			ProcessResponse responseRecord = service.delete(record);
+			if (!responseRecord.isSuccess()) {
 				response.setSuccess(false);
 				response.setMessage(responseRecord.getMessage());
 			}
 		}
 		return response;
 	}
-	
+
 }
