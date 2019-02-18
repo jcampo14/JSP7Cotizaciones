@@ -289,8 +289,8 @@ app.controller('Ctrl', [
           if ($scope.cotEnc.iva == 'S') {
             var ivaValue = {
               iva: {
-                "cDes": result.detalle[index].articulo.idIva.cDes,
-                "pctj": result.detalle[index].articulo.idIva.pctj
+                "cDes": result.detalle[index].articulo.idIva != undefined ? result.detalle[index].articulo.idIva.cDes : null,
+                "pctj": result.detalle[index].articulo.idIva != undefined ? result.detalle[index].articulo.idIva.pctj : 0
               }
             };
           } else {
@@ -443,7 +443,7 @@ app.controller('Ctrl', [
     };
 
     $scope.changePrecioVenta = function(form) {
-      if ($scope.selectedDetalle.precio_lista != null) {
+      if ($scope.selectedDetalle.precio_lista != undefined) {
         var valArr = $scope.selectedDetalle.precio_lista * (1 + $scope.paramFac[0].incpArr / 100);
         var valAbj = $scope.selectedDetalle.precio_lista * (1 - $scope.paramFac[0].incpArr / 100);
         if ($scope.selectedDetalle.precio_venta > valArr || $scope.selectedDetalle.precio_venta < valAbj) {

@@ -241,10 +241,10 @@
             <div class="card">
               <form name="detalleForm" class="panel-body">
                 <div class="row">
-                  <div class="col-md-10">
+                  <div class="col-md-9">
                     <legend>Detalle de la Cotización</legend>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3" style="text-align: right">
                     <md-button md-colors="{background: 'light-green-500'}" type="submit" class="md-fab md-mini button-action" ng-click="addItemDetalle(detalleForm)">
                       <md-tooltip>Agregar Registro</md-tooltip>
                       <md-icon md-font-icon="fas fa-plus"></md-icon>
@@ -344,11 +344,12 @@
               </form>
             </div>
             <div class="card panel-body">
-              <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length" aria-hidden="true">
+              <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length" aria-hidden="true"
+                style="min-height: 43px !important; height: 43px;">
                 <div class="md-toolbar-tools">
                   <md-icon md-font-icon="fas fa-search"></md-icon>
                   <form flex="" name="filter.form" class="ng-pristine ng-valid flex" style="margin-bottom: 0px; margin-left: 10px">
-                    <input id="searchProspecto" type="text" ng-model="filter.search" placeholder="Search" class="input-filter ng-pristine ng-untouched ng-valid" aria-invalid="false">
+                    <input id="searchProspecto" type="text" ng-model="filter.search" placeholder="Búsqueda" class="input-filter ng-pristine ng-untouched ng-valid" aria-invalid="false">
                   </form>
                   <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="hideSearch()" aria-label="close">
                     <md-icon md-font-icon="fas fa-times"></md-icon>
@@ -356,11 +357,12 @@
                   </button>
                 </div>
               </md-toolbar>
-              <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
+              <md-toolbar class="md-table-toolbar md-default" aria-hidden="false" style="min-height: 43px !important; height: 43px;"
+                ng-show="!filter.show">
                 <div class="md-toolbar-tools">
-                  <h2 class="md-title"></h2>
+                  <h2 class="md-title">Articulos Ofertados</h2>
                   <div flex="" class="flex"></div>
-                  <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showSearch()" aria-label="Buscar" ng-show="!filter.show">
+                  <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showSearch()" aria-label="Buscar">
                     <md-tooltip>Buscar Registro</md-tooltip>
                     <md-icon md-font-icon="fas fa-search"></md-icon>
                     <div class="md-ripple-container"></div>

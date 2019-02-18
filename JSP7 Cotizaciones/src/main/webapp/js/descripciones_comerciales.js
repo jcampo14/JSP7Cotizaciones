@@ -113,7 +113,7 @@ app.controller('Ctrl', function ($localstorage, $consumeService, $scope, $timeou
     };
 
     $scope.showDataDetail = function (item) {
-        $scope.promiseDetail = $consumeService.get('/articulo-descripcionByCod?emp=' + item.cEmp
+        $scope.promiseDetail = $consumeService.get('articulo-descripcionByCod?emp=' + item.cEmp
             + '&cod=' + item.cod);
         $scope.promiseDetail.then(function (result) {
             $scope.queryDataDetail = result;

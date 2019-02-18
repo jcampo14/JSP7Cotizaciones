@@ -150,7 +150,7 @@ app.controller('Ctrl',
           "modificar": accion
         };
         var params = encodeURI(btoa(JSON.stringify(jsonToSend)));
-        $window.location.href = '/cotizaciones.html?params=' + params;
+        $window.location.href = 'cotizaciones.html?params=' + params;
       } else {
         swal("Mensaje JSP7", "Debe seleccionar 1 registro.", "warning");
       }
