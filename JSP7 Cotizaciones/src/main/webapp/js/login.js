@@ -85,7 +85,7 @@ app.controller('loginController',
           });
         }, function(error) {
           $scope.loggingIn = false;
-          if (error.data.status == 401) {
+          if (error.status == 403) {
             swal("¡Error!", "Usuario y/o clave inválidos.", "error");
           }
           console.log(error);
