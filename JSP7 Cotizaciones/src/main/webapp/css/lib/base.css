@@ -252,3 +252,11 @@ md-content {
   width: 100%;
   text-align: center;
 }
+
+md-tab-item {
+  max-width: none !important;
+}
+
+md-pagination-wrapper {
+  width: auto !important;
+}

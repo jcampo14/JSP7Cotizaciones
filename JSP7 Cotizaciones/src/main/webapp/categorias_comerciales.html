@@ -74,7 +74,7 @@
                             <md-input-container class="md-block">
                                 <label>Padre</label>
                                 <input disabled name="codCatPadre" ng-model="categoriaComercial.codCatPadre"
-                                    ui-number-mask="2">
+                                    number-input>
                                 <div ng-messages="form.codCatPadre.$error">
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
@@ -84,7 +84,7 @@
                             <md-input-container class="md-block">
                                 <label>Nombre Padre</label>
                                 <input disabled name="nombrePadre" ng-model="categoriaComercial.nombrePadre"
-                                    ui-number-mask="2">
+                                    number-input>
                                 <div ng-messages="form.nombrePadre.$error">
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
@@ -120,7 +120,7 @@
                             <div class="col-sm-12">
                                 <md-input-container class="md-block">
                                     <label>Código Categoría</label>
-                                    <input required name="codCat" ng-model="record.codCat" ui-number-mask="2">
+                                    <input required name="codCat" ng-model="record.codCat" number-input>
                                     <div ng-messages="dialogForm.codCat.$error">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
@@ -130,7 +130,7 @@
                                 <md-input-container class="md-block">
                                     <label>Nombre Categoría</label>
                                     <input required name="nombreCat" ng-model="record.nombreCat"
-                                        ui-number-mask="2">
+                                        number-input>
                                     <div ng-messages="dialogForm.nombreCat.$error">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
