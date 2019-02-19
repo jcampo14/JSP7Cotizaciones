@@ -117,7 +117,7 @@
                   <div class="col-md-2">
                     <md-input-container class="md-block">
                       <label>Dias Validez</label>
-                      <input required type="text" name="diasValidez" ng-model="cotEnc.diasValidez" ui-number-mask="0">
+                      <input required type="text" name="diasValidez" ng-model="cotEnc.diasValidez" number-input>
                       <div ng-messages="EncForm.diasValidez.$error">
                         <div ng-message="required">Este campo es requerido.</div>
                       </div>
@@ -223,7 +223,7 @@
                       <div class="col-md-3" ng-repeat="costo in costosAdic | filter:{facCostosAdic: {moneda : cotEnc.moneda}}">
                         <md-input-container class="md-block">
                           <label>{{costo.facCostosAdic.nombre}}</label>
-                          <input type="text" ng-model="costo.valor" ui-number-mask="2">
+                          <input type="text" ng-model="costo.valor" number-input>
                         </md-input-container>
                       </div>
                     </div>
@@ -291,7 +291,7 @@
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>Cantidad</label>
-                          <input required name="cantidad" ng-model="selectedDetalle.cantidad" ui-number-mask="2">
+                          <input required name="cantidad" ng-model="selectedDetalle.cantidad" number-input>
                           <div ng-messages="detalleForm.cantidad.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
@@ -300,7 +300,7 @@
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>Precio Lista</label>
-                          <input ng-required="selectedDetalle.tienePrecio" name="precioLista" ng-model="selectedDetalle.precio_lista" ui-number-mask="2" ng-disabled="true">
+                          <input ng-required="selectedDetalle.tienePrecio" name="precioLista" ng-model="selectedDetalle.precio_lista" number-input ng-disabled="true">
                           <div ng-messages="detalleForm.precioLista.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
@@ -309,7 +309,7 @@
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>Precio Venta</label>
-                          <input required name="precioVenta" ng-model="selectedDetalle.precio_venta" ui-number-mask="2" ng-change="changePrecioVenta(detalleForm)">
+                          <input required name="precioVenta" ng-model="selectedDetalle.precio_venta" number-input ng-change="changePrecioVenta(detalleForm)">
                           <div ng-messages="detalleForm.precioVenta.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                             <div ng-message="validationError">Precio de venta fuera de los limites
@@ -320,7 +320,7 @@
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>% Descuento</label>
-                          <input required name="descuento" ng-model="selectedDetalle.descuento" ui-number-mask="2">
+                          <input required name="descuento" ng-model="selectedDetalle.descuento" number-input>
                           <div ng-messages="detalleForm.descuento.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
