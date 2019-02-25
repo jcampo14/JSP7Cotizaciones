@@ -42,19 +42,26 @@ public class Articulo implements Serializable {
 
 	@Column(name = "RAMA")
 	private String rama;
-	
+
 	@Column(name = "FACT")
 	private String fact;
-	
+
 	@Column(name = "IVA")
 	private String iva;
-	
+
+	@Column(name = "CLASE")
+	private String clase;
+
 	@ManyToOne
-	@JoinColumns({@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
-		@JoinColumn(name = "IVA", referencedColumnName = "C_DES", insertable = false, updatable = false)})
-	private DesctoEgr idIva; 
-	
-	
+	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
+			@JoinColumn(name = "IVA", referencedColumnName = "C_DES", insertable = false, updatable = false) })
+	private DesctoEgr idIva;
+
+	@ManyToOne
+	@JoinColumns({ @JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false),
+			@JoinColumn(name = "CLASE", referencedColumnName = "CLASE", insertable = false, updatable = false) })
+	private Clase idClase;
+
 	public Articulo() {
 		super();
 	}
@@ -129,6 +136,22 @@ public class Articulo implements Serializable {
 
 	public void setIdIva(DesctoEgr idIva) {
 		this.idIva = idIva;
+	}
+
+	public String getClase() {
+		return clase;
+	}
+
+	public void setClase(String clase) {
+		this.clase = clase;
+	}
+
+	public Clase getIdClase() {
+		return idClase;
+	}
+
+	public void setIdClase(Clase idClase) {
+		this.idClase = idClase;
 	}
 
 }

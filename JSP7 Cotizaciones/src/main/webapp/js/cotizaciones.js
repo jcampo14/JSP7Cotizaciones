@@ -122,8 +122,8 @@ app.controller('Ctrl', [
           $scope.cotEnc.cSuc = {};
           $scope.cotEnc.contacto = {};
           $scope.cotEnc.nIde = item.nIde;
-          if ($scope.cotEnc.iva == undefined){
-              $scope.cotEnc.iva = item.iva;
+          if ($scope.cotEnc.iva == undefined) {
+            $scope.cotEnc.iva = item.iva;
           }
         }
       },
@@ -155,7 +155,7 @@ app.controller('Ctrl', [
           if ($scope.selectedDetalle == null) {
             $scope.selectedDetalle = {};
           }
-          $scope.buscarPrecioVenta(item.cEmp, item.cod);
+          $scope.buscarPrecioVenta(item.cEmp, item);
           if (!item.descripcion) {
             $scope.traerDescripcionComercial(item.cEmp, item.cod, $scope.cotEnc.idioma);
           }
@@ -183,6 +183,24 @@ app.controller('Ctrl', [
         }
       }
     };
+
+    $scope.$watch("autocompleteArticulos.selectedItem", function(newValue, oldValue) {
+      if (newValue === oldValue) {
+        return;
+      } else {
+        if ($scope.selectedDetalle != null) {
+          if (!$scope.isDisabled) {
+            $scope.selectedDetalle.nom = newValue != undefined ? newValue.nom : undefined;
+          }
+        } else {
+          if (!$scope.isDisabled) {
+            $scope.selectedDetalle = {
+              nom: newValue != undefined ? newValue.nom : undefined
+            }
+          }
+        }
+      }
+    });
 
     /* Cargar cotizacion para revision o modificación */
     $scope.traerCotizacion = function(urlParams) {
@@ -284,7 +302,8 @@ app.controller('Ctrl', [
             "precio_lista": result.detalle[index].lis,
             "precio_venta": result.detalle[index].ven,
             "descuento": result.detalle[index].pDes,
-            "descripcion": result.detalle[index].inf7
+            "descripcion": result.detalle[index].inf7,
+            "nom": result.detalle[index].nom
           };
           if ($scope.cotEnc.iva == 'S') {
             var ivaValue = {
@@ -460,23 +479,41 @@ app.controller('Ctrl', [
       seccion.descripcion_final = seccion.seleccionado.descripcion;
     };
 
-    $scope.buscarPrecioVenta = function(empresa, codigo) {
+    $scope.buscarPrecioVenta = function(empresa, articulo) {
       $scope.consumingService = true;
-      var promise = $consumeService.get('precios?emp=' + empresa +
-        "&cod=" + codigo + "&cri=" + $scope.cotEnc.criVenta.cri);
-      promise.then(function(result) {
-        if (result.pVen == null) {
-          $scope.selectedDetalle.tienePrecio = false;
-        } else {
-          $scope.selectedDetalle.tienePrecio = true;
-          $scope.selectedDetalle.precio_lista = result.pVen;
-        }
-        $scope.consumingService = false;
-      }, function(error) {
-        console.log(error);
-        $scope.consumingService = false;
-        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
-      });
+      if (articulo.idClase.afInvent == 'S') {
+        var promise = $consumeService.get('precios?emp=' + empresa +
+          "&cod=" + articulo.cod + "&cri=" + $scope.cotEnc.criVenta.cri);
+        promise.then(function(result) {
+          if (result.pVen == null) {
+            $scope.selectedDetalle.tienePrecio = false;
+          } else {
+            $scope.selectedDetalle.tienePrecio = true;
+            $scope.selectedDetalle.precio_lista = result.pVen;
+          }
+          $scope.consumingService = false;
+        }, function(error) {
+          console.log(error);
+          $scope.consumingService = false;
+          swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+        });
+      } else {
+        var promise = $consumeService.get('precioServicio?emp=' + empresa +
+          "&cod=" + articulo.cod + "&mon=" + $scope.cotEnc.criVenta.mon);
+        promise.then(function(result) {
+          if (result.pVen == null) {
+            $scope.selectedDetalle.tienePrecio = false;
+          } else {
+            $scope.selectedDetalle.tienePrecio = true;
+            $scope.selectedDetalle.precio_lista = result.pVen;
+          }
+          $scope.consumingService = false;
+        }, function(error) {
+          console.log(error);
+          $scope.consumingService = false;
+          swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+        });
+      }
     };
 
     $scope.traerDescripcionComercial = function(empresa, codigo, idioma) {
@@ -515,7 +552,8 @@ app.controller('Ctrl', [
             precio_lista: $scope.selectedDetalle.precio_lista,
             precio_venta: $scope.selectedDetalle.precio_venta,
             descuento: $scope.selectedDetalle.descuento,
-            descripcion: $scope.selectedDetalle.descripcion
+            descripcion: $scope.selectedDetalle.descripcion,
+            nom: $scope.selectedDetalle.nom
           };
           if ($scope.cotEnc.iva == 'S') {
             var ivaValue = {
@@ -552,6 +590,7 @@ app.controller('Ctrl', [
       $scope.selectedDetalle.precio_venta = item.precio_venta;
       $scope.selectedDetalle.descuento = item.descuento;
       $scope.selectedDetalle.descripcion = item.descripcion;
+      $scope.selectedDetalle.nom = item.nom;
       $scope.isDisabled = true;
       $scope.$applyAsync();
     };
@@ -567,6 +606,7 @@ app.controller('Ctrl', [
               $scope.cotDet[index].precio_venta = $scope.selectedDetalle.precio_venta;
               $scope.cotDet[index].descuento = $scope.selectedDetalle.descuento;
               $scope.cotDet[index].descripcion = $scope.selectedDetalle.descripcion;
+              $scope.cotDet[index].nom = $scope.selectedDetalle.nom;
               if ($scope.cotEnc.iva == 'S') {
                 var ivaValue = {
                   iva: {
@@ -648,7 +688,8 @@ app.controller('Ctrl', [
             "precioVenta": $scope.cotDet[index].precio_venta,
             "descuento": $scope.cotDet[index].descuento,
             "codIva": $scope.cotDet[index].iva.cDes,
-            "descripcion": $scope.cotDet[index].descripcion
+            "descripcion": $scope.cotDet[index].descripcion,
+            "nom": $scope.cotDet[index].nom
           };
           detalle.push(itemDetalle);
           index++;

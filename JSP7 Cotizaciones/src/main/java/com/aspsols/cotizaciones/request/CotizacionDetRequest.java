@@ -25,6 +25,8 @@ public class CotizacionDetRequest implements Serializable {
 
 	private String descripcion;
 
+	private String nom;
+
 	public String getcEmp() {
 		return cEmp;
 	}
@@ -87,6 +89,14 @@ public class CotizacionDetRequest implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 }

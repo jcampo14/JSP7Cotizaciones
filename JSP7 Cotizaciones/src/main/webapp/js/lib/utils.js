@@ -1,171 +1,269 @@
 var app = angular.module("App.utils", []);
 
 app.factory('$localstorage', ['$window', function($window) {
-    return {
-      set: function(key, value) {
-        window.localStorage.setItem(key, value);
-      },
-      get: function(key, defaultValue) {
-        return window.localStorage.getItem(key) || defaultValue;
-      },
-      setObject: function(key, value) {
-        window.localStorage.setItem(key, JSON.stringify(value));
-      },
-      getObject: function(key) {
-        return JSON.parse(window.localStorage.getItem(key) || '{}');
-      },
-      clear: function(){
-        window.localStorage.removeItem("token.jsp7");
-        window.localStorage.removeItem("global.empresa");
-        window.localStorage.removeItem("global.usuario");
-        window.localStorage.removeItem("global.nombreUsuario");
-      }
-    }
-  }]);
-
-  app.factory('$consumeService',['$http', function($http){
-    return {
-        get: function(url){
-            var requestConfig = {
-              method: "GET",
-              url: url,
-              headers: {
-                Authorization: window.localStorage.getItem('token.jsp7')
-              }
-            }
-            var promise = $http(requestConfig)
-            .then(function (result) {
-                var datos = result.data;
-                return datos;
-            });
-            return promise;
-        },
-        post: function(configJson){
-            configJson.headers = {
-              'Content-Type': 'application/json',
-              'Authorization': window.localStorage.getItem('token.jsp7')
-            }
-            var promise = $http(configJson).then(function successCallback(response) {
-                return response.data;
-            }, function errorCallback(response) {
-                return response.data;
-            });
-            return promise;
-        }
-    }
-  }]);
-
-  app.directive('forceSelectFocus', function() {
-    return {
-      restrict: 'A',
-      require: ['^^mdSelect', '^ngModel'],
-      link: function(scope, element, controller) {
-        scope.$watch(function () {
-          let foundElement = element;
-          while (!foundElement.hasClass('md-select-menu-container')) {
-            foundElement = foundElement.parent();
-          }
-          return foundElement.hasClass('md-active');
-        }, function (newVal) {
-          if (newVal) {
-            console.log(controller[1]);
-              element.focus();
-          }
-        })
-      }
-    }
-  });
-
-  app.directive('numberInput', function($filter) {
   return {
+    set: function(key, value) {
+      window.localStorage.setItem(key, value);
+    },
+    get: function(key, defaultValue) {
+      return window.localStorage.getItem(key) || defaultValue;
+    },
+    setObject: function(key, value) {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    },
+    getObject: function(key) {
+      return JSON.parse(window.localStorage.getItem(key) || '{}');
+    },
+    clear: function() {
+      window.localStorage.removeItem("token.jsp7");
+      window.localStorage.removeItem("global.empresa");
+      window.localStorage.removeItem("global.usuario");
+      window.localStorage.removeItem("global.nombreUsuario");
+    }
+  }
+}]);
+
+app.factory('$consumeService', ['$http', function($http) {
+  return {
+    get: function(url) {
+      var requestConfig = {
+        method: "GET",
+        url: url,
+        headers: {
+          Authorization: window.localStorage.getItem('token.jsp7')
+        }
+      }
+      var promise = $http(requestConfig)
+        .then(function(result) {
+          var datos = result.data;
+          return datos;
+        });
+      return promise;
+    },
+    post: function(configJson) {
+      configJson.headers = {
+        'Content-Type': 'application/json',
+        'Authorization': window.localStorage.getItem('token.jsp7')
+      }
+      var promise = $http(configJson).then(function successCallback(response) {
+        return response.data;
+      }, function errorCallback(response) {
+        return response.data;
+      });
+      return promise;
+    }
+  }
+}]);
+
+app.directive('forceSelectFocus', function() {
+  return {
+    restrict: 'A',
+    require: ['^^mdSelect', '^ngModel'],
+    link: function(scope, element, controller) {
+      scope.$watch(function() {
+        let foundElement = element;
+        while (!foundElement.hasClass('md-select-menu-container')) {
+          foundElement = foundElement.parent();
+        }
+        return foundElement.hasClass('md-active');
+      }, function(newVal) {
+        if (newVal) {
+          console.log(controller[1]);
+          element.focus();
+        }
+      })
+    }
+  }
+});
+
+app.directive('uiNumericInput', ['$filter', function($filter) {
+  return {
+    restrict: 'A',
     require: 'ngModel',
-    link: function(scope, elem, attrs, ngModelCtrl) {
+    link: function(scope, el, attrs, ngModelCtrl) {
+      var NUMBER_REGEXP = /^\s*[-+]?(\d+|\d*\.\d*)\s*$/,
+        min = 1,
+        max,
+        lastValidValue,
+        dotSuffix,
+        firstDecimalZero,
+        positiveInteger = true,
+        minNotEqual,
+        maxNotEqual,
+        maxLength = 9,
+        precision = 0;
 
-      ngModelCtrl.$formatters.push(function(modelValue) {
-        return setDisplayNumber(modelValue, true);
-      });
-
-      // it's best to change the displayed text using elem.val() rather than
-      // ngModelCtrl.$setViewValue because the latter will re-trigger the parser
-      // and not necessarily in the correct order with the changed value last.
-      // see http://radify.io/blog/understanding-ngmodelcontroller-by-example-part-1/
-      // for an explanation of how ngModelCtrl works.
-      ngModelCtrl.$parsers.push(function(viewValue) {
-        setDisplayNumber(viewValue);
-        return setModelNumber(viewValue);
-      });
-
-      // occasionally the parser chain doesn't run (when the user repeatedly
-      // types the same non-numeric character)
-      // for these cases, clean up again half a second later using "keyup"
-      // (the parser runs much sooner than keyup, so it's better UX to also do it within parser
-      // to give the feeling that the comma is added as they type)
-      elem.bind('keyup focus', function() {
-        setDisplayNumber(elem.val());
-      });
-
-      function setDisplayNumber(val, formatter) {
-        var valStr, displayValue;
-
-        if (typeof val === 'undefined') {
-          return 0;
-        }
-
-        valStr = val.toString();
-        displayValue = valStr.replace(/,/g, '').replace(/[A-Za-z]/g, '');
-        displayValue = parseFloat(displayValue);
-        displayValue = (!isNaN(displayValue)) ? displayValue.toString() : '';
-
-        // handle leading character -/0
-        if (valStr.length === 1 && valStr[0] === '-') {
-          displayValue = valStr[0];
-        } else if (valStr.length === 1 && valStr[0] === '0') {
-          displayValue = '';
-        } else {
-          displayValue = $filter('number')(displayValue);
-        }
-
-        // handle decimal
-        if (!attrs.integer) {
-          if (displayValue.indexOf('.') === -1) {
-            if (valStr.slice(-1) === '.') {
-              displayValue += '.';
-            } else if (valStr.slice(-2) === '.0') {
-              displayValue += '.0';
-            } else if (valStr.slice(-3) === '.00') {
-              displayValue += '.00';
-            }
-          } // handle last character 0 after decimal and another number
-          else {
-            if (valStr.slice(-1) === '0') {
-              displayValue += '0';
-            }
-          }
-        }
-
-        if (attrs.positive && displayValue[0] === '-') {
-          displayValue = displayValue.substring(1);
-        }
-
-        if (typeof formatter !== 'undefined') {
-          return (displayValue === '') ? 0 : displayValue;
-        } else {
-          elem.val((displayValue === '0') ? '' : displayValue);
-        }
+      if (attrs.maxLength >= 1) {
+        maxLength = attrs.maxLength;
       }
 
-      function setModelNumber(val) {
-        var modelNum = val.toString().replace(/,/g, '').replace(/[A-Za-z]/g, '');
-        modelNum = parseFloat(modelNum);
-        modelNum = (!isNaN(modelNum)) ? modelNum : 0;
-        if (modelNum.toString().indexOf('.') !== -1) {
-          modelNum = Math.round((modelNum + 0.00001) * 100) / 100;
-        }
-        if (attrs.positive) {
-          modelNum = Math.abs(modelNum);
-        }
-        return modelNum;
+      if (attrs.allowDecimal) {
+        positiveInteger = false;
+        precision = 2;
+        min = 0;
       }
+
+      if (attrs.minNotEqual) {
+        minNotEqual = true;
+      }
+
+      if (attrs.maxNotEqual) {
+        maxNotEqual = true;
+      }
+
+      /**
+       * Returns a rounded number in the precision setup by the directive
+       * @param  {Number} num Number to be rounded
+       * @return {Number}     Rounded number
+       */
+      function round(value) {
+        var num = parseFloat(value);
+        var d = Math.pow(10, precision);
+        return Math.round(num * d) / d;
+      }
+
+      /**
+       * Returns a string that represents the rounded number
+       * @param  {Number} value Number to be rounded
+       * @return {String}       The string representation
+       */
+      function formatPrecision(value) {
+        return parseFloat(value).toFixed(precision);
+      }
+
+      function getCommaCount(value) {
+        var length = 0;
+        var matchResult = (value + '').match(/,/g);
+        if (matchResult) {
+          length = matchResult.length;
+        }
+        return length;
+      }
+
+      //Convert to String
+      function formatViewValue(value) {
+        return ngModelCtrl.$isEmpty(value) ? '' : '' + value;
+      }
+
+      function formatToNumber(value) {
+        return $filter('number')(value);
+      }
+
+      function numberLength(value) {
+        var length = 0;
+        var matchResult = (value + '').match(/\d/g);
+        if (matchResult) {
+          length = matchResult.length;
+        }
+        return length;
+      }
+
+      function minValidator(value) {
+        var invalid = minNotEqual ? value <= min : value < min;
+        if (!ngModelCtrl.$isEmpty(value) && invalid) {
+          ngModelCtrl.$setValidity('min', false);
+        } else {
+          ngModelCtrl.$setValidity('min', true);
+        }
+        return value;
+      }
+
+      function maxValidator(value) {
+        var invalid = maxNotEqual ? value >= max : value > max;
+        if (!ngModelCtrl.$isEmpty(value) && invalid) {
+          ngModelCtrl.$setValidity('max', false);
+        } else {
+          ngModelCtrl.$setValidity('max', true);
+
+        }
+        return value;
+      }
+
+      ngModelCtrl.$parsers.push(function(input) {
+        //check undefined and NaN
+        //http://adripofjavascript.com/blog/drips/the-problem-with-testing-for-nan-in-javascript.html
+        if (angular.isUndefined(input) || (input !== input)) {
+          input = '';
+        }
+
+        var value = input.replace(/\,/g, '');
+        var lastChar = value.substr(value.length - 1);
+        if (!positiveInteger) {
+          dotSuffix = lastChar === '.' ? true : false;
+        }
+
+        // Handle leading decimal point, like ".5"
+        if (value.indexOf('.') === 0) {
+          value = '0' + value;
+        }
+
+        firstDecimalZero = /\d*\.0$/.test(value);
+
+        var empty = ngModelCtrl.$isEmpty(value);
+        if (empty || (NUMBER_REGEXP.test(value) && numberLength(value) <= maxLength)) {
+          lastValidValue = (value === '') ? null : (empty ? value : round(value));
+        } else {
+          // Render the last valid input in the field
+          ngModelCtrl.$setViewValue(formatViewValue(lastValidValue));
+          ngModelCtrl.$render();
+        }
+        ngModelCtrl.$setValidity('numeric', !dotSuffix);
+        return lastValidValue;
+      });
+
+      ngModelCtrl.$formatters.push(formatToNumber);
+
+      // Min validation (optional)
+      attrs.$observe('min', function(value) {
+        min = parseFloat(value || min);
+        minValidator(ngModelCtrl.$modelValue);
+      });
+
+      ngModelCtrl.$parsers.push(minValidator);
+      ngModelCtrl.$formatters.push(minValidator);
+
+      // Max validation (optional)
+      if (angular.isDefined(attrs.max)) {
+        attrs.$observe('max', function(val) {
+          max = parseFloat(val);
+          maxValidator(ngModelCtrl.$modelValue);
+        });
+        ngModelCtrl.$parsers.push(maxValidator);
+        ngModelCtrl.$formatters.push(maxValidator);
+      }
+
+      ngModelCtrl.$formatters.push(function(value) {
+        return value ? formatPrecision(value) : value;
+      });
+
+      //Formatting must be the last of $parser pipeline
+      ngModelCtrl.$parsers.push(function(value) {
+        //This section is for decimal values if positiveInteger flag is false
+        var viewValue = formatToNumber(value);
+        if (!positiveInteger && dotSuffix) {
+          viewValue += '.';
+        }
+        if (!positiveInteger && firstDecimalZero) {
+          viewValue += '.0';
+        }
+        //This logic is used to preserve cursor position after formatting
+        var start = el[0].selectionStart,
+          end = el[0].selectionEnd,
+          oldViewValue = ngModelCtrl.$viewValue;
+        if (getCommaCount(oldViewValue) > getCommaCount(viewValue)) {
+          start--;
+          end--;
+        }
+        if (getCommaCount(oldViewValue) < getCommaCount(viewValue)) {
+          start++;
+          end++;
+        }
+        //Do not use $setViewValue to set viewValue here, because it will trigger $parse pipeline.
+        ngModelCtrl.$viewValue = viewValue;
+        ngModelCtrl.$render();
+        el[0].setSelectionRange(start, end);
+        return value;
+      });
     }
   };
-});
+}]);
