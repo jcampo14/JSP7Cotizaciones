@@ -780,7 +780,16 @@ app.controller('Ctrl', [
               }).then((resultConfirm) => {
                 if (resultConfirm.value) {
                   //$scope.init();
-                  $window.location.href = 'cotizaciones.html';
+                  // Ejecutamos el reporte de impresion
+                  var promise = $consumeService.get('runJReports?reportName=com.aspsols.cotizaciones.reportes.Cotizaciones_Print');
+                  promise.then(function(resultReport) {
+                    var urlToExecute = resultReport.data + "&createPl=T" + "&c_emp=" + $localstorage.get('global.empresa', null) +
+                      "&c_agr=" + $scope.cotEnc.cAgr + "&cot=" + result.value.numCot + "&rev=" + result.value.numRev +
+                      "&per=" + result.value.perCot + "&ver_totales=" + "N" +
+                      "&paramform=NO";
+                    $window.location.href = urlToExecute;
+                    //$window.location.href = 'cotizaciones.html';
+                  });
                 }
               });
             } else {

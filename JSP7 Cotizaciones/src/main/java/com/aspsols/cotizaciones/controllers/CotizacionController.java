@@ -14,6 +14,7 @@ import com.aspsols.cotizaciones.db.procedures.CreaPedidoCotizacion;
 import com.aspsols.cotizaciones.request.CopiarCotizacionRequest;
 import com.aspsols.cotizaciones.request.CotizacionAPedidoRequest;
 import com.aspsols.cotizaciones.request.CotizacionRequest;
+import com.aspsols.cotizaciones.responses.CrearCotizacionResponse;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.services.CotizacionServices;
 
@@ -33,8 +34,8 @@ public class CotizacionController {
 	private CotizacionServices service;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/cotizacion")
-	public ProcessResponse crearCotizacion(@RequestBody CotizacionRequest request) {
-		ProcessResponse response = new ProcessResponse();
+	public CrearCotizacionResponse crearCotizacion(@RequestBody CotizacionRequest request) {
+		CrearCotizacionResponse response = new CrearCotizacionResponse();
 		/* Generamos el ID de transaccion */
 		String idTransaccion = java.util.UUID.randomUUID().toString();
 		/* Insertamos en la tabla temporal */
@@ -45,10 +46,14 @@ public class CotizacionController {
 		String msgErr = (String) resultData.get("msgError");
 		Integer numeroCot = (Integer) resultData.get("numeroCot");
 		Integer numeroRev = (Integer) resultData.get("numeroRev");
+		String periodoCot = (String) resultData.get("periodoCot");
 		if (codErr != 0) {
 			response.setSuccess(false);
-			response.setMessage(msgErr);
+			response.setMessage(msgErr);						
 		} else {
+			response.setPerCot(periodoCot);			
+			response.setNumCot(numeroCot);
+			response.setNumRev(numeroRev);
 			response.setSuccess(true);
 			response.setMessage(msgErr + ".\n" + "Cotizacion No. " + numeroCot + "\n" + " Revision No. " + numeroRev
 					+ " generada.");

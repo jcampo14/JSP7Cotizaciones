@@ -354,5 +354,29 @@ app.controller('Ctrl',
       }
     };
 
+    $scope.imprimir = function() {
+      swal({
+        title: "Mensaje JSP7", //Bold text
+        text: "¿Desea imprimir la cotización?", //light text
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          var promise = $consumeService.get('runJReports?reportName=com.aspsols.cotizaciones.reportes.Cotizaciones_Print');
+          promise.then(function(result) {
+            var urlToExecute = result.data + "&createPl=T" + "&c_emp=" + $localstorage.get('global.empresa', null) +
+              "&c_agr=" + $scope.selected[0].cAgr + "&cot=" + $scope.selected[0].cot + "&rev=" + $scope.selected[0].rev +
+              "&per=" + $scope.selected[0].per + "&ver_totales=" + "N" +
+              "&paramform=NO";
+            $window.location.href = urlToExecute;
+          });
+        }
+      });
+    };
+
     $scope.init();
   });
