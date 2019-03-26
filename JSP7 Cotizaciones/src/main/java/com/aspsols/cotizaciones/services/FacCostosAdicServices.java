@@ -78,5 +78,9 @@ public class FacCostosAdicServices {
 	public List<FacCostosAdic> showByEmpresa(String emp) {
 		return (List<FacCostosAdic>) repository.findByEmpresa(emp);
 	}
+	
+	public List<FacCostosAdic> findByMoneda(String empresa, String moneda){
+		return repository.findByMoneda(moneda, empresa);
+	}
 
 }

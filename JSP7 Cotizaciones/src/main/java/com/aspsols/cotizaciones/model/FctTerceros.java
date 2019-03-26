@@ -1,6 +1,7 @@
 package com.aspsols.cotizaciones.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -79,5 +80,22 @@ public class FctTerceros implements Serializable {
 	public void setcSuc(String cSuc) {
 		this.cSuc = cSuc;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getcEmp(), getnIde());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		FctTerceros that = (FctTerceros) o;		
+		return cEmp.equals(that.cEmp) && nIde.equals(that.nIde);
+	}
+	
+	
 
 }

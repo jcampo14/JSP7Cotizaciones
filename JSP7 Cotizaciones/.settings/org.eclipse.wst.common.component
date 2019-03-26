@@ -46,6 +46,9 @@
         <dependent-module archiveName="ParserUtils.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Asp/src/main/resources/version4/_20170502/despliegue/ParserUtils.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="ojdbc14.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/JSP7_Cotizaciones_Maven/lib/ojdbc14.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="JSP7_Cotizaciones_Maven"/>
         <property name="java-output-path" value="/JSP7_Cotizaciones_Maven/target/classes"/>
     </wb-module>

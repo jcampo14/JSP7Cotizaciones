@@ -39,6 +39,9 @@ public class FacCostosAdic {
 	@Column(name = "VERSION")
 	private Integer version;
 
+	@Column(name = "TIPO")
+	private String tipo;
+
 	public FacCostosAdic() {
 		super();
 	}
@@ -105,6 +108,14 @@ public class FacCostosAdic {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

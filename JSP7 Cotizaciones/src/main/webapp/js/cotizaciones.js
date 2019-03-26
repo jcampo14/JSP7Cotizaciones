@@ -264,24 +264,26 @@ app.controller('Ctrl', [
             $scope.sucursales = resultSuc.data;
             $scope.cotEnc.cSuc = result.codSuc;
             /* Cargamos los cargos/Costos adicionales */
-            var promise = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.cotEnc.cEmp +
-              '&incoterm=' + $scope.cotEnc.incoterm + "&moneda=" + $scope.cotEnc.criVenta.mon);
+            var promise = $consumeService.get('fac-costos-adicByMoneda?emp=' + $scope.cotEnc.cEmp +
+              "&mon=" + $scope.cotEnc.criVenta.mon);
             promise.then(function(resultCargos) {
               $scope.costosAdic = resultCargos.data;
-              if ($scope.costosAdic.length > 1) {
+              if ($scope.costosAdic.length >= 1) {
                 $scope.tieneCostos = true;
                 index = 0;
                 var indexCargos;
                 while (index < result.cargos.length) {
                   indexCargos = 0;
                   while (indexCargos < $scope.costosAdic.length) {
-                    if ($scope.costosAdic[indexCargos].idFacCostosAdic == result.cargos[index].codCosto) {
+                    if ($scope.costosAdic[indexCargos].codigo == result.cargos[index].codCosto) {
+                      $scope.costosAdic[indexCargos].selected = true;
                       $scope.costosAdic[indexCargos].valor = result.cargos[index].valor;
                     }
                     indexCargos++;
                   }
                   index++;
                 };
+                $scope.disableCostoAdic();
               } else {
                 $scope.tieneCostos = false;
               }
@@ -435,14 +437,15 @@ app.controller('Ctrl', [
       });
     };
 
-    $scope.cargarCostosIncoterm = function() {
+    $scope.cargarCostosAdic = function() {
       $scope.consumingService = true;
-      var promise = $consumeService.get('incoterm-fac-costos-adicByMoneda?emp=' + $scope.cotEnc.cEmp +
-        '&incoterm=' + $scope.cotEnc.incoterm + "&moneda=" + $scope.cotEnc.criVenta.mon);
+      var promise = $consumeService.get('fac-costos-adicByMoneda?emp=' + $scope.cotEnc.cEmp +
+        "&mon=" + $scope.cotEnc.criVenta.mon);
       promise.then(function(result) {
         $scope.costosAdic = result.data;
-        if ($scope.costosAdic.length > 1) {
+        if ($scope.costosAdic.length >= 1) {
           $scope.tieneCostos = true;
+          $scope.disableCostoAdic();
         } else {
           $scope.tieneCostos = false;
         }
@@ -454,6 +457,36 @@ app.controller('Ctrl', [
       });
     };
 
+    $scope.disableCostoAdic = function() {
+      if ($scope.paramFac[0].seguroAut == 'S') {
+        $scope.costosAdic.forEach(function(element) {
+          if (element.tipo == 'GS') {
+            element.isDisabled = true;
+          } else {
+            element.isDisabled = false;
+          }
+        });
+      }
+    };
+
+    $scope.$watch("cotDet.length", function(newValue, oldValue) {
+      var sumDet = 0;
+      if ($scope.paramFac != undefined) {
+        if ($scope.paramFac[0].seguroAut == 'S') {
+          if (newValue > 0) {
+            $scope.cotDet.forEach(function(element) {
+              sumDet = sumDet + (element.cantidad * element.precio_venta);
+            }, this);
+            $scope.costosAdic.forEach(function(element) {
+              if (element.tipo == 'GS') {
+                element.valor = sumDet * $scope.paramFac[0].porcSegAut / 100;
+              }
+            }, this);
+          }
+        }
+      }
+    });
+
     $scope.changeIva = function() {
       var iva = $filter('filter')($scope.ivas, {
         'cDes': $scope.selectedIva
@@ -462,7 +495,7 @@ app.controller('Ctrl', [
     };
 
     $scope.changePrecioVenta = function(form) {
-      if ($scope.selectedDetalle.precio_lista != undefined) {
+      if ($scope.selectedDetalle.precio_lista != undefined && $scope.selectedDetalle.precio_lista != "") {
         var valArr = $scope.selectedDetalle.precio_lista * (1 + $scope.paramFac[0].incpArr / 100);
         var valAbj = $scope.selectedDetalle.precio_lista * (1 - $scope.paramFac[0].incpArr / 100);
         if ($scope.selectedDetalle.precio_venta > valArr || $scope.selectedDetalle.precio_venta < valAbj) {
@@ -551,7 +584,7 @@ app.controller('Ctrl', [
             cantidad: $scope.selectedDetalle.cantidad,
             precio_lista: $scope.selectedDetalle.precio_lista,
             precio_venta: $scope.selectedDetalle.precio_venta,
-            descuento: $scope.selectedDetalle.descuento,
+            descuento: $scope.selectedDetalle.descuento == "" || $scope.selectedDetalle.descuento == undefined ? 0 : $scope.selectedDetalle.descuento,
             descripcion: $scope.selectedDetalle.descripcion,
             nom: $scope.selectedDetalle.nom
           };
@@ -573,7 +606,7 @@ app.controller('Ctrl', [
           itemToAdd.iva = ivaValue.iva;
           $scope.cotDet.push(itemToAdd);
           delete $scope.autocompleteArticulos.selectedItem;
-          $scope.selectedDetalle = {};
+          $scope.selectedDetalle = null;
           form.$setPristine();
           form.$setUntouched();
         } else {
@@ -699,10 +732,10 @@ app.controller('Ctrl', [
         index = 0;
         if ($scope.costosAdic) {
           while (index < $scope.costosAdic.length) {
-            if ($scope.costosAdic[index].valor != null || $scope.costosAdic[index].valor != "") {
+            if ($scope.costosAdic[index].selected && ($scope.costosAdic[index].valor != null || $scope.costosAdic[index].valor != "")) {
               var itemCostos = {
                 "cEmp": $scope.costosAdic[index].cEmp,
-                "idFacCostosAdic": $scope.costosAdic[index].idFacCostosAdic,
+                "idFacCostosAdic": $scope.costosAdic[index].codigo,
                 "valor": $scope.costosAdic[index].valor
               };
               costos.push(itemCostos);

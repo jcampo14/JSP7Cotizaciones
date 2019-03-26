@@ -57,4 +57,11 @@ public class FacCostosAdicController {
 		return response;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = SERVICE_PATH + "ByMoneda")
+	public QueryResponse<FacCostosAdic> findByMoneda(@RequestParam("emp") String empresa,
+			@RequestParam("mon") String moneda) {
+		List<FacCostosAdic> resultData = service.findByMoneda(empresa, moneda);
+		return new QueryResponse<>(resultData, resultData.size());
+	}
+
 }

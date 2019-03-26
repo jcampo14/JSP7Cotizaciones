@@ -55,7 +55,7 @@
                   <div class="col-md-2">
                     <md-input-container class="md-block">
                       <label>Criterio</label>
-                      <md-select required name="criVenta" ng-model="cotEnc.criVenta" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.cri'}">
+                      <md-select required name="criVenta" ng-model="cotEnc.criVenta" md-on-close="clearSelectFilter()" ng-model-options="{trackBy: '$value.cri'}" ng-change="cargarCostosAdic()">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchCriterio" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -70,7 +70,7 @@
                   <div class="col-md-3">
                     <md-input-container class="md-block">
                       <label>Incoterm</label>
-                      <md-select placeholder="Incoterm" ng-model="cotEnc.incoterm" md-on-close="clearSelectFilter()" ng-change="cargarCostosIncoterm()" ng-disabled="cotEnc.criVenta.mon == 'PESO' || cotEnc.criVenta == undefined">
+                      <md-select placeholder="Incoterm" ng-model="cotEnc.incoterm" md-on-close="clearSelectFilter()" ng-change="cargarCostosIncoterm()" ng-disabled="cotEnc.criVenta == undefined">
                         <md-select-header class="demo-select-header">
                           <input type="text" ng-model="searchIncoterm" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
                         </md-select-header>
@@ -216,20 +216,26 @@
                     </md-input-container>
                   </div>
                 </div>
-                <div class="row" ng-show="tieneCostos">
+              </form>
+            </div>
+            <div class="card" ng-show="tieneCostos">
+              <div class="panel-body">
+                <div class="row">
                   <div class="col-md-12">
-                    <legend>Costos Adicionales/Cargos de la Cotización</legend>
+                    <legend>Costos Adicionales / Cargos de la Cotización</legend>
                     <div class="row">
-                      <div class="col-md-3" ng-repeat="costo in costosAdic | filter:{facCostosAdic: {moneda : cotEnc.moneda}}">
-                        <md-input-container class="md-block">
-                          <label>{{costo.facCostosAdic.nombre}}</label>
-                          <input type="text" ng-model="costo.valor" ui-numeric-input allow-decimal="true">
+                      <div class="col-md-3" ng-repeat="costo in costosAdic">
+                        <md-checkbox class="md-primary" ng-model="costo.selected"></md-checkbox>
+                        <md-input-container>
+                          <label>{{costo.nombre}}</label>
+                          <input type="text" ng-model="costo.valor" ui-numeric-input allow-decimal="true" ng-disabled="costo.isDisabled">
+                          <md-tooltip>{{costo.nombre}}</md-tooltip>
                         </md-input-container>
                       </div>
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
             <div style="text-align: right">
               <md-button type="submit" class="md-raised md-primary" ng-disabled="EncForm.$invalid" ng-click="myTabIndex = myTabIndex + 1">Siguiente</md-button>
@@ -245,8 +251,7 @@
                     <legend>Detalle de la Cotización</legend>
                   </div>
                   <div class="col-md-3" style="text-align: right">
-                    <md-button md-colors="{background: 'light-green-500'}" type="submit" class="md-fab md-mini button-action" ng-click="addItemDetalle(detalleForm)"
-                      ng-disabled="isDisabled">
+                    <md-button md-colors="{background: 'light-green-500'}" type="submit" class="md-fab md-mini button-action" ng-click="addItemDetalle(detalleForm)" ng-disabled="isDisabled">
                       <md-tooltip>Agregar Registro</md-tooltip>
                       <md-icon md-font-icon="fas fa-plus"></md-icon>
                     </md-button>
@@ -321,7 +326,7 @@
                       <div class="col-md-2">
                         <md-input-container class="md-block">
                           <label>% Descuento</label>
-                          <input required name="descuento" ng-model="selectedDetalle.descuento" ui-numeric-input allow-decimal="true">
+                          <input name="descuento" ng-model="selectedDetalle.descuento" ui-numeric-input allow-decimal="true">
                           <div ng-messages="detalleForm.descuento.$error">
                             <div ng-message="required">Este campo es requerido.</div>
                           </div>
@@ -345,8 +350,7 @@
               </form>
             </div>
             <div class="card panel-body">
-              <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length" aria-hidden="true"
-                style="min-height: 43px !important; height: 43px;">
+              <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length" aria-hidden="true" style="min-height: 43px !important; height: 43px;">
                 <div class="md-toolbar-tools">
                   <md-icon md-font-icon="fas fa-search"></md-icon>
                   <form flex="" name="filter.form" class="ng-pristine ng-valid flex" style="margin-bottom: 0px; margin-left: 10px">
@@ -358,8 +362,7 @@
                   </button>
                 </div>
               </md-toolbar>
-              <md-toolbar class="md-table-toolbar md-default" aria-hidden="false" style="min-height: 43px !important; height: 43px;"
-                ng-show="!filter.show">
+              <md-toolbar class="md-table-toolbar md-default" aria-hidden="false" style="min-height: 43px !important; height: 43px;" ng-show="!filter.show">
                 <div class="md-toolbar-tools">
                   <h2 class="md-title">Articulos Ofertados</h2>
                   <div flex="" class="flex"></div>
@@ -395,9 +398,7 @@
                     </tr>
                   </thead>
                   <tbody md-body>
-                    <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable"
-                      md-auto-select="options.autoSelect"
-                      ng-repeat="record in cotDet | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit | filter: filter.search">
+                    <tr md-row md-select="record" md-on-select="showEditarTable" md-on-deselect="clearEditarTable" md-auto-select="options.autoSelect" ng-repeat="record in cotDet | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit | filter: filter.search">
                       <td md-cell>{{record.id.cod}}</td>
                       <td md-cell>{{record.nom == '' || record.nom == null ? record.id.nom : record.nom}}</td>
                       <td md-cell>{{record.cantidad | number: 2}}</td>

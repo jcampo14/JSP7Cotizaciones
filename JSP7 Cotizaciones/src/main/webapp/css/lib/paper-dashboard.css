@@ -3062,10 +3062,11 @@ Copyright (c) 2015 Daniel Eden
   body > .navbar-collapse.collapse {
     display: none !important;
   }
-
+/*
   .card form [class*="col-"] {
     padding: 6px;
   }
+  */
   .card form [class*="col-"]:first-child {
     padding-left: 15px;
   }

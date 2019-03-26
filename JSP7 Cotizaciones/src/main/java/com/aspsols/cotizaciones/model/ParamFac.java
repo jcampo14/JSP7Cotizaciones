@@ -26,6 +26,12 @@ public class ParamFac implements Serializable {
 	@Column(name = "INCP_ABJ")
 	private int incpAbj;
 
+	@Column(name = "SEGURO_AUT")
+	private String seguroAut;
+
+	@Column(name = "PORC_SEG_AUT")
+	private Integer porcSegAut;
+
 	public String getcEmp() {
 		return cEmp;
 	}
@@ -48,6 +54,22 @@ public class ParamFac implements Serializable {
 
 	public void setIncpAbj(int incpAbj) {
 		this.incpAbj = incpAbj;
+	}
+
+	public String getSeguroAut() {
+		return seguroAut;
+	}
+
+	public void setSeguroAut(String seguroAut) {
+		this.seguroAut = seguroAut;
+	}
+
+	public Integer getPorcSegAut() {
+		return porcSegAut;
+	}
+
+	public void setPorcSegAut(Integer porcSegAut) {
+		this.porcSegAut = porcSegAut;
 	}
 
 }
