@@ -284,6 +284,7 @@ app.controller('Ctrl', [
                   index++;
                 };
                 $scope.disableCostoAdic();
+                $scope.calcularFleteAutomatico(result.detalle.length);
               } else {
                 $scope.tieneCostos = false;
               }
@@ -470,6 +471,10 @@ app.controller('Ctrl', [
     };
 
     $scope.$watch("cotDet.length", function(newValue, oldValue) {
+      $scope.calcularFleteAutomatico(newValue);
+    });
+
+    $scope.calcularFleteAutomatico = function(newValue){
       var sumDet = 0;
       if ($scope.paramFac != undefined) {
         if ($scope.paramFac[0].seguroAut == 'S') {
@@ -477,15 +482,17 @@ app.controller('Ctrl', [
             $scope.cotDet.forEach(function(element) {
               sumDet = sumDet + (element.cantidad * element.precio_venta);
             }, this);
-            $scope.costosAdic.forEach(function(element) {
-              if (element.tipo == 'GS') {
-                element.valor = sumDet * $scope.paramFac[0].porcSegAut / 100;
-              }
-            }, this);
+            if ($scope.costosAdic != undefined) {
+              $scope.costosAdic.forEach(function(element) {
+                if (element.tipo == 'GS') {
+                  element.valor = Math.round(sumDet * $scope.paramFac[0].porcSegAut / 100);
+                }
+              }, this);
+            }
           }
         }
       }
-    });
+    }
 
     $scope.changeIva = function() {
       var iva = $filter('filter')($scope.ivas, {

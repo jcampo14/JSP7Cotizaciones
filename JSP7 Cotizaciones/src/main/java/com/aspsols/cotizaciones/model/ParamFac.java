@@ -30,7 +30,7 @@ public class ParamFac implements Serializable {
 	private String seguroAut;
 
 	@Column(name = "PORC_SEG_AUT")
-	private Integer porcSegAut;
+	private Double porcSegAut;
 
 	public String getcEmp() {
 		return cEmp;
@@ -64,11 +64,11 @@ public class ParamFac implements Serializable {
 		this.seguroAut = seguroAut;
 	}
 
-	public Integer getPorcSegAut() {
+	public Double getPorcSegAut() {
 		return porcSegAut;
 	}
 
-	public void setPorcSegAut(Integer porcSegAut) {
+	public void setPorcSegAut(Double porcSegAut) {
 		this.porcSegAut = porcSegAut;
 	}
 
