@@ -260,3 +260,11 @@ md-tab-item {
 md-pagination-wrapper {
   width: auto !important;
 }
+
+.md-fab:hover {
+  background-color: transparent !important;
+}
+
+.md-icon-button {
+  margin-right: 0px !important;
+}
