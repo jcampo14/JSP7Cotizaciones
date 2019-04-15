@@ -43,7 +43,7 @@
 			<version>14</version>
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/ojdbc14.jar</systemPath>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>

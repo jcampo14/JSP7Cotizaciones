@@ -4,9 +4,6 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="ojdbc14.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/JSP7_Cotizaciones_Maven/lib/ojdbc14.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="JFormsAdminServer.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Asp/src/main/resources/version4/_20170502/despliegue/JFormsAdminServer.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
