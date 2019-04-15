@@ -9,11 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/paper-dashboard.css" rel="stylesheet" />
     <link href="css/refer.css" rel="stylesheet" />
-    <link href="css/icon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/lib/fontawesome-free-5.8.1-web/css/all.min.css" rel="stylesheet">
     <link href="css/loginStore.css" rel="stylesheet" />
 </head>
 
@@ -23,7 +19,7 @@
 	    <div class="container-fluid">
 	    	<div class="row">
 	    		<div class="col-xs-12 col-md-12">
-	    			
+
 		    		<div class="container">
 		    			<div class="row">
 		    				<div class="col-xs-8 col-md-8 col-center">
@@ -32,27 +28,27 @@
 		    						<div class="col-xs-6 col-md-6 eliminar-padding img-enfocada">
 		    							<div class="logo-solagro">
 		    								<img alt="logo" src="img/logo-solagro.png">
-		    							</div>							
+		    							</div>
 		    						</div>
-		    						
+
 		    						<!-- Formulario -->
 		    						<div class="col-xs-6 col-md-6 fondo-formulario-login eliminar-padding">
-		    							
+
 	    								<!-- Titulo del formulario -->
 	    								<div class="row">
 	    									<div class="col-xs-12 col-md-12 col-titulo-formulario">
-	    										<span class="titulo-formulario">Iniciar Sesión</span>
+	    										<span class="titulo-formulario">Iniciar Sesiï¿½n</span>
 	    									</div>
 	    								</div>
-	    								
+
 	    								<!-- Formualrio de Inicio de sesion-->
 	    								<form name="userForm">
-	    								
+
 	    								<div class="row margin-top-usuario">
 	    									<div class="col-xs-2 col-md-2 eliminar-padding img-right">
 	    										<img class="icon-login" alt="iconUser" src="img/icon-user.png">
 	    									</div>
-	    									
+
 	    									<div class="col-xs-8 col-md-8">
     											<md-input-container class="md-block eliminar-margin text-input">
 										          <label>Usuario</label>
@@ -60,20 +56,20 @@
 										        </md-input-container>
 	    									</div>
 	    								</div>
-	    								
+
 	    								<div class="row margin-top-contra">
 	    									<div class="col-xs-2 col-md-2 eliminar-padding img-right">
 	    										<img class="icon-login" alt="icon-password" src="img/icon-password.png">
 	    									</div>
-	    									
+
 	    									<div class="col-xs-8 col-md-8">
 	    										<md-input-container class="md-block eliminar-margin text-input">
-										          <label>Contraseña</label>
+										          <label>Contraseï¿½a</label>
 										          <input type="password" ng-model="validateUser.password">
 										        </md-input-container>
 	    									</div>
 	    								</div>
-	    								
+
 	    								<div class="row margin-top-formulario-check">
 	    									<div class="col-xs-12 col-md-12">
 	    										<md-checkbox class="checkbox-login" ng-model="validateUser.sesion">
@@ -81,29 +77,29 @@
 										         </md-checkbox>
 	    									</div>
 	    								</div>
-	    								
+
 	    								<div class="row">
 	    									<div class="col-xs-12 col-md-12 login-anclas">
-	    										<a href="#">¿Olvidaste tu contraseña?</a>
+	    										<a href="#">ï¿½Olvidaste tu contraseï¿½a?</a>
 	    									</div>
 	    								</div>
-	    								
+
 	    								<div class="cont-button-login">
 	    									<md-button class="md-raised button-login" ng-click="iniciarSesion()">Ingresar</md-button>
 	    								</div>
-	    								
+
 		    							</form>
 		    						</div>
 		    					</div>
 		    				</div>
 		    			</div>
 		    		</div>
-	    			
+
 	    		</div>
 	    	</div>
 	    </div>
     </div>
-    
+
     <!-- Angular Material requires Angular.js Libraries -->
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>

@@ -268,3 +268,7 @@ md-pagination-wrapper {
 .md-icon-button {
   margin-right: 0px !important;
 }
+
+md-icon[md-font-icon] {  
+  font-size: 24px;
+}
