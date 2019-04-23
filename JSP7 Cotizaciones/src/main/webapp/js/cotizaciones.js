@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils', 'ui.utils.masks', 'ngMessages', 'ngAnimate']);
+var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils', 'ngMessages', 'ngAnimate']);
 
 app.config(['$mdThemingProvider', function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('green');
