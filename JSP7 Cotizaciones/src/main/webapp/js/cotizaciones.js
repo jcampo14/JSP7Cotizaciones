@@ -704,8 +704,8 @@ app.controller('Ctrl', [
         var secciones = [];
         var index = 0;
         while (index < $scope.secciones.length) {
-          if (($scope.secciones[index].descripcion_final != null || $scope.secciones[index].descripcion_final != "") &&
-            ($scope.secciones[index].etiqueta_final != null || $scope.secciones[index].etiqueta_final != "")) {
+          if (($scope.secciones[index].descripcion_final != undefined && $scope.secciones[index].descripcion_final != "") ||
+            ($scope.secciones[index].etiqueta_final != undefined && $scope.secciones[index].etiqueta_final != "")) {
             var itemSeccion = {
               "cEmp": $scope.secciones[index].cEmp,
               "codSeccion": $scope.secciones[index].codSeccion,
