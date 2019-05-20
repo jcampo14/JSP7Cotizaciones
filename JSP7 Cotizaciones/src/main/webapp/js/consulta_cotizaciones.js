@@ -75,7 +75,7 @@ app.controller('Ctrl',
 
     $scope.getRecordsByPer = function() {
       if ($scope.formBuscarPeriodo.$valid) {
-        $scope.queryData = [];
+        //$scope.queryData = [];
         console.log('page: ', $scope.query.page);
         console.log('limit: ', $scope.query.limit);
         var requestConfig = {
@@ -96,7 +96,7 @@ app.controller('Ctrl',
     };
 
     $scope.getRecordsByCliente = function() {
-      $scope.queryData = [];
+      //$scope.queryData = [];
       console.log('page: ', $scope.query.page);
       console.log('limit: ', $scope.query.limit);
       var requestConfig = {
@@ -115,7 +115,7 @@ app.controller('Ctrl',
     };
 
     $scope.getRecordsByNumero = function() {
-      $scope.queryData = [];
+      //$scope.queryData = [];
       console.log('page: ', $scope.query.page);
       console.log('limit: ', $scope.query.limit);
       var requestConfig = {
@@ -138,6 +138,8 @@ app.controller('Ctrl',
         $scope.getRecordsByCliente();
       } else if ($scope.searchParam == "BY-PER") {
         $scope.getRecordsByPer();
+      } else if ($scope.searchParam == "BY-NUMERO") {
+        $scope.getRecordsByNumero();
       }
     };
 

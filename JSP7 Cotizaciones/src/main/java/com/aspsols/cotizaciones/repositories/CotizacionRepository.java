@@ -86,14 +86,14 @@ public class CotizacionRepository {
 			}
 		}
 		/* Insertamos el detalle */
-		if (record.getDetalle().size() > 0) {
-			for (CotizacionDetRequest item : record.getDetalle()) {
-				String sqlDet = "insert into TMP_COT_DET(ID_TRANSACCION,C_EMP,COD,CAN,LIS,VEN,DCTO,COD_IVA,DESCRIPCION,NOM) "
-						+ "values(?,?,?,?,?,?,?,?,?,?)";
+		if (record.getDetalle().size() > 0) {			
+			for (CotizacionDetRequest item : record.getDetalle()) {				
+				String sqlDet = "insert into TMP_COT_DET(ID_TRANSACCION,C_EMP,COD,CAN,LIS,VEN,DCTO,COD_IVA,DESCRIPCION,NOM,ORDEN) "
+						+ "values(?,?,?,?,?,?,?,?,?,?,?)";
 				jdbcTemplate.update(new PreparedStatementCreator() {
 					@Override
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-						PreparedStatement ps = connection.prepareStatement(sqlDet, Statement.RETURN_GENERATED_KEYS);
+						PreparedStatement ps = connection.prepareStatement(sqlDet, Statement.RETURN_GENERATED_KEYS);						
 						QueryUtilities.addSqlParameter(ps, 1, idTransaccion, Types.VARCHAR);
 						QueryUtilities.addSqlParameter(ps, 2, item.getcEmp(), Types.VARCHAR);
 						QueryUtilities.addSqlParameter(ps, 3, item.getCod(), Types.VARCHAR);
@@ -104,6 +104,7 @@ public class CotizacionRepository {
 						QueryUtilities.addSqlParameter(ps, 8, item.getCodIva(), Types.VARCHAR);
 						QueryUtilities.addSqlParameter(ps, 9, item.getDescripcion(), Types.VARCHAR);
 						QueryUtilities.addSqlParameter(ps, 10, item.getNom(), Types.VARCHAR);
+						QueryUtilities.addSqlParameter(ps, 11, record.getDetalle().indexOf(item) + 1, Types.DOUBLE);						
 						return ps;
 					}
 				});

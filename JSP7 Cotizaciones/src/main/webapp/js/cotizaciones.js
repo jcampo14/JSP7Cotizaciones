@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils', 'ngMessages', 'ngAnimate']);
+var app = angular.module('App', ['ngMaterial', 'md.data.table', 'App.utils', 'ngMessages', 'ngAnimate', 'ui.sortable']);
 
 app.config(['$mdThemingProvider', function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('green');
@@ -26,7 +26,7 @@ app.controller('Ctrl', [
 
     /* Configurar DataTable */
     $scope.selectedTable = [];
-    $scope.limitOptions = [5, 10, 15];
+    $scope.limitOptions = [5, 10, 20];
     $scope.options = {
       rowSelection: true,
       multiSelect: false,
@@ -65,6 +65,7 @@ app.controller('Ctrl', [
     };
     /* Iniciar la forma */
     $scope.init = function() {
+      $scope.sortingLog = [];
       $scope.isLoading = true;
       $scope.tieneCostos = false;
       $scope.autocompleteTerceros.selectedItem = '';
@@ -474,7 +475,7 @@ app.controller('Ctrl', [
       $scope.calcularFleteAutomatico(newValue);
     });
 
-    $scope.calcularFleteAutomatico = function(newValue){
+    $scope.calcularFleteAutomatico = function(newValue) {
       var sumDet = 0;
       if ($scope.paramFac != undefined) {
         if ($scope.paramFac[0].seguroAut == 'S') {
@@ -696,6 +697,24 @@ app.controller('Ctrl', [
       $scope.autocompleteArticulos.selectedItem = '';
       delete $scope.selectedIva;
       $scope.isDisabled = false;
+    };
+
+    $scope.sortableOptions = {
+      update: function(e, ui) {
+        var logEntry = $scope.cotDet.map(function(i) {
+          return i.id.cod;
+        }).join(', ');
+        $scope.sortingLog.push('Update: ' + logEntry);
+        console.log('Update:' + logEntry);
+      },
+      stop: function(e, ui) {
+        // this callback has the changed model
+        var logEntry = $scope.cotDet.map(function(i) {
+          return i.id.cod;
+        }).join(', ');
+        $scope.sortingLog.push('Stop: ' + logEntry);
+        console.log('Stop:' + logEntry);
+      }
     };
 
     $scope.grabarCotizacion = function() {
