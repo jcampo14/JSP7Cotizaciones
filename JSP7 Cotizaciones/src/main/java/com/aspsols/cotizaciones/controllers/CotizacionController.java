@@ -14,6 +14,7 @@ import com.aspsols.cotizaciones.db.procedures.CreaPedidoCotizacion;
 import com.aspsols.cotizaciones.request.CopiarCotizacionRequest;
 import com.aspsols.cotizaciones.request.CotizacionAPedidoRequest;
 import com.aspsols.cotizaciones.request.CotizacionRequest;
+import com.aspsols.cotizaciones.responses.CopiarCotizacionResponse;
 import com.aspsols.cotizaciones.responses.CrearCotizacionResponse;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.services.CotizacionServices;
@@ -78,19 +79,26 @@ public class CotizacionController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/copiarCotizacion")
-	public ProcessResponse copiarCotizacion(@RequestBody CopiarCotizacionRequest request) {
+	public CopiarCotizacionResponse copiarCotizacion(@RequestBody CopiarCotizacionRequest request) {
 		Map<String, Object> resultData = copiarCotizacion.execute(request.getcEmp(), request.getPer(),
 				request.getcAgr(), request.getCot(), request.getRev(), request.getUsuarioElabora());
+		CopiarCotizacionResponse response = new CopiarCotizacionResponse();		
 		Integer codErr = (Integer) resultData.get("codError");
 		String msgErr = (String) resultData.get("msgError");		
 		if (codErr != 0) {
-			return new ProcessResponse(false, msgErr);
+			response.setSuccess(false);		
+			response.setMessage(msgErr);						
 		} else {
 			Integer numeroCot = (Integer) resultData.get("numeroCot");
 			Integer numeroRev = (Integer) resultData.get("numeroRev");
-			return new ProcessResponse(true, msgErr + ".\n" + "Cotizacion No. " + numeroCot + "\n" + " Revision No. "
+			response.setSuccess(true);
+			response.setMessage(msgErr + ".\n" + "Cotizacion No. " + numeroCot + "\n" + " Revision No. "
 					+ numeroRev + " generada.");
+			response.setPerCot(request.getPer());
+			response.setNumCot(numeroCot);
+			response.setNumRev(numeroRev);	
 		}
+		return response;
 	}
 
 }

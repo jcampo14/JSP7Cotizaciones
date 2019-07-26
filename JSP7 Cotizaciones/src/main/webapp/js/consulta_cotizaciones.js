@@ -346,9 +346,35 @@ app.controller('Ctrl',
                 confirmButtonText: 'Aceptar'
               }).then((resultConfirm) => {
                 if (resultConfirm.value) {
-                  $scope.init();
+                  swal({
+                    title: "Mensaje JSP7", //Bold text
+                    text: "¿Desea modificar la cotización?", //light text
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si',
+                    cancelButtonText: 'No'
+                  }).then((resultQ) => {
+                    if (resultQ.value) {
+                      /* Codificar BASE64 */
+                      var jsonToSend = {
+                        "cEmp": $scope.selected[0].cEmp,
+                        "per": $scope.selected[0].per,
+                        "cAgr": $scope.selected[0].cAgr,
+                        "cot": result.value.numCot,
+                        "rev": result.value.numRev,
+                        "modificar": 'S'
+                      };
+                      var params = encodeURI(btoa(JSON.stringify(jsonToSend)));
+                      $window.location.href = 'cotizaciones.html?params=' + params;
+                    } else {
+                      $scope.init();
+                    }
+                  });
                 }
               });
+
             } else {
               swal("Mensaje JSP7", result.value.message, "warning");
             }
