@@ -758,7 +758,7 @@ app.controller('Ctrl', [
         index = 0;
         if ($scope.costosAdic) {
           while (index < $scope.costosAdic.length) {
-            if ($scope.costosAdic[index].selected && ($scope.costosAdic[index].valor != null || $scope.costosAdic[index].valor != "")) {
+            if ($scope.costosAdic[index].selected && ($scope.costosAdic[index].valor != undefined)) {
               var itemCostos = {
                 "cEmp": $scope.costosAdic[index].cEmp,
                 "idFacCostosAdic": $scope.costosAdic[index].codigo,

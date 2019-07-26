@@ -269,6 +269,15 @@ md-pagination-wrapper {
   margin-right: 0px !important;
 }
 
-md-icon[md-font-icon] {  
+md-icon[md-font-icon] {
   font-size: 24px;
+}
+
+md-tab-content {
+  /* height: 500px; */
+  overflow-y: auto;
+}
+
+iframe {
+  height: 500px;
 }
