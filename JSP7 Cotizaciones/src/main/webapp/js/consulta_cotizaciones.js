@@ -66,7 +66,7 @@ app.controller('Ctrl',
     };
 
     function toCharDate(date) {
-      if (date.getMonth() < 10) {
+      if ((date.getMonth() + 1) < 10) {
         return date.getFullYear() + "0" + (date.getMonth() + 1);
       } else {
         return date.getFullYear() + "" + (date.getMonth() + 1);
