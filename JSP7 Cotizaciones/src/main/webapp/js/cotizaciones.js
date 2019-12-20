@@ -72,7 +72,9 @@ app.controller('Ctrl', [
       $scope.autocompleteArticulos.selectedItem = '';
       delete $scope.cotEnc;
       delete $scope.cotDet;
-      delete $scope.selectedDetalle;
+      $scope.selectedDetalle = {
+        "porcentaje": "S"
+      };
       /* Traemos los valores inciales */
       var promiseSecciones = $consumeService.get('cot-secciones?emp=' + $localstorage.get('global.empresa', null));
       var promiseIncoterms = $consumeService.get('incoterms?emp=' + $localstorage.get('global.empresa', null));
@@ -307,7 +309,8 @@ app.controller('Ctrl', [
             "precio_venta": result.detalle[index].ven,
             "descuento": result.detalle[index].pDes,
             "descripcion": result.detalle[index].inf7,
-            "nom": result.detalle[index].nom
+            "nom": result.detalle[index].nom,
+            "porcentaje": "S"
           };
           if ($scope.cotEnc.iva == 'S') {
             var ivaValue = {
@@ -594,7 +597,8 @@ app.controller('Ctrl', [
             precio_venta: $scope.selectedDetalle.precio_venta,
             descuento: $scope.selectedDetalle.descuento == "" || $scope.selectedDetalle.descuento == undefined ? 0 : $scope.selectedDetalle.descuento,
             descripcion: $scope.selectedDetalle.descripcion,
-            nom: $scope.selectedDetalle.nom
+            nom: $scope.selectedDetalle.nom,
+            porcentaje: $scope.selectedDetalle.porcentaje
           };
           if ($scope.cotEnc.iva == 'S') {
             var ivaValue = {
@@ -632,6 +636,7 @@ app.controller('Ctrl', [
       $scope.selectedDetalle.descuento = item.descuento;
       $scope.selectedDetalle.descripcion = item.descripcion;
       $scope.selectedDetalle.nom = item.nom;
+      $scope.selectedDetalle.porcentaje = item.porcentaje;
       $scope.isDisabled = true;
       $scope.$applyAsync();
     };
@@ -648,6 +653,7 @@ app.controller('Ctrl', [
               $scope.cotDet[index].descuento = $scope.selectedDetalle.descuento;
               $scope.cotDet[index].descripcion = $scope.selectedDetalle.descripcion;
               $scope.cotDet[index].nom = $scope.selectedDetalle.nom;
+              $scope.cotDet[index].porcentaje = $scope.selectedDetalle.porcentaje;
               if ($scope.cotEnc.iva == 'S') {
                 var ivaValue = {
                   iva: {
@@ -683,7 +689,9 @@ app.controller('Ctrl', [
         if ($scope.cotDet[index].id.cod == $scope.autocompleteArticulos.selectedItem.cod) {
           if (index > -1) {
             $scope.cotDet.splice(index, 1);
-            delete $scope.selectedDetalle;
+            $scope.selectedDetalle = {
+              "porcentaje": "S"
+            };
             $scope.autocompleteArticulos.selectedItem = '';
             $scope.isDisabled = false;
           }
@@ -693,7 +701,9 @@ app.controller('Ctrl', [
     };
 
     $scope.clearEditarTable = function(item) {
-      delete $scope.selectedDetalle;
+      $scope.selectedDetalle = {
+        "porcentaje": "S"
+      };
       $scope.autocompleteArticulos.selectedItem = '';
       delete $scope.selectedIva;
       $scope.isDisabled = false;
@@ -748,7 +758,8 @@ app.controller('Ctrl', [
             "descuento": $scope.cotDet[index].descuento,
             "codIva": $scope.cotDet[index].iva.cDes,
             "descripcion": $scope.cotDet[index].descripcion,
-            "nom": $scope.cotDet[index].nom
+            "nom": $scope.cotDet[index].nom,
+            "esPorcDcto": $scope.cotDet[index].porcentaje
           };
           detalle.push(itemDetalle);
           index++;

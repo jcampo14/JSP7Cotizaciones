@@ -88,8 +88,8 @@ public class CotizacionRepository {
 		/* Insertamos el detalle */
 		if (record.getDetalle().size() > 0) {
 			for (CotizacionDetRequest item : record.getDetalle()) {
-				String sqlDet = "insert into TMP_COT_DET(ID_TRANSACCION,C_EMP,COD,CAN,LIS,VEN,DCTO,COD_IVA,DESCRIPCION,NOM,ORDEN) "
-						+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+				String sqlDet = "insert into TMP_COT_DET(ID_TRANSACCION,C_EMP,COD,CAN,LIS,VEN,DCTO,COD_IVA,DESCRIPCION,NOM,ORDEN,ES_PORC_DCTO) "
+						+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 				jdbcTemplate.update(new PreparedStatementCreator() {
 					@Override
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -105,6 +105,7 @@ public class CotizacionRepository {
 						QueryUtilities.addSqlParameter(ps, 9, item.getDescripcion(), Types.VARCHAR);
 						QueryUtilities.addSqlParameter(ps, 10, item.getNom(), Types.VARCHAR);
 						QueryUtilities.addSqlParameter(ps, 11, record.getDetalle().indexOf(item) + 1, Types.DOUBLE);
+						QueryUtilities.addSqlParameter(ps, 12, item.getEsPorcDcto(), Types.VARCHAR);
 						return ps;
 					}
 				});

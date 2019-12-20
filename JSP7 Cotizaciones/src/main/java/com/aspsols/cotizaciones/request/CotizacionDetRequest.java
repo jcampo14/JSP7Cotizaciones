@@ -27,6 +27,8 @@ public class CotizacionDetRequest implements Serializable {
 
 	private String nom;
 
+	private String esPorcDcto;
+
 	public String getcEmp() {
 		return cEmp;
 	}
@@ -97,6 +99,14 @@ public class CotizacionDetRequest implements Serializable {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public String getEsPorcDcto() {
+		return esPorcDcto;
+	}
+
+	public void setEsPorcDcto(String esPorcDcto) {
+		this.esPorcDcto = esPorcDcto;
 	}
 
 }

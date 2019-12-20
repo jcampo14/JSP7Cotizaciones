@@ -25,13 +25,6 @@
         <md-tooltip>Guardar</md-tooltip>
         <md-icon style="font-size: 2em" md-font-icon="fas fa-save"></md-icon>
       </md-button>
-      <!--
-      <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="grabarCotizacion()" aria-label="Guardar" style="width: 60px; height: 60px; margin-right: 0px">
-        <md-tooltip>Guardar</md-tooltip>
-        <img src="img/guardar blanco.png" alt="Guardar">
-        <div class="md-ripple-container"></div>
-      </button>
-    -->
     </div>
   </md-toolbar>
   <md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
@@ -328,8 +321,13 @@
                         </md-input-container>
                       </div>
                       <div class="col-md-2">
+                        <md-switch ng-model="selectedDetalle.porcentaje" aria-label="¿Porcentaje?" ng-true-value="'S'" ng-false-value="'N'" class="md-primary">
+                          ¿% Descuento?
+                        </md-switch>
+                      </div>
+                      <div class="col-md-2">
                         <md-input-container class="md-block">
-                          <label>% Descuento</label>
+                          <label>{{selectedDetalle.porcentaje == 'S' ? '% Descuento' : 'Valor Descuento'}}</label>
                           <input name="descuento" ng-model="selectedDetalle.descuento" ui-numeric-input allow-decimal="true">
                           <div ng-messages="detalleForm.descuento.$error">
                             <div ng-message="required">Este campo es requerido.</div>
@@ -394,9 +392,6 @@
                         <span>Precio Venta</span>
                       </th>
                       <th md-column md-order-by="descuento" style="width: 10%;">
-                        <span>% Descuento</span>
-                      </th>
-                      <th md-column md-order-by="descuento" style="width: 10%;">
                         <span>% IVA</span>
                       </th>
                     </tr>
@@ -407,7 +402,6 @@
                       <td md-cell>{{record.nom == '' || record.nom == null ? record.id.nom : record.nom}}</td>
                       <td md-cell>{{record.cantidad | number: 2}}</td>
                       <td md-cell>{{record.precio_venta | number: 2}}</td>
-                      <td md-cell>{{record.descuento | number: 2}}</td>
                       <td md-cell>{{record.iva.pctj | number: 2}}</td>
                     </tr>
                   </tbody>
