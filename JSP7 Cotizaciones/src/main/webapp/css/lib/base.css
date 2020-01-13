@@ -281,3 +281,7 @@ md-tab-content {
 iframe {
   height: 500px;
 }
+
+md-dialog-content > div.card {
+  margin-bottom: 0px !important;
+}

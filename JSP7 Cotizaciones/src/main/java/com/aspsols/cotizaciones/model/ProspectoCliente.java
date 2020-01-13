@@ -34,6 +34,21 @@ public class ProspectoCliente implements Serializable {
 	@Column(name = "EST")
 	private String est;
 
+	@Column(name = "DIR")
+	private String dir;
+
+	@Column(name = "TEL")
+	private String tel;
+
+	@Column(name = "C_PAI")
+	private String cPai;
+
+	@Column(name = "DEP")
+	private String dep;
+
+	@Column(name = "CIU")
+	private String ciu;
+
 	public ProspectoCliente() {
 		super();
 	}
@@ -68,6 +83,46 @@ public class ProspectoCliente implements Serializable {
 
 	public void setEst(String est) {
 		this.est = est;
+	}
+
+	public String getDir() {
+		return dir;
+	}
+
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getcPai() {
+		return cPai;
+	}
+
+	public void setcPai(String cPai) {
+		this.cPai = cPai;
+	}
+
+	public String getDep() {
+		return dep;
+	}
+
+	public void setDep(String dep) {
+		this.dep = dep;
+	}
+
+	public String getCiu() {
+		return ciu;
+	}
+
+	public void setCiu(String ciu) {
+		this.ciu = ciu;
 	}
 
 }

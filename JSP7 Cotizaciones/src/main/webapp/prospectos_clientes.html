@@ -1,152 +1,139 @@
 <html>
 
 <head>
-    <title>Prospectos de Clientes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="css/lib/angular-material.min.css">
-    <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
-    <link rel="stylesheet" href="css/lib/sweetalert2.css" />
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
-    <link rel="stylesheet" href="css/lib/base.css" />
-    <link rel="stylesheet" href="css/lib/fontawesome-free-5.8.1-web/css/all.min.css" rel="stylesheet">
+  <title>Prospectos de Clientes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="css/lib/angular-material.min.css">
+  <link rel="stylesheet" href="css/lib/angular-material-data-table/md-data-table.css" />
+  <link rel="stylesheet" href="css/lib/sweetalert2.css" />
+  <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/lib/paper-dashboard.css" />
+  <link rel="stylesheet" href="css/lib/base.css" />
+  <link rel="stylesheet" href="css/lib/fontawesome-free-5.8.1-web/css/all.min.css" rel="stylesheet">
 </head>
 
 <body ng-app="App" ng-cloak ng-controller="Ctrl">
-    <md-toolbar aria-hidden="false">
-        <div layout="row">
-            <div class="md-toolbar-tools">
-                <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
-            </div>
-        </div>
-    </md-toolbar>
-    <div class="panel-body principal-panel">
-        <div class="row">
-            <div class="col-md-7">
-                <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length"
-                    aria-hidden="true">
-                    <div class="md-toolbar-tools">
-                        <md-icon md-font-icon="fas fa-search"></md-icon>
-                        <form flex="" name="filter.form" class="ng-pristine ng-valid flex" style="margin-bottom: 0px; margin-left: 10px">
-                            <input id="searchProspecto" type="text" ng-model="filter.search" placeholder="Search" class="input-filter ng-pristine ng-untouched ng-valid"
-                                aria-invalid="false">
-                        </form>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="hideSearch()"
-                            aria-label="close">
-                            <md-icon md-font-icon="fas fa-times"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>
-                    </div>
-                </md-toolbar>
-                <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
-                    <div class="md-toolbar-tools">
-                        <h2 class="md-title">Prospectos</h2>
-                        <div flex="" class="flex"></div>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showSearch()"
-                            aria-label="Buscar" ng-show="!filter.show">
-                            <md-tooltip>Buscar Registro</md-tooltip>
-                            <md-icon md-font-icon="fas fa-search"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAdd()"
-                            aria-label="Agregar">
-                            <md-tooltip>Agregar Registro</md-tooltip>
-                            <md-icon md-font-icon="fas fa-plus"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showEdit()"
-                            aria-label="Editar">
-                            <md-tooltip>Editar Registro</md-tooltip>
-                            <md-icon md-font-icon="fas fa-pen"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDelete()"
-                            aria-label="Eliminar">
-                            <md-tooltip>Eliminar Registro</md-tooltip>
-                            <md-icon md-font-icon="fas fa-trash"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>
-                    </div>
-                </md-toolbar>
-                <div class="card">
-                    <md-table-container>
-                        <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
-                            ng-model="selected" md-progress="promise">
-                            <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
-                                <tr md-row>
-                                    <th md-column md-order-by="codigo" style="width: 20%;">
-                                        <span>Identificación</span>
-                                    </th>
-                                    <th md-column md-order-by="nombre" md-desc style="width: 80%;">
-                                        <span>Nombre</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody md-body>
-                                <tr md-row md-select="record" md-on-select="showContactos" md-on-deselect="clearContactos" md-auto-select="options.autoSelect"
-                                    ng-repeat="record in queryClientes.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit | filter: filter.search">
-                                    <td md-cell>{{record.nIde}}</td>
-                                    <td md-cell>{{record.nombre}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </md-table-container>
-                    <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
-                        md-total="{{queryClientes.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"
-                        md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
-                    <div class="md-toolbar-tools">
-                        <h2 class="md-title">Personas de Contacto</h2>
-                        <div flex="" class="flex"></div>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAddContacto()"
-                            aria-label="Agregar">
-                            <md-tooltip>Agregar Registro</md-tooltip>
-                            <md-icon md-font-icon="fas fa-plus"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>
-                        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDeleteContacto()"
-                            aria-label="Eliminar">
-                            <md-tooltip>Eliminar Registro</md-tooltip>
-                            <md-icon md-font-icon="fas fa-trash"></md-icon>
-                            <div class="md-ripple-container"></div>
-                        </button>
-                    </div>
-                </md-toolbar>
-                <div class="card">
-                    <md-table-container>
-                        <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}"
-                            ng-model="selectedContacto" md-progress="promiseContactos">
-                            <thead ng-if="!options.decapitate" md-head md-order="queryContactos.order" md-on-reorder="logOrder">
-                                <tr md-row>
-                                    <th md-column md-order-by="codigo" style="width: 60%;">
-                                        <span>Persona Cargo</span>
-                                    </th>
-                                    <th md-column md-order-by="nombre" md-desc style="width: 40%;">
-                                        <span>Cargo</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody md-body>
-                                <tr md-row md-select="record" md-auto-select="options.autoSelect" ng-repeat="record in queryContactos.data | orderBy: queryContactos.order | limitTo: queryContactos.limit : (queryContactos.page -1) * queryContactos.limit">
-                                    <td md-cell>{{record.perCargo}}</td>
-                                    <td md-cell>{{record.cargo}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </md-table-container>
-                    <md-table-pagination md-limit="queryContactos.limit" md-limit-options="limitOptions" md-page="queryContactos.page"
-                        md-total="{{queryContactos.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"
-                        md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
-                </div>
-            </div>
-        </div>
+  <md-toolbar aria-hidden="false">
+    <div layout="row">
+      <div class="md-toolbar-tools">
+        <h2 flex="" md-truncate="" class="md-truncate flex">{{titulo_formulario}}</h2>
+      </div>
     </div>
-    <script type="text/ng-template" id="dialog1.tmpl.html">
-        <md-dialog style="width: 60%">
+  </md-toolbar>
+  <div class="panel-body principal-panel">
+    <div class="row">
+      <div class="col-md-7">
+        <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="filter.show &amp;&amp; !selected.length" aria-hidden="true">
+          <div class="md-toolbar-tools">
+            <md-icon md-font-icon="fas fa-search"></md-icon>
+            <form flex="" name="filter.form" class="ng-pristine ng-valid flex" style="margin-bottom: 0px; margin-left: 10px">
+              <input id="searchProspecto" type="text" ng-model="filter.search" placeholder="Search" class="input-filter ng-pristine ng-untouched ng-valid" aria-invalid="false">
+            </form>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="hideSearch()" aria-label="close">
+              <md-icon md-font-icon="fas fa-times"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+          </div>
+        </md-toolbar>
+        <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
+          <div class="md-toolbar-tools">
+            <h2 class="md-title">Prospectos</h2>
+            <div flex="" class="flex"></div>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showSearch()" aria-label="Buscar" ng-show="!filter.show">
+              <md-tooltip>Buscar Registro</md-tooltip>
+              <md-icon md-font-icon="fas fa-search"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAdd()" aria-label="Agregar">
+              <md-tooltip>Agregar Registro</md-tooltip>
+              <md-icon md-font-icon="fas fa-plus"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showEdit()" aria-label="Editar">
+              <md-tooltip>Editar Registro</md-tooltip>
+              <md-icon md-font-icon="fas fa-pen"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDelete()" aria-label="Eliminar">
+              <md-tooltip>Eliminar Registro</md-tooltip>
+              <md-icon md-font-icon="fas fa-trash"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+          </div>
+        </md-toolbar>
+        <div class="card">
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+              <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th md-column md-order-by="codigo" style="width: 20%;">
+                    <span>Identificación</span>
+                  </th>
+                  <th md-column md-order-by="nombre" md-desc style="width: 80%;">
+                    <span>Nombre</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="record" md-on-select="showContactos" md-on-deselect="clearContactos" md-auto-select="options.autoSelect"
+                  ng-repeat="record in queryClientes.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit | filter: filter.search">
+                  <td md-cell>{{record.nIde}}</td>
+                  <td md-cell>{{record.nombre}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{queryClientes.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"
+            md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <md-toolbar class="md-table-toolbar md-default" aria-hidden="false">
+          <div class="md-toolbar-tools">
+            <h2 class="md-title">Personas de Contacto</h2>
+            <div flex="" class="flex"></div>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showAddContacto()" aria-label="Agregar">
+              <md-tooltip>Agregar Registro</md-tooltip>
+              <md-icon md-font-icon="fas fa-plus"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+            <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="showDeleteContacto()" aria-label="Eliminar">
+              <md-tooltip>Eliminar Registro</md-tooltip>
+              <md-icon md-font-icon="fas fa-trash"></md-icon>
+              <div class="md-ripple-container"></div>
+            </button>
+          </div>
+        </md-toolbar>
+        <div class="card">
+          <md-table-container>
+            <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selectedContacto" md-progress="promiseContactos">
+              <thead ng-if="!options.decapitate" md-head md-order="queryContactos.order" md-on-reorder="logOrder">
+                <tr md-row>
+                  <th md-column md-order-by="codigo" style="width: 60%;">
+                    <span>Persona Cargo</span>
+                  </th>
+                  <th md-column md-order-by="nombre" md-desc style="width: 40%;">
+                    <span>Cargo</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="record" md-auto-select="options.autoSelect" ng-repeat="record in queryContactos.data | orderBy: queryContactos.order | limitTo: queryContactos.limit : (queryContactos.page -1) * queryContactos.limit">
+                  <td md-cell>{{record.perCargo}}</td>
+                  <td md-cell>{{record.cargo}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+          <md-table-pagination md-limit="queryContactos.limit" md-limit-options="limitOptions" md-page="queryContactos.page" md-total="{{queryContactos.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}"></md-table-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/ng-template" id="dialog1.tmpl.html">
+    <md-dialog style="width: 60%">
             <form name="formDialog" ng-cloak>
                 <md-toolbar>
                     <div class="md-toolbar-tools">
@@ -158,7 +145,7 @@
                     <div class="card" ng-if="!dialogClosed">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-4">
                                     <md-input-container class="md-block">
                                         <label>Identificación</label>
                                         <input required ng-model="record.nIde" name="nIde"
@@ -169,9 +156,7 @@
                                         </div>
                                     </md-input-container>
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-8">
                                     <md-input-container class="md-block">
                                         <label>Nombre</label>
                                         <input required ng-model="record.nombre" name="nombre"
@@ -181,7 +166,7 @@
                                         </div>
                                     </md-input-container>
                                 </div>
-                              </div>
+                              </div>                            
                               <div class="row">
                                 <div class="col-md-8">
                                     <md-input-container class="md-block">
@@ -212,6 +197,64 @@
                                     </div>
                                   </md-input-container>
                                 </div>
+                                <div class="col-md-6">
+                                  <md-input-container class="md-block">
+                                    <label>Teléfono</label>
+                                    <input type="text" ng-model="record.tel" md-max-length="15">
+                                  </md-input-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <md-input-container class="md-block">
+                                  <label>Pais</label>
+                                  <md-select name="cPai" ng-model="record.cPai">
+                                    <md-select-header class="demo-select-header">
+                                      <input type="text" ng-model="searchPais" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
+                                    </md-select-header>
+                                    <md-option ng-value="record.cPai" ng-repeat="record in paises | filter: searchPais">{{record.nom}}</md-option>
+                                  </md-select>
+                                  <div ng-messages="formDialog.cPai.$error">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                  </div>
+                                </md-input-container>
+                              </div>
+                              <div class="col-md-4">
+                                <md-input-container class="md-block">
+                                  <label>Departamento</label>
+                                  <md-select name="cDpto" ng-model="record.dep" md-on-open="getDepartamentos()">
+                                    <md-select-header class="demo-select-header">
+                                      <input type="text" ng-model="searchDepartamento" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
+                                    </md-select-header>
+                                    <md-option ng-value="record.cDpto" ng-repeat="record in departamentos | filter: searchDepartamento">{{record.nombre}}</md-option>
+                                  </md-select>
+                                  <div ng-messages="formDialog.cDpto.$error">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                  </div>
+                                </md-input-container>
+                              </div>
+                              <div class="col-md-4">
+                                <md-input-container class="md-block">
+                                  <label>Municipio</label>
+                                  <md-select name="cMnpo" ng-model="record.ciu" md-on-open="getMunicipios()">
+                                    <md-select-header class="demo-select-header">
+                                      <input type="text" ng-model="searchMunicipio" type="search" placeholder="Buscar..." class="demo-header-searchbox md-text form-control" style="width: 100%" ng-keydown="$event.stopPropagation()" force-select-focus>
+                                    </md-select-header>
+                                    <md-option ng-value="record.cMnpo" ng-repeat="record in municipios | filter: searchMunicipio">{{record.nombre}}</md-option>
+                                  </md-select>
+                                  <div ng-messages="formDialog.cMnpo.$error">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                  </div>
+                                </md-input-container>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <md-input-container class="md-block">
+                                  <label>Dirección</label>
+                                  <textarea ng-model="record.dir" md-max-length="120"></textarea>
+                                </md-input-container>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -223,8 +266,8 @@
             </form>
         </md-dialog>
     </script>
-    <script type="text/ng-template" id="dialog2.tmpl.html">
-        <md-dialog>
+  <script type="text/ng-template" id="dialog2.tmpl.html">
+    <md-dialog>
             <form name="formDialog" ng-cloak>
                 <md-toolbar>
                     <div class="md-toolbar-tools">
@@ -267,19 +310,19 @@
             </form>
         </md-dialog>
     </script>
-    <!-- Angular Material requires Angular.js Libraries -->
-    <script src="js/lib/angular-1.7.2/angular.min.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
-    <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
-    <script src="js/lib/angular-material/angular-material.min.js"></script>
-    <!-- External Libraries -->
-    <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>
-    <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
-    <!-- module -->
-    <script src="js/lib/utils.js"></script>
-    <script src="js/prospectos_clientes.js"></script>
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="js/lib/angular-1.7.2/angular.min.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-animate.min.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-aria.min.js"></script>
+  <script src="js/lib/angular-1.7.2/angular-messages.min.js"></script>
+  <script src="js/lib/angular-material/angular-material.min.js"></script>
+  <!-- External Libraries -->
+  <script type="text/javascript" src="js/lib/angular-material-data-table/md-data-table.min.js"></script>
+  <script type="text/javascript" src="js/lib/angular-sweetalert2/sweetalert2.js"></script>
+  <script type="text/javascript" src="js/lib/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
+  <!-- module -->
+  <script src="js/lib/utils.js"></script>
+  <script src="js/prospectos_clientes.js"></script>
 </body>
 
 </html>

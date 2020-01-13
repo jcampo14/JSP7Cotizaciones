@@ -159,6 +159,8 @@ app.controller('Ctrl', [
             $scope.selectedDetalle = {};
           }
           $scope.buscarPrecioVenta(item.cEmp, item);
+          var date = new Date();
+          $scope.buscarSaldoInventario(item.cEmp, null, null, item.cod, date.getTime());
           if (!item.descripcion) {
             $scope.traerDescripcionComercial(item.cEmp, item.cod, $scope.cotEnc.idioma);
           }
@@ -521,6 +523,20 @@ app.controller('Ctrl', [
     $scope.setDescripcion = function(value) {
       var seccion = value;
       seccion.descripcion_final = seccion.seleccionado.descripcion;
+    };
+
+    $scope.buscarSaldoInventario = function(empresa, agencia, bodega, codigo, fecha) {
+      $scope.consumingService = true;
+      var promise = $consumeService.get('saldoInventario?empresa=' + empresa + "&agencia=" +
+        "&bodega=" + "&codArticulo=" + codigo + "&fecha=" + fecha);
+      promise.then(function(result) {
+        $scope.selectedDetalle.saldoInv = result.saldoInv;
+        $scope.consumingService = false;
+      }, function(error) {
+        console.log(error);
+        $scope.consumingService = false;
+        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+      });
     };
 
     $scope.buscarPrecioVenta = function(empresa, articulo) {

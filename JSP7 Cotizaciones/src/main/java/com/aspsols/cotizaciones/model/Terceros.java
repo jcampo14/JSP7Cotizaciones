@@ -10,20 +10,20 @@ public class Terceros implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String cEmp;
-
 	private String nIde;
-
 	private String nombre;
-
 	private String iva;
-
 	private String zona;
-
 	private String suc;
-
 	private String mercado;
+	private String dir;
+	private String tel;
+	private String cPai;
+	private String dep;
+	private String ciu;
 
-	public Terceros(String cEmp, String nIde, String nombre, String iva, String zona, String suc) {
+	public Terceros(String cEmp, String nIde, String nombre, String iva, String zona, String suc, String mercado,
+			String dir, String tel, String cPai, String dep, String ciu) {
 		super();
 		this.cEmp = cEmp;
 		this.nIde = nIde;
@@ -31,6 +31,12 @@ public class Terceros implements Serializable {
 		this.iva = iva;
 		this.zona = zona;
 		this.suc = suc;
+		this.mercado = mercado;
+		this.dir = dir;
+		this.tel = tel;
+		this.cPai = cPai;
+		this.dep = dep;
+		this.ciu = ciu;
 	}
 
 	public Terceros() {
@@ -91,6 +97,46 @@ public class Terceros implements Serializable {
 
 	public void setMercado(String mercado) {
 		this.mercado = mercado;
+	}
+
+	public String getDir() {
+		return dir;
+	}
+
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getcPai() {
+		return cPai;
+	}
+
+	public void setcPai(String cPai) {
+		this.cPai = cPai;
+	}
+
+	public String getDep() {
+		return dep;
+	}
+
+	public void setDep(String dep) {
+		this.dep = dep;
+	}
+
+	public String getCiu() {
+		return ciu;
+	}
+
+	public void setCiu(String ciu) {
+		this.ciu = ciu;
 	}
 
 }

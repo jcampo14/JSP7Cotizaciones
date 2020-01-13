@@ -13,8 +13,12 @@ public class MunicipioServices {
 
 	@Autowired
 	private MunicipioRepository repository;
-	
-	public List<Municipio> findAll(){
+
+	public List<Municipio> findAll() {
 		return (List<Municipio>) repository.findAll();
+	}
+
+	public List<Municipio> findByDepartamento(String empresa, String pais, String departamento) {
+		return repository.findByDepartamento(empresa, pais, departamento);
 	}
 }

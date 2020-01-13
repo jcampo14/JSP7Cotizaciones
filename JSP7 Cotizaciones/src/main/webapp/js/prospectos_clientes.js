@@ -7,8 +7,12 @@ app.config(['$mdThemingProvider', function($mdThemingProvider) {
   $mdThemingProvider.theme('default').primaryPalette('green');
 }]);
 
+app.config(['$qProvider', function($qProvider) {
+  $qProvider.errorOnUnhandledRejections(false);
+}]);
+
 app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout,
-  $mdDialog) {
+  $mdDialog, $q) {
   $scope.titulo_formulario = "Actualización de Prospectos de Clientes";
   $scope.init = function() {
     $scope.filter = {};
@@ -67,10 +71,10 @@ app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout
       $scope.$applyAsync();
     });
     var promiseZonas = $consumeService.get('zonas?emp=' + $localstorage.get('global.empresa', null));
-    promiseZonas.then(function(result) {
-      $scope.zonas = result.data;
-    }, function(error) {
-      swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+    var promisePaises = $consumeService.get('paises?emp=' + $localstorage.get('global.empresa', null));
+    $q.all([promiseZonas, promisePaises]).then(function(values) {
+      $scope.zonas = values[0].data;
+      $scope.paises = values[1].data;
     });
     var promiseMercados = $consumeService.get('mercados?emp=' + $localstorage.get('global.empresa', null));
     promiseMercados.then(function(result) {
@@ -131,6 +135,37 @@ app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout
   };
 
   function addDialogCtrl($scope, $mdDialog) {
+    $scope.searchPais = '';
+    $scope.searchDepartamento = '';
+    $scope.searchMunicipio = '';
+
+    $scope.getDepartamentos = function() {
+      if ($scope.record.cPai) {
+        return $consumeService.get('departamentos?empresa=' + $localstorage.get('global.empresa', null) +
+          '&pais=' + $scope.record.cPai).then(function(result) {
+          $scope.departamentos = result.data;
+        }, function(error) {
+          console.log(error);
+          swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+        });
+      }
+    };
+
+    $scope.getMunicipios = function() {
+      if ($scope.record.dep) {
+        return $consumeService.get('municipios?empresa=' + $localstorage.get('global.empresa', null) +
+          '&pais=' + $scope.record.cPai + '&departamento=' + $scope.record.dep).then(function(result) {
+          $scope.municipios = result.data;
+        }, function(error) {
+          console.log(error);
+          swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+        });
+      }
+    };
+
+    $scope.getDepartamentos();
+    $scope.getMunicipios();
+
     $scope.record = {
       "cEmp": $localstorage.get('global.empresa', null),
       "iva": 'N'
@@ -202,16 +237,50 @@ app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout
 
   function editDialogCtrl($scope, $mdDialog) {
     $scope.record = angular.copy($scope.selected[0]);
+    $scope.searchPais = '';
+    $scope.searchDepartamento = '';
+    $scope.searchMunicipio = '';
+
+    $scope.getDepartamentos = function() {
+      if ($scope.record.cPai) {
+        return $consumeService.get('departamentos?empresa=' + $localstorage.get('global.empresa', null) +
+          '&pais=' + $scope.record.cPai).then(function(result) {
+          $scope.departamentos = result.data;
+        }, function(error) {
+          console.log(error);
+          swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+        });
+      }
+    };
+
+    $scope.getMunicipios = function() {
+      if ($scope.record.dep) {
+        return $consumeService.get('municipios?empresa=' + $localstorage.get('global.empresa', null) +
+          '&pais=' + $scope.record.cPai + '&departamento=' + $scope.record.dep).then(function(result) {
+          $scope.municipios = result.data;
+        }, function(error) {
+          console.log(error);
+          swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+        });
+      }
+    };
+
+    $scope.getDepartamentos();
+    $scope.getMunicipios();
+
     $scope.dialogConfig = {
       "disableId": false,
-      "title": "Agregar Prospecto"
+      "title": "Editar Prospecto"
     };
+
     $scope.hide = function() {
       $mdDialog.hide();
     };
+
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
+
     $scope.action = function(action, form) {
       if (action == true) {
         if (form.$valid) {
@@ -312,12 +381,34 @@ app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout
       "nit": $scope.selected[0].nIde
     };
 
+    $scope.getDepartamentos = function() {
+      return $consumeService.get('departamentos?empresa=' + $localstorage.get('global.empresa', null) +
+        '&pais=' + $scope.record.cPai).then(function(result) {
+        $scope.departamentos = result.data;
+      }, function(error) {
+        console.log(error);
+        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+      });
+    };
+
+    $scope.getMunicipios = function() {
+      return $consumeService.get('municipios?empresa=' + $localstorage.get('global.empresa', null) +
+        '&pais=' + $scope.record.cPai + '&departamento=' + $scope.record.cDpto).then(function(result) {
+        $scope.departamentos = result.data;
+      }, function(error) {
+        console.log(error);
+        swal("Mensaje JSP7", error.data.status + " - " + error.data.error, "error");
+      });
+    };
+
     $scope.hide = function() {
       $mdDialog.hide();
     };
+
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
+
     $scope.action = function(action, form) {
       if (action == true) {
         if (form.$valid) {

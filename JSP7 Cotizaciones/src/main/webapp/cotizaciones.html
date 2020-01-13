@@ -334,6 +334,15 @@
                           </div>
                         </md-input-container>
                       </div>
+                      <div class="col-md-2">
+                        <md-input-container class="md-block">
+                          <label>Saldo Inventario</label>
+                          <input name="saldoInv" ng-model="selectedDetalle.saldoInv" ui-numeric-input allow-decimal="true" ng-disabled="true">
+                          <div ng-messages="detalleForm.saldoInv.$error">
+                            <div ng-message="required">Este campo es requerido.</div>
+                          </div>
+                        </md-input-container>
+                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
