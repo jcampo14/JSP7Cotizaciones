@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -139,6 +140,7 @@ public class CotEnc implements Serializable {
 	private Nits vendedor;
 
 	@OneToMany
+	@OrderBy("orden ASC")
 	@JoinColumns({ @JoinColumn(name = "COT", referencedColumnName = "COT", insertable = false, updatable = false),
 			@JoinColumn(name = "REV", referencedColumnName = "REV", insertable = false, updatable = false),
 			@JoinColumn(name = "C_AGR", referencedColumnName = "C_AGR", insertable = false, updatable = false),

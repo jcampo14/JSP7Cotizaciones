@@ -163,9 +163,6 @@ app.controller('Ctrl', function($localstorage, $consumeService, $scope, $timeout
       }
     };
 
-    $scope.getDepartamentos();
-    $scope.getMunicipios();
-
     $scope.record = {
       "cEmp": $localstorage.get('global.empresa', null),
       "iva": 'N'

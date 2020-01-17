@@ -64,6 +64,9 @@ public class CotDet implements Serializable {
 	@Column(name = "NOM")
 	private String nom;
 
+	@Column(name = "ORDEN")
+	private Integer orden;
+
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "COD", referencedColumnName = "COD", insertable = false, updatable = false),
 			@JoinColumn(name = "C_EMP", referencedColumnName = "C_EMP", insertable = false, updatable = false) })
@@ -171,6 +174,14 @@ public class CotDet implements Serializable {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
 	}
 
 }
