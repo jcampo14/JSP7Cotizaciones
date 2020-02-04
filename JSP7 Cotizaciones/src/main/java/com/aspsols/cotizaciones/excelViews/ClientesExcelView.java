@@ -23,14 +23,13 @@ public class ClientesExcelView extends AbstractXlsView {
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// change the file name
 		response.setHeader("Content-Disposition", "attachment; filename=\"clientes-data-base.xls\"");
 
 		@SuppressWarnings("unchecked")
 		List<ViewClientes> clientes = (List<ViewClientes>) model.get("clientes");
 
 		// create excel xls sheet
-		Sheet sheet = workbook.createSheet("Clientes Detail");		
+		Sheet sheet = workbook.createSheet("Clientes Detail");
 		sheet.setDefaultColumnWidth(30);
 
 		// create style for header cells
@@ -53,16 +52,18 @@ public class ClientesExcelView extends AbstractXlsView {
 		header.getCell(2).setCellStyle(style);
 		header.createCell(3).setCellValue("Telefono");
 		header.getCell(3).setCellStyle(style);
-		header.createCell(4).setCellValue("Pais");
+		header.createCell(4).setCellValue("Email");
 		header.getCell(4).setCellStyle(style);
-		header.createCell(5).setCellValue("Departamento");
+		header.createCell(5).setCellValue("Pais");
 		header.getCell(5).setCellStyle(style);
-		header.createCell(6).setCellValue("Ciudad");
+		header.createCell(6).setCellValue("Departamento");
 		header.getCell(6).setCellStyle(style);
-		header.createCell(7).setCellValue("Contacto Persona");
+		header.createCell(7).setCellValue("Ciudad");
 		header.getCell(7).setCellStyle(style);
-		header.createCell(8).setCellValue("Contacto Cargo");
+		header.createCell(8).setCellValue("Contacto Persona");
 		header.getCell(8).setCellStyle(style);
+		header.createCell(9).setCellValue("Contacto Cargo");
+		header.getCell(9).setCellStyle(style);
 		int rowCount = 1;
 
 		for (ViewClientes cliente : clientes) {
@@ -71,11 +72,12 @@ public class ClientesExcelView extends AbstractXlsView {
 			row.createCell(1).setCellValue(cliente.getNombreCliente());
 			row.createCell(3).setCellValue(cliente.getDireccion());
 			row.createCell(2).setCellValue(cliente.getTelefono());
-			row.createCell(4).setCellValue(cliente.getPais());
-			row.createCell(5).setCellValue(cliente.getDepartamento());
-			row.createCell(6).setCellValue(cliente.getCiudad());
-			row.createCell(7).setCellValue(cliente.getContactoPersona());
-			row.createCell(8).setCellValue(cliente.getContactoCargo());
+			row.createCell(4).setCellValue(cliente.getEmail());
+			row.createCell(5).setCellValue(cliente.getPais());
+			row.createCell(6).setCellValue(cliente.getDepartamento());
+			row.createCell(7).setCellValue(cliente.getCiudad());
+			row.createCell(8).setCellValue(cliente.getContactoPersona());
+			row.createCell(9).setCellValue(cliente.getContactoCargo());
 		}
 		sheet.autoSizeColumn(0);
 		sheet.autoSizeColumn(1);
@@ -86,7 +88,7 @@ public class ClientesExcelView extends AbstractXlsView {
 		sheet.autoSizeColumn(6);
 		sheet.autoSizeColumn(7);
 		sheet.autoSizeColumn(8);
-
+		sheet.autoSizeColumn(9);
 	}
 
 }

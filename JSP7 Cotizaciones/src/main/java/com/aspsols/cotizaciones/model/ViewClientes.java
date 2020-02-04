@@ -9,12 +9,12 @@ import org.hibernate.annotations.Subselect;
 
 @Entity
 @Immutable
-@Subselect("SELECT ROWNUM ID, R.C_EMP, R.N_IDE, R.NOMBRE, R.IVA, R.ZONA, R.SUC, R.MERC, R.DIR, R.TEL,"
+@Subselect("SELECT ROWNUM ID, R.C_EMP, R.N_IDE, R.NOMBRE, R.IVA, R.ZONA, R.SUC, R.MERC, R.DIR, R.TEL, R.E_MAIL,"
 		+ "    R.C_PAI, P.NOM PAIS, R.DEP, D.NOMBRE DEPARTAMENTO, R.CIU, M.NOMBRE CIUDAD, CC.CARGO, CC.PER_CARGO FROM ("
 		+ "    SELECT NVL(N.C_EMP,P.C_EMP) C_EMP, NVL(N.N_IDE,P.N_IDE) N_IDE, NVL(N.NOM,P.NOMBRE) NOMBRE,"
 		+ "       NVL(C.IVA,P.IVA) IVA, NVL(N.ZONA,P.ZONA) ZONA, NVL(N.SUC,'N') SUC, NULL MERC, NVL(N.DIR,P.DIR) DIR,"
-		+ "       NVL(N.TEL,P.TEL) TEL, NVL(N.C_PAI,P.C_PAI) C_PAI, NVL(N.DEP, P.DEP) DEP, NVL(N.CIU,P.CIU) CIU"
-		+ "    FROM CLIENTE C INNER JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP"
+		+ "       NVL(N.TEL,P.TEL) TEL, NVL(N.C_PAI,P.C_PAI) C_PAI, NVL(N.DEP, P.DEP) DEP, NVL(N.CIU,P.CIU) CIU,"
+		+ "       N.DIR_ELECT E_MAIL" + "    FROM CLIENTE C INNER JOIN NITS N ON C.N_IDE = N.N_IDE AND C.C_EMP = N.C_EMP"
 		+ "       FULL OUTER JOIN PROSP_CL P ON C.N_IDE = P.N_IDE AND C.C_EMP = P.C_EMP ) R"
 		+ "   LEFT JOIN CLI_CONTACTO CC ON CC.NIT = R.N_IDE AND CC.C_EMP = R.C_EMP"
 		+ "   LEFT JOIN PAIS P ON P.C_PAI = R.C_PAI AND P.C_EMP = R.C_EMP"
@@ -52,6 +52,9 @@ public class ViewClientes {
 
 	@Column(name = "TEL")
 	private String telefono;
+
+	@Column(name = "E_MAIL")
+	private String email;
 
 	@Column(name = "PAIS")
 	private String pais;
@@ -146,6 +149,14 @@ public class ViewClientes {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPais() {
