@@ -53,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/structure/**").permitAll()
 			.antMatchers("/img/**").permitAll()
 			.antMatchers("/companies").permitAll()
+			.antMatchers("/GetClientesDataBase").permitAll()
 			.anyRequest().authenticated().and()
 				.addFilter(authenticationFilter)
 				.addFilter(new JWTAuthorizationFilter(authenticationManager()));

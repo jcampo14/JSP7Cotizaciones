@@ -3,13 +3,18 @@ package com.aspsols.cotizaciones.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.aspsols.cotizaciones.excelViews.ClientesExcelView;
 import com.aspsols.cotizaciones.model.Terceros;
+import com.aspsols.cotizaciones.model.ViewClientes;
 import com.aspsols.cotizaciones.responses.ProcessResponse;
 import com.aspsols.cotizaciones.responses.QueryResponse;
 import com.aspsols.cotizaciones.services.TercerosServices;
@@ -21,7 +26,7 @@ public class TercerosController {
 	private static final String PATH_PROSPECTOS = "/prospectos";
 
 	@Autowired
-	private TercerosServices service;
+	private TercerosServices service;	
 
 	@RequestMapping(method = RequestMethod.GET, path = SERVICE_PATH)
 	public QueryResponse<Terceros> findByEmpresa(@RequestParam("emp") String empresa,
@@ -67,5 +72,11 @@ public class TercerosController {
 	public ProcessResponse deleteProspecto(@RequestBody Terceros body) {
 		service.deleteProspecto(body);
 		return new ProcessResponse(true, "Borrado correctamente.");
+	}
+	
+	@GetMapping(value = "/GetClientesDataBase")
+	public ModelAndView getClientesDataBase(Model model, @RequestParam("empresa") String empresa) {
+		List<ViewClientes> queryData = service.getClientesDataBase(empresa);
+		return new ModelAndView(new ClientesExcelView(), "clientes", queryData);
 	}
 }
