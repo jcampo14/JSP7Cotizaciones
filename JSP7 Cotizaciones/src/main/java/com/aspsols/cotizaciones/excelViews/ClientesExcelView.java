@@ -70,8 +70,8 @@ public class ClientesExcelView extends AbstractXlsView {
 			Row row = sheet.createRow(rowCount++);
 			row.createCell(0).setCellValue(cliente.getNitCliente());
 			row.createCell(1).setCellValue(cliente.getNombreCliente());
-			row.createCell(3).setCellValue(cliente.getDireccion());
-			row.createCell(2).setCellValue(cliente.getTelefono());
+			row.createCell(2).setCellValue(cliente.getDireccion());
+			row.createCell(3).setCellValue(cliente.getTelefono());			
 			row.createCell(4).setCellValue(cliente.getEmail());
 			row.createCell(5).setCellValue(cliente.getPais());
 			row.createCell(6).setCellValue(cliente.getDepartamento());
